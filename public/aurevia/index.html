@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Aurevia Healthcare — Care you can trust</title>
+<meta name="description" content="Aurevia Healthcare — care you can trust. A trusted facilitation platform connecting patients with India's most experienced specialists for advanced, cashless treatment across Delhi NCR & Mumbai." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/aurevia/styles.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+<style>
+  /* HERO */
+  .hero{padding:140px 0 60px;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.9fr);gap:0;align-items:start}
+  .hero-headline{font-size:clamp(56px,9.4vw,168px);color:var(--ink)}
+  .hero-headline .line{display:block;overflow:hidden}
+  .hero-headline .line span{display:inline-block;will-change:transform}
+  .hero-headline em{font-style:italic;color:var(--amber-deep)}
+  #heroEyebrow{opacity:1!important;transform:none!important}
+  .hero-tag{margin-top:20px;display:flex;align-items:center;gap:14px;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:0.24em;text-transform:uppercase;color:var(--ink-soft);opacity:1}
+  .hero-tag::before{content:"";width:36px;height:1px;background:var(--amber)}
+  .hero-sub{margin-top:40px;display:flex;gap:48px;align-items:flex-start;max-width:560px;opacity:1;transform:none}
+  .hero-sub p{font-size:16px;line-height:1.6;color:var(--ink-soft)}
+  .hero-actions{margin-top:36px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;opacity:1;transform:none}
+
+  .hero-visual{position:relative;aspect-ratio:1/1;display:flex;align-items:flex-end;justify-content:flex-start;opacity:1;transform:none;margin-left:-54px;margin-right:0;margin-top:-170px}
+  .halo{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+  .halo .ring{position:absolute;border:1px solid var(--ink);border-radius:50%;opacity:0.18}
+  .halo .r1{width:62%;height:62%}
+  .halo .r2{width:78%;height:78%;opacity:0.12}
+  .halo .r3{width:96%;height:96%;opacity:0.08}
+  .halo .dotline{position:absolute;width:62%;height:62%;border-radius:50%;border:1px dashed var(--amber);opacity:.45;animation:spin 60s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .doctor-card{position:relative;width:112%;aspect-ratio:1/1;overflow:visible;background:transparent;box-shadow:none;isolation:isolate}
+  .doctor-card::after{display:none}
+  .doctor-card img{width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 34px 42px rgba(3,4,94,.18)) saturate(.98) contrast(1.02)}
+  .float-label{position:absolute;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-soft);background:rgba(255,255,255,.88);backdrop-filter:blur(12px);padding:8px 12px;border:1px solid var(--line);border-radius:999px;white-space:nowrap;opacity:1}
+  .hero-trust-label{font-family:var(--font-trust-display), "Playfair Display", serif;font-size:13px;font-weight:900;letter-spacing:0.08em;color:var(--ink)}
+  .fl-1{top:18%;left:0}
+  .fl-2{top:34%;right:2%}
+  .fl-3{bottom:12%;left:8%}
+
+  .hero-foot{margin-top:90px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px}
+  .scroll-hint{display:flex;align-items:center;gap:14px;color:var(--ink-soft);font-size:12px;letter-spacing:0.18em;text-transform:uppercase;font-family:"JetBrains Mono",monospace}
+  .scroll-hint .bar{width:60px;height:1px;background:var(--ink);position:relative;overflow:hidden}
+  .scroll-hint .bar::after{content:"";position:absolute;left:0;top:0;width:30%;height:100%;background:var(--amber);animation:slide 2.4s ease-in-out infinite}
+  @keyframes slide{0%{left:-30%}100%{left:100%}}
+
+  @media (max-width:900px){
+    .hero{padding:120px 0 40px}
+    .hero-grid{grid-template-columns:1fr;gap:30px}
+    .hero-visual{aspect-ratio:1/1;max-width:420px;margin:10px auto 0;margin-top:10px}
+    .doctor-card{width:100%}
+    .hero-sub{flex-direction:column;gap:20px}
+    .hero-foot{grid-template-columns:1fr}
+  }
+
+  /* TRUST */
+  .trust{padding:80px 0}
+  .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .trust-cell{padding:36px 28px;border-right:1px solid var(--line);position:relative}
+  .trust-cell:last-child{border-right:0}
+  .trust-cell .num{font-family:"Newsreader",serif;font-size:80px;line-height:1;color:var(--ink)}
+  .trust-cell .num .plus{color:var(--amber-deep)}
+  .trust-cell .lbl{margin-top:14px;font-size:13px;color:var(--ink-soft);max-width:200px;line-height:1.5}
+  .trust-cell .key{position:absolute;top:18px;right:20px;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink-soft);letter-spacing:0.18em}
+  @media (max-width:900px){.trust-grid{grid-template-columns:repeat(2,1fr)}.trust-cell{border-bottom:1px solid var(--line)}.trust-cell:nth-child(2){border-right:0}}
+
+  /* SECTION HEADER PATTERN */
+  .sec-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:60px}
+  .sec-head h2{font-family:"Newsreader",serif;font-size:clamp(40px,6vw,96px);line-height:0.98;color:var(--ink)}
+  .sec-head h2 em{color:var(--amber-deep)}
+  .sec-head .right{display:flex;flex-direction:column;gap:24px;max-width:480px}
+  .sec-head p{font-size:16px;line-height:1.65;color:var(--ink-soft)}
+  .sec-head .link{display:inline-flex;align-items:center;gap:10px;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink);align-self:flex-start;padding-bottom:6px;border-bottom:1px solid var(--ink);transition:gap .3s}
+  .sec-head .link:hover{gap:18px}
+  @media (max-width:900px){.sec-head{grid-template-columns:1fr;gap:24px}}
+
+  /* ABOUT TEASER */
+  .about-t{padding:140px 0 100px;position:relative}
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+  .pillar{padding:42px 32px 36px;border-right:1px solid var(--line);position:relative}
+  .pillar:last-child{border-right:0}
+  .pillar .num{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.2em;color:var(--amber-deep);margin-bottom:32px;display:flex;align-items:center;gap:10px}
+  .pillar .num::before{content:"";width:6px;height:6px;background:var(--amber);border-radius:50%}
+  .pillar h3{font-family:"Newsreader",serif;font-size:34px;line-height:1.05;color:var(--ink);margin-bottom:16px}
+  .pillar p{font-size:14.5px;line-height:1.65;color:var(--ink-soft);max-width:340px}
+  .pillar .underline{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--amber);transition:width .6s cubic-bezier(.6,.1,.2,1)}
+  .pillar:hover .underline{width:100%}
+  @media (max-width:900px){.pillars{grid-template-columns:1fr}.pillar{border-right:0;border-bottom:1px solid var(--line)}}
+
+  /* TREATMENTS PREVIEW */
+  .treat-p{padding:120px 0 80px;background:var(--paper-2)}
+  .treat-list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+  .treat-row{display:grid;grid-template-columns:80px 1.3fr 2fr 60px;align-items:center;padding:28px 8px;border-bottom:1px solid var(--line);transition:padding .4s ease;cursor:pointer;position:relative;z-index:1}
+  .treat-row .nm{font-family:"Newsreader",serif;font-size:42px;line-height:1;color:var(--ink);transition:transform .5s cubic-bezier(.6,.1,.2,1),color .4s}
+  .treat-row .ix{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.2em;color:var(--ink-soft)}
+  .treat-row .meta{font-size:14px;color:var(--ink-soft);line-height:1.5;padding-right:20px}
+  .treat-row .go{justify-self:end;width:42px;height:42px;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;transition:background .35s,border-color .35s,transform .4s}
+  .treat-row .go svg{transition:transform .4s}
+  .treat-row:hover{padding-left:32px}
+  .treat-row:hover .nm{color:var(--amber-deep);transform:translateX(4px)}
+  .treat-row:hover .go{background:var(--ink);transform:scale(1.05)}
+  .treat-row:hover .go svg{stroke:var(--paper)}
+  @media (max-width:900px){.treat-row{grid-template-columns:50px 1fr 40px;gap:14px}.treat-row .meta{display:none}.treat-row .nm{font-size:28px}}
+
+  /* PROCESS PREVIEW */
+  .process-p{padding:140px 0 120px}
+  .steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .steps::before{content:"";position:absolute;left:0;right:0;top:60px;height:1px;background:var(--line)}
+  .step{padding:0 28px 0 0;position:relative}
+  .step .knob{width:14px;height:14px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink);position:relative;top:54px;z-index:2;transition:background .4s,transform .4s}
+  .step:hover .knob{background:var(--amber);border-color:var(--amber);transform:scale(1.3)}
+  .step .label{margin-top:48px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.2em;color:var(--amber-deep);text-transform:uppercase}
+  .step h5{font-family:"Newsreader",serif;font-size:32px;color:var(--ink);margin-top:14px;line-height:1.05}
+  .step p{margin-top:14px;font-size:14px;line-height:1.6;color:var(--ink-soft);max-width:240px}
+  @media (max-width:900px){.steps{grid-template-columns:1fr;gap:30px}.steps::before{display:none}.step .knob{display:none}.step .label{margin-top:0}}
+
+  /* LOCATIONS PREVIEW */
+  .locations{padding:120px 0;background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+  .locations::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px, rgba(202,240,248,.06) 1px, transparent 0);background-size:24px 24px;pointer-events:none}
+  .locations .sec-head h2{color:var(--paper)}
+  .locations .sec-head h2 em{color:var(--gold)}
+  .locations .sec-head p{color:rgba(202,240,248,.7)}
+  .locations .sec-head .link{color:var(--paper);border-color:var(--paper)}
+  .loc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid rgba(202,240,248,.16)}
+  .loc-cell{padding:36px 24px 28px;border-right:1px solid rgba(202,240,248,.12);position:relative;transition:background .4s,padding .4s;cursor:default}
+  .loc-cell:last-child{border-right:0}
+  .loc-cell .ix{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.2em;color:rgba(202,240,248,.5);margin-bottom:50px}
+  .loc-cell h6{font-family:"Newsreader",serif;font-size:38px;line-height:1;margin-bottom:10px}
+  .loc-cell .sub{font-size:13px;color:rgba(202,240,248,.6)}
+  .loc-cell:hover{background:rgba(202,240,248,.04);padding-top:30px}
+  .loc-cell .dot{position:absolute;top:36px;right:24px;width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 2.6s infinite}
+  @media (max-width:900px){.loc-grid{grid-template-columns:1fr 1fr}.loc-cell{border-bottom:1px solid rgba(202,240,248,.12)}}
+
+  /* VOICES PREVIEW */
+  .voices{padding:120px 0}
+  .voices-track{display:flex;gap:24px;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+  .voices-row{display:flex;gap:24px;animation:vmar 60s linear infinite;flex-shrink:0}
+  .voices-row:hover{animation-play-state:paused}
+  .voice{flex-shrink:0;width:380px;padding:32px;background:var(--paper);border:1px solid var(--line);border-radius:18px;display:flex;flex-direction:column;gap:18px}
+  .voice .q{font-family:"Newsreader",serif;font-size:24px;line-height:1.25;color:var(--ink)}
+  .voice .who{display:flex;align-items:center;gap:14px;margin-top:auto}
+  .voice .av{width:42px;height:42px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:"Newsreader",serif;font-size:18px}
+  .voice .who .meta-n{font-size:14px;font-weight:600;color:var(--ink)}
+  .voice .who .meta-s{font-size:12px;color:var(--ink-soft)}
+  .voice .stars{color:var(--amber);letter-spacing:2px;font-size:13px}
+  @keyframes vmar{to{transform:translateX(-100%)}}
+</style>
+</head>
+<body>
+
+
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow" id="heroEyebrow" style="opacity:0;transform:translateY(20px);margin-bottom:36px">— Aurevia Healthcare</div>
+        <h1 class="display hero-headline" style="color: #191970;">
+          <span class="line"><span>Care</span></span>
+          <span class="line"><span>you can <em style="color: #191970; font-style: normal;">trust.</em></span></span>
+        </h1>
+        <div class="hero-tag" id="heroTag">A trusted healthcare facilitator · Estd. 2024</div>
+        <div class="hero-sub" id="heroSub">
+          <p>We connect patients with India's most experienced specialists for advanced, cashless treatment — coordinated end-to-end, with the calm of a single trusted hand.</p>
+        </div>
+        <div class="hero-actions" id="heroActions">
+          <a href="#contact" class="btn-primary magnetic">
+            Book free consultation
+            <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6H17M17 6L12 1M17 6L12 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          </a>
+          <a href="treatments.html" class="btn-ghost magnetic">Explore treatments <span class="arr"></span></a>
+        </div>
+      </div>
+
+      <div class="hero-visual" id="heroVisual">
+        <div class="halo">
+          <div class="ring r3"></div>
+          <div class="ring r2"></div>
+          <div class="ring r1"></div>
+          <div class="dotline"></div>
+        </div>
+        <div class="doctor-card" id="doctorCard">
+          <img src="/aurevia/assets/doctors-hero.png" alt="Group of Indian doctors from different specialties standing together">
+        </div>
+        <div class="float-label hero-trust-label fl-1">15+ yrs · senior surgeons</div>
+        <div class="float-label hero-trust-label fl-2">100% cashless</div>
+        <div class="float-label hero-trust-label fl-3">5 cities · 1 promise</div>
+      </div>
+    </div>
+
+    <div class="hero-foot">
+      <div class="scroll-hint"><span class="bar"></span><span>Scroll · explore care</span></div>
+      <div class="mono" style="font-size:11px;letter-spacing:.18em;color:var(--ink-soft);text-transform:uppercase">EST · 2024 &nbsp;·&nbsp; Delhi NCR · Mumbai</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <span class="watermark-text">AUREVIA HEALTHCARE</span>
+  <div class="marquee-track">
+    <span>LASIK</span><i>◆</i><span>Cataract surgery</span><i>◆</i><span>Sinus care</span><i>◆</i><span>Tonsillectomy</span><i>◆</i><span>Liposuction</span><i>◆</i><span>Lipoma removal</span><i>◆</i><span>Rhinoplasty</span><i>◆</i><span>Gynecomastia</span><i>◆</i><span>Kidney stones</span><i>◆</i><span>Orthopedic</span><i>◆</i>
+    <span>LASIK</span><i>◆</i><span>Cataract surgery</span><i>◆</i><span>Sinus care</span><i>◆</i><span>Tonsillectomy</span><i>◆</i><span>Liposuction</span><i>◆</i><span>Lipoma removal</span><i>◆</i><span>Rhinoplasty</span><i>◆</i><span>Gynecomastia</span><i>◆</i><span>Kidney stones</span><i>◆</i><span>Orthopedic</span><i>◆</i>
+  </div>
+</div>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-grid">
+      <div class="trust-cell" data-count="15">
+        <div class="key">[ 01 ]</div>
+        <div class="num"><span class="n">0</span><span class="plus">+</span></div>
+        <div class="lbl">Years of average specialist experience across our network</div>
+      </div>
+      <div class="trust-cell" data-count="100">
+        <div class="key">[ 02 ]</div>
+        <div class="num"><span class="n">0</span><span class="plus">%</span></div>
+        <div class="lbl">Cashless coverage across all major Indian health insurers</div>
+      </div>
+      <div class="trust-cell" data-count="10">
+        <div class="key">[ 03 ]</div>
+        <div class="num"><span class="n">0</span></div>
+        <div class="lbl">Specialty procedures coordinated end-to-end for you</div>
+      </div>
+      <div class="trust-cell" data-count="5">
+        <div class="key">[ 04 ]</div>
+        <div class="num"><span class="n">0</span></div>
+        <div class="lbl">Cities — Delhi, Noida, Gurgaon, Ghaziabad &amp; Mumbai</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT TEASER -->
+<section class="about-t" id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="js-split">A calmer way to find <em>the right care.</em></h2>
+      <div class="right">
+        <p class="js-reveal">Aurevia is a healthcare facilitation platform that pairs every patient with the right specialist, the right hospital and the right path forward — with transparent costs, cashless insurance support, and one coordinator who stays with you from first call to recovery.</p>
+        <a href="about.html" class="link js-reveal">Read our full story <span style="display:inline-block">→</span></a>
+      </div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar js-reveal">
+        <div class="num">01 — Patient-first care</div>
+        <h3>A single coordinator who never leaves your side.</h3>
+        <p>From the first consultation through recovery, one person handles your appointments, paperwork and family communication — so you don't have to chase the system.</p>
+        <div class="underline"></div>
+      </div>
+      <div class="pillar js-reveal">
+        <div class="num">02 — Transparent guidance</div>
+        <h3>Honest second opinions and written estimates.</h3>
+        <p>You see treatment options, procedures, estimated costs and recovery timelines in writing — before any commitment. No hidden line items.</p>
+        <div class="underline"></div>
+      </div>
+      <div class="pillar js-reveal">
+        <div class="num">03 — Trusted medical network</div>
+        <h3>Senior specialists at reputed hospitals.</h3>
+        <p>Surgeons with a decade or more of experience, modern facilities, and a curated network across ten specialties — chosen for outcomes, not advertising.</p>
+        <div class="underline"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TREATMENTS PREVIEW -->
+<section class="treat-p" id="treatments">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="js-split">Ten specialties. <em>One coordinator.</em></h2>
+      <div class="right">
+        <p class="js-reveal">Every procedure performed by senior consultants with ten or more years of experience, at hospitals we know personally.</p>
+        <a href="treatments.html" class="link js-reveal">See all ten procedures <span style="display:inline-block">→</span></a>
+      </div>
+    </div>
+
+    <div class="treat-list">
+      <div class="treat-group">
+        <span class="watermark-text">AUREVIA</span>
+        <a href="treatments.html#lasik" class="treat-row"><span class="ix">/ 01</span><span class="nm">LASIK</span><span class="meta">Bladeless laser vision correction · 10–15 min per eye</span><span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span></a>
+        <a href="treatments.html#cataract" class="treat-row"><span class="ix">/ 02</span><span class="nm">Cataract surgery</span><span class="meta">Phacoemulsification · IOL placement · same-day discharge</span><span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span></a>
+        <a href="treatments.html#sinus" class="treat-row"><span class="ix">/ 03</span><span class="nm">Sinus treatment</span><span class="meta">FESS &amp; balloon sinuplasty · relief from chronic sinusitis</span><span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span></a>
+        <a href="treatments.html#tonsillectomy" class="treat-row"><span class="ix">/ 04</span><span class="nm">Tonsillectomy</span><span class="meta">Coblation throat care · same-day discharge</span><span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span></a>
+        <a href="treatments.html#liposuction" class="treat-row"><span class="ix">/ 05</span><span class="nm">Liposuction</span><span class="meta">Body contouring · targeted fat removal</span><span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span></a>
+      </div>
+      <div class="treat-group">
+        <span class="watermark-text">HEALTHCARE</span>
+        <a href="treatments.html#lipoma" class="treat-row"><span class="ix">/ 06</span><span class="nm">Lipoma removal</span><span class="meta">Minor surgery · low recurrence risk</span><span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span></a>
+        <a href="treatments.html#rhinoplasty" class="treat-row"><span class="ix">/ 07</span><span class="nm">Rhinoplasty</span><span class="meta">Open &amp; closed techniques · cosmetic + functional</span><span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span></a>
+        <a href="treatments.html#gynecomastia" class="treat-row"><span class="ix">/ 08</span><span class="nm">Gynecomastia</span><span class="meta">Chest contour correction · confidential care</span><span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span></a>
+        <a href="treatments.html#kidney" class="treat-row"><span class="ix">/ 09</span><span class="nm">Kidney stones</span><span class="meta">ESWL · URS · PCNL · the right approach for the right stone</span><span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span></a>
+        <a href="treatments.html#orthopedic" class="treat-row"><span class="ix">/ 10</span><span class="nm">Orthopedic</span><span class="meta">Joint, spine, trauma and sports surgery pathways</span><span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-p">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="js-split">From the first call <em>to recovery —</em> one calm path.</h2>
+      <div class="right">
+        <p class="js-reveal">No call centres, no chasing departments. Your Aurevia coordinator walks every step with you.</p>
+        <a href="how-it-works.html" class="link js-reveal">See the full process <span style="display:inline-block">→</span></a>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step js-reveal"><div class="knob"></div><div class="label">Step 01 · Talk</div><h5>Free initial consultation</h5><p>Share your reports over a <a href="tel:+919990959440">call</a> or <a href="https://wa.me/919990959440" target="_blank" rel="noopener">WhatsApp</a>. We listen, ask the right questions, and frame the options honestly.</p></div>
+      <div class="step js-reveal"><div class="knob"></div><div class="label">Step 02 · Match</div><h5>Right specialist, right hospital</h5><p>We match you with a senior surgeon and facility chosen for your specific condition — never the highest commission.</p></div>
+      <div class="step js-reveal"><div class="knob"></div><div class="label">Step 03 · Plan</div><h5>Written estimate &amp; cashless approval</h5><p>Procedure, costs, timelines and recovery plan — in writing. We coordinate insurance approvals before admission.</p></div>
+      <div class="step js-reveal"><div class="knob"></div><div class="label">Step 04 · Heal</div><h5>Treatment &amp; follow-through</h5><p>Admission, surgery, discharge and follow-up visits — handled. We stay reachable through recovery and beyond.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATIONS PREVIEW -->
+<section class="locations">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="js-split">Five cities. <em>One number.</em></h2>
+      <div class="right">
+        <p class="js-reveal">Aurevia coordinators operate across Delhi NCR and Mumbai — at the partner hospitals that match each procedure.</p>
+        <a href="locations.html" class="link js-reveal">Find a centre near you <span style="display:inline-block">→</span></a>
+      </div>
+    </div>
+    <div class="loc-grid">
+      <div class="loc-cell"><div class="ix">/ 01</div><span class="dot"></span><h6>Delhi</h6><div class="sub">Flagship coordination hub</div></div>
+      <div class="loc-cell"><div class="ix">/ 02</div><span class="dot"></span><h6>Noida</h6><div class="sub">Eye &amp; ENT centres of excellence</div></div>
+      <div class="loc-cell"><div class="ix">/ 03</div><span class="dot"></span><h6>Gurgaon</h6><div class="sub">Tertiary &amp; cosmetic specialties</div></div>
+      <div class="loc-cell"><div class="ix">/ 04</div><span class="dot"></span><h6>Ghaziabad</h6><div class="sub">General &amp; day-care surgeries</div></div>
+      <div class="loc-cell"><div class="ix">/ 05</div><span class="dot"></span><h6>Mumbai</h6><div class="sub">Advanced urology &amp; bariatrics</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICES PREVIEW -->
+<section class="voices">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="js-split">In their <em>own words.</em></h2>
+      <div class="right">
+        <p class="js-reveal">A small selection from the people we've cared for over the past year.</p>
+        <a href="voices.html" class="link js-reveal">Read every voice <span style="display:inline-block">→</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="voices-track">
+    <div class="voices-row">
+      <div class="voice"><div class="stars">★★★★★</div><div class="q">"They handled every detail — cashless approval, hospital admission, even my mother's transport. I just had to show up and recover."</div><div class="who"><div class="av">R</div><div><div class="meta-n">Rohit S.</div><div class="meta-s">LASIK · Delhi</div></div></div></div>
+      <div class="voice"><div class="stars">★★★★★</div><div class="q">"Got a second opinion through Aurevia and avoided an unnecessary surgery. Honest, calm people. Felt like family advice, not a sales call."</div><div class="who"><div class="av">A</div><div><div class="meta-n">Anita M.</div><div class="meta-s">Sinus consult · Gurgaon</div></div></div></div>
+      <div class="voice"><div class="stars">★★★★★</div><div class="q">"Quoted price was the final price. No surprises. My coordinator answered every WhatsApp within minutes, even at night."</div><div class="who"><div class="av">V</div><div><div class="meta-n">Vikram J.</div><div class="meta-s">Orthopedic care · Noida</div></div></div></div>
+      <div class="voice"><div class="stars">★★★★★</div><div class="q">"My father's cataract was scheduled within a week. Surgeon was patient, the hospital felt premium, insurance was pre-approved."</div><div class="who"><div class="av">P</div><div><div class="meta-n">Priya K.</div><div class="meta-s">Cataract · Mumbai</div></div></div></div>
+      <div class="voice"><div class="stars">★★★★★</div><div class="q">"Travelled to Delhi for kidney stones. Aurevia arranged stay, hospital, and follow-up reports digitally. Brilliant service."</div><div class="who"><div class="av">M</div><div><div class="meta-n">Manish B.</div><div class="meta-s">PCNL · Delhi</div></div></div></div>
+      <div class="voice"><div class="stars">★★★★★</div><div class="q">"I was nervous about rhinoplasty. The surgeon walked through expectations honestly. Result feels like me — just refined."</div><div class="who"><div class="av">S</div><div><div class="meta-n">Saanvi R.</div><div class="meta-s">Rhinoplasty · Gurgaon</div></div></div></div>
+      <div class="voice"><div class="stars">★★★★★</div><div class="q">"They handled every detail — cashless approval, hospital admission, even my mother's transport."</div><div class="who"><div class="av">R</div><div><div class="meta-n">Rohit S.</div><div class="meta-s">LASIK · Delhi</div></div></div></div>
+      <div class="voice"><div class="stars">★★★★★</div><div class="q">"Got a second opinion and avoided an unnecessary surgery. Honest, calm people. Felt like family advice."</div><div class="who"><div class="av">A</div><div><div class="meta-n">Anita M.</div><div class="meta-s">Sinus consult · Gurgaon</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div>
+        <div class="eyebrow js-reveal">[ 06 ] Start your care</div>
+        <h2 class="js-split" style="margin-top:18px">Begin with a <em>free consultation.</em></h2>
+        <p class="cta-sub js-reveal">Share your condition or reports — we'll set up a call with the right specialist within 24 hours. No obligation, no auto-enrolment, no surprise charges.</p>
+        <div class="js-reveal" style="margin-top:36px;display:flex;flex-direction:column;gap:18px;align-items:flex-start">
+          <div><div class="eyebrow">Direct line</div><div style="font-family:'Newsreader',serif;font-size:32px;margin-top:6px"><a href="tel:+919990959440">+91 99909 59440</a></div></div>
+          <div><div class="eyebrow">Email</div><div style="font-family:'Newsreader',serif;font-size:32px;margin-top:6px"><a href="mailto:info@aureviahealthcare.com">info@aureviahealthcare.com</a></div></div>
+          <div><div class="eyebrow">WhatsApp</div><div style="font-family:'Newsreader',serif;font-size:32px;margin-top:6px"><a href="https://wa.me/919990959440" target="_blank" rel="noopener">Chat now</a></div></div>
+        </div>
+      </div>
+      <form class="form js-reveal" onsubmit="event.preventDefault(); this.querySelector('.submit').textContent='Thank you — we\\'ll be in touch ✦'">
+        <div class="row">
+          <div><label>Your name</label><input type="text" placeholder="Full name" required></div>
+          <div><label>Phone</label><input type="tel" placeholder="+91 ..." required></div>
+        </div>
+        <div class="row">
+          <div><label>City</label><select><option>Delhi</option><option>Noida</option><option>Gurgaon</option><option>Ghaziabad</option><option>Mumbai</option><option>Other</option></select></div>
+          <div><label>Treatment of interest</label><select><option>I'm not sure yet</option><option>LASIK</option><option>Cataract</option><option>Sinus</option><option>Tonsillectomy</option><option>Liposuction</option><option>Lipoma</option><option>Rhinoplasty</option><option>Gynecomastia</option><option>Kidney stones</option><option>Orthopedic</option></select></div>
+        </div>
+        <label>Tell us briefly</label>
+        <textarea placeholder="A few lines about your condition, reports, or questions..."></textarea>
+        <button class="submit" type="submit">Request my consultation
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6H17M17 6L12 1M17 6L12 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </button>
+        <div class="legal">Your details are used only to set up your consultation. We never share them with hospitals before your consent.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/aurevia/motion.js"></script>
+<script>
+/* hero entrance specific to index */
+document.fonts.ready.then(() => {
+  const lines = document.querySelectorAll('.hero-headline .line span');
+  gsap.set(lines, { yPercent: 110 });
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  tl.to('#heroEyebrow', { opacity: 1, y: 0, duration: 0.8 })
+    .to(lines, { yPercent: 0, duration: 1.1, stagger: 0.12 }, '-=0.4')
+    .to('#heroTag', { opacity: 1, duration: 0.8 }, '-=0.6')
+    .to('#heroSub', { opacity: 1, y: 0, duration: 0.9 }, '-=0.6')
+    .to('#heroActions', { opacity: 1, y: 0, duration: 0.9 }, '-=0.7')
+    .to('#heroVisual', { opacity: 1, y: 0, duration: 1.1 }, '-=1');
+
+  gsap.fromTo('.float-label', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.15, delay: 1.5 });
+  gsap.to('.fl-1', { y: -8, duration: 3, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+  gsap.to('.fl-2', { y: 10, duration: 3.5, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 0.3 });
+  gsap.to('.fl-3', { y: -6, duration: 4, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 0.6 });
+  gsap.to('.doctor-card', { y: -12, duration: 4.5, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+});
+
+/* hero card 3D tilt */
+const lc = document.getElementById('doctorCard');
+if(lc){
+  document.querySelector('.hero-visual').addEventListener('mousemove', e => {
+    const r = lc.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width/2) / r.width;
+    const y = (e.clientY - r.top - r.height/2) / r.height;
+    gsap.to(lc, { rotateY: x*8, rotateX: -y*8, duration: 0.6, ease: 'power3.out', transformPerspective: 800 });
+  });
+  document.querySelector('.hero-visual').addEventListener('mouseleave', () => {
+    gsap.to(lc, { rotateY: 0, rotateX: 0, duration: 0.9, ease: 'elastic.out(1,0.4)' });
+  });
+}
+
+/* treatment row entrance */
+gsap.from('.treat-row', { opacity: 0, y: 30, duration: 0.8, stagger: 0.06, ease: 'power3.out', scrollTrigger: { trigger: '.treat-list', start: 'top 75%' }});
+
+/* steps knob fill */
+gsap.utils.toArray('.step').forEach((s,i) => {
+  gsap.from(s.querySelector('.knob'), { scale: 0, duration: 0.6, delay: i*0.1, ease: 'back.out(2)', scrollTrigger: { trigger: s, start: 'top 80%' }});
+});
+</script>
+
+</body>
+</html>

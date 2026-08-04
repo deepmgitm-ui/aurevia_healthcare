@@ -1,0 +1,66 @@
+/* ============================================================
+   DARK MODE / DAY-NIGHT THEME (Aurevia Premium)
+   ============================================================ */
+
+/* Buttery smooth background and color transition */
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body.dark-mode {
+  /* Deep Space Black & Premium Dark Navy Palette */
+  --paper: #07070B;
+  --paper-2: #0C0C14;
+  --paper-3: #14141E;
+  --cyan: #050E17;
+  --ink: #F8FAFC;
+  --ink-2: #CBD5E1;
+  --ink-soft: rgba(248, 250, 252, 0.65);
+  --ink-faint: rgba(248, 250, 252, 0.35);
+  --line: rgba(248, 250, 252, 0.12);
+  --line-strong: rgba(248, 250, 252, 0.25);
+}
+
+/* ── OVERRIDES FOR REACT NAVBAR & DRAWER IN DARK MODE ── */
+body.dark-mode header.bg-white,
+body.dark-mode header.bg-white\/95 {
+  background-color: rgba(7, 7, 11, 0.95) !important;
+  border-bottom-color: rgba(248, 250, 252, 0.08) !important;
+}
+
+body.dark-mode .drawer-bg,
+body.dark-mode .bg-white\/95 {
+  background-color: #07070B !important;
+}
+
+body.dark-mode .nav-text,
+body.dark-mode .nav-text-sub {
+  color: #F8FAFC !important;
+}
+
+body.dark-mode .theme-btn {
+  background-color: #14141E !important;
+  border-color: rgba(248, 250, 252, 0.15) !important;
+  color: #F8FAFC !important;
+}
+body.dark-mode .theme-btn:hover {
+  background-color: #1F1F2E !important;
+}
+
+body.dark-mode .drawer-border,
+body.dark-mode .nav-border {
+  border-color: rgba(248, 250, 252, 0.15) !important;
+}
+
+body.dark-mode .nav-text-accent {
+  color: #6CA0DC !important;
+}
+body.dark-mode .pulse-dot {
+  background-color: #6CA0DC !important;
+}
+
+/* Blend the footer seamlessly into dark mode */
+body.dark-mode footer.bg-\[\#03045E\] {
+  background-color: #040407 !important;
+  border-top: 1px solid rgba(248, 250, 252, 0.05);
+}

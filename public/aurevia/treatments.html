@@ -1,0 +1,505 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Treatments — Aurevia Healthcare</title>
+<meta name="description" content="Ten specialty procedures coordinated by Aurevia Healthcare — LASIK, cataract, sinus, tonsillectomy, liposuction, lipoma, rhinoplasty, gynecomastia, kidney stones, orthopedic care." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/aurevia/styles.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+<style>
+  /* QUICK INDEX */
+  .index{padding:40px 0 80px;border-top:1px solid var(--line)}
+  .index-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .index-cell{padding:24px 20px;border-right:1px solid var(--line);transition:background .35s,padding .35s;cursor:pointer;position:relative}
+  .index-cell:nth-child(5n){border-right:0}
+  .index-cell:nth-child(n+6){border-top:1px solid var(--line)}
+  .index-cell:hover{background:var(--paper-2);padding-left:28px}
+  .index-cell .ix{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.2em;color:var(--amber-deep);margin-bottom:14px}
+  .index-cell .nm{font-family:"Newsreader",serif;font-size:24px;line-height:1.1;color:var(--ink)}
+  .index-cell .arr{position:absolute;bottom:18px;right:18px;width:24px;height:24px;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;opacity:0;transition:opacity .35s,transform .35s}
+  .index-cell:hover .arr{opacity:1;transform:translate(2px,-2px)}
+  @media (max-width:900px){.index-grid{grid-template-columns:1fr 1fr}.index-cell:nth-child(5n){border-right:1px solid var(--line)}.index-cell:nth-child(2n){border-right:0}.index-cell:nth-child(n+3){border-top:1px solid var(--line)}}
+
+  /* PROCEDURE CARD */
+  .procs{padding:40px 0 120px}
+  .proc{padding:80px 0;border-top:1px solid var(--line);scroll-margin-top:90px}
+  .proc-head{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:end;margin-bottom:50px}
+  .proc-head .num{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:0.22em;color:var(--amber-deep)}
+  .proc-head h2{font-family:"Newsreader",serif;font-size:clamp(48px,8vw,120px);line-height:0.96;color:var(--ink)}
+  .proc-head h2 em{color:var(--amber-deep)}
+  .proc-head .icon{width:96px;height:96px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;background:var(--paper);color:var(--ink)}
+  .proc-head .icon svg{width:54px;height:54px;stroke:var(--ink);fill:none;stroke-width:1.4}
+  @media (max-width:900px){.proc-head{grid-template-columns:1fr;gap:18px;align-items:start}.proc-head .icon{order:-1}}
+
+  .proc-media{margin:-18px 0 44px;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:var(--paper);box-shadow:0 28px 70px -48px rgba(3,4,94,.46)}
+  .proc-media img{width:100%;aspect-ratio:16/7;object-fit:cover;display:block}
+  .proc-media figcaption{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:16px 20px;font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-soft);border-top:1px solid var(--line)}
+  .proc-media figcaption span:last-child{color:var(--amber-deep);text-align:right}
+  @media (max-width:900px){.proc-media{margin:0 0 32px;border-radius:18px}.proc-media img{aspect-ratio:4/3}.proc-media figcaption{align-items:flex-start;flex-direction:column;gap:8px}}
+
+  .proc-body{display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:start}
+  .proc-body .overview{font-size:18px;line-height:1.7;color:var(--ink);max-width:640px}
+  .proc-body .overview em{font-style:italic;color:var(--amber-deep);font-family:"Newsreader",serif;font-size:22px}
+  .proc-aside{display:flex;flex-direction:column;gap:20px;padding:32px;background:var(--paper-2);border-radius:18px;border:1px solid var(--line)}
+  .proc-aside .row{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px dashed var(--line)}
+  .proc-aside .row:last-child{border-bottom:0}
+  .proc-aside .k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-soft)}
+  .proc-aside .v{font-family:"Newsreader",serif;font-size:20px;color:var(--ink);text-align:right;max-width:65%}
+  .proc-aside .cta{margin-top:8px;background:var(--ink);color:var(--paper);padding:14px 18px;border-radius:999px;font-size:13px;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px;transition:background .25s}
+  .proc-aside .cta:hover{background:var(--amber-deep)}
+  @media (max-width:900px){.proc-body{grid-template-columns:1fr;gap:30px}}
+
+  .proc-detail{margin-top:50px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+  .proc-detail .b{padding:32px 26px 28px;border-right:1px solid var(--line);position:relative}
+  .proc-detail .b:last-child{border-right:0}
+  .proc-detail .b .k{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.2em;color:var(--amber-deep);margin-bottom:24px;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+  .proc-detail .b .k::before{content:"";width:6px;height:6px;background:var(--amber);border-radius:50%}
+  .proc-detail .b h5{font-family:"Newsreader",serif;font-size:24px;color:var(--ink);margin-bottom:14px;line-height:1.1}
+  .proc-detail .b p, .proc-detail .b li{font-size:14px;line-height:1.65;color:var(--ink-soft)}
+  .proc-detail .b ul{list-style:none;display:flex;flex-direction:column;gap:8px;margin-top:8px}
+  .proc-detail .b ul li{padding-left:14px;position:relative}
+  .proc-detail .b ul li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:1px;background:var(--amber-deep)}
+  @media (max-width:900px){.proc-detail{grid-template-columns:1fr}.proc-detail .b{border-right:0;border-bottom:1px solid var(--line)}.proc-detail .b:last-child{border-bottom:0}}
+
+  /* alternate light variant */
+  .proc.light{background:var(--paper-2)}
+  .proc.light .proc-aside{background:var(--paper)}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-brand">
+    <img src="/aurevia/assets/logo.png" alt="Aurevia logo">
+    <div><div class="wordmark">Aurevia</div><div class="tag">healthcare facilitators</div></div>
+  </a>
+  <div class="nav-links">
+    <a href="about.html">About</a>
+    <a href="treatments.html" class="active">Treatments</a>
+    <a href="how-it-works.html">How it works</a>
+    <a href="locations.html">Locations</a>
+    <a href="voices.html">Voices</a>
+  </div>
+  <a href="index.html#contact" class="nav-cta"><span class="dot"></span>Free consultation</a>
+  <button class="menu-btn" aria-label="Menu"><span></span></button>
+</nav>
+
+<!-- PAGE HEAD -->
+<section class="page-head">
+  <div class="wrap">
+    <div class="crumb js-reveal"><a href="index.html">Aurevia</a><span class="sep">/</span><span>Treatments</span></div>
+    <h1 class="js-split">Ten specialties. <em>Coordinated end-to-end.</em></h1>
+    <div class="lead">
+      <div class="meta js-reveal">10+ years specialist experience<br>100% cashless coverage<br>Free initial consultation<br>Senior surgeons only</div>
+      <p class="js-reveal">Every procedure below is performed by senior consultants with a decade or more of experience, at hospitals we know personally. Tap any treatment to see the full procedure brief — overview, procedure, eligibility and recovery plan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INDEX -->
+<section class="index">
+  <div class="wrap">
+    <div class="index-grid">
+      <a href="#lasik" class="index-cell"><div class="ix">/ 01</div><div class="nm">LASIK</div><div class="arr">→</div></a>
+      <a href="#cataract" class="index-cell"><div class="ix">/ 02</div><div class="nm">Cataract</div><div class="arr">→</div></a>
+      <a href="#sinus" class="index-cell"><div class="ix">/ 03</div><div class="nm">Sinus</div><div class="arr">→</div></a>
+      <a href="#tonsillectomy" class="index-cell"><div class="ix">/ 04</div><div class="nm">Tonsillectomy</div><div class="arr">→</div></a>
+      <a href="#liposuction" class="index-cell"><div class="ix">/ 05</div><div class="nm">Liposuction</div><div class="arr">→</div></a>
+      <a href="#lipoma" class="index-cell"><div class="ix">/ 06</div><div class="nm">Lipoma</div><div class="arr">→</div></a>
+      <a href="#rhinoplasty" class="index-cell"><div class="ix">/ 07</div><div class="nm">Rhinoplasty</div><div class="arr">→</div></a>
+      <a href="#gynecomastia" class="index-cell"><div class="ix">/ 08</div><div class="nm">Gynecomastia</div><div class="arr">→</div></a>
+      <a href="#kidney" class="index-cell"><div class="ix">/ 09</div><div class="nm">Kidney stones</div><div class="arr">→</div></a>
+      <a href="#orthopedic" class="index-cell"><div class="ix">/ 10</div><div class="nm">Orthopedic</div><div class="arr">→</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCEDURES -->
+<section class="procs">
+
+  <!-- 01 LASIK -->
+  <article id="lasik" class="proc">
+    <div class="wrap">
+      <div class="proc-head">
+        <div class="num">/ 01 — Eye care</div>
+        <h2 class="js-split">LASIK <em>treatment</em></h2>
+        <div class="icon"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="22"/><circle cx="32" cy="32" r="8"/><circle cx="32" cy="32" r="3" fill="currentColor" stroke="none"/></svg></div>
+      </div>
+      <figure class="proc-media js-reveal">
+        <img src="/aurevia/treatments/lasik.png" alt="LASIK eye treatment consultation at a modern clinic" loading="lazy">
+        <figcaption><span>Laser vision planning</span><span>Non-invasive consultation first</span></figcaption>
+      </figure>
+      <div class="proc-body">
+        <p class="overview js-reveal">LASIK is an advanced laser eye surgery used to correct nearsightedness, farsightedness and astigmatism by reshaping the cornea. It is one of the <em>safest and most effective</em> vision correction procedures — quick, minimally invasive, and offering long-lasting visual improvement with a fast recovery period.</p>
+        <aside class="proc-aside js-reveal">
+          <div class="row"><span class="k">Duration</span><span class="v">10–15 min per eye</span></div>
+          <div class="row"><span class="k">Anaesthesia</span><span class="v">Numbing eye drops</span></div>
+          <div class="row"><span class="k">Stay</span><span class="v">Day-care · same day</span></div>
+          <div class="row"><span class="k">Recovery</span><span class="v">24–48 hours</span></div>
+          <div class="row"><span class="k">Success rate</span><span class="v">Highly accurate</span></div>
+          <a href="index.html#contact" class="cta">Book free consultation →</a>
+        </aside>
+      </div>
+      <div class="proc-detail">
+        <div class="b"><div class="k">A · Procedure</div><h5>How it works</h5><p>Numbing drops are applied, a femtosecond laser creates a thin corneal flap, and an excimer laser reshapes the underlying tissue. The flap is then repositioned and heals naturally — no stitches.</p></div>
+        <div class="b"><div class="k">B · Benefits</div><h5>What you gain</h5><ul><li>Freedom from glasses &amp; contacts</li><li>Rapid visual recovery</li><li>Minimal discomfort</li><li>Excellent long-term accuracy</li></ul></div>
+        <div class="b"><div class="k">C · Eligibility</div><h5>Right for you if</h5><ul><li>Age 18+ with stable prescription</li><li>Healthy eyes &amp; adequate cornea</li><li>No cataract, glaucoma or severe dry eye</li></ul></div>
+        <div class="b"><div class="k">D · Recovery</div><h5>After the procedure</h5><p>Most patients see clearly within 24 hours. Mild dryness or light sensitivity for a few days. Avoid eye-rubbing, swimming and contact sports for 1–2 weeks.</p></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 02 CATARACT -->
+  <article id="cataract" class="proc light">
+    <div class="wrap">
+      <div class="proc-head">
+        <div class="num">/ 02 — Eye care</div>
+        <h2 class="js-split">Cataract <em>surgery</em></h2>
+        <div class="icon"><svg viewBox="0 0 64 64"><ellipse cx="32" cy="32" rx="26" ry="14"/><circle cx="32" cy="32" r="7"/></svg></div>
+      </div>
+      <figure class="proc-media js-reveal">
+        <img src="/aurevia/treatments/cataract.png" alt="Cataract care consultation with intraocular lens planning" loading="lazy">
+        <figcaption><span>Lens clarity assessment</span><span>IOL choice explained simply</span></figcaption>
+      </figure>
+      <div class="proc-body">
+        <p class="overview js-reveal">A safe and effective procedure for cataracts — a clouding of the eye's natural lens that blurs vision. The cloudy lens is removed and replaced with a clear <em>intraocular lens (IOL)</em>, restoring clarity and dramatically improving quality of life.</p>
+        <aside class="proc-aside js-reveal">
+          <div class="row"><span class="k">Duration</span><span class="v">10–15 min</span></div>
+          <div class="row"><span class="k">Technique</span><span class="v">Mics/Flacs</span></div>
+          <div class="row"><span class="k">Stay</span><span class="v">Same-day discharge</span></div>
+          <div class="row"><span class="k">Recovery</span><span class="v">1-2 weeks</span></div>
+          <div class="row"><span class="k">Success rate</span><span class="v">99.9%+</span></div>
+          <a href="index.html#contact" class="cta">Book free consultation →</a>
+        </aside>
+      </div>
+      <div class="proc-detail">
+        <div class="b"><div class="k">A · Procedure</div><h5>How it works</h5><p>A 2–3 mm incision; ultrasound (phacoemulsification) breaks up the cloudy lens; a foldable IOL is implanted through the same incision and settles into position.</p></div>
+        <div class="b"><div class="k">B · Benefits</div><h5>What you gain</h5><ul><li>Clearer, brighter vision</li><li>Better colour perception</li><li>Reduced glare at night</li><li>Independence in daily life</li></ul></div>
+        <div class="b"><div class="k">C · Eligibility</div><h5>Right for you if</h5><ul><li>Blurred or cloudy vision</li><li>Difficulty reading or driving</li><li>Light sensitivity &amp; glare</li><li>Frequent prescription changes</li></ul></div>
+        <div class="b"><div class="k">D · Recovery</div><h5>After the procedure</h5><p>Vision improves within days. Use prescribed drops, wear an eye shield while sleeping for a week, and avoid heavy lifting. Stable vision in 4–6 weeks.</p></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 03 SINUS -->
+  <article id="sinus" class="proc">
+    <div class="wrap">
+      <div class="proc-head">
+        <div class="num">/ 03 — ENT</div>
+        <h2 class="js-split">Sinus <em>treatment</em></h2>
+        <div class="icon"><svg viewBox="0 0 64 64"><path d="M32 8 L32 56 M32 8 C24 18 18 26 22 38 M32 8 C40 18 46 26 42 38"/></svg></div>
+      </div>
+      <figure class="proc-media js-reveal">
+        <img src="/aurevia/treatments/sinus.png" alt="ENT sinus treatment consultation with scan review" loading="lazy">
+        <figcaption><span>ENT pathway mapping</span><span>Medication to FESS options</span></figcaption>
+      </figure>
+      <div class="proc-body">
+        <p class="overview js-reveal">Treatment for sinus infections and chronic sinusitis — congestion, headaches, facial pain and disturbed sleep. Depending on severity, we offer medications, lifestyle plans, or minimally invasive procedures such as <em>FESS or balloon sinuplasty</em>.</p>
+        <aside class="proc-aside js-reveal">
+          <div class="row"><span class="k">Approach</span><span class="v">FESS / balloon sinuplasty</span></div>
+          <div class="row"><span class="k">Incisions</span><span class="v">None — through nose</span></div>
+          <div class="row"><span class="k">Stay</span><span class="v">Day-care</span></div>
+          <div class="row"><span class="k">Recovery</span><span class="v">Few days to 2 weeks</span></div>
+          <div class="row"><span class="k">For</span><span class="v">Chronic sinusitis 12+ wks</span></div>
+          <a href="index.html#contact" class="cta">Book free consultation →</a>
+        </aside>
+      </div>
+      <div class="proc-detail">
+        <div class="b"><div class="k">A · Procedure</div><h5>How it works</h5><p>Mild cases — medication, sprays and steam. Severe cases — a thin endoscope is passed through the nose; blocked passages are cleared, polyps removed or a small balloon inflated to open them.</p></div>
+        <div class="b"><div class="k">B · Benefits</div><h5>What you gain</h5><ul><li>Relief from congestion &amp; pain</li><li>Better breathing &amp; sleep</li><li>Reduced sinus infections</li><li>Improved sense of smell</li></ul></div>
+        <div class="b"><div class="k">C · Eligibility</div><h5>Right for you if</h5><ul><li>Chronic nasal blockage</li><li>Recurring infections / headaches</li><li>Snoring / disturbed sleep</li><li>No relief from medication alone</li></ul></div>
+        <div class="b"><div class="k">D · Recovery</div><h5>After the procedure</h5><p>Mild swelling and congestion for a few days; saline sprays and medication support healing. Most return to normal activity within days; complete healing in a few weeks.</p></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 04 TONSILLECTOMY -->
+  <article id="tonsillectomy" class="proc light">
+    <div class="wrap">
+      <div class="proc-head">
+        <div class="num">/ 04 — ENT</div>
+        <h2 class="js-split"><em>Tonsillectomy</em></h2>
+        <div class="icon"><svg viewBox="0 0 64 64"><path d="M20 14 C20 30 16 44 32 50 C48 44 44 30 44 14 Z"/><circle cx="26" cy="28" r="3"/><circle cx="38" cy="28" r="3"/></svg></div>
+      </div>
+      <figure class="proc-media js-reveal">
+        <img src="/aurevia/treatments/tonsillectomy.png" alt="Tonsillectomy throat care consultation in an ENT clinic" loading="lazy">
+        <figcaption><span>Throat care review</span><span>Coblation recovery guidance</span></figcaption>
+      </figure>
+      <div class="proc-body">
+        <p class="overview js-reveal">Surgical removal of the tonsils for people who suffer frequent tonsil infections, breathing difficulty or enlarged tonsils that disrupt daily life. We use modern <em>coblation technique</em> — less bleeding, less pain, faster recovery than traditional methods.</p>
+        <aside class="proc-aside js-reveal">
+          <div class="row"><span class="k">Duration</span><span class="v">30–45 minutes</span></div>
+          <div class="row"><span class="k">Anaesthesia</span><span class="v">General</span></div>
+          <div class="row"><span class="k">Technique</span><span class="v">Coblation / laser</span></div>
+          <div class="row"><span class="k">Stay</span><span class="v">Same-day discharge</span></div>
+          <div class="row"><span class="k">Recovery</span><span class="v">10–14 days</span></div>
+          <a href="index.html#contact" class="cta">Book free consultation →</a>
+        </aside>
+      </div>
+      <div class="proc-detail">
+        <div class="b"><div class="k">A · Procedure</div><h5>How it works</h5><p>Performed through the mouth — no external cuts or scars. Tonsils are removed using coblation, electrocautery or laser. Same-day discharge after a short observation period.</p></div>
+        <div class="b"><div class="k">B · Benefits</div><h5>What you gain</h5><ul><li>Far fewer throat infections</li><li>Relief from chronic sore throat</li><li>Better breathing &amp; sleep</li><li>Reduced snoring</li></ul></div>
+        <div class="b"><div class="k">C · Eligibility</div><h5>Right for you if</h5><ul><li>Frequent / chronic tonsillitis</li><li>Enlarged tonsils, sleep apnea</li><li>Difficulty swallowing</li><li>Persistent bad breath</li></ul></div>
+        <div class="b"><div class="k">D · Recovery</div><h5>After the procedure</h5><p>Cold, soft foods (ice cream, smoothies); stay hydrated. Pain peaks around days 5–7; full recovery in 10–14 days. Prescribed pain relief and antibiotics support healing.</p></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 05 LIPOSUCTION -->
+  <article id="liposuction" class="proc">
+    <div class="wrap">
+      <div class="proc-head">
+        <div class="num">/ 05 — Cosmetic surgery</div>
+        <h2 class="js-split"><em>Liposuction</em></h2>
+        <div class="icon"><svg viewBox="0 0 64 64"><path d="M16 14 C16 30 12 46 24 54 L40 54 C52 46 48 30 48 14 Z"/></svg></div>
+      </div>
+      <figure class="proc-media js-reveal">
+        <img src="/aurevia/treatments/liposuction.png" alt="Liposuction body contouring consultation in a modern clinic" loading="lazy">
+        <figcaption><span>Body contour planning</span><span>Discreet specialist consult</span></figcaption>
+      </figure>
+      <div class="proc-body">
+        <p class="overview js-reveal">A cosmetic procedure to remove stubborn fat from the abdomen, thighs, hips, arms, back or chin. It is a <em>body-contouring</em> tool — not a weight-loss surgery — designed to refine areas that don't respond to diet and exercise.</p>
+        <aside class="proc-aside js-reveal">
+          <div class="row"><span class="k">Anaesthesia</span><span class="v">Local / general</span></div>
+          <div class="row"><span class="k">Techniques</span><span class="v">Tumescent · laser · USG-assisted</span></div>
+          <div class="row"><span class="k">Stay</span><span class="v">Day-care typically</span></div>
+          <div class="row"><span class="k">Garment</span><span class="v">Compression wear</span></div>
+          <div class="row"><span class="k">Results</span><span class="v">Long-lasting</span></div>
+          <a href="index.html#contact" class="cta">Book free consultation →</a>
+        </aside>
+      </div>
+      <div class="proc-detail">
+        <div class="b"><div class="k">A · Procedure</div><h5>How it works</h5><p>A tumescent solution loosens fat through small incisions; a thin cannula gently suctions it out. Advanced laser- or ultrasound-assisted techniques may be used for smoother, more precise results.</p></div>
+        <div class="b"><div class="k">B · Benefits</div><h5>What you gain</h5><ul><li>Improved body contour</li><li>Removed fat cells gone for good</li><li>Better clothing fit</li><li>Long-lasting results</li></ul></div>
+        <div class="b"><div class="k">C · Eligibility</div><h5>Right for you if</h5><ul><li>Within 30% of ideal weight</li><li>Good skin elasticity</li><li>Stubborn fat unchanged by diet</li><li>Healthy &amp; realistic expectations</li></ul></div>
+        <div class="b"><div class="k">D · Recovery</div><h5>After the procedure</h5><p>Mild swelling and bruising for a few days. Compression garments support healing. Light activity within days; normal routine in a few weeks. Healthy lifestyle maintains the result.</p></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 06 LIPOMA -->
+  <article id="lipoma" class="proc light">
+    <div class="wrap">
+      <div class="proc-head">
+        <div class="num">/ 06 — General surgery</div>
+        <h2 class="js-split">Lipoma <em>removal</em></h2>
+        <div class="icon"><svg viewBox="0 0 64 64"><circle cx="32" cy="34" r="16"/><path d="M22 30 C26 26 30 26 32 28"/></svg></div>
+      </div>
+      <figure class="proc-media js-reveal">
+        <img src="/aurevia/treatments/lipoma.png" alt="Lipoma removal consultation with a general surgeon" loading="lazy">
+        <figcaption><span>Minor surgery planning</span><span>Same-day care when suitable</span></figcaption>
+      </figure>
+      <div class="proc-body">
+        <p class="overview js-reveal">A minor surgical procedure to remove a lipoma — a soft, <em>non-cancerous fatty lump</em> beneath the skin. Lipomas are usually harmless but can cause discomfort, restrict movement, or be a cosmetic concern depending on size and location.</p>
+        <aside class="proc-aside js-reveal">
+          <div class="row"><span class="k">Duration</span><span class="v">Short procedure</span></div>
+          <div class="row"><span class="k">Anaesthesia</span><span class="v">Local</span></div>
+          <div class="row"><span class="k">Stay</span><span class="v">Same-day discharge</span></div>
+          <div class="row"><span class="k">Stitches</span><span class="v">Removed in 7–14 days</span></div>
+          <div class="row"><span class="k">Recurrence</span><span class="v">Very low</span></div>
+          <a href="index.html#contact" class="cta">Book free consultation →</a>
+        </aside>
+      </div>
+      <div class="proc-detail">
+        <div class="b"><div class="k">A · Procedure</div><h5>How it works</h5><p>A small incision is made over the lipoma; the fatty tissue and its capsule are removed completely. Larger lipomas may use liposuction-assisted removal. Tissue is sent to a lab to confirm its benign nature.</p></div>
+        <div class="b"><div class="k">B · Benefits</div><h5>What you gain</h5><ul><li>Removal of fatty lump</li><li>Relief from pain / restriction</li><li>Cosmetic improvement</li><li>Low recurrence risk</li></ul></div>
+        <div class="b"><div class="k">C · Eligibility</div><h5>Right for you if</h5><ul><li>Visible / growing lump</li><li>Pain or restricted movement</li><li>Cosmetic concerns</li><li>Diagnosis needs confirming</li></ul></div>
+        <div class="b"><div class="k">D · Recovery</div><h5>After the procedure</h5><p>Mild swelling and soreness for a few days. Light activity quickly; avoid strenuous work until healing is complete. Stitches removed in 7–14 days; scars fade over 3–6 months.</p></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 07 RHINOPLASTY -->
+  <article id="rhinoplasty" class="proc">
+    <div class="wrap">
+      <div class="proc-head">
+        <div class="num">/ 07 — Cosmetic + ENT</div>
+        <h2 class="js-split"><em>Rhinoplasty</em></h2>
+        <div class="icon"><svg viewBox="0 0 64 64"><path d="M32 8 C26 22 22 36 24 48 C28 52 36 52 40 48 C42 36 38 22 32 8 Z"/></svg></div>
+      </div>
+      <figure class="proc-media js-reveal">
+        <img src="/aurevia/treatments/rhinoplasty.png" alt="Rhinoplasty consultation with facial profile planning" loading="lazy">
+        <figcaption><span>Natural profile planning</span><span>Cosmetic and breathing goals</span></figcaption>
+      </figure>
+      <div class="proc-body">
+        <p class="overview js-reveal">Nose reshaping surgery — cosmetic, functional, or both. Rhinoplasty can refine the size, angle, bridge, tip or nostrils, and correct breathing issues caused by a <em>deviated septum</em>. Done well, the result still feels like you, just balanced.</p>
+        <aside class="proc-aside js-reveal">
+          <div class="row"><span class="k">Anaesthesia</span><span class="v">Local / general</span></div>
+          <div class="row"><span class="k">Techniques</span><span class="v">Open · closed</span></div>
+          <div class="row"><span class="k">Stay</span><span class="v">Day-care / short stay</span></div>
+          <div class="row"><span class="k">Back to work</span><span class="v">2–3 weeks</span></div>
+          <div class="row"><span class="k">Final result</span><span class="v">Up to 1 year</span></div>
+          <a href="index.html#contact" class="cta">Book free consultation →</a>
+        </aside>
+      </div>
+      <div class="proc-detail">
+        <div class="b"><div class="k">A · Procedure</div><h5>How it works</h5><p>Bone, cartilage and soft tissue are reshaped through an open technique (small incision between nostrils) or closed technique (all incisions inside the nose). Usually a few hours; same-day or short stay.</p></div>
+        <div class="b"><div class="k">B · Benefits</div><h5>What you gain</h5><ul><li>Improved shape &amp; symmetry</li><li>Better breathing</li><li>Correction of injury / birth defects</li><li>Natural, long-lasting results</li></ul></div>
+        <div class="b"><div class="k">C · Eligibility</div><h5>Right for you if</h5><ul><li>Unhappy with nose shape</li><li>Breathing difficulty</li><li>Past nasal injury</li><li>Adult, healthy, realistic</li></ul></div>
+        <div class="b"><div class="k">D · Recovery</div><h5>After the procedure</h5><p>Splint off at 1 week; visible improvement immediately. Most swelling subsides by 2–3 weeks. Final refined result over the following months as subtle swelling resolves.</p></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 08 GYNECOMASTIA -->
+  <article id="gynecomastia" class="proc light">
+    <div class="wrap">
+      <div class="proc-head">
+        <div class="num">/ 08 — Cosmetic surgery</div>
+        <h2 class="js-split"><em>Gynecomastia</em></h2>
+        <div class="icon"><svg viewBox="0 0 64 64"><path d="M10 22 C20 18 28 22 32 30 C36 22 44 18 54 22 C54 36 44 48 32 48 C20 48 10 36 10 22 Z"/></svg></div>
+      </div>
+      <figure class="proc-media js-reveal">
+        <img src="/aurevia/treatments/gynecomastia.png" alt="Gynecomastia treatment consultation in a private clinic setting" loading="lazy">
+        <figcaption><span>Private chest contour consult</span><span>Respectful and confidential</span></figcaption>
+      </figure>
+      <div class="proc-body">
+        <p class="overview js-reveal">Surgical correction of enlarged male breast tissue caused by hormonal imbalance, genetics or medications. Treatment restores a <em>flatter, firmer, more masculine chest</em> contour — and resolves the physical and emotional discomfort that often comes with it.</p>
+        <aside class="proc-aside js-reveal">
+          <div class="row"><span class="k">Anaesthesia</span><span class="v">Local / general</span></div>
+          <div class="row"><span class="k">Technique</span><span class="v">Liposuction + excision</span></div>
+          <div class="row"><span class="k">Stay</span><span class="v">Day-care typically</span></div>
+          <div class="row"><span class="k">Garment</span><span class="v">Compression 4–6 wks</span></div>
+          <div class="row"><span class="k">Back to work</span><span class="v">~1 week</span></div>
+          <a href="index.html#contact" class="cta">Book free consultation →</a>
+        </aside>
+      </div>
+      <div class="proc-detail">
+        <div class="b"><div class="k">A · Procedure</div><h5>How it works</h5><p>Combines liposuction for excess fat with surgical excision of glandular tissue. Small incisions around the chest deliver a natural, balanced contour with minimal scarring.</p></div>
+        <div class="b"><div class="k">B · Benefits</div><h5>What you gain</h5><ul><li>Flatter, firmer chest</li><li>Improved posture &amp; clothing fit</li><li>Better self-confidence</li><li>Long-lasting result</li></ul></div>
+        <div class="b"><div class="k">C · Eligibility</div><h5>Right for you if</h5><ul><li>Persistent enlarged tissue</li><li>No improvement with diet</li><li>Healthy &amp; stable weight</li><li>Realistic expectations</li></ul></div>
+        <div class="b"><div class="k">D · Recovery</div><h5>After the procedure</h5><p>Compression garment for 4–6 weeks. Mild swelling and bruising fade in days. Back to work in about a week; strenuous exercise avoided for a few weeks. Final result in 3–6 months.</p></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 09 KIDNEY -->
+  <article id="kidney" class="proc">
+    <div class="wrap">
+      <div class="proc-head">
+        <div class="num">/ 09 — Urology</div>
+        <h2 class="js-split">Kidney <em>stone</em> treatment</h2>
+        <div class="icon"><svg viewBox="0 0 64 64"><path d="M22 14 C12 22 14 38 24 46 C32 52 42 50 46 42 C52 32 48 18 38 14 C32 12 26 12 22 14 Z"/></svg></div>
+      </div>
+      <figure class="proc-media js-reveal">
+        <img src="/aurevia/treatments/kidney-stones.png" alt="Kidney stone treatment consultation with urology specialist" loading="lazy">
+        <figcaption><span>Stone size and pathway</span><span>ESWL, URS or PCNL guidance</span></figcaption>
+      </figure>
+      <div class="proc-body">
+        <p class="overview js-reveal">Removal or breakdown of hard mineral deposits that form inside the kidneys — causing severe pain, blood in urine, and infection if left untreated. Small stones may pass naturally; larger ones need <em>ESWL, URS or PCNL</em>.</p>
+        <aside class="proc-aside js-reveal">
+          <div class="row"><span class="k">Approaches</span><span class="v">ESWL · URS · PCNL</span></div>
+          <div class="row"><span class="k">Anaesthesia</span><span class="v">Local / spinal / general</span></div>
+          <div class="row"><span class="k">Stay</span><span class="v">Day-care to 2 days</span></div>
+          <div class="row"><span class="k">Recovery</span><span class="v">Days for ESWL/URS</span></div>
+          <div class="row"><span class="k">For</span><span class="v">Stones 5 mm+</span></div>
+          <a href="index.html#contact" class="cta">Book free consultation →</a>
+        </aside>
+      </div>
+      <div class="proc-detail">
+        <div class="b"><div class="k">A · Procedure</div><h5>How it works</h5><p>The right technique for the right stone. ESWL uses sound waves to break stones externally. URS passes a scope through the urinary tract to break and remove them. PCNL is a small-incision keyhole surgery for very large stones.</p></div>
+        <div class="b"><div class="k">B · Benefits</div><h5>What you gain</h5><ul><li>Relief from severe pain</li><li>Restored urine flow</li><li>Reduced infection risk</li><li>Protected kidney function</li></ul></div>
+        <div class="b"><div class="k">C · Eligibility</div><h5>Right for you if</h5><ul><li>Severe back / abdominal pain</li><li>Blood in urine</li><li>Stones that won't pass</li><li>Recurrent UTIs</li></ul></div>
+        <div class="b"><div class="k">D · Recovery</div><h5>After the procedure</h5><p>Most patients return to normal activity within days. Mild burning or blood-tinged urine settles quickly. Hydration and dietary plans reduce the risk of new stones forming.</p></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 10 ORTHOPEDIC -->
+  <article id="orthopedic" class="proc light">
+    <div class="wrap">
+      <div class="proc-head">
+        <div class="num">/ 10 — Orthopedic surgery</div>
+        <h2 class="js-split">Orthopedic <em>care</em></h2>
+        <div class="icon"><svg viewBox="0 0 64 64"><path d="M20 13 C26 19 28 27 27 36 C26 45 20 50 14 51"/><path d="M44 13 C38 19 36 27 37 36 C38 45 44 50 50 51"/><path d="M27 34 L37 34 M25 42 L39 42"/><circle cx="32" cy="34" r="5"/></svg></div>
+      </div>
+      <figure class="proc-media js-reveal">
+        <img src="/aurevia/treatments/orthopedic.png" alt="Orthopedic consultation with joint model and scan review" loading="lazy">
+        <figcaption><span>Joint, spine and sports care</span><span>Senior orthopedic pathways</span></figcaption>
+      </figure>
+      <div class="proc-body">
+        <p class="overview js-reveal">Orthopedic care covers bones, joints, ligaments, tendons, spine conditions, sports injuries, pediatric corrections and fracture management. Aurevia coordinates evaluation, imaging review, hospital planning and procedure guidance with senior orthopedic surgeons.</p>
+        <aside class="proc-aside js-reveal">
+          <div class="row"><span class="k">Duration</span><span class="v">Procedure-specific</span></div>
+          <div class="row"><span class="k">Technique</span><span class="v">Open / arthroscopic</span></div>
+          <div class="row"><span class="k">Stay</span><span class="v">Day-care to short stay</span></div>
+          <div class="row"><span class="k">Recovery</span><span class="v">Guided rehab plan</span></div>
+          <div class="row"><span class="k">Success rate</span><span class="v">High with right case selection</span></div>
+          <a href="/#contact" class="cta">Book free consultation →</a>
+        </aside>
+      </div>
+      <div class="proc-detail">
+        <div class="b"><div class="k">A · Joint</div><h5>Replacement care</h5><p>Knee, hip, shoulder, elbow and ankle replacement pathways planned around imaging, mobility goals and rehabilitation needs.</p></div>
+        <div class="b"><div class="k">B · Keyhole</div><h5>Arthroscopy</h5><p>Minimally invasive options for ligament, meniscus, rotator cuff, labral and sports injury repair where clinically suitable.</p></div>
+        <div class="b"><div class="k">C · Trauma</div><h5>Fracture support</h5><p>Senior-led planning for fracture fixation, nailing, external fixation, plate and screw fixation and bone grafting.</p></div>
+        <div class="b"><div class="k">D · Recovery</div><h5>Rehab-led healing</h5><p>Recovery depends on procedure type, age and fitness. Aurevia coordinates follow-ups and physiotherapy guidance after discharge.</p></div>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div>
+        <div class="eyebrow js-reveal">[ 11 ] Not sure which one?</div>
+        <h2 class="js-split" style="margin-top:18px">Let us help you <em>decide.</em></h2>
+        <p class="cta-sub js-reveal">Share your reports — we'll connect you with the right senior specialist, get a second opinion, and give you a written estimate before any commitment.</p>
+        <div class="js-reveal" style="margin-top:36px;display:flex;flex-direction:column;gap:18px;align-items:flex-start">
+          <div><div class="eyebrow">Direct line</div><div style="font-family:'Newsreader',serif;font-size:32px;margin-top:6px"><a href="tel:+919990959440">+91 99909 59440</a></div></div>
+          <div><div class="eyebrow">Email</div><div style="font-family:'Newsreader',serif;font-size:32px;margin-top:6px"><a href="mailto:info@aureviahealthcare.com">info@aureviahealthcare.com</a></div></div>
+          <div><div class="eyebrow">WhatsApp</div><div style="font-family:'Newsreader',serif;font-size:32px;margin-top:6px"><a href="https://wa.me/919990959440" target="_blank" rel="noopener">Chat now</a></div></div>
+        </div>
+      </div>
+      <form class="form js-reveal" onsubmit="event.preventDefault(); this.querySelector('.submit').textContent='Thank you — we\\'ll be in touch ✦'">
+        <div class="row"><div><label>Your name</label><input type="text" placeholder="Full name" required></div><div><label>Phone</label><input type="tel" placeholder="+91 ..." required></div></div>
+        <div class="row"><div><label>City</label><select><option>Delhi</option><option>Noida</option><option>Gurgaon</option><option>Ghaziabad</option><option>Mumbai</option><option>Other</option></select></div><div><label>Treatment of interest</label><select><option>I'm not sure yet</option><option>LASIK</option><option>Cataract</option><option>Sinus</option><option>Tonsillectomy</option><option>Liposuction</option><option>Lipoma</option><option>Rhinoplasty</option><option>Gynecomastia</option><option>Kidney stones</option><option>Orthopedic</option></select></div></div>
+        <label>Tell us briefly</label>
+        <textarea placeholder="A few lines about your condition, reports, or questions..."></textarea>
+        <button class="submit" type="submit">Request my consultation <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6H17M17 6L12 1M17 6L12 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+        <div class="legal">Your details are used only to set up your consultation. We never share them with hospitals before your consent.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand"><img src="/aurevia/assets/logo.png" alt="Aurevia"><div class="word">Aurevia</div><p>A trusted healthcare facilitation platform connecting patients with senior specialists, reputed hospitals and cashless treatment — across Delhi NCR and Mumbai.</p>
+      <div class="foot-social-label">Follow us</div>
+      <div class="foot-social">
+        <a href="https://www.instagram.com/aureviahealthcare/" target="_blank" rel="noopener noreferrer" class="ig" aria-label="Aurevia on Instagram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/aurevia-healthcare/" target="_blank" rel="noopener noreferrer" class="li" aria-label="Aurevia on LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+</div>
+      <div class="foot-col"><h6>Care</h6><ul><li><a href="treatments.html">All treatments</a></li><li><a href="how-it-works.html">How it works</a></li><li><a href="locations.html">Locations</a></li><li><a href="index.html#contact">Free consultation</a></li></ul></div>
+      <div class="foot-col"><h6>Aurevia</h6><ul><li><a href="about.html">About</a></li><li><a href="voices.html">Patient voices</a></li><li><a href="#">Insurance partners</a></li><li><a href="#">Careers</a></li></ul></div>
+      <div class="foot-col"><h6>Reach</h6><ul><li><a href="tel:+919990959440">+91 99909 59440</a></li><li><a href="mailto:info@aureviahealthcare.com">info@aureviahealthcare.com</a></li><li><a href="https://wa.me/919990959440" target="_blank" rel="noopener">WhatsApp - 9 to 9</a></li><li><a href="mailto:info@aureviahealthcare.com">Press &amp; partnerships</a></li></ul></div>
+    </div>
+    <div class="foot-bot"><div>© 2026 Aurevia Healthcare. All rights reserved.</div><div>Privacy · Terms · Disclaimer</div></div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/aurevia/motion.js"></script>
+<script>
+/* index cells stagger */
+gsap.from('.index-cell', { opacity: 0, y: 20, duration: 0.7, stagger: 0.04, ease: 'power3.out', scrollTrigger: { trigger: '.index-grid', start: 'top 80%' }});
+</script>
+</body>
+</html>

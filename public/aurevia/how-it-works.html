@@ -1,0 +1,341 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>How it works — Aurevia Healthcare</title>
+<meta name="description" content="From the first call to recovery — one calm path. The Aurevia Healthcare process, explained step-by-step." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/aurevia/styles.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+<style>
+  /* TIMELINE */
+  .timeline{padding:80px 0 120px;border-top:1px solid var(--line);position:relative}
+  .tl-wrap{display:grid;grid-template-columns:180px 1fr;gap:60px;align-items:start;padding-top:60px}
+  .tl-rail{position:sticky;top:120px;align-self:start}
+  .tl-rail .label{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.22em;color:var(--ink-soft);text-transform:uppercase;line-height:2}
+  .tl-rail .label::before{content:"";display:block;width:32px;height:1px;background:var(--amber);margin-bottom:18px}
+  .tl-rail .prog{margin-top:30px;width:2px;height:200px;background:var(--line);position:relative;border-radius:2px;overflow:hidden}
+  .tl-rail .prog .fill{position:absolute;left:0;top:0;width:100%;height:0;background:var(--amber);transition:height .15s linear}
+
+  .tl-steps{display:flex;flex-direction:column;gap:0;position:relative}
+  .tl-step{padding:60px 0;border-bottom:1px solid var(--line);position:relative}
+  .tl-step:last-child{border-bottom:0}
+  .tl-step .num-row{display:flex;align-items:center;gap:20px;margin-bottom:30px}
+  .tl-step .num-row .knob{width:18px;height:18px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink);position:relative}
+  .tl-step .num-row .knob::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--amber);transform:scale(0);transition:transform .5s cubic-bezier(.6,.1,.2,1)}
+  .tl-step.active .num-row .knob::after{transform:scale(1)}
+  .tl-step .num-row .ix{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.2em;color:var(--amber-deep);text-transform:uppercase}
+  .tl-step .num-row .dur{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.2em;color:var(--ink-soft);text-transform:uppercase}
+  .tl-step h2{font-family:"Newsreader",serif;font-size:clamp(40px,6vw,80px);line-height:1.02;color:var(--ink);margin-bottom:20px}
+  .tl-step h2 em{color:var(--amber-deep)}
+  .tl-step .lead{font-size:18px;line-height:1.65;color:var(--ink);max-width:680px;margin-bottom:32px}
+  .tl-step .bullets{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
+  .tl-step .bullets .b{padding:24px 24px 22px 0;border-bottom:1px solid var(--line);position:relative}
+  .tl-step .bullets .b:nth-child(odd){border-right:1px solid var(--line);padding-right:24px;padding-left:0}
+  .tl-step .bullets .b:nth-child(even){padding-left:24px}
+  .tl-step .bullets .b:nth-last-child(-n+2){border-bottom:0}
+  .tl-step .bullets .b .k{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.2em;color:var(--amber-deep);text-transform:uppercase;margin-bottom:10px}
+  .tl-step .bullets .b p{font-size:14px;line-height:1.6;color:var(--ink-soft)}
+  @media (max-width:900px){.tl-wrap{grid-template-columns:1fr;gap:30px}.tl-rail{position:static;display:flex;align-items:center;gap:18px}.tl-rail .prog{display:none}.tl-step .bullets{grid-template-columns:1fr}.tl-step .bullets .b{border-right:0;padding:18px 0;border-bottom:1px solid var(--line)}.tl-step .bullets .b:nth-child(odd){padding:18px 0}}
+
+  /* WHAT TO EXPECT */
+  .expect{padding:120px 0;background:var(--paper-2)}
+  .expect .sec-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:60px}
+  .expect .sec-head h2{font-family:"Newsreader",serif;font-size:clamp(40px,6vw,96px);line-height:0.98;color:var(--ink)}
+  .expect .sec-head h2 em{color:var(--amber-deep)}
+  .expect .sec-head p{font-size:16px;line-height:1.65;color:var(--ink-soft);max-width:480px}
+  .expect-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--paper)}
+  .expect-grid .e{padding:42px 32px 36px;border-right:1px solid var(--line);position:relative}
+  .expect-grid .e:last-child{border-right:0}
+  .expect-grid .e .k{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.2em;color:var(--amber-deep);margin-bottom:30px;text-transform:uppercase}
+  .expect-grid .e h5{font-family:"Newsreader",serif;font-size:30px;line-height:1.05;color:var(--ink);margin-bottom:14px}
+  .expect-grid .e p{font-size:14px;line-height:1.65;color:var(--ink-soft)}
+  @media (max-width:900px){.expect .sec-head{grid-template-columns:1fr;gap:24px}.expect-grid{grid-template-columns:1fr}.expect-grid .e{border-right:0;border-bottom:1px solid var(--line)}.expect-grid .e:last-child{border-bottom:0}}
+
+  /* INSURANCE STRIP */
+  .insurance{padding:100px 0;background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
+  .insurance::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px, rgba(202,240,248,.06) 1px, transparent 0);background-size:24px 24px;pointer-events:none}
+  .ins-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:60px;align-items:end;position:relative}
+  .ins-grid h2{font-family:"Newsreader",serif;font-size:clamp(40px,6vw,96px);line-height:0.98}
+  .ins-grid h2 em{color:var(--gold)}
+  .ins-grid p{font-size:16px;line-height:1.65;color:rgba(202,240,248,.7);max-width:440px}
+  .ins-pills{margin-top:48px;display:flex;flex-wrap:wrap;gap:10px;position:relative}
+  .ins-pills .pill{padding:12px 18px;border:1px solid rgba(202,240,248,.2);border-radius:999px;font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:0.14em;color:rgba(202,240,248,.85);transition:background .3s,border-color .3s}
+  .ins-pills .pill:hover{background:rgba(202,240,248,.06);border-color:rgba(202,240,248,.45)}
+  @media (max-width:900px){.ins-grid{grid-template-columns:1fr;gap:24px}}
+
+  /* FAQS */
+  .faqs{padding:120px 0}
+  .faqs .sec-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:60px}
+  .faqs .sec-head h2{font-family:"Newsreader",serif;font-size:clamp(40px,6vw,96px);line-height:0.98;color:var(--ink)}
+  .faqs .sec-head h2 em{color:var(--amber-deep)}
+  .faqs .sec-head p{font-size:16px;line-height:1.65;color:var(--ink-soft);max-width:480px}
+  .faq-list{border-top:1px solid var(--line)}
+  .faq{border-bottom:1px solid var(--line);padding:24px 0;cursor:pointer}
+  .faq summary{list-style:none;display:flex;align-items:center;gap:24px;font-family:"Newsreader",serif;font-size:28px;line-height:1.15;color:var(--ink);padding:8px 0}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .ix{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:0.18em;color:var(--amber-deep);min-width:50px}
+  .faq summary .plus{margin-left:auto;width:28px;height:28px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;flex-shrink:0;position:relative;transition:transform .35s}
+  .faq summary .plus::before,.faq summary .plus::after{content:"";position:absolute;background:var(--ink);transition:transform .35s}
+  .faq summary .plus::before{width:10px;height:1px}
+  .faq summary .plus::after{width:1px;height:10px}
+  .faq[open] summary .plus{background:var(--ink);transform:rotate(180deg)}
+  .faq[open] summary .plus::before,.faq[open] summary .plus::after{background:var(--paper)}
+  .faq[open] summary .plus::after{transform:scaleY(0)}
+  .faq .ans{padding:14px 0 8px 74px;font-size:15px;line-height:1.7;color:var(--ink-soft);max-width:760px}
+  @media (max-width:900px){.faqs .sec-head{grid-template-columns:1fr;gap:24px}.faq summary{font-size:22px}.faq .ans{padding-left:0}}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-brand">
+    <img src="/aurevia/assets/logo.png" alt="Aurevia logo">
+    <div><div class="wordmark">Aurevia</div><div class="tag">healthcare facilitators</div></div>
+  </a>
+  <div class="nav-links">
+    <a href="about.html">About</a>
+    <a href="treatments.html">Treatments</a>
+    <a href="how-it-works.html" class="active">How it works</a>
+    <a href="locations.html">Locations</a>
+    <a href="voices.html">Voices</a>
+  </div>
+  <a href="index.html#contact" class="nav-cta"><span class="dot"></span>Free consultation</a>
+  <button class="menu-btn" aria-label="Menu"><span></span></button>
+</nav>
+
+<!-- PAGE HEAD -->
+<section class="page-head">
+  <div class="wrap">
+    <div class="crumb js-reveal"><a href="index.html">Aurevia</a><span class="sep">/</span><span>How it works</span></div>
+    <h1 class="js-split">From the first call <em>to recovery —</em> one calm path.</h1>
+    <div class="lead">
+      <div class="meta js-reveal">Four step process<br>One dedicated coordinator<br>Reachable 9 to 9<br>English · हिन्दी · ਪੰਜਾਬੀ</div>
+      <p class="js-reveal">No call centres. No chasing departments. No surprise charges at admission. The Aurevia process is built around one principle: that the patient should only have to focus on getting better — everything else is our job.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>01 · Talk</span><i>◆</i><span>02 · Match</span><i>◆</i><span>03 · Plan</span><i>◆</i><span>04 · Heal</span><i>◆</i><span>One coordinator throughout</span><i>◆</i>
+    <span>01 · Talk</span><i>◆</i><span>02 · Match</span><i>◆</i><span>03 · Plan</span><i>◆</i><span>04 · Heal</span><i>◆</i><span>One coordinator throughout</span><i>◆</i>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<section class="timeline">
+  <div class="wrap">
+    <div class="tl-wrap">
+      <div class="tl-rail">
+        <div class="label">[ 01 ]<br>The process</div>
+        <div class="prog"><div class="fill" id="progFill"></div></div>
+      </div>
+      <div class="tl-steps" id="tlSteps">
+
+        <article class="tl-step" data-step="0">
+          <div class="num-row">
+            <span class="knob"></span>
+            <span class="ix">Step 01 · Talk</span>
+            <span class="dur">~ 15 minutes</span>
+          </div>
+          <h2 class="js-split">A free, <em>honest</em> first conversation.</h2>
+          <p class="lead js-reveal">Share your reports over a <a href="tel:+919990959440">phone call</a> or <a href="https://wa.me/919990959440" target="_blank" rel="noopener">WhatsApp</a>. Your coordinator listens, asks the right questions, and frames your options honestly — even if that means telling you a procedure may not be needed yet.</p>
+          <div class="bullets">
+            <div class="b js-reveal"><div class="k">What we ask</div><p>Symptoms, history, prior consultations, current medications and what's worrying you most. No medical jargon.</p></div>
+            <div class="b js-reveal"><div class="k">What we share</div><p>The range of treatment options, what each one involves, and what a realistic timeline and cost would look like.</p></div>
+            <div class="b js-reveal"><div class="k">Privacy</div><p>Your reports stay with our care team. We never share them with hospitals before your explicit consent.</p></div>
+            <div class="b js-reveal"><div class="k">No pressure</div><p>If you decide it's not the right time, we close the file. No follow-up sales calls. Ever.</p></div>
+          </div>
+        </article>
+
+        <article class="tl-step" data-step="1">
+          <div class="num-row">
+            <span class="knob"></span>
+            <span class="ix">Step 02 · Match</span>
+            <span class="dur">~ 24 hours</span>
+          </div>
+          <h2 class="js-split">The right specialist. <em>The right hospital.</em></h2>
+          <p class="lead js-reveal">We match you with a senior surgeon and a facility chosen for your specific condition — never the highest commission. Our network is curated for outcomes, not advertising.</p>
+          <div class="bullets">
+            <div class="b js-reveal"><div class="k">Senior specialists</div><p>Every doctor we work with has 10+ years of experience in their specialty. Reputed, not just well-marketed.</p></div>
+            <div class="b js-reveal"><div class="k">Right hospital</div><p>We pick the facility that fits your procedure, location and insurance — not a flat "preferred partner" list.</p></div>
+            <div class="b js-reveal"><div class="k">Second opinion</div><p>For major procedures we arrange an independent second opinion before any final decision.</p></div>
+            <div class="b js-reveal"><div class="k">Patient fit</div><p>Bedside manner, language, hospital ambience and family-friendliness all factor into who we recommend.</p></div>
+          </div>
+        </article>
+
+        <article class="tl-step" data-step="2">
+          <div class="num-row">
+            <span class="knob"></span>
+            <span class="ix">Step 03 · Plan</span>
+            <span class="dur">~ 48–72 hours</span>
+          </div>
+          <h2 class="js-split">Written estimate. <em>Cashless approval.</em></h2>
+          <p class="lead js-reveal">Procedure, costs, timelines and recovery plan — in writing. We coordinate insurance pre-approvals before admission, so you never receive a surprise bill at discharge.</p>
+          <div class="bullets">
+            <div class="b js-reveal"><div class="k">Itemised estimate</div><p>Surgeon's fee, hospital, anaesthesia, room category, implants, medications — line by line. No vague totals.</p></div>
+            <div class="b js-reveal"><div class="k">Cashless coverage</div><p>100% cashless across major Indian health insurers. We file paperwork and get pre-authorisation before admission.</p></div>
+            <div class="b js-reveal"><div class="k">Scheduling</div><p>Procedure dates, pre-op tests, dietary instructions and family logistics — all booked and confirmed in one go.</p></div>
+            <div class="b js-reveal"><div class="k">Recovery plan</div><p>You see the expected post-op timeline upfront — time off work, garments, follow-ups, restrictions.</p></div>
+          </div>
+        </article>
+
+        <article class="tl-step" data-step="3">
+          <div class="num-row">
+            <span class="knob"></span>
+            <span class="ix">Step 04 · Heal</span>
+            <span class="dur">Through full recovery</span>
+          </div>
+          <h2 class="js-split">Treatment, discharge, <em>follow-through.</em></h2>
+          <p class="lead js-reveal">Admission, surgery, discharge and follow-up visits — handled. Your coordinator stays reachable through recovery and beyond, for every question, every report, every concerned family member.</p>
+          <div class="bullets">
+            <div class="b js-reveal"><div class="k">Day of admission</div><p>We meet you at the hospital, handle paperwork, and brief your family on the timeline.</p></div>
+            <div class="b js-reveal"><div class="k">Post-op</div><p>Discharge summary explained, prescriptions arranged, follow-up visits booked. We translate the medical-speak.</p></div>
+            <div class="b js-reveal"><div class="k">Always reachable</div><p>WhatsApp, phone or in-person — Monday to Saturday, 9 to 9. Real humans, not chatbots.</p></div>
+            <div class="b js-reveal"><div class="k">Beyond</div><p>For complex procedures we stay in touch for months. Recovery isn't a deadline — it's a relationship.</p></div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT TO EXPECT -->
+<section class="expect">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="js-split">What to <em>expect.</em></h2>
+      <p class="js-reveal">A quick scan of how the experience feels in practice — what we ask of you, what you can ask of us, and where it ends.</p>
+    </div>
+    <div class="expect-grid">
+      <div class="e js-reveal"><div class="k">/ 01 — From you</div><h5>Just your reports.</h5><p>Any prior consultations, scans, prescriptions or test results — shared securely on WhatsApp or email. That's the entire ask.</p></div>
+      <div class="e js-reveal"><div class="k">/ 02 — From us</div><h5>Clarity, in writing.</h5><p>Specialist match, full written estimate, cashless approval, scheduling and a single coordinator from start to recovery.</p></div>
+      <div class="e js-reveal"><div class="k">/ 03 — From neither</div><h5>No surprises.</h5><p>No hidden fees at discharge, no late-night sales calls, no auto-enrolment into anything you didn't agree to.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSURANCE -->
+<section class="insurance">
+  <div class="wrap">
+    <div class="ins-grid">
+      <div>
+        <div class="eyebrow js-reveal" style="color:rgba(202,240,248,.6);margin-bottom:18px">[ 02 ] Insurance &amp; cashless</div>
+        <h2 class="js-split">100% cashless. <em>All major insurers.</em></h2>
+      </div>
+      <p class="js-reveal">We handle pre-authorisation directly with your insurer before admission — so you don't pay out of pocket and then chase reimbursement. Coverage spans all major Indian health insurance providers and corporate plans.</p>
+    </div>
+    <div class="ins-pills">
+      <span class="pill js-reveal">Star Health</span>
+      <span class="pill js-reveal">HDFC ERGO</span>
+      <span class="pill js-reveal">ICICI Lombard</span>
+      <span class="pill js-reveal">Bajaj Allianz</span>
+      <span class="pill js-reveal">Care Health</span>
+      <span class="pill js-reveal">Niva Bupa</span>
+      <span class="pill js-reveal">Tata AIG</span>
+      <span class="pill js-reveal">Reliance General</span>
+      <span class="pill js-reveal">Aditya Birla Health</span>
+      <span class="pill js-reveal">ManipalCigna</span>
+      <span class="pill js-reveal">New India Assurance</span>
+      <span class="pill js-reveal">Corporate &amp; CGHS plans</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faqs">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="js-split">Common <em>questions.</em></h2>
+      <p class="js-reveal">If your question isn't here, ask us directly — <a href="mailto:info@aureviahealthcare.com">info@aureviahealthcare.com</a> or via <a href="https://wa.me/919990959440" target="_blank" rel="noopener">WhatsApp</a>.</p>
+    </div>
+    <div class="faq-list">
+      <details class="faq js-reveal"><summary><span class="ix">/ 01</span>Is the initial consultation actually free?</summary><div class="ans">Yes — the first consultation with our care team is completely free, and so is the second opinion we arrange before any major procedure. You only pay if and when you choose to proceed with treatment.</div></details>
+      <details class="faq js-reveal"><summary><span class="ix">/ 02</span>How is Aurevia different from a hospital's helpline?</summary><div class="ans">A hospital's helpline is naturally trying to bring you into that hospital. We are independent — we recommend the specialist and facility that fit your condition, even if that's a different hospital than the one closest to us. Outcomes first, always.</div></details>
+      <details class="faq js-reveal"><summary><span class="ix">/ 03</span>Do you take a commission from the hospital?</summary><div class="ans">We're a healthcare facilitation platform — fee structures are transparent and never come at the cost of your recommendation. We tell every patient honestly when a procedure isn't needed, and that policy has never changed.</div></details>
+      <details class="faq js-reveal"><summary><span class="ix">/ 04</span>Will my insurance really be cashless?</summary><div class="ans">Yes — for any procedure covered under your policy, we file the cashless paperwork and obtain pre-authorisation before admission. You don't pay out of pocket and chase reimbursement later.</div></details>
+      <details class="faq js-reveal"><summary><span class="ix">/ 05</span>What if I'm not based in Delhi NCR or Mumbai?</summary><div class="ans">Many of our patients travel from other cities for specific specialists. We coordinate stay, transport, pre-op tests and follow-up reports digitally — so out-of-town doesn't mean out of touch.</div></details>
+      <details class="faq js-reveal"><summary><span class="ix">/ 06</span>Can I choose my own surgeon?</summary><div class="ans">Absolutely. If you already have a doctor you trust, we can coordinate care around them. If you don't, we'll match you to one of our senior specialists — and you can change your mind at any point before treatment.</div></details>
+      <details class="faq js-reveal"><summary><span class="ix">/ 07</span>How quickly can a procedure be scheduled?</summary><div class="ans">Routine procedures are usually scheduled within a week or two. Urgent conditions are prioritised — we've coordinated same-day specialist consultations and admissions when the situation needed it.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div>
+        <div class="eyebrow js-reveal">[ 03 ] Step zero</div>
+        <h2 class="js-split" style="margin-top:18px">Start with <em>a phone call.</em></h2>
+        <p class="cta-sub js-reveal">It's free. It's honest. It's the only commitment we'll ever ask of you.</p>
+        <div class="js-reveal" style="margin-top:36px;display:flex;flex-direction:column;gap:18px;align-items:flex-start">
+          <div><div class="eyebrow">Direct line</div><div style="font-family:'Newsreader',serif;font-size:32px;margin-top:6px"><a href="tel:+919990959440">+91 99909 59440</a></div></div>
+          <div><div class="eyebrow">Email</div><div style="font-family:'Newsreader',serif;font-size:32px;margin-top:6px"><a href="mailto:info@aureviahealthcare.com">info@aureviahealthcare.com</a></div></div>
+          <div><div class="eyebrow">WhatsApp</div><div style="font-family:'Newsreader',serif;font-size:32px;margin-top:6px"><a href="https://wa.me/919990959440" target="_blank" rel="noopener">Chat now</a></div></div>
+        </div>
+      </div>
+      <form class="form js-reveal" onsubmit="event.preventDefault(); this.querySelector('.submit').textContent='Thank you — we\\'ll be in touch ✦'">
+        <div class="row"><div><label>Your name</label><input type="text" placeholder="Full name" required></div><div><label>Phone</label><input type="tel" placeholder="+91 ..." required></div></div>
+        <div class="row"><div><label>City</label><select><option>Delhi</option><option>Noida</option><option>Gurgaon</option><option>Ghaziabad</option><option>Mumbai</option><option>Other</option></select></div><div><label>Treatment of interest</label><select><option>I'm not sure yet</option><option>LASIK</option><option>Cataract</option><option>Sinus</option><option>Tonsillectomy</option><option>Liposuction</option><option>Lipoma</option><option>Rhinoplasty</option><option>Gynecomastia</option><option>Kidney stones</option><option>Hernia</option></select></div></div>
+        <label>Tell us briefly</label>
+        <textarea placeholder="A few lines about your condition, reports, or questions..."></textarea>
+        <button class="submit" type="submit">Request my consultation <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6H17M17 6L12 1M17 6L12 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+        <div class="legal">Your details are used only to set up your consultation. We never share them with hospitals before your consent.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand"><img src="/aurevia/assets/logo.png" alt="Aurevia"><div class="word">Aurevia</div><p>A trusted healthcare facilitation platform connecting patients with senior specialists, reputed hospitals and cashless treatment — across Delhi NCR and Mumbai.</p>
+      <div class="foot-social-label">Follow us</div>
+      <div class="foot-social">
+        <a href="https://www.instagram.com/aureviahealthcare/" target="_blank" rel="noopener noreferrer" class="ig" aria-label="Aurevia on Instagram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/company/aurevia-healthcare/" target="_blank" rel="noopener noreferrer" class="li" aria-label="Aurevia on LinkedIn">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+      </div>
+</div>
+      <div class="foot-col"><h6>Care</h6><ul><li><a href="treatments.html">All treatments</a></li><li><a href="how-it-works.html">How it works</a></li><li><a href="locations.html">Locations</a></li><li><a href="index.html#contact">Free consultation</a></li></ul></div>
+      <div class="foot-col"><h6>Aurevia</h6><ul><li><a href="about.html">About</a></li><li><a href="voices.html">Patient voices</a></li><li><a href="#">Insurance partners</a></li><li><a href="#">Careers</a></li></ul></div>
+      <div class="foot-col"><h6>Reach</h6><ul><li><a href="tel:+919990959440">+91 99909 59440</a></li><li><a href="mailto:info@aureviahealthcare.com">info@aureviahealthcare.com</a></li><li><a href="https://wa.me/919990959440" target="_blank" rel="noopener">WhatsApp - 9 to 9</a></li><li><a href="mailto:info@aureviahealthcare.com">Press &amp; partnerships</a></li></ul></div>
+    </div>
+    <div class="foot-bot"><div>© 2026 Aurevia Healthcare. All rights reserved.</div><div>Privacy · Terms · Disclaimer</div></div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/aurevia/motion.js"></script>
+<script>
+/* Active step tracker + progress fill */
+const steps = gsap.utils.toArray('.tl-step');
+const fill = document.getElementById('progFill');
+steps.forEach((s, i) => {
+  ScrollTrigger.create({
+    trigger: s, start: 'top 50%', end: 'bottom 50%',
+    onEnter: () => s.classList.add('active'),
+    onLeaveBack: () => s.classList.remove('active')
+  });
+});
+ScrollTrigger.create({
+  trigger: '#tlSteps', start: 'top center', end: 'bottom center',
+  onUpdate: self => { if(fill) fill.style.height = (self.progress*100) + '%'; }
+});
+</script>
+</body>
+</html>
