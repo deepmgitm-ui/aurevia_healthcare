@@ -25,7 +25,7 @@ export default function Footer() {
               <span className="text-[30px] font-black tracking-tight text-white leading-none">Aurevia</span>
             </Link>
             <p className="text-[13.5px] text-[#CAF0F8]/58 max-w-[310px] leading-relaxed">
-              A trusted healthcare facilitation platform connecting patients with senior specialists, reputed hospitals and cashless treatment — across Delhi NCR and Mumbai.
+              A trusted healthcare facilitation platform connecting patients with senior specialists, reputed hospitals and cashless treatment across 8 major regions in India.
             </p>
           </div>
 

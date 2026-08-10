@@ -15,8 +15,8 @@ const serviceDetails: Record<string, any> = {
   "lasik": { 
     title: "LASIK Treatment", 
     category: "Eye Care",
-    bgImage: "/treatments/lasik-bg.jpg", 
-    icon: "/services/lasik_02.PNG", 
+    bgImage: "/treatments/lasik-bg.webp",
+    icon: "/services/lasik_02.webp",
     overview: "LASIK (Laser-Assisted In Situ Keratomileusis) is a popular refractive surgery that corrects vision problems...",
     procedure: "The procedure involves creating a thin flap in the cornea using a femtosecond laser...",
     benefits: ["Immediate vision improvement.", "Freedom from glasses.", "Pain-free procedure."],
@@ -26,8 +26,8 @@ const serviceDetails: Record<string, any> = {
   "cataract": { 
     title: "Cataract Surgery", 
     category: "Eye Care",
-    bgImage: "/treatments/cataract-bg.jpg", 
-    icon: "/services/cataract_02.PNG", 
+    bgImage: "/treatments/cataract-bg.webp",
+    icon: "/services/cataract_02.webp",
     overview: "Cataract surgery involves removing the clouded lens of the eye...",
     procedure: "The surgeon makes a tiny incision in the eye and uses ultrasound...",
     benefits: ["Restores clear vision.", "Improves quality of life.", "Short procedure."],
@@ -37,8 +37,8 @@ const serviceDetails: Record<string, any> = {
   "sinus": { 
     title: "Sinus Treatment", 
     category: "ENT",
-    bgImage: "/treatments/sinus-bg.jpg", 
-    icon: "/services/sinus_02.PNG", 
+    bgImage: "/treatments/sinus-bg.webp",
+    icon: "/services/sinus_02.webp",
     overview: "FESS (Functional Endoscopic Sinus Surgery) is a minimally invasive procedure...",
     procedure: "Using a thin endoscope inserted through the nostrils...",
     benefits: ["Relief from chronic headaches.", "Improved breathing.", "Reduction in sinus infections."],
@@ -93,7 +93,7 @@ const serviceDetails: Record<string, any> = {
     title: "Gynecomastia Surgery", 
     category: "Aesthetics",
     bgImage: "/treatments/gynecomastia-bg.jpg", 
-    icon: "/services/gynecomastia_02.PNG", 
+    icon: "/services/gynecomastia_02.webp",
     overview: "Male breast reduction surgery treats gynecomastia...",
     procedure: "Liposuction is used to remove excess fat...",
     benefits: ["Flatter chest contour.", "Boost in self-confidence.", "Permanent removal."],
@@ -167,8 +167,8 @@ export default function ServiceClient() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 py-5 px-4 text-sm md:text-lg font-bold transition-all ${
                   activeTab === tab.id 
-                    ? "bg-[#4FA6D8] text-white" 
-                    : "bg-white text-gray-500 hover:bg-gray-50 hover:text-[#4FA6D8]"
+                    ? "bg-[#147D86] text-white"
+                    : "bg-white text-gray-500 hover:bg-gray-50 hover:text-[#147D86]"
                 }`}
               >
                 {tab.label}
@@ -207,7 +207,7 @@ export default function ServiceClient() {
           <div className="bg-gray-50 p-8 flex flex-col md:flex-row gap-6 justify-center items-center border-t">
              <p className="font-semibold text-gray-500">Have questions about this procedure?</p>
              <div className="flex gap-4">
-               <a href="tel:+919990959440" className="bg-[#4FA6D8] text-white px-6 py-3 rounded-full font-bold shadow-md hover:scale-105 transition-transform">Call Expert</a>
+               <a href="tel:+919990959440" className="bg-[#147D86] text-white px-6 py-3 rounded-full font-bold shadow-md hover:scale-105 transition-transform">Call Expert</a>
                <a href="https://wa.me/919990959440" className="bg-green-600 text-white px-6 py-3 rounded-full font-bold shadow-md hover:scale-105 transition-transform">WhatsApp</a>
              </div>
           </div>

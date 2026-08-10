@@ -11,6 +11,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, MessageCircle } from "lucide-react";
 import Link from "next/link";
+import { siteLocations } from "@/lib/siteLocations";
 
 // --- DATA ---
 const serviceDetails: Record<string, any> = {
@@ -21,8 +22,8 @@ const serviceDetails: Record<string, any> = {
     benefits: ["Immediate vision improvement.", "Freedom from glasses.", "Pain-free procedure."],
     eligibility: "Suitable for adults over 18 with stable vision.",
     recovery: "Most patients notice improved vision within 24 hours.",
-    icon: "/services/lasik_02.PNG",
-    bgImage: "/treatments/lasik-bg.jpg"
+    icon: "/services/lasik_02.webp",
+    bgImage: "/treatments/lasik-bg.webp"
   },
   "cataract": { 
     title: "Cataract Surgery", 
@@ -31,8 +32,8 @@ const serviceDetails: Record<string, any> = {
     benefits: ["Restores clear vision.", "Improves quality of life.", "Short procedure."],
     eligibility: "Individuals whose vision is significantly impaired.",
     recovery: "Vision improves within a few days.",
-    icon: "/services/cataract_02.PNG",
-    bgImage: "/treatments/cataract-bg.jpg"
+    icon: "/services/cataract_02.webp",
+    bgImage: "/treatments/cataract-bg.webp"
   },
   "sinus": { 
     title: "Sinus Treatment", 
@@ -41,8 +42,8 @@ const serviceDetails: Record<string, any> = {
     benefits: ["Relief from chronic headaches.", "Improved breathing.", "Reduction in infections."],
     eligibility: "Patients with chronic sinusitis.",
     recovery: "Mild congestion is common for a week.",
-    icon: "/services/sinus_02.PNG",
-    bgImage: "/treatments/sinus-bg.jpg"
+    icon: "/services/sinus_02.webp",
+    bgImage: "/treatments/sinus-bg.webp"
   },
   "tonsillectomy": { 
     title: "Tonsillectomy", 
@@ -91,7 +92,7 @@ const serviceDetails: Record<string, any> = {
     benefits: ["Flatter chest contour.", "Boost in self-confidence.", "Permanent removal."],
     eligibility: "Men with persistent enlarged breasts.",
     recovery: "Compression garments worn for a few weeks.",
-    icon: "/services/gynecomastia_02.PNG",
+    icon: "/services/gynecomastia_02.webp",
     bgImage: "/treatments/gynecomastia-bg.jpg"
   },
   "kidney-stone": { 
@@ -131,7 +132,9 @@ export default function LocationClient() {
     const params = useParams();
     const slug = params?.slug as string;
     const location = params?.location as string;
-    const formattedLocation = location ? location.charAt(0).toUpperCase() + location.slice(1) : "India";
+    const formattedLocation = siteLocations.find(({ slug: locationSlug }) => locationSlug === location)?.name
+      ?? location?.split("-").map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ")
+      ?? "India";
     const service = serviceDetails[slug] || serviceDetails["default"];
     const [activeTab, setActiveTab] = useState("overview");
 
@@ -146,7 +149,7 @@ export default function LocationClient() {
     return (
         <main className="min-h-screen bg-gray-50">
             {/* HERO SECTION */}
-            <section className="relative bg-[#189AB4] text-white overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24">
+            <section className="relative bg-[#0B485B] text-white overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24">
                 <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/medical-icons.png')]"></div>
                 
                 <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center relative z-10">
@@ -159,16 +162,16 @@ export default function LocationClient() {
                             </motion.div>
                         </Link>
                         <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                            Seeking best <span className="text-yellow-300">{service.title}</span> in <span className="capitalize">{formattedLocation}?</span>
+                            Seeking best <span className="text-[#9DDED8]">{service.title}</span> in <span>{formattedLocation}?</span>
                         </h1>
                         <p className="text-lg md:text-xl text-white/90 leading-relaxed">
-                            Aurevia Health Care offers high-end {service.title} that is fast, safe, and highly effective. Get the best medical guidance in <span className="font-bold capitalize">{formattedLocation}</span> with our expert network.
+                            Aurevia Healthcare coordinates specialist-led {service.title} guidance and end-to-end support in <span className="font-bold">{formattedLocation}</span> through our care network.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                            <motion.a whileHover={{ scale: 1.05 }} href="tel:+919990959440" className="bg-[#DC2626] text-white px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2 shadow-lg hover:bg-red-700 transition-colors">
+                            <motion.a whileHover={{ scale: 1.05 }} href="tel:+919990959440" className="bg-[#147D86] text-white px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2 shadow-lg hover:bg-[#106872] transition-colors">
                                 <Phone size={20} /> Contact Us
                             </motion.a>
-                            <motion.a whileHover={{ scale: 1.05 }} href="https://wa.me/919990959440" className="bg-white text-[#189AB4] px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2 shadow-lg hover:bg-gray-100 transition-colors">
+                            <motion.a whileHover={{ scale: 1.05 }} href="https://wa.me/919990959440" className="bg-white text-[#0B485B] px-8 py-4 rounded-full font-bold text-lg flex items-center justify-center gap-2 shadow-lg hover:bg-[#E9F7F5] transition-colors">
                                 <MessageCircle size={20} /> WhatsApp Now
                             </motion.a>
                         </div>
@@ -197,7 +200,7 @@ export default function LocationClient() {
                 <div className="bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-gray-100">
                     <div className="flex flex-wrap border-b bg-gray-50">
                         {tabs.map((tab) => (
-                            <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 py-4 px-4 text-sm md:text-lg font-bold transition-all ${activeTab === tab.id ? "bg-[#189AB4] text-white" : "text-gray-600 hover:text-[#189AB4] hover:bg-white"}`}>
+                            <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 py-4 px-4 text-sm md:text-lg font-bold transition-all ${activeTab === tab.id ? "bg-[#147D86] text-white" : "text-gray-600 hover:text-[#147D86] hover:bg-white"}`}>
                                 {tab.label}
                             </button>
                         ))}
@@ -219,8 +222,8 @@ export default function LocationClient() {
                                 {activeTab === "benefits" ? (
                                     <ul className="space-y-4">
                                         {service.benefits?.map((benefit: string, index: number) => (
-                                            <li key={index} className="flex items-start gap-3 bg-blue-50 p-4 rounded-lg border-l-4 border-[#189AB4]">
-                                                <span className="text-[#189AB4] font-bold">✓</span>
+                                            <li key={index} className="flex items-start gap-3 bg-[#E9F7F5] p-4 rounded-lg border-l-4 border-[#147D86]">
+                                                <span className="text-[#147D86] font-bold">✓</span>
                                                 <span className="text-gray-700 font-medium">{benefit}</span>
                                             </li>
                                         ))}

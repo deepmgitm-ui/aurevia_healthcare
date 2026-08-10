@@ -16,7 +16,7 @@ function getTreatmentsFragments() {
 
   const startMarker = "<!-- 10 ORTHOPEDIC -->";
 
-  let bodyHtml = body
+  const bodyHtml = body
     .replace(/<script\b[\s\S]*?<\/script>/gi, "")
     .replace(/href="index\.html#contact"/g, 'href="/#contact"')
     .replace(/href="index\.html/g, 'href="/')
@@ -31,7 +31,10 @@ function getTreatmentsFragments() {
     .replace(
       /<form\b[^>]*class="form[^>]*>[\s\S]*?<\/form>/i,
       '<div id="react-contact-form-portal"></div>',
-    );
+    )
+    .replace(/>(\s*)\[\s*\d{2}\s*\]\s*/g, ">$1")
+    .replace(/>(\s*)\/\s*\d{2}\s*(?:[—-]\s*)?/g, ">$1")
+    .replace(/>(\s*)\d{2}\s*[—-]\s*/g, ">$1");
 
   const articleStart = bodyHtml.indexOf(startMarker);
   const articleEnd = articleStart >= 0 ? bodyHtml.indexOf("</article>", articleStart) + "</article>".length : -1;
@@ -61,7 +64,7 @@ function OrthopedicArticle() {
     <article id="orthopedic" className="proc light">
       <div className="wrap">
         <div className="proc-head">
-          <div className="num">/ 10 - Orthopedic surgery</div>
+          <div className="num">Orthopedic surgery</div>
           <h2 className="js-split">
             Orthopedic <em>care</em>
           </h2>
@@ -77,7 +80,7 @@ function OrthopedicArticle() {
 
         <figure className="proc-media js-reveal">
           <img
-            src="/aurevia/treatments/orthopedic.png"
+            src="/aurevia/treatments/orthopedic.webp"
             alt="Orthopedic consultation with joint model and scan review"
             loading="lazy"
           />
@@ -155,7 +158,7 @@ export default function TreatmentsPage() {
       <link rel="stylesheet" href="/aurevia/styles.css" />
       {styles ? <style dangerouslySetInnerHTML={{ __html: styles }} /> : null}
 
-      <main className="aurevia-static-page">
+      <main className="aurevia-static-page aurevia-page-treatments">
         <div dangerouslySetInnerHTML={{ __html: beforeOrthopedic }} />
         <OrthopedicArticle />
         <div dangerouslySetInnerHTML={{ __html: afterOrthopedic }} />

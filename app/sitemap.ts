@@ -1,6 +1,7 @@
 export const dynamic = "force-static";
 
 import type { MetadataRoute } from "next";
+import { siteLocationSlugs } from "@/lib/siteLocations";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://aureviahealthcare.com";
@@ -17,8 +18,6 @@ const services = [
   "kidney-stone",
   "dental",
 ];
-
-const locations = ["delhi", "gurgaon", "noida", "mumbai"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Static pages
@@ -47,7 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Location pages (e.g., /services/lasik/delhi)
   const locationRoutes: MetadataRoute.Sitemap = services.flatMap((slug) =>
-    locations.map((loc) => ({
+    siteLocationSlugs.map((loc) => ({
       url: `${siteUrl}/services/${slug}/${loc}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,

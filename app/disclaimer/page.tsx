@@ -37,14 +37,14 @@ export default function DisclaimerPage() {
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4 font-urbanist">3. Guarantee of Outcomes</h2>
               <p>
-                Aurevia Healthcare coordinates with highly experienced surgeons (typically with 10+ years of average experience) and partner hospitals in Delhi NCR and Mumbai to ensure the highest standards of safety and care. However, we cannot and do not guarantee specific medical outcomes or results for any treatment or surgery.
+                Aurevia Healthcare coordinates with highly experienced surgeons (typically with 10+ years of average experience) and partner hospitals across its 8 published service regions in India to support high standards of safety and care. However, we cannot and do not guarantee specific medical outcomes or results for any treatment or surgery.
               </p>
             </div>
 
             <div className="border-t pt-8">
               <h3 className="text-lg font-bold text-gray-900 font-urbanist">Questions?</h3>
               <p className="mt-2">
-                If you have any questions regarding this Medical Disclaimer, please contact us at <a href="mailto:info@aureviahealthcare.com" className="text-[#4FA6D8] hover:underline">info@aureviahealthcare.com</a>.
+                If you have any questions regarding this Medical Disclaimer, please contact us at <a href="mailto:info@aureviahealthcare.com" className="text-[#147D86] hover:underline">info@aureviahealthcare.com</a>.
               </p>
             </div>
 

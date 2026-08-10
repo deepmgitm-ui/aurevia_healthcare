@@ -4,6 +4,7 @@
 // }
 
 import LocationClient from "./LocationClient";
+import { siteLocationSlugs } from "@/lib/siteLocations";
 
 export async function generateStaticParams() {
   const services = [
@@ -12,11 +13,9 @@ export async function generateStaticParams() {
     "gynecomastia", "kidney-stone", "dental"
   ];
   
-  const locations = ["delhi", "gurgaon", "noida", "mumbai"];
-
   const params = [];
   for (const slug of services) {
-    for (const loc of locations) {
+    for (const loc of siteLocationSlugs) {
       params.push({ slug: slug, location: loc });
     }
   }

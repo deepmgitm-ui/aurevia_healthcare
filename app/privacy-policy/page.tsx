@@ -14,7 +14,7 @@ export default function PrivacyPolicyPage() {
           <div className="space-y-10 text-gray-700 leading-relaxed">
             
             <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100">
-              <h2 className="text-xl font-bold text-[#4FA6D8] mb-3 font-urbanist">1. Commitment to Privacy</h2>
+              <h2 className="text-xl font-bold text-[#147D86] mb-3 font-urbanist">1. Commitment to Privacy</h2>
               <p>
                 At <strong>Aurevia Health Care</strong>, your privacy is our utmost priority. We are committed to protecting 
                 your personal and medical information. This policy outlines how we collect, use, and safeguard your data 
@@ -72,7 +72,7 @@ export default function PrivacyPolicyPage() {
             <div className="border-t pt-8">
               <h3 className="text-lg font-bold text-gray-900 font-urbanist">Contact Us</h3>
               <p className="mt-2">
-                If there are any questions regarding this privacy policy, you may contact us at <a href="mailto:info@aureviahealthcare.com" className="text-[#4FA6D8] hover:underline">info@aureviahealthcare.com</a>.
+                If there are any questions regarding this privacy policy, you may contact us at <a href="mailto:info@aureviahealthcare.com" className="text-[#147D86] hover:underline">info@aureviahealthcare.com</a>.
               </p>
             </div>
 

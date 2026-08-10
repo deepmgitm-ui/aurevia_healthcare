@@ -77,7 +77,7 @@ export default function TermsConditionsPage() {
             <div className="border-t pt-8">
               <h3 className="text-lg font-bold text-gray-900 font-urbanist">Questions?</h3>
               <p className="mt-2">
-                Please contact us at <a href="mailto:info@aureviahealthcare.com" className="text-[#4FA6D8] hover:underline">info@aureviahealthcare.com</a> for any queries related to these terms.
+                Please contact us at <a href="mailto:info@aureviahealthcare.com" className="text-[#147D86] hover:underline">info@aureviahealthcare.com</a> for any queries related to these terms.
               </p>
             </div>
 

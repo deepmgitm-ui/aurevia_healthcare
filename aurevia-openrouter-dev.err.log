@@ -1,0 +1,25 @@
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of C:\Users\polit\yarn.lock as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * C:\Users\polit\Desktop\aurevia-health-care\package-lock.json
+
+Browserslist: browsers data (caniuse-lite) is 8 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Chat API request failed: SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)
+    at JSON.parse (<anonymous>)
+⨯ ReferenceError: Cannot access 'AUREVIA_SITE_CONTEXT' before initialization
+    at module evaluation (app\api\chat\route.ts:42:3)
+    at Object.<anonymous> (C:\Users\polit\Desktop\aurevia-health-care\.next\dev\server\app\api\chat\route.js:5:3)
+  40 | - Reply in the visitor's language when clear, including Hindi/Hinglish, while keeping the tone professional.
+  41 |
+> 42 | ${AUREVIA_SITE_CONTEXT}`;
+     |   ^
+  43 |
+  44 | function redactSensitiveData(value: string) {
+  45 |   return value {
+  page: '/api/chat'
+}
+OpenRouter API error: 429 {"error":{"message":"Provider returned error","code":429,"metadata":{"raw":"google/gemma-4-26b-a4b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations","provider_name":"Darkbloom","is_byok":false,"provider_error_code":"rate_limit_exceeded","limit_source":"upstream_provider_shared_pool","remedy_hint":"Retry shortly, add your own provider key (https://openrouter.ai/settings/integrations), or route to another provider with provider routing: https://openrouter.ai/docs/features/provider-routing","retry_after_seconds":22,"retry_after_seconds_raw":22,"previous_errors":[{"code":429,"message":"Provider returned error","provider_name":"Google AI Studio","raw":"google/gemma-4-26b-a4b-it:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations"}]}},"user_id":"user_3HRYebtYaG8A7ByZbZTMecJRHWf"}

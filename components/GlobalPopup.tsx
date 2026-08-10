@@ -5,6 +5,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import ContactForm from "./ContactForm";
 
+type ConsultationWindow = Window & {
+  openConsultationModal?: () => void;
+  closeConsultationModal?: () => void;
+};
+
+const INITIAL_POPUP_DELAY_MS = 1_000;
+const SECOND_POPUP_DELAY_MS = 60_000;
+const RECURRING_POPUP_START_MS = SECOND_POPUP_DELAY_MS + 120_000;
+const RECURRING_POPUP_INTERVAL_MS = 120_000;
+
 export default function GlobalPopup() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -19,17 +29,35 @@ export default function GlobalPopup() {
   }, []);
 
   useEffect(() => {
-    const initialTimer = setTimeout(() => { openModal(); }, 5000);
-    const intervalTimer = setInterval(() => { openModal(); }, 90000);
-    return () => { clearTimeout(initialTimer); clearInterval(intervalTimer); };
+    const initialTimer = setTimeout(() => {
+      openModal();
+    }, INITIAL_POPUP_DELAY_MS);
+
+    const secondTimer = setTimeout(() => {
+      openModal();
+    }, SECOND_POPUP_DELAY_MS);
+
+    let recurringInterval: ReturnType<typeof setInterval> | undefined;
+    const recurringStartTimer = setTimeout(() => {
+      openModal();
+      recurringInterval = setInterval(openModal, RECURRING_POPUP_INTERVAL_MS);
+    }, RECURRING_POPUP_START_MS);
+
+    return () => {
+      clearTimeout(initialTimer);
+      clearTimeout(secondTimer);
+      clearTimeout(recurringStartTimer);
+      if (recurringInterval) clearInterval(recurringInterval);
+    };
   }, [openModal]);
 
   useEffect(() => {
-    (window as any).openConsultationModal = openModal;
-    (window as any).closeConsultationModal = closeModal;
+    const consultationWindow = window as ConsultationWindow;
+    consultationWindow.openConsultationModal = openModal;
+    consultationWindow.closeConsultationModal = closeModal;
     return () => {
-      (window as any).openConsultationModal = undefined;
-      (window as any).closeConsultationModal = undefined;
+      consultationWindow.openConsultationModal = undefined;
+      consultationWindow.closeConsultationModal = undefined;
     };
   }, [openModal, closeModal]);
 
@@ -44,7 +72,7 @@ export default function GlobalPopup() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[150] flex items-center justify-center p-3 sm:p-4 md:p-8 lg:p-12">
+        <div className="fixed inset-0 z-[150] flex items-center justify-center p-2 sm:p-4">
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={closeModal}
             className="fixed inset-0 bg-black/70 backdrop-blur-sm cursor-pointer"
@@ -52,28 +80,28 @@ export default function GlobalPopup() {
 
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 15 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 15 }} transition={{ type: "spring", duration: 0.4 }}
-            className="relative w-full max-w-4xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl max-h-[92vh] flex flex-col overflow-hidden font-urbanist z-10"
+            className="consultation-popup-card relative w-full max-w-xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden font-urbanist z-10"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="consultation-popup-title"
           >
             <button
               onClick={closeModal}
-              className="absolute top-3 right-3 sm:top-4 sm:right-4 z-50 w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white hover:text-red-300 transition-all duration-200 cursor-pointer backdrop-blur-sm"
+              className="absolute top-2 right-2 sm:top-3 sm:right-3 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white hover:text-red-300 transition-all duration-200 cursor-pointer backdrop-blur-sm"
               aria-label="Close modal"
             >
               <X size={20} className="stroke-[2.5]" />
             </button>
 
-            <div className="bg-gradient-to-r from-[#03045E] to-[#0077B6] px-5 py-5 sm:p-6 text-center text-white shrink-0">
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 font-urbanist tracking-tight">Request Free Consultation</h3>
-              <p className="text-[#90E0EF] text-xs sm:text-sm font-medium">Expert medical advice is just a click away · Confidential & Fast</p>
+            <div className="bg-gradient-to-r from-[#0B485B] to-[#147D86] px-12 py-3 sm:px-14 sm:py-4 text-center text-white shrink-0">
+              <h3 id="consultation-popup-title" className="text-lg sm:text-xl font-bold mb-0.5 font-urbanist tracking-tight">Request Free Consultation</h3>
+              <p className="text-[#90E0EF] text-[10px] sm:text-xs font-medium">Quick, confidential and no-obligation</p>
             </div>
 
-            {/* Yaha data-lenis-prevent="true" aur overscroll-contain add kiya hai scroll ke liye */}
             <div
-              className="p-4 sm:p-6 md:p-8 overflow-y-auto flex-1 overscroll-contain"
-              style={{ scrollbarWidth: "thin", scrollbarColor: "rgba(3, 4, 94, 0.2) transparent" }}
-              data-lenis-prevent="true"
+              className="p-3 sm:p-5 flex-1"
             >
-              <ContactForm layout="wide" plain={true} />
+              <ContactForm layout="wide" plain={true} modalCompact={true} />
             </div>
           </motion.div>
         </div>

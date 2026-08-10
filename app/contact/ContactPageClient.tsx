@@ -14,15 +14,15 @@ export default function ContactPageClient() {
       >
         <div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-urbanist">
-            Get in <span className="text-[#4FA6D8]">Touch</span>
+            Get in <span className="text-[#147D86]">Touch</span>
           </h1>
           <p className="text-gray-600 text-lg mb-8">
             Have questions? Our medical experts are available 24/7 to guide you through your healthcare journey.
           </p>
           <div className="space-y-4">
-            <p className="text-gray-800 font-medium">📞 Call us: <a href="tel:+919990959440" className="text-[#4FA6D8] font-bold hover:underline">+91 99909 59440</a></p>
+            <p className="text-gray-800 font-medium">📞 Call us: <a href="tel:+919990959440" className="text-[#147D86] font-bold hover:underline">+91 99909 59440</a></p>
             <p className="text-gray-800 font-medium">💬 WhatsApp: <a href="https://wa.me/919990959440" className="text-green-600 font-bold hover:underline">Chat Now</a></p>
-            <p className="text-gray-800 font-medium">Email: <a href="mailto:info@aureviahealthcare.com" className="text-[#4FA6D8] font-bold hover:underline">info@aureviahealthcare.com</a></p>
+            <p className="text-gray-800 font-medium">Email: <a href="mailto:info@aureviahealthcare.com" className="text-[#147D86] font-bold hover:underline">info@aureviahealthcare.com</a></p>
           </div>
         </div>
 

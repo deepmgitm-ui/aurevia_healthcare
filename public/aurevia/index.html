@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Aurevia Healthcare — Care you can trust</title>
-<meta name="description" content="Aurevia Healthcare — care you can trust. A trusted facilitation platform connecting patients with India's most experienced specialists for advanced, cashless treatment across Delhi NCR & Mumbai." />
+<meta name="description" content="Aurevia Healthcare — care you can trust. Specialist-led healthcare facilitation across 8 major regions in India." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,7 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .doctor-card{position:relative;width:112%;aspect-ratio:1/1;overflow:visible;background:transparent;box-shadow:none;isolation:isolate}
   .doctor-card::after{display:none}
-  .doctor-card img{width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 34px 42px rgba(3,4,94,.18)) saturate(.98) contrast(1.02)}
+  .doctor-card img{width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 34px 42px rgba(11,72,91,.18)) saturate(.98) contrast(1.02)}
   .float-label{position:absolute;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-soft);background:rgba(255,255,255,.88);backdrop-filter:blur(12px);padding:8px 12px;border:1px solid var(--line);border-radius:999px;white-space:nowrap;opacity:1}
   .hero-trust-label{font-family:var(--font-trust-display), "Playfair Display", serif;font-size:13px;font-weight:900;letter-spacing:0.08em;color:var(--ink)}
   .fl-1{top:18%;left:0}
@@ -99,8 +99,8 @@
   /* TREATMENTS PREVIEW */
   .treat-p{padding:120px 0 80px;background:var(--paper-2)}
   .treat-list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
-  .treat-row{display:grid;grid-template-columns:80px 1.3fr 2fr 60px;align-items:center;padding:28px 8px;border-bottom:1px solid var(--line);transition:padding .4s ease;cursor:pointer;position:relative;z-index:1}
-  .treat-row .nm{font-family:"Newsreader",serif;font-size:42px;line-height:1;color:var(--ink);transition:transform .5s cubic-bezier(.6,.1,.2,1),color .4s}
+  .treat-row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,2fr) 60px;align-items:center;padding:28px 8px;border-bottom:1px solid var(--line);transition:padding .4s ease;cursor:pointer;position:relative;z-index:1}
+  .treat-row .nm{min-width:0;white-space:nowrap;font-family:"Newsreader",serif;font-size:42px;line-height:1;color:var(--ink);transition:transform .5s cubic-bezier(.6,.1,.2,1),color .4s}
   .treat-row .ix{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.2em;color:var(--ink-soft)}
   .treat-row .meta{font-size:14px;color:var(--ink-soft);line-height:1.5;padding-right:20px}
   .treat-row .go{justify-self:end;width:42px;height:42px;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;transition:background .35s,border-color .35s,transform .4s}
@@ -130,15 +130,16 @@
   .locations .sec-head h2 em{color:var(--gold)}
   .locations .sec-head p{color:rgba(202,240,248,.7)}
   .locations .sec-head .link{color:var(--paper);border-color:var(--paper)}
-  .loc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid rgba(202,240,248,.16)}
-  .loc-cell{padding:36px 24px 28px;border-right:1px solid rgba(202,240,248,.12);position:relative;transition:background .4s,padding .4s;cursor:default}
-  .loc-cell:last-child{border-right:0}
+  .loc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid rgba(202,240,248,.16)}
+  .loc-cell{padding:36px 24px 28px;border-right:1px solid rgba(202,240,248,.12);border-bottom:1px solid rgba(202,240,248,.12);position:relative;transition:background .4s,padding .4s;cursor:default}
+  .loc-cell:nth-child(4n){border-right:0}
+  .loc-cell:nth-child(n+5){border-bottom:0}
   .loc-cell .ix{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.2em;color:rgba(202,240,248,.5);margin-bottom:50px}
   .loc-cell h6{font-family:"Newsreader",serif;font-size:38px;line-height:1;margin-bottom:10px}
   .loc-cell .sub{font-size:13px;color:rgba(202,240,248,.6)}
   .loc-cell:hover{background:rgba(202,240,248,.04);padding-top:30px}
   .loc-cell .dot{position:absolute;top:36px;right:24px;width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 2.6s infinite}
-  @media (max-width:900px){.loc-grid{grid-template-columns:1fr 1fr}.loc-cell{border-bottom:1px solid rgba(202,240,248,.12)}}
+  @media (max-width:900px){.loc-grid{grid-template-columns:1fr 1fr}.loc-cell:nth-child(4n){border-right:1px solid rgba(202,240,248,.12)}.loc-cell:nth-child(2n){border-right:0}.loc-cell:nth-child(n+5){border-bottom:1px solid rgba(202,240,248,.12)}.loc-cell:nth-last-child(-n+2){border-bottom:0}}
 
   /* VOICES PREVIEW */
   .voices{padding:120px 0}
@@ -153,6 +154,79 @@
   .voice .who .meta-s{font-size:12px;color:var(--ink-soft)}
   .voice .stars{color:var(--amber);letter-spacing:2px;font-size:13px}
   @keyframes vmar{to{transform:translateX(-100%)}}
+
+  /* MOBILE-FIRST HOMEPAGE POLISH */
+  @media (max-width: 600px){
+    .aurevia-static-page{overflow-x:clip}
+    .hero{padding:116px 0 28px}
+    .hero-grid{grid-template-columns:minmax(0,1fr);gap:8px}
+    .hero-copy{min-width:0}
+    .hero-headline{font-size:clamp(48px,16vw,84px);line-height:.92;letter-spacing:-.04em;overflow-wrap:normal}
+    .hero-tag{margin-top:18px;font-size:10px;letter-spacing:.15em;line-height:1.45}
+    .hero-sub{margin-top:24px;gap:14px}
+    .hero-sub p{font-size:14px;line-height:1.6}
+    .hero-actions{margin-top:26px;flex-direction:column;align-items:stretch;gap:10px}
+    .hero-actions a{width:100%;justify-content:center;min-height:52px;padding:15px 18px}
+    .hero-visual{width:min(100%,350px);max-width:350px;aspect-ratio:1/1;margin:8px auto 0!important}
+    .doctor-card{width:100%;max-width:100%}
+    .float-label{font-size:8px;letter-spacing:.1em;padding:6px 8px}
+    .fl-1{top:15%;left:-2%}
+    .fl-2{top:38%;right:-2%}
+    .fl-3{bottom:7%;left:3%}
+    .hero-foot{margin-top:22px;gap:14px}
+    .hero-foot .scroll-hint{font-size:9px;letter-spacing:.13em}
+    .hero-foot>.mono{font-size:9px!important;line-height:1.5;letter-spacing:.12em!important}
+
+    .marquee{padding:20px 0}
+    .marquee-track{gap:28px}
+    .marquee-track span{font-size:20px}
+
+    .trust{padding:52px 0}
+    .trust-grid{grid-template-columns:1fr}
+    .trust-cell{padding:26px 18px;border-right:0!important}
+    .trust-cell .num{font-size:62px}
+    .trust-cell .lbl{max-width:none;font-size:12px}
+
+    .about-t,.process-p,.voices{padding:76px 0 64px}
+    .treat-p{padding:72px 0 58px}
+    .sec-head{grid-template-columns:1fr;gap:18px;margin-bottom:34px}
+    .sec-head h2{font-size:clamp(36px,11vw,56px);line-height:1.02;overflow-wrap:anywhere}
+    .sec-head p{font-size:14px;line-height:1.6}
+    .sec-head .right{gap:18px}
+
+    .pillars{grid-template-columns:1fr}
+    .pillar{padding:30px 0 28px;border-right:0}
+    .pillar h3{font-size:29px}
+    .pillar p{font-size:14px;max-width:none}
+
+    .treat-row{grid-template-columns:minmax(0,1fr) 32px;gap:8px;padding:20px 0}
+    .treat-row .ix{font-size:9px;letter-spacing:.08em}
+    .treat-row .nm{min-width:0;font-size:clamp(22px,7vw,32px);line-height:1.05;overflow-wrap:anywhere}
+    .treat-row .go{width:32px;height:32px}
+
+    .steps{grid-template-columns:1fr;gap:30px}
+    .step{padding:0}
+    .step h5{font-size:28px}
+    .step p{max-width:none;font-size:14px}
+
+    .locations{padding:76px 0 62px}
+    .loc-grid{grid-template-columns:1fr}
+    .loc-cell{padding:26px 0;border-right:0}
+    .loc-cell .ix{margin-bottom:30px}
+    .loc-cell h6{font-size:34px}
+
+    .voices-track{gap:14px}
+    .voices-row{gap:14px}
+    .voice{width:min(300px,82vw);padding:22px}
+    .voice .q{font-size:21px}
+
+    .cta{padding:76px 0 64px}
+    .cta h2{font-size:clamp(40px,12vw,64px)}
+    .cta-sub{font-size:15px}
+    .cta-inner{gap:30px}
+    .cta-inner>div:first-child a{font-size:26px!important}
+    .form{padding:22px 18px}
+  }
 </style>
 </head>
 <body>
@@ -165,9 +239,9 @@
     <div class="hero-grid">
       <div class="hero-copy">
         <div class="eyebrow" id="heroEyebrow" style="opacity:0;transform:translateY(20px);margin-bottom:36px">— Aurevia Healthcare</div>
-        <h1 class="display hero-headline" style="color: #191970;">
+        <h1 class="display hero-headline" style="color: var(--ink);">
           <span class="line"><span>Care</span></span>
-          <span class="line"><span>you can <em style="color: #191970; font-style: normal;">trust.</em></span></span>
+          <span class="line"><span>you can <em style="color: var(--ink); font-style: normal;">trust.</em></span></span>
         </h1>
         <div class="hero-tag" id="heroTag">A trusted healthcare facilitator · Estd. 2024</div>
         <div class="hero-sub" id="heroSub">
@@ -190,17 +264,17 @@
           <div class="dotline"></div>
         </div>
         <div class="doctor-card" id="doctorCard">
-          <img src="/aurevia/assets/doctors-hero.png" alt="Group of Indian doctors from different specialties standing together">
+          <img src="/aurevia/assets/doctors-hero.webp" alt="Group of Indian doctors from different specialties standing together">
         </div>
         <div class="float-label hero-trust-label fl-1">15+ yrs · senior surgeons</div>
         <div class="float-label hero-trust-label fl-2">100% cashless</div>
-        <div class="float-label hero-trust-label fl-3">5 cities · 1 promise</div>
+        <div class="float-label hero-trust-label fl-3">8 regions · 1 promise</div>
       </div>
     </div>
 
     <div class="hero-foot">
       <div class="scroll-hint"><span class="bar"></span><span>Scroll · explore care</span></div>
-      <div class="mono" style="font-size:11px;letter-spacing:.18em;color:var(--ink-soft);text-transform:uppercase">EST · 2024 &nbsp;·&nbsp; Delhi NCR · Mumbai</div>
+      <div class="mono" style="font-size:11px;letter-spacing:.18em;color:var(--ink-soft);text-transform:uppercase">EST · 2024 &nbsp;·&nbsp; Care across India</div>
     </div>
   </div>
 </section>
@@ -233,10 +307,10 @@
         <div class="num"><span class="n">0</span></div>
         <div class="lbl">Specialty procedures coordinated end-to-end for you</div>
       </div>
-      <div class="trust-cell" data-count="5">
+      <div class="trust-cell" data-count="8">
         <div class="key">[ 04 ]</div>
         <div class="num"><span class="n">0</span></div>
-        <div class="lbl">Cities — Delhi, Noida, Gurgaon, Ghaziabad &amp; Mumbai</div>
+        <div class="lbl">Regions — Chandigarh, Delhi NCR, Ghaziabad, Noida, Mumbai, Pune, Telangana &amp; Ahmedabad</div>
       </div>
     </div>
   </div>
@@ -331,18 +405,21 @@
 <section class="locations">
   <div class="wrap">
     <div class="sec-head">
-      <h2 class="js-split">Five cities. <em>One number.</em></h2>
+      <h2 class="js-split">Eight regions. <em>One number.</em></h2>
       <div class="right">
-        <p class="js-reveal">Aurevia coordinators operate across Delhi NCR and Mumbai — at the partner hospitals that match each procedure.</p>
+        <p class="js-reveal">Aurevia coordinates care across 8 major regions in India, matching every patient with the right specialist and partner hospital for their procedure.</p>
         <a href="locations.html" class="link js-reveal">Find a centre near you <span style="display:inline-block">→</span></a>
       </div>
     </div>
     <div class="loc-grid">
-      <div class="loc-cell"><div class="ix">/ 01</div><span class="dot"></span><h6>Delhi</h6><div class="sub">Flagship coordination hub</div></div>
-      <div class="loc-cell"><div class="ix">/ 02</div><span class="dot"></span><h6>Noida</h6><div class="sub">Eye &amp; ENT centres of excellence</div></div>
-      <div class="loc-cell"><div class="ix">/ 03</div><span class="dot"></span><h6>Gurgaon</h6><div class="sub">Tertiary &amp; cosmetic specialties</div></div>
-      <div class="loc-cell"><div class="ix">/ 04</div><span class="dot"></span><h6>Ghaziabad</h6><div class="sub">General &amp; day-care surgeries</div></div>
-      <div class="loc-cell"><div class="ix">/ 05</div><span class="dot"></span><h6>Mumbai</h6><div class="sub">Advanced urology &amp; bariatrics</div></div>
+      <div class="loc-cell"><div class="ix">/ 01</div><span class="dot"></span><h6>Chandigarh</h6><div class="sub">North India care coordination</div></div>
+      <div class="loc-cell"><div class="ix">/ 02</div><span class="dot"></span><h6>Delhi NCR</h6><div class="sub">Flagship multi-specialty network</div></div>
+      <div class="loc-cell"><div class="ix">/ 03</div><span class="dot"></span><h6>Ghaziabad</h6><div class="sub">General &amp; day-care pathways</div></div>
+      <div class="loc-cell"><div class="ix">/ 04</div><span class="dot"></span><h6>Noida</h6><div class="sub">Eye, ENT &amp; surgical care</div></div>
+      <div class="loc-cell"><div class="ix">/ 05</div><span class="dot"></span><h6>Mumbai</h6><div class="sub">Advanced specialty network</div></div>
+      <div class="loc-cell"><div class="ix">/ 06</div><span class="dot"></span><h6>Pune</h6><div class="sub">Planned surgical coordination</div></div>
+      <div class="loc-cell"><div class="ix">/ 07</div><span class="dot"></span><h6>Telangana</h6><div class="sub">Regional specialist access</div></div>
+      <div class="loc-cell"><div class="ix">/ 08</div><span class="dot"></span><h6>Ahmedabad</h6><div class="sub">Western India care network</div></div>
     </div>
   </div>
 </section>
@@ -361,13 +438,13 @@
   <div class="voices-track">
     <div class="voices-row">
       <div class="voice"><div class="stars">★★★★★</div><div class="q">"They handled every detail — cashless approval, hospital admission, even my mother's transport. I just had to show up and recover."</div><div class="who"><div class="av">R</div><div><div class="meta-n">Rohit S.</div><div class="meta-s">LASIK · Delhi</div></div></div></div>
-      <div class="voice"><div class="stars">★★★★★</div><div class="q">"Got a second opinion through Aurevia and avoided an unnecessary surgery. Honest, calm people. Felt like family advice, not a sales call."</div><div class="who"><div class="av">A</div><div><div class="meta-n">Anita M.</div><div class="meta-s">Sinus consult · Gurgaon</div></div></div></div>
+      <div class="voice"><div class="stars">★★★★★</div><div class="q">"Got a second opinion through Aurevia and avoided an unnecessary surgery. Honest, calm people. Felt like family advice, not a sales call."</div><div class="who"><div class="av">A</div><div><div class="meta-n">Anita M.</div><div class="meta-s">Sinus consult · Delhi NCR</div></div></div></div>
       <div class="voice"><div class="stars">★★★★★</div><div class="q">"Quoted price was the final price. No surprises. My coordinator answered every WhatsApp within minutes, even at night."</div><div class="who"><div class="av">V</div><div><div class="meta-n">Vikram J.</div><div class="meta-s">Orthopedic care · Noida</div></div></div></div>
       <div class="voice"><div class="stars">★★★★★</div><div class="q">"My father's cataract was scheduled within a week. Surgeon was patient, the hospital felt premium, insurance was pre-approved."</div><div class="who"><div class="av">P</div><div><div class="meta-n">Priya K.</div><div class="meta-s">Cataract · Mumbai</div></div></div></div>
       <div class="voice"><div class="stars">★★★★★</div><div class="q">"Travelled to Delhi for kidney stones. Aurevia arranged stay, hospital, and follow-up reports digitally. Brilliant service."</div><div class="who"><div class="av">M</div><div><div class="meta-n">Manish B.</div><div class="meta-s">PCNL · Delhi</div></div></div></div>
-      <div class="voice"><div class="stars">★★★★★</div><div class="q">"I was nervous about rhinoplasty. The surgeon walked through expectations honestly. Result feels like me — just refined."</div><div class="who"><div class="av">S</div><div><div class="meta-n">Saanvi R.</div><div class="meta-s">Rhinoplasty · Gurgaon</div></div></div></div>
+      <div class="voice"><div class="stars">★★★★★</div><div class="q">"I was nervous about rhinoplasty. The surgeon walked through expectations honestly. Result feels like me — just refined."</div><div class="who"><div class="av">S</div><div><div class="meta-n">Saanvi R.</div><div class="meta-s">Rhinoplasty · Delhi NCR</div></div></div></div>
       <div class="voice"><div class="stars">★★★★★</div><div class="q">"They handled every detail — cashless approval, hospital admission, even my mother's transport."</div><div class="who"><div class="av">R</div><div><div class="meta-n">Rohit S.</div><div class="meta-s">LASIK · Delhi</div></div></div></div>
-      <div class="voice"><div class="stars">★★★★★</div><div class="q">"Got a second opinion and avoided an unnecessary surgery. Honest, calm people. Felt like family advice."</div><div class="who"><div class="av">A</div><div><div class="meta-n">Anita M.</div><div class="meta-s">Sinus consult · Gurgaon</div></div></div></div>
+      <div class="voice"><div class="stars">★★★★★</div><div class="q">"Got a second opinion and avoided an unnecessary surgery. Honest, calm people. Felt like family advice."</div><div class="who"><div class="av">A</div><div><div class="meta-n">Anita M.</div><div class="meta-s">Sinus consult · Delhi NCR</div></div></div></div>
     </div>
   </div>
 </section>
@@ -392,7 +469,7 @@
           <div><label>Phone</label><input type="tel" placeholder="+91 ..." required></div>
         </div>
         <div class="row">
-          <div><label>City</label><select><option>Delhi</option><option>Noida</option><option>Gurgaon</option><option>Ghaziabad</option><option>Mumbai</option><option>Other</option></select></div>
+          <div><label>City</label><select><option>Chandigarh</option><option>Delhi NCR</option><option>Ghaziabad</option><option>Noida</option><option>Mumbai</option><option>Pune</option><option>Telangana</option><option>Ahmedabad</option><option>Other</option></select></div>
           <div><label>Treatment of interest</label><select><option>I'm not sure yet</option><option>LASIK</option><option>Cataract</option><option>Sinus</option><option>Tonsillectomy</option><option>Liposuction</option><option>Lipoma</option><option>Rhinoplasty</option><option>Gynecomastia</option><option>Kidney stones</option><option>Orthopedic</option></select></div>
         </div>
         <label>Tell us briefly</label>

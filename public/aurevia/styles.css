@@ -8,13 +8,13 @@ body {
 }
 
 body.dark-mode {
-  /* Deep Space Black & Premium Dark Navy Palette */
-  --paper: #07070B;
-  --paper-2: #0C0C14;
-  --paper-3: #14141E;
-  --cyan: #050E17;
+  /* Deep medical teal palette */
+  --paper: #061A20;
+  --paper-2: #09252D;
+  --paper-3: #10343D;
+  --cyan: #0B2D35;
   --ink: #F8FAFC;
-  --ink-2: #CBD5E1;
+  --ink-2: #CBE7E4;
   --ink-soft: rgba(248, 250, 252, 0.65);
   --ink-faint: rgba(248, 250, 252, 0.35);
   --line: rgba(248, 250, 252, 0.12);
@@ -24,13 +24,13 @@ body.dark-mode {
 /* ── OVERRIDES FOR REACT NAVBAR & DRAWER IN DARK MODE ── */
 body.dark-mode header.bg-white,
 body.dark-mode header.bg-white\/95 {
-  background-color: rgba(7, 7, 11, 0.95) !important;
+  background-color: rgba(6, 26, 32, 0.95) !important;
   border-bottom-color: rgba(248, 250, 252, 0.08) !important;
 }
 
 body.dark-mode .drawer-bg,
 body.dark-mode .bg-white\/95 {
-  background-color: #07070B !important;
+  background-color: #061A20 !important;
 }
 
 body.dark-mode .nav-text,
@@ -39,12 +39,12 @@ body.dark-mode .nav-text-sub {
 }
 
 body.dark-mode .theme-btn {
-  background-color: #14141E !important;
+  background-color: #10343D !important;
   border-color: rgba(248, 250, 252, 0.15) !important;
   color: #F8FAFC !important;
 }
 body.dark-mode .theme-btn:hover {
-  background-color: #1F1F2E !important;
+  background-color: #174852 !important;
 }
 
 body.dark-mode .drawer-border,
@@ -53,14 +53,14 @@ body.dark-mode .nav-border {
 }
 
 body.dark-mode .nav-text-accent {
-  color: #6CA0DC !important;
+  color: #8FE0D8 !important;
 }
 body.dark-mode .pulse-dot {
-  background-color: #6CA0DC !important;
+  background-color: #8FE0D8 !important;
 }
 
 /* Blend the footer seamlessly into dark mode */
 body.dark-mode footer.bg-\[\#03045E\] {
-  background-color: #040407 !important;
+  background-color: #041317 !important;
   border-top: 1px solid rgba(248, 250, 252, 0.05);
 }

@@ -48,6 +48,14 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const toggleMenu = useCallback(() => setOpen(prev => !prev), []);
   const closeMenu = useCallback(() => setOpen(false), []);
 
@@ -94,7 +102,7 @@ export default function Navbar() {
             {/* 🌙 DAY / NIGHT TOGGLE BUTTON */}
             <button
               onClick={toggleTheme}
-              className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 border border-gray-200 text-[#03045E] shadow-sm hover:bg-gray-100 transition-all duration-300 theme-btn"
+              className="flex items-center justify-center w-11 h-11 md:w-10 md:h-10 rounded-full bg-gray-50 border border-gray-200 text-[#03045E] shadow-sm hover:bg-gray-100 transition-all duration-300 theme-btn"
               aria-label="Toggle Dark Mode"
             >
               {isDark ? <Sun size={20} strokeWidth={1.75} /> : <Moon size={20} strokeWidth={1.75} />}
@@ -113,8 +121,10 @@ export default function Navbar() {
             {/* Mobile Hamburger Button */}
             <button
               onClick={toggleMenu}
-              className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-gray-50 border border-gray-200 text-[#03045E] shadow-sm theme-btn"
+              className="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-gray-50 border border-gray-200 text-[#03045E] shadow-sm theme-btn"
               aria-label="Toggle menu"
+              aria-expanded={open}
+              aria-controls="mobile-navigation"
             >
               <Menu size={22} strokeWidth={1.5} />
             </button>
@@ -124,9 +134,10 @@ export default function Navbar() {
 
       {/* ════════════ MOBILE DRAWER ════════════ */}
       <div
-        className={`fixed inset-0 z-[50] md:hidden bg-white/95 backdrop-blur-xl w-screen h-screen
+        id="mobile-navigation"
+        className={`fixed inset-0 z-[50] md:hidden bg-white/95 backdrop-blur-xl w-screen h-[100dvh]
                     transition-all duration-300 ease-[cubic-bezier(0.6,0.1,0.2,1)] 
-                    flex flex-col pt-[100px] px-8 overflow-hidden drawer-bg
+                    flex flex-col pt-[100px] px-5 sm:px-8 pb-[max(24px,env(safe-area-inset-bottom))] overflow-y-auto overscroll-contain drawer-bg
                     ${open ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-4"}`}
       >
         <div className="flex flex-col w-full max-w-sm mx-auto">

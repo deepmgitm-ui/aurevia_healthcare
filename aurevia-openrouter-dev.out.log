@@ -1,0 +1,138 @@
+
+> aurevia-health-care@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.1 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.5.51.68:3000
+- Environments: .env.local
+
+✓ Starting...
+✓ Ready in 17.6s
+○ Compiling / ...
+ POST /api/chat/ 500 in 6.2s (compile: 5.0s, render: 1229ms)
+ GET / 200 in 48s (compile: 20.0s, render: 28.0s)
+ POST /api/chat/ 200 in 8.4s (compile: 112ms, render: 8.3s)
+ POST /api/chat/ 200 in 3.5s (compile: 775ms, render: 2.8s)
+ POST /api/chat/ 200 in 9.1s (compile: 903ms, render: 8.2s)
+ POST /api/chat/ 200 in 6.9s (compile: 203ms, render: 6.7s)
+ POST /api/chat/ 200 in 11.8s (compile: 232ms, render: 11.6s)
+○ Compiling /treatments ...
+ POST /api/chat/ 200 in 21.1s (compile: 6.6s, render: 14.5s)
+✓ Finished writing to filesystem cache in 21.4s
+ GET /treatments/ 200 in 114s (compile: 98s, render: 16.5s)
+✓ Compiled in 10s
+○ Compiling /_error ...
+ POST /api/chat/ 500 in 7.8s (compile: 6.6s, render: 1193ms)
+ POST /api/chat/ 200 in 7.9s (compile: 73ms, render: 7.9s)
+ POST /api/chat/ 200 in 5.9s (compile: 6ms, render: 5.9s)
+ HEAD / 200 in 1868ms (compile: 248ms, render: 1620ms)
+ POST /api/chat/ 200 in 4.7s (compile: 50ms, render: 4.6s)
+ POST /api/chat/ 400 in 92ms (compile: 18ms, render: 74ms)
+ POST /api/chat/ 400 in 140ms (compile: 58ms, render: 82ms)
+ POST /api/chat/ 400 in 148ms (compile: 34ms, render: 114ms)
+ POST /api/chat/ 400 in 153ms (compile: 115ms, render: 38ms)
+ GET /treatments/ 200 in 14.2s (compile: 464ms, render: 13.7s)
+ POST /api/chat/ 200 in 26.0s (compile: 38ms, render: 26.0s)
+ POST /api/chat/ 200 in 14.9s (compile: 191ms, render: 14.7s)
+ POST /api/chat/ 200 in 9.3s (compile: 800ms, render: 8.5s)
+ POST /api/chat/ 200 in 57s (compile: 655ms, render: 56s)
+ GET / 200 in 3.3s (compile: 209ms, render: 3.1s)
+ GET /treatments/ 200 in 13.7s (compile: 266ms, render: 13.5s)
+ GET / 200 in 3.9s (compile: 238ms, render: 3.6s)
+ POST /api/chat/ 200 in 7.6s (compile: 104ms, render: 7.5s)
+ POST /api/chat/ 200 in 72s (compile: 332ms, render: 72s)
+✓ Compiled in 84.6s
+ HEAD / 200 in 32.1s (compile: 16.9s, render: 15.2s)
+ POST /api/chat/ 200 in 30.4s (compile: 2.2s, render: 28.3s)
+ POST /api/chat/ 200 in 10.9s (compile: 6ms, render: 10.9s)
+✓ Compiled in 5.6s
+ HEAD / 200 in 9.4s (compile: 2.7s, render: 6.7s)
+ GET / 200 in 15.5s (compile: 536ms, render: 15.0s)
+ POST /api/chat/ 200 in 16.2s (compile: 194ms, render: 16.0s)
+ POST /api/chat/ 200 in 6.5s (compile: 542ms, render: 5.9s)
+ POST /api/chat/ 200 in 4.5s (compile: 186ms, render: 4.3s)
+✓ Compiled in 45.1s
+ POST /api/chat/ 200 in 11.3s (compile: 783ms, render: 10.6s)
+ POST /api/chat/ 429 in 1068ms (compile: 27ms, render: 1041ms)
+ POST /api/chat/ 200 in 14.9s (compile: 9.8s, render: 5.2s)
+✓ Compiled in 22.8s
+✓ Finished writing to filesystem cache in 14.6s
+✓ Finished writing to filesystem cache in 19.9s
+ GET / 200 in 36.9s (compile: 19.6s, render: 17.4s)
+ GET / 200 in 1076ms (compile: 78ms, render: 998ms)
+✓ Finished writing to filesystem cache in 16.8s
+ POST /api/chat/ 200 in 53s (compile: 33.6s, render: 19.4s)
+ POST /api/chat/ 200 in 19.6s (compile: 401ms, render: 19.2s)
+✓ Finished writing to filesystem cache in 12.0s
+✓ Compiled in 36.2s
+ POST /api/chat/ 200 in 11.0s (compile: 228ms, render: 10.8s)
+ POST /api/chat/ 200 in 15.3s (compile: 152ms, render: 15.1s)
+ POST /api/chat/ 200 in 14.8s (compile: 1930ms, render: 12.9s)
+ POST /api/chat/ 200 in 7.3s (compile: 187ms, render: 7.2s)
+ POST /api/chat/ 400 in 548ms (compile: 22ms, render: 526ms)
+○ Compiling /locations ...
+✓ Finished writing to filesystem cache in 12.2s
+ GET /locations/ 200 in 63s (compile: 49s, render: 13.8s)
+ GET /locations/ 200 in 39.9s (compile: 33.0s, render: 6.9s)
+ GET /locations/ 200 in 37.0s (compile: 30.8s, render: 6.2s)
+✓ Compiled in 16s
+✓ Compiled in 33.6s
+✓ Compiled in 23.8s
+ GET / 200 in 8.2s (compile: 285ms, render: 7.9s)
+ GET /locations/ 200 in 3.2s (compile: 484ms, render: 2.8s)
+ GET /treatments/ 200 in 1589ms (compile: 215ms, render: 1374ms)
+ GET /how-it-works/ 200 in 1960ms (compile: 1777ms, render: 183ms)
+ GET /how-it-works/ 200 in 11.6s (compile: 133ms, render: 11.5s)
+ POST /api/chat/ 200 in 11.0s (compile: 94ms, render: 10.9s)
+ POST /api/chat/ 200 in 13.8s (compile: 40ms, render: 13.8s)
+ GET / 200 in 2.8s (compile: 201ms, render: 2.6s)
+ GET /locations/ 200 in 9.2s (compile: 889ms, render: 8.3s)
+✓ Compiled in 6.9s
+ GET /locations/ 200 in 1357ms (compile: 434ms, render: 923ms)
+ GET /locations/ 200 in 289ms (compile: 49ms, render: 241ms)
+ GET /locations/ 200 in 140ms (compile: 13ms, render: 127ms)
+ GET /locations/ 200 in 116ms (compile: 15ms, render: 102ms)
+✓ Compiled in 6.9s
+ GET /locations/ 200 in 113ms (compile: 11ms, render: 102ms)
+✓ Compiled in 12.6s
+ GET / 200 in 19.6s (compile: 12.1s, render: 7.5s)
+ GET /locations/ 200 in 21.2s (compile: 681ms, render: 20.5s)
+ GET /locations/ 200 in 14.8s (compile: 10ms, render: 14.8s)
+○ Compiling /about ...
+✓ Finished writing to filesystem cache in 14.4s
+✓ Compiled in 130.2s
+✓ Compiled in 30.7s
+ GET / 200 in 14.9s (compile: 10.8s, render: 4.1s)
+ GET / 200 in 23.9s (compile: 786ms, render: 23.1s)
+ GET / 200 in 22.6s (compile: 2.3s, render: 20.3s)
+ GET /locations/ 200 in 29.5s (compile: 1573ms, render: 28.0s)
+ GET /locations/ 200 in 3.1s (compile: 234ms, render: 2.9s)
+ GET /locations/ 200 in 11.4s (compile: 251ms, render: 11.1s)
+ GET /locations/ 200 in 5.7s (compile: 486ms, render: 5.2s)
+✓ Compiled in 35.5s
+✓ Finished writing to filesystem cache in 12.2s
+ GET /locations/ 200 in 6.6s (compile: 600ms, render: 6.0s)
+ GET /locations/ 200 in 55s (compile: 13.2s, render: 42s)
+ GET / 200 in 25.4s (compile: 834ms, render: 24.6s)
+ GET / 200 in 14.4s (compile: 407ms, render: 14.0s)
+ POST /api/chat/ 200 in 16.5s (compile: 285ms, render: 16.2s)
+✓ Finished writing to filesystem cache in 12.2s
+✓ Compiled in 18.7s
+✓ Finished writing to filesystem cache in 12.9s
+✓ Compiled in 73s
+ GET /locations/ 200 in 20.1s (compile: 3.4s, render: 16.7s)
+ GET /locations/ 200 in 44s (compile: 6.0s, render: 38.3s)
+ POST /api/chat/ 200 in 18.9s (compile: 736ms, render: 18.2s)
+ GET /treatments/ 200 in 16.7s (compile: 9.3s, render: 7.4s)
+ GET / 200 in 2.7s (compile: 135ms, render: 2.6s)
+✓ Finished writing to filesystem cache in 13.6s
+✓ Finished writing to filesystem cache in 20.0s
+ GET /locations/ 200 in 17.5s (compile: 15ms, render: 17.5s)
+✓ Finished writing to filesystem cache in 19.6s
+✓ Compiled in 34.5s
+ GET / 200 in 78s (compile: 2.5s, render: 75s)
+ GET /locations/ 200 in 21.5s (compile: 1658ms, render: 19.8s)
+✓ Finished writing to filesystem cache in 11.3s
+✓ Finished writing to filesystem cache in 15.8s
+✓ Finished writing to filesystem cache in 18.6s

@@ -26,27 +26,27 @@ export default function ServicesPage() {
         <div className="wrap">
           <div className="treat-list">
             <Link href="/services/lasik" className="treat-row">
-              <span className="ix">/ 01</span><span className="nm">LASIK</span>
+              <span className="nm">LASIK</span>
               <span className="meta">Bladeless laser vision correction · 10–15 min per eye</span>
             </Link>
             <Link href="/services/cataract" className="treat-row">
-              <span className="ix">/ 02</span><span className="nm">Cataract surgery</span>
+              <span className="nm">Cataract surgery</span>
               <span className="meta">Phacoemulsification · IOL placement</span>
             </Link>
             <Link href="/services/sinus" className="treat-row">
-              <span className="ix">/ 03</span><span className="nm">Sinus treatment</span>
+              <span className="nm">Sinus treatment</span>
               <span className="meta">FESS & balloon sinuplasty</span>
             </Link>
             <Link href="/services/rhinoplasty" className="treat-row">
-              <span className="ix">/ 04</span><span className="nm">Rhinoplasty</span>
+              <span className="nm">Rhinoplasty</span>
               <span className="meta">Open & closed techniques · cosmetic + functional</span>
             </Link>
             <Link href="/services/kidney-stones" className="treat-row">
-              <span className="ix">/ 05</span><span className="nm">Kidney stones</span>
+              <span className="nm">Kidney stones</span>
               <span className="meta">ESWL · URS · PCNL</span>
             </Link>
             <Link href="/services/hernia" className="treat-row">
-              <span className="ix">/ 06</span><span className="nm">Hernia repair</span>
+              <span className="nm">Hernia repair</span>
               <span className="meta">Laparoscopic mesh repair · recurrence below 5%</span>
             </Link>
           </div>

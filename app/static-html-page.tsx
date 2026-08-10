@@ -3,6 +3,7 @@ import path from "path";
 import Script from "next/script";
 import PortalFormMount from "@/components/PortalFormMount";
 import AnimationTrigger from "@/components/AnimationTrigger"; // 👈 Naya import
+import CoverageMapMount from "@/components/CoverageMapMount";
 
 const pageTitle: Record<string, string> = {
   "index.html": "Aurevia Healthcare - Care you can trust",
@@ -41,13 +42,21 @@ function getPageHtml(fileName: string) {
     .replace(/src="assets\//g, 'src="/aurevia/assets/')
     .replace(/href="styles\.css"/g, 'href="/aurevia/styles.css"');
 
-  return { bodyHtml, styles };
+  // Keep the useful process labels (for example, "Step 01 · Talk") while
+  // removing decorative section/index prefixes from the legacy static pages.
+  const bodyHtmlCleaned = bodyHtml
+    .replace(/>(\s*)\[\s*\d{2}\s*\]\s*/g, ">$1")
+    .replace(/>(\s*)\/\s*\d{2}\s*(?:[—-]\s*)?/g, ">$1")
+    .replace(/>(\s*)\d{2}\s*[—-]\s*/g, ">$1");
+
+  return { bodyHtml: bodyHtmlCleaned, styles };
 }
 
 export default function StaticHtmlPage({ fileName }: { fileName: string }) {
   const { bodyHtml, styles } = getPageHtml(fileName);
+  const pageSlug = fileName.replace(/\.html$/, "");
 
-  const bodyHtmlCleaned = bodyHtml
+  const renderedBodyHtml = bodyHtml
     .replace(/<nav\b[^>]*class="nav"[^>]*>[\s\S]*?<\/nav>/i, "")
     .replace(/<footer\b[^>]*>[\s\S]*?<\/footer>/i, "")
     .replace(
@@ -62,11 +71,12 @@ export default function StaticHtmlPage({ fileName }: { fileName: string }) {
       {styles ? <style dangerouslySetInnerHTML={{ __html: styles }} /> : null}
       
       <main
-        className="aurevia-static-page"
-        dangerouslySetInnerHTML={{ __html: bodyHtmlCleaned }}
+        className={`aurevia-static-page aurevia-page-${pageSlug}`}
+        dangerouslySetInnerHTML={{ __html: renderedBodyHtml }}
       />
       
       <PortalFormMount />
+      {fileName === "locations.html" ? <CoverageMapMount /> : null}
       
       {/* 👇 NAYA TRIGGER YAHAN LAGA DIYA HAI 👇 */}
       <AnimationTrigger routeKey={fileName} />

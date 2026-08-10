@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
 type AureviaWindow = Window & {
@@ -72,8 +73,18 @@ function animatePageOut() {
 export default function RouteAnimator() {
   const pathname = usePathname();
   const router = useRouter();
+  const [isLeaving, setIsLeaving] = useState(false);
+  const navigationLockedRef = useRef(false);
+  const navigationFailsafeRef = useRef<number | null>(null);
 
   useEffect(() => {
+    navigationLockedRef.current = false;
+    if (navigationFailsafeRef.current !== null) {
+      window.clearTimeout(navigationFailsafeRef.current);
+      navigationFailsafeRef.current = null;
+    }
+    const revealFrame = window.requestAnimationFrame(() => setIsLeaving(false));
+
     const hash = window.location.hash;
 
     if (hash) {
@@ -92,33 +103,76 @@ export default function RouteAnimator() {
       aureviaWindow.aureviaLenis?.resize?.();
     }, 220);
 
-    return () => window.clearTimeout(timer);
+    return () => {
+      window.cancelAnimationFrame(revealFrame);
+      window.clearTimeout(timer);
+    };
   }, [pathname]);
 
   useEffect(() => {
     const handleClick = async (event: MouseEvent) => {
-      if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (navigationLockedRef.current) return;
 
       const anchor = (event.target as Element | null)?.closest("a");
       if (!anchor) return;
 
       const href = anchor.getAttribute("href");
       const target = anchor.getAttribute("target");
-      if (!href || target === "_blank") return;
+      if (!href || target === "_blank" || anchor.hasAttribute("download") || anchor.hasAttribute("data-no-transition")) return;
       if (href.startsWith("#") || href.startsWith("tel:") || href.startsWith("mailto:") || href.startsWith("https://wa.me")) return;
 
       const url = new URL(href, window.location.href);
       if (url.origin !== window.location.origin) return;
-      if (url.hash) return;
+      const isSameDocument = url.pathname === window.location.pathname && url.search === window.location.search;
+      if (isSameDocument) return;
 
       event.preventDefault();
-      await animatePageOut();
-      router.push(`${url.pathname}${url.search}${url.hash}`);
+      navigationLockedRef.current = true;
+      setIsLeaving(true);
+      navigationFailsafeRef.current = window.setTimeout(() => {
+        navigationLockedRef.current = false;
+        setIsLeaving(false);
+        navigationFailsafeRef.current = null;
+      }, 8_000);
+      await Promise.all([
+        animatePageOut(),
+        getMotionPreference()
+          ? Promise.resolve()
+          : new Promise<void>((resolve) => window.setTimeout(resolve, 480)),
+      ]);
+      // Reset the current document before mounting the destination so Lenis,
+      // native history restoration, and the App Router cannot preserve a
+      // stale scroll position between pages.
+      scrollToPageTop();
+      router.push(`${url.pathname}${url.search}${url.hash}`, { scroll: !url.hash });
     };
 
-    document.addEventListener("click", handleClick as unknown as EventListener);
-    return () => document.removeEventListener("click", handleClick as unknown as EventListener);
+    document.addEventListener("click", handleClick as unknown as EventListener, true);
+    return () => document.removeEventListener("click", handleClick as unknown as EventListener, true);
   }, [router]);
 
-  return null;
+  return (
+    <div aria-hidden="true" className={`aurevia-route-wipe${isLeaving ? " is-active" : ""}`}>
+      <span className="aurevia-route-orbit aurevia-route-orbit-one" />
+      <span className="aurevia-route-orbit aurevia-route-orbit-two" />
+      <div className="aurevia-route-content">
+        <div className="aurevia-route-logo-shell">
+          <span className="aurevia-route-logo-ring" />
+          <Image src="/logo.png" alt="" width={54} height={64} priority className="aurevia-route-logo" />
+        </div>
+        <div className="aurevia-route-copy">
+          <strong>Aurevia</strong>
+          <span>Healthcare Facilitators</span>
+        </div>
+        <div className="aurevia-route-pulse" aria-hidden="true">
+          <i />
+          <svg viewBox="0 0 160 24" role="presentation">
+            <path d="M0 12h45l7-7 10 15 10-18 10 10h78" />
+          </svg>
+        </div>
+        <p>Guiding your next step in care</p>
+      </div>
+    </div>
+  );
 }

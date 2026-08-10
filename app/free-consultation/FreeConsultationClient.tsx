@@ -14,7 +14,7 @@ export default function FreeConsultationClient() {
           transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
         >
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-urbanist">
-            Book Your <span className="text-[#4FA6D8]">Free Surgery Consultation</span>
+            Book Your <span className="text-[#147D86]">Free Surgery Consultation</span>
           </h1>
           <p className="text-gray-600 text-lg mb-6">
             Talk to experienced surgeons and specialists about LASIK, ENT, urology, aesthetics or dental treatments. No fees, no hidden charges—just honest guidance so you can choose the right procedure.
@@ -29,13 +29,13 @@ export default function FreeConsultationClient() {
             <div className="flex flex-wrap gap-3">
               <a
                 href="tel:+919990959440"
-                className="inline-flex items-center justify-center rounded-full bg-[#4FA6D8] px-5 py-2 text-sm font-semibold text-white shadow-md hover:bg-[#3d8cb8] transition-colors"
+                className="inline-flex items-center justify-center rounded-full bg-[#147D86] px-5 py-2 text-sm font-semibold text-white shadow-md hover:bg-[#106872] transition-colors"
               >
                 Call Our Expert
               </a>
               <a
                 href="https://wa.me/919990959440"
-                className="inline-flex items-center justify-center rounded-full border border-[#4FA6D8] px-5 py-2 text-sm font-semibold text-[#4FA6D8] hover:bg-blue-50 transition-colors"
+                className="inline-flex items-center justify-center rounded-full border border-[#147D86] px-5 py-2 text-sm font-semibold text-[#147D86] hover:bg-[#E9F7F5] transition-colors"
               >
                 Chat on WhatsApp
               </a>

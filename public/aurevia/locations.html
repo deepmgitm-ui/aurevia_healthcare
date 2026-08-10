@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Locations — Aurevia Healthcare</title>
-<meta name="description" content="Aurevia Healthcare coordinators across Delhi, Noida, Gurgaon, Ghaziabad and Mumbai. Find your nearest centre." />
+<meta name="description" content="Find Aurevia Healthcare coordination across Chandigarh, Delhi NCR, Ghaziabad, Noida, Mumbai, Pune, Telangana and Ahmedabad." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,22 +18,6 @@
 <style>
   /* MAP */
   .map-wrap{padding:40px 0 100px;border-top:1px solid var(--line)}
-  .map{position:relative;aspect-ratio:1440/720;background:var(--paper-2);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-top:60px}
-  .map .india{position:absolute;inset:0;display:grid;place-items:center}
-  .map .india svg{width:90%;height:90%;max-width:720px;opacity:.4}
-  .map .pin{position:absolute;width:14px;height:14px;border-radius:50%;background:var(--amber);transform:translate(-50%,-50%);cursor:pointer;z-index:3}
-  .map .pin::before{content:"";position:absolute;inset:-8px;border-radius:50%;background:var(--amber);opacity:.2;animation:pulse 2.4s infinite}
-  .map .pin::after{content:"";position:absolute;inset:-16px;border-radius:50%;border:1px solid var(--amber-deep);opacity:.3}
-  .map .pin .lbl{position:absolute;left:18px;top:-8px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.18em;color:var(--ink);text-transform:uppercase;background:var(--paper);padding:6px 10px;border:1px solid var(--line);border-radius:999px;white-space:nowrap;transition:transform .35s,background .35s,color .35s}
-  .map .pin:hover .lbl{background:var(--ink);color:var(--paper);transform:translateY(-4px)}
-  .map .pin.delhi{left:36%;top:38%}
-  .map .pin.noida{left:39%;top:41%}
-  .map .pin.gurgaon{left:34%;top:42%}
-  .map .pin.ghaziabad{left:38%;top:36%}
-  .map .pin.mumbai{left:30%;top:62%}
-  .map .compass{position:absolute;bottom:20px;right:24px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.18em;color:var(--ink-soft);text-transform:uppercase}
-  .map .legend{position:absolute;top:20px;left:24px;display:flex;align-items:center;gap:10px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.18em;color:var(--ink-soft);text-transform:uppercase}
-  .map .legend .d{width:10px;height:10px;border-radius:50%;background:var(--amber)}
 
   /* CITY CARDS */
   .cities{padding:80px 0 120px}
@@ -109,74 +93,75 @@
 <section class="page-head">
   <div class="wrap">
     <div class="crumb js-reveal"><a href="index.html">Aurevia</a><span class="sep">/</span><span>Locations</span></div>
-    <h1 class="js-split">Five cities. <em>One number.</em></h1>
+    <h1 class="js-split">Eight regions. <em>One number.</em></h1>
     <div class="lead">
-      <div class="meta js-reveal">Delhi · Noida · Gurgaon<br>Ghaziabad · Mumbai<br>Mon — Sat · 9 to 9<br>English · हिन्दी · ਪੰਜਾਬੀ</div>
-      <p class="js-reveal">Aurevia coordinators operate across Delhi NCR and Mumbai — at the partner hospitals that match each procedure. Wherever your care actually happens, one coordinator stays with you from the first phone call through your last follow-up visit.</p>
+      <div class="meta js-reveal">Chandigarh · Delhi NCR · Ghaziabad · Noida<br>Mumbai · Pune · Telangana · Ahmedabad<br>Mon — Sat · 9 to 9<br>English · हिन्दी · ਪੰਜਾਬੀ</div>
+      <p class="js-reveal">Aurevia coordinates care across 8 major regions in India through procedure-matched partner hospitals. Wherever your care happens, one coordinator stays with you from the first phone call through your last follow-up visit.</p>
     </div>
   </div>
 </section>
 
 <!-- MAP -->
-<section class="map-wrap">
-  <div class="wrap">
-    <div class="map js-reveal">
-      <div class="legend"><span class="d"></span>Aurevia coordination centre</div>
-      <div class="compass">N ↑</div>
-      <div class="india">
-        <!-- abstract stylised India outline -->
-        <svg viewBox="0 0 400 480" fill="none" stroke="var(--ink)" stroke-width="0.8" stroke-linejoin="round">
-          <path d="M120 60 C 150 45, 200 50, 235 70 C 270 90, 290 100, 300 130 C 310 160, 320 180, 320 200 C 320 220, 310 240, 300 250 C 290 260, 280 270, 280 290 C 280 310, 290 340, 280 370 C 270 400, 250 430, 220 450 C 200 462, 185 458, 180 440 C 175 420, 165 410, 150 400 C 135 390, 130 370, 130 340 C 130 310, 115 290, 105 280 C 90 260, 85 240, 95 220 C 105 200, 100 180, 90 160 C 80 140, 80 110, 100 90 C 110 78, 110 68, 120 60 Z"/>
-          <path d="M295 165 C 305 175, 315 185, 320 200" opacity=".6"/>
-          <path d="M120 90 C 140 100, 160 105, 180 100" opacity=".4"/>
-        </svg>
-      </div>
-      <a class="pin delhi" href="#delhi"><span class="lbl">Delhi</span></a>
-      <a class="pin ghaziabad" href="#ghaziabad"><span class="lbl">Ghaziabad</span></a>
-      <a class="pin noida" href="#noida"><span class="lbl">Noida</span></a>
-      <a class="pin gurgaon" href="#gurgaon"><span class="lbl">Gurgaon</span></a>
-      <a class="pin mumbai" href="#mumbai"><span class="lbl">Mumbai</span></a>
-    </div>
-  </div>
-</section>
+<div id="react-coverage-map-portal"></div>
 
 <!-- CITY ROWS -->
 <section class="cities">
   <div class="wrap">
     <div class="city-grid">
-      <a href="#delhi" id="delhi" class="city">
+      <a href="#chandigarh" id="chandigarh" class="city">
         <span class="ix">/ 01</span>
-        <span class="nm">Delhi</span>
-        <span class="role">Flagship coordination hub. The full Aurevia care team — first consultations, second opinions, all ten specialties.</span>
-        <span class="specs"><span>All specialties</span><span>Coordination HQ</span></span>
+        <span class="nm">Chandigarh</span>
+        <span class="role">North India care coordination with guided access to specialist consultations, diagnostics and planned procedures.</span>
+        <span class="specs"><span>Multi-specialty</span><span>Care coordination</span></span>
         <span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span>
       </a>
-      <a href="#noida" id="noida" class="city">
+      <a href="#delhi-ncr" id="delhi-ncr" class="city">
         <span class="ix">/ 02</span>
-        <span class="nm">Noida</span>
-        <span class="role">Eye &amp; ENT centres of excellence — high volume LASIK, cataract, sinus and tonsillectomy work.</span>
-        <span class="specs"><span>LASIK</span><span>Cataract</span><span>Sinus</span><span>Tonsillectomy</span></span>
-        <span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span>
-      </a>
-      <a href="#gurgaon" id="gurgaon" class="city">
-        <span class="ix">/ 03</span>
-        <span class="nm">Gurgaon</span>
-        <span class="role">Tertiary &amp; cosmetic specialties. Rhinoplasty, liposuction, gynecomastia and advanced general surgery.</span>
-        <span class="specs"><span>Rhinoplasty</span><span>Liposuction</span><span>Gynecomastia</span><span>Lipoma</span></span>
+        <span class="nm">Delhi NCR</span>
+        <span class="role">Our flagship multi-specialty network for first consultations, second opinions and end-to-end procedure coordination.</span>
+        <span class="specs"><span>All specialties</span><span>Flagship network</span></span>
         <span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span>
       </a>
       <a href="#ghaziabad" id="ghaziabad" class="city">
-        <span class="ix">/ 04</span>
+        <span class="ix">/ 03</span>
         <span class="nm">Ghaziabad</span>
-        <span class="role">General &amp; day-care surgeries close to home — lipoma, hernia repair and routine procedures.</span>
-        <span class="specs"><span>Hernia</span><span>Lipoma</span><span>Day-care</span></span>
+        <span class="role">Convenient general and day-care surgery pathways with coordinated specialist and hospital support close to home.</span>
+        <span class="specs"><span>General surgery</span><span>Day-care</span></span>
+        <span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span>
+      </a>
+      <a href="#noida" id="noida" class="city">
+        <span class="ix">/ 04</span>
+        <span class="nm">Noida</span>
+        <span class="role">Coordinated eye, ENT and surgical care through procedure-matched specialists and partner facilities.</span>
+        <span class="specs"><span>Eye care</span><span>ENT</span><span>Surgery</span></span>
         <span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span>
       </a>
       <a href="#mumbai" id="mumbai" class="city">
         <span class="ix">/ 05</span>
         <span class="nm">Mumbai</span>
-        <span class="role">Advanced urology, bariatrics and complex cataract work — with senior specialists at south &amp; central Mumbai hospitals.</span>
-        <span class="specs"><span>Kidney stones</span><span>Cataract</span><span>Hernia</span></span>
+        <span class="role">Advanced specialty coordination with senior specialists and a broad network of partner facilities across Mumbai.</span>
+        <span class="specs"><span>Multi-specialty</span><span>Advanced care</span></span>
+        <span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span>
+      </a>
+      <a href="#pune" id="pune" class="city">
+        <span class="ix">/ 06</span>
+        <span class="nm">Pune</span>
+        <span class="role">Planned surgical pathways with clear estimates, hospital coordination and guided follow-up support.</span>
+        <span class="specs"><span>Planned surgery</span><span>Follow-up care</span></span>
+        <span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span>
+      </a>
+      <a href="#telangana" id="telangana" class="city">
+        <span class="ix">/ 07</span>
+        <span class="nm">Telangana</span>
+        <span class="role">Regional specialist access and end-to-end coordination for consultations, treatment planning and recovery.</span>
+        <span class="specs"><span>Specialist access</span><span>Care planning</span></span>
+        <span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span>
+      </a>
+      <a href="#ahmedabad" id="ahmedabad" class="city">
+        <span class="ix">/ 08</span>
+        <span class="nm">Ahmedabad</span>
+        <span class="role">Western India care coordination backed by procedure-matched specialists and partner hospitals.</span>
+        <span class="specs"><span>Multi-specialty</span><span>Hospital network</span></span>
         <span class="go"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11L11 3M11 3H5M11 3V9"/></svg></span>
       </a>
     </div>
@@ -191,17 +176,17 @@
       <p class="js-reveal">We don't list every hospital — we work with the ones whose senior specialists, facilities and patient experience meet our standards. Procedure-specific, not blanket-listed.</p>
     </div>
     <div class="partner-grid">
-      <div class="p"><div class="k">Eye care</div><h6>Apex Eye Institute</h6><div class="city-tag">Delhi · Noida</div></div>
+      <div class="p"><div class="k">Eye care</div><h6>Apex Eye Institute</h6><div class="city-tag">Chandigarh · Delhi NCR</div></div>
       <div class="p"><div class="k">Eye care</div><h6>Lumen Vision Centre</h6><div class="city-tag">Noida</div></div>
-      <div class="p"><div class="k">ENT</div><h6>Northpoint ENT</h6><div class="city-tag">Delhi</div></div>
-      <div class="p"><div class="k">ENT</div><h6>Skyline Sinus Clinic</h6><div class="city-tag">Gurgaon</div></div>
-      <div class="p"><div class="k">Cosmetic</div><h6>Atelier Aesthetics</h6><div class="city-tag">Gurgaon</div></div>
+      <div class="p"><div class="k">ENT</div><h6>Northpoint ENT</h6><div class="city-tag">Ghaziabad</div></div>
+      <div class="p"><div class="k">ENT</div><h6>Skyline Sinus Clinic</h6><div class="city-tag">Chandigarh</div></div>
+      <div class="p"><div class="k">Cosmetic</div><h6>Atelier Aesthetics</h6><div class="city-tag">Delhi NCR</div></div>
       <div class="p"><div class="k">Cosmetic</div><h6>Refine Plastic Surgery</h6><div class="city-tag">Mumbai</div></div>
-      <div class="p"><div class="k">General surgery</div><h6>Meridian Hospital</h6><div class="city-tag">Delhi · Ghaziabad</div></div>
+      <div class="p"><div class="k">General surgery</div><h6>Meridian Hospital</h6><div class="city-tag">Pune · Ahmedabad</div></div>
       <div class="p"><div class="k">General surgery</div><h6>Cedar Day-Care</h6><div class="city-tag">Ghaziabad</div></div>
-      <div class="p"><div class="k">Urology</div><h6>Riveria Urology Centre</h6><div class="city-tag">Mumbai</div></div>
-      <div class="p"><div class="k">Urology</div><h6>Indus Stone Clinic</h6><div class="city-tag">Delhi</div></div>
-      <div class="p"><div class="k">Multi-specialty</div><h6>Hillside Medical</h6><div class="city-tag">Gurgaon</div></div>
+      <div class="p"><div class="k">Urology</div><h6>Riveria Urology Centre</h6><div class="city-tag">Telangana</div></div>
+      <div class="p"><div class="k">Urology</div><h6>Indus Stone Clinic</h6><div class="city-tag">Ahmedabad</div></div>
+      <div class="p"><div class="k">Multi-specialty</div><h6>Hillside Medical</h6><div class="city-tag">Pune</div></div>
       <div class="p"><div class="k">Multi-specialty</div><h6>Marina Hospital</h6><div class="city-tag">Mumbai</div></div>
     </div>
     <div class="note js-reveal">[ partner names are representative · final hospital is matched to your specific procedure ]</div>
@@ -239,7 +224,7 @@
       </div>
       <form class="form js-reveal" onsubmit="event.preventDefault(); this.querySelector('.submit').textContent='Thank you — we\\'ll be in touch ✦'">
         <div class="row"><div><label>Your name</label><input type="text" placeholder="Full name" required></div><div><label>Phone</label><input type="tel" placeholder="+91 ..." required></div></div>
-        <div class="row"><div><label>City</label><select><option>Delhi</option><option>Noida</option><option>Gurgaon</option><option>Ghaziabad</option><option>Mumbai</option><option>Other</option></select></div><div><label>Treatment of interest</label><select><option>I'm not sure yet</option><option>LASIK</option><option>Cataract</option><option>Sinus</option><option>Tonsillectomy</option><option>Liposuction</option><option>Lipoma</option><option>Rhinoplasty</option><option>Gynecomastia</option><option>Kidney stones</option><option>Hernia</option></select></div></div>
+        <div class="row"><div><label>City</label><select><option>Chandigarh</option><option>Delhi NCR</option><option>Ghaziabad</option><option>Noida</option><option>Mumbai</option><option>Pune</option><option>Telangana</option><option>Ahmedabad</option><option>Other</option></select></div><div><label>Treatment of interest</label><select><option>I'm not sure yet</option><option>LASIK</option><option>Cataract</option><option>Sinus</option><option>Tonsillectomy</option><option>Liposuction</option><option>Lipoma</option><option>Rhinoplasty</option><option>Gynecomastia</option><option>Kidney stones</option><option>Hernia</option></select></div></div>
         <label>Tell us briefly</label>
         <textarea placeholder="A few lines about your condition, reports, or questions..."></textarea>
         <button class="submit" type="submit">Request my consultation <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M1 6H17M17 6L12 1M17 6L12 11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
@@ -252,7 +237,7 @@
 <footer>
   <div class="wrap">
     <div class="foot-grid">
-      <div class="foot-brand"><img src="/aurevia/assets/logo.png" alt="Aurevia"><div class="word">Aurevia</div><p>A trusted healthcare facilitation platform connecting patients with senior specialists, reputed hospitals and cashless treatment — across Delhi NCR and Mumbai.</p>
+      <div class="foot-brand"><img src="/aurevia/assets/logo.png" alt="Aurevia"><div class="word">Aurevia</div><p>A trusted healthcare facilitation platform connecting patients with senior specialists, reputed hospitals and cashless treatment across 8 major regions in India.</p>
       <div class="foot-social-label">Follow us</div>
       <div class="foot-social">
         <a href="https://www.instagram.com/aureviahealthcare/" target="_blank" rel="noopener noreferrer" class="ig" aria-label="Aurevia on Instagram">

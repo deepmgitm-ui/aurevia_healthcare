@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Manrope, Newsreader, JetBrains_Mono, Urbanist, Playfair_Display } from "next/font/google";
-import LenisProvider from "@/components/LenisProvider";
-import ScrollAnimations from "@/components/ScrollAnimations";
 import GlobalPopup from "@/components/GlobalPopup";
 import DevSignature from "@/components/DevSignature";
+import AIChatbot from "@/components/AIChatbot";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RouteAnimator from "@/components/RouteAnimator"; // 👈 Naya Import
+import "leaflet/dist/leaflet.css";
 import "./globals.css";
 
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
@@ -28,8 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-developer="TtStDeEp" className={`${manrope.variable} ${newsreader.variable} ${jetbrains.variable} ${urbanist.variable} ${trustDisplay.variable}`}>
       <body className="antialiased font-manrope">
-        <LenisProvider>
-          <ScrollAnimations />
+        <>
           
           <Navbar /> 
           <RouteAnimator /> {/* 👈 Yahan Animator laga diya */}
@@ -38,8 +37,9 @@ export default function RootLayout({
           
           <Footer />
           <GlobalPopup />
+          <AIChatbot />
           <DevSignature />
-        </LenisProvider>
+        </>
       </body>
     </html>
   );
