@@ -3633,6 +3633,80 @@ body.dark-mode .coverage-map-canvas .leaflet-tile { filter: brightness(.72) satu
 .care-treatment-detail.care-location-ahmedabad .care-detail-hero h1 { padding-bottom: 22px; border-bottom: 2px solid color-mix(in srgb,var(--care-location-accent) 35%,transparent); }
 .care-treatment-detail.care-location-ahmedabad .care-overview-grid { grid-template-columns: 1fr 1fr; }
 
+/* Richer treatment pages: useful preparation, a clear journey and expandable answers. */
+.care-detail-discussion { padding: 104px 0 96px; background: linear-gradient(125deg,color-mix(in srgb,var(--care-location-wash) 92%,white),color-mix(in srgb,var(--care-treatment-wash) 72%,white)); }
+.care-detail-section-heading { max-width: 760px; margin-bottom: 38px; }
+.care-detail-section-heading h2,.care-journey-copy h2,.care-faq-intro h2 { color: var(--care-location-navy); font-family: var(--font-newsreader),"Nirmala UI",Georgia,serif; font-size: clamp(35px,4.3vw,55px); font-weight: 550; letter-spacing: -.04em; line-height: 1.08; margin: 10px 0 16px; }
+.care-detail-section-heading > p,.care-journey-copy > p,.care-faq-intro > p { max-width: 650px; color: color-mix(in srgb,var(--care-location-navy) 72%,#536a6f); font-size: 16px; line-height: 1.8; margin: 0; }
+.care-discussion-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
+.care-discussion-card { position: relative; min-height: 245px; overflow: hidden; padding: 30px 28px; border: 1px solid color-mix(in srgb,var(--care-location-accent) 18%,white); border-radius: 20px 20px 20px 5px; background: rgba(255,255,255,.84); box-shadow: 0 18px 42px color-mix(in srgb,var(--care-location-navy) 8%,transparent); }
+.care-discussion-card::after { position: absolute; content: ""; width: 115px; height: 115px; right: -38px; bottom: -48px; border-radius: 50%; background: color-mix(in srgb,var(--care-location-accent) 19%,white); }
+.care-discussion-card:nth-child(2) { transform: translateY(22px); border-radius: 5px 22px 5px 22px; background: color-mix(in srgb,var(--care-location-wash) 76%,white); }
+.care-discussion-card:nth-child(3) { border-radius: 22px 5px 22px 22px; background: color-mix(in srgb,var(--care-treatment-wash) 64%,white); }
+.care-discussion-number { width: 45px; height: 45px; display: grid; place-items: center; border-radius: 14px; color: #fff; background: var(--care-location-accent); font-size: 12px; font-weight: 850; }
+.care-discussion-card:nth-child(2) .care-discussion-number { background: var(--care-location-navy); }
+.care-discussion-card h3 { max-width: 300px; color: var(--care-location-navy); font-size: 21px; line-height: 1.25; margin: 22px 0 10px; }
+.care-discussion-card p { position: relative; z-index: 1; color: #53666b; font-size: 14px; line-height: 1.75; margin: 0; }
+.care-detail-callout { display: flex; align-items: center; gap: 18px; max-width: 880px; margin: 54px auto 0; padding: 20px 25px; border-radius: 14px; color: var(--care-location-navy); background: color-mix(in srgb,var(--care-location-accent) 13%,white); }
+.care-detail-callout > span { color: var(--care-location-accent); font-size: 31px; line-height: 1; }
+.care-detail-callout p { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.65; }
+.care-detail-journey { position: relative; overflow: hidden; padding: 108px 0; color: #fff; background: linear-gradient(122deg,var(--care-location-navy),color-mix(in srgb,var(--care-location-navy) 72%,var(--care-location-accent))); }
+.care-detail-journey::after { position: absolute; content: ""; width: 400px; height: 400px; right: -140px; top: -200px; border: 1px solid color-mix(in srgb,var(--care-location-accent) 50%,transparent); border-radius: 50%; box-shadow: 0 0 0 38px color-mix(in srgb,var(--care-location-accent) 9%,transparent),0 0 0 80px color-mix(in srgb,var(--care-location-accent) 6%,transparent); }
+.care-journey-layout { position: relative; z-index: 1; display: grid; grid-template-columns: .9fr 1.1fr; gap: 76px; align-items: center; }
+.care-journey-copy .care-section-kicker { color: color-mix(in srgb,var(--care-location-accent) 48%,white); }
+.care-journey-copy h2 { color: #fff; }
+.care-journey-copy > p { color: rgba(255,255,255,.78); }
+.care-journey-link { display: inline-flex; align-items: center; gap: 9px; margin-top: 26px; color: #fff; font-size: 14px; font-weight: 800; text-decoration: none; }
+.care-journey-link:hover { color: color-mix(in srgb,var(--care-location-accent) 45%,white); }
+.care-journey-steps { position: relative; display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.care-journey-steps::before { position: absolute; content: ""; top: 30px; bottom: 30px; left: 23px; width: 2px; background: color-mix(in srgb,var(--care-location-accent) 55%,transparent); }
+.care-journey-steps li { position: relative; min-height: 73px; display: flex; align-items: center; gap: 20px; padding: 12px 18px; border: 1px solid rgba(255,255,255,.16); border-radius: 12px; background: rgba(255,255,255,.08); backdrop-filter: blur(8px); }
+.care-journey-steps li > span { z-index: 1; width: 46px; height: 46px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; color: var(--care-location-navy); background: color-mix(in srgb,var(--care-location-accent) 68%,white); font-size: 12px; font-weight: 900; }
+.care-journey-steps li strong { color: #fff; font-size: 15px; line-height: 1.45; }
+.care-detail-faq { padding: 104px 0 112px; background: color-mix(in srgb,var(--care-location-wash) 42%,white); }
+.care-faq-layout { display: grid; grid-template-columns: .72fr 1.28fr; gap: 74px; align-items: start; }
+.care-faq-intro { position: sticky; top: 34px; }
+.care-faq-list { display: grid; gap: 12px; }
+.care-faq-item { overflow: hidden; border: 1px solid color-mix(in srgb,var(--care-location-accent) 22%,white); border-left: 4px solid var(--care-location-accent); border-radius: 5px 15px 15px 5px; background: #fff; box-shadow: 0 8px 24px color-mix(in srgb,var(--care-location-navy) 5%,transparent); }
+.care-faq-item summary { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 23px 25px; color: var(--care-location-navy); cursor: pointer; font-size: 16px; font-weight: 800; line-height: 1.5; list-style: none; }
+.care-faq-item summary::-webkit-details-marker { display: none; }
+.care-faq-item summary > span { color: var(--care-location-accent); font-size: 28px; line-height: 1; transition: transform .2s ease; }
+.care-faq-item[open] summary > span { transform: rotate(45deg); }
+.care-faq-item p { max-width: 700px; padding: 0 25px 23px; color: #53666b; font-size: 14px; line-height: 1.8; margin: 0; }
+
+/* City signature details carry through the new content bands too. */
+.care-treatment-detail.care-location-mumbai .care-discussion-card { border-radius: 30px 30px 30px 6px; }
+.care-treatment-detail.care-location-delhi-ncr .care-discussion-grid { grid-template-columns: 1fr; max-width: 900px; margin-left: auto; }
+.care-treatment-detail.care-location-delhi-ncr .care-discussion-card { min-height: 0; display: grid; grid-template-columns: 54px 1fr; column-gap: 18px; border-radius: 4px 18px 18px 4px; }
+.care-treatment-detail.care-location-delhi-ncr .care-discussion-card:nth-child(2) { transform: none; }
+.care-treatment-detail.care-location-delhi-ncr .care-discussion-card h3 { align-self: end; margin: 0 0 6px; }
+.care-treatment-detail.care-location-delhi-ncr .care-discussion-card p { grid-column: 2; }
+.care-treatment-detail.care-location-delhi-ncr .care-journey-layout { grid-template-columns: 1fr 1.35fr; }
+.care-treatment-detail.care-location-chandigarh .care-detail-discussion { text-align: center; }
+.care-treatment-detail.care-location-chandigarh .care-detail-section-heading { margin-inline: auto; }
+.care-treatment-detail.care-location-chandigarh .care-discussion-card { text-align: left; border-radius: 32px 32px 5px 5px; }
+.care-treatment-detail.care-location-chandigarh .care-journey-layout { grid-template-columns: 1fr; text-align: center; }
+.care-treatment-detail.care-location-chandigarh .care-journey-copy > p { margin-inline: auto; }
+.care-treatment-detail.care-location-ghaziabad .care-discussion-grid { grid-template-columns: 1fr 1fr; }
+.care-treatment-detail.care-location-ghaziabad .care-discussion-card:nth-child(2) { transform: translateY(28px); }
+.care-treatment-detail.care-location-ghaziabad .care-discussion-card:nth-child(3) { grid-column: 1 / -1; min-height: 190px; }
+.care-treatment-detail.care-location-noida .care-detail-discussion { background: linear-gradient(180deg,color-mix(in srgb,var(--care-location-wash) 88%,white),white); }
+.care-treatment-detail.care-location-noida .care-discussion-card { min-height: 290px; display: flex; flex-direction: column; justify-content: end; border-radius: 70px 12px 12px 12px; }
+.care-treatment-detail.care-location-bangalore .care-detail-journey { background: linear-gradient(100deg,#173c42,var(--care-location-navy) 50%,color-mix(in srgb,var(--care-location-navy) 56%,var(--care-location-accent))); }
+.care-treatment-detail.care-location-bangalore .care-journey-layout { grid-template-columns: 1.1fr .9fr; }
+.care-treatment-detail.care-location-pune .care-detail-discussion { background: linear-gradient(90deg,color-mix(in srgb,var(--care-location-wash) 90%,white) 50%,color-mix(in srgb,var(--care-treatment-wash) 55%,white) 50%); }
+.care-treatment-detail.care-location-pune .care-discussion-card { border-radius: 999px 18px 18px 999px; }
+.care-treatment-detail.care-location-telangana .care-discussion-grid { grid-template-columns: 1fr; max-width: 850px; }
+.care-treatment-detail.care-location-telangana .care-discussion-card { min-height: 0; padding: 23px 28px; border-radius: 3px 18px 18px 3px; }
+.care-treatment-detail.care-location-telangana .care-discussion-card:nth-child(2) { transform: translateX(30px); }
+.care-treatment-detail.care-location-telangana .care-discussion-card h3 { margin: 0 0 8px; }
+.care-treatment-detail.care-location-telangana .care-discussion-number { position: absolute; right: 26px; top: 22px; }
+.care-treatment-detail.care-location-telangana .care-journey-layout { grid-template-columns: 1fr; }
+.care-treatment-detail.care-location-ahmedabad .care-discussion-card { border-radius: 50% 50% 18px 18px; padding: 36px 28px 28px; }
+.care-treatment-detail.care-location-ahmedabad .care-discussion-card h3 { margin-top: 30px; }
+.care-treatment-detail.care-location-ahmedabad .care-journey-steps { grid-template-columns: 1fr 1fr; }
+.care-treatment-detail.care-location-ahmedabad .care-journey-steps::before { display: none; }
+
 @media (max-width: 900px) {
   .care-region-hero,.care-detail-hero { grid-template-columns: 1fr .75fr; gap: 30px; padding-left: 32px; padding-right: 32px; }
   .care-region-hero-art { width: min(100%, 340px); }
@@ -3679,6 +3753,15 @@ body.dark-mode .coverage-map-canvas .leaflet-tile { filter: brightness(.72) satu
   .care-location-grid { grid-template-columns: 1fr; }
   .care-directory-hero { min-height: 350px; }
   .care-directory-hero .care-region-hero-copy { padding-top: 28px; }
+  .care-detail-discussion,.care-detail-journey,.care-detail-faq { padding-block: 76px; }
+  .care-discussion-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .care-discussion-card:nth-child(2) { transform: none; }
+  .care-discussion-card:nth-child(3) { grid-column: 1 / -1; min-height: 190px; }
+  .care-journey-layout,.care-faq-layout { grid-template-columns: 1fr; gap: 36px; }
+  .care-faq-intro { position: static; }
+  .care-treatment-detail.care-location-delhi-ncr .care-discussion-grid,
+  .care-treatment-detail.care-location-ghaziabad .care-discussion-grid { grid-template-columns: 1fr; }
+  .care-treatment-detail.care-location-ghaziabad .care-discussion-card:nth-child(3) { grid-column: auto; }
 }
 
 @media (max-width: 680px) {
@@ -3707,6 +3790,22 @@ body.dark-mode .coverage-map-canvas .leaflet-tile { filter: brightness(.72) satu
   .care-treatment-detail.care-location-telangana .care-process-list,
   .care-treatment-detail.care-location-pune .care-process-list { grid-template-columns: 1fr; }
   .care-treatment-detail.care-location-ahmedabad .care-detail-image-wrap { min-height: 285px; transform: none; border-radius: 50% 50% 14px 14px; }
+  .care-detail-discussion,.care-detail-journey,.care-detail-faq { padding-block: 62px; }
+  .care-detail-section-heading { margin-bottom: 26px; }
+  .care-detail-section-heading h2,.care-journey-copy h2,.care-faq-intro h2 { font-size: clamp(32px,10vw,44px); }
+  .care-detail-section-heading > p,.care-journey-copy > p,.care-faq-intro > p { font-size: 14px; }
+  .care-discussion-grid { grid-template-columns: 1fr; gap: 12px; }
+  .care-discussion-card,.care-discussion-card:nth-child(2),.care-discussion-card:nth-child(3) { min-height: 0; grid-column: auto; transform: none; padding: 23px; border-radius: 16px 16px 16px 5px; }
+  .care-discussion-card h3 { font-size: 19px; margin-top: 17px; }
+  .care-discussion-card p { font-size: 13px; }
+  .care-detail-callout { align-items: flex-start; margin-top: 26px; padding: 16px; }
+  .care-detail-callout p { font-size: 13px; }
+  .care-journey-layout,.care-faq-layout { grid-template-columns: 1fr; gap: 28px; }
+  .care-journey-steps li { min-height: 67px; gap: 13px; padding: 10px 12px; }
+  .care-journey-steps li strong { font-size: 13px; }
+  .care-faq-item summary { padding: 18px; font-size: 14px; }
+  .care-faq-item p { padding: 0 18px 18px; font-size: 13px; }
+  .care-treatment-detail.care-location-ahmedabad .care-journey-steps { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {

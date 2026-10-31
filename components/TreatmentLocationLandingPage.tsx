@@ -43,6 +43,31 @@ export default function TreatmentLocationLandingPage({ slug, locationSlug, local
   const process = locale === "hi"
     ? ["अपनी ज़रूरत साझा करें", "विशेषज्ञ से बात करें", "अगले कदम समझें"]
     : ["Share your concern", "Speak with a specialist", "Understand next steps"];
+  const discussionCards = locale === "hi"
+    ? [
+        { number: "01", title: "आपकी परेशानी", body: `${copy.label} से जुड़ी परेशानी कब से है, रोज़मर्रा पर उसका क्या असर है और आप किस बात को लेकर सबसे ज़्यादा चिंतित हैं—यह साझा करें।` },
+        { number: "02", title: "आपकी सेहत का इतिहास", body: "पहले की जाँच, रिपोर्ट, चल रही दवाएँ और कोई पुराना उपचार साथ लाएँ। इससे विशेषज्ञ आपकी पूरी स्थिति समझ पाएँगे।" },
+        { number: "03", title: "आपके विकल्प और सवाल", body: "जाँच, उपलब्ध देखभाल के विकल्प, संभावित अगले कदम और follow-up के बारे में खुलकर पूछें। हर योजना व्यक्ति के अनुसार तय होती है।" },
+      ]
+    : [
+        { number: "01", title: "What you are experiencing", body: `Share when your ${copy.label.toLowerCase()} concern began, how it affects daily life and what you would most like help understanding.` },
+        { number: "02", title: "Your health history", body: "Bring previous reports, current medicines and details of any care you have already received so the specialist can understand the full picture." },
+        { number: "03", title: "Options and questions", body: "Ask about assessment, available care options, possible next steps and follow-up. A plan is made around each person's situation." },
+      ];
+  const journey = locale === "hi"
+    ? ["टीम से संपर्क", "ज़रूरतों पर बातचीत", "विशेषज्ञ की राय", "आपकी स्थिति के अनुसार अगला कदम"]
+    : ["Connect with our team", "Talk through your needs", "Hear a specialist’s view", "Choose a next step for your situation"];
+  const faqs = locale === "hi"
+    ? [
+        { question: `${copy.label} का कौन-सा विकल्प मेरे लिए सही है?`, answer: "यह आपकी जाँच, स्वास्थ्य इतिहास और विशेषज्ञ की सलाह पर निर्भर करता है। बातचीत के बाद ही आपके लिए विकल्प स्पष्ट होंगे।" },
+        { question: "पहली बातचीत में क्या बताना चाहिए?", answer: "अपने लक्षण या चिंता, पहले हुई जाँच, चल रही दवाओं और आपके मन में मौजूद सवालों के बारे में बताएँ। अगर रिपोर्ट हैं तो उन्हें साथ रखें।" },
+        { question: "क्या वेबसाइट की जानकारी व्यक्तिगत सलाह है?", answer: "नहीं। यह पेज सामान्य जानकारी देता है। निदान और उपचार का निर्णय योग्य विशेषज्ञ की व्यक्तिगत जाँच के बाद होना चाहिए।" },
+      ]
+    : [
+        { question: `Which ${copy.label.toLowerCase()} option is right for me?`, answer: "That depends on your assessment, health history and a specialist’s advice. Your options can be discussed after reviewing your individual situation." },
+        { question: "What should I share in the first conversation?", answer: "Tell us about your concern, previous assessments, current medicines and questions. Bring any reports you already have." },
+        { question: "Is the information on this page personal medical advice?", answer: "No. This page offers general information. Diagnosis and treatment decisions should follow an individual assessment by a qualified specialist." },
+      ];
 
   return (
     <main className={`care-landing care-treatment-detail care-location-${locationSlug} ${locale === "hi" ? "care-landing-hi" : ""}`} lang={locale === "hi" ? "hi" : "en"} style={themeStyle}>
@@ -86,6 +111,54 @@ export default function TreatmentLocationLandingPage({ slug, locationSlug, local
             <p>{labels.nextStepsBody}</p>
             <a href="tel:+919990959440" className="care-text-link">{labels.call} +91 99909 59440 <ArrowUpRight size={15} /></a>
           </aside>
+        </div>
+      </section>
+
+      <section className="care-detail-discussion">
+        <div className="care-content-wrap">
+          <div className="care-detail-section-heading">
+            <span className="care-section-kicker">{locale === "hi" ? "आपकी बातचीत, आपकी ज़रूरत" : "A conversation shaped around you"}</span>
+            <h2>{locale === "hi" ? "विशेषज्ञ से क्या-क्या समझ सकते हैं?" : "Make your specialist conversation count"}</h2>
+            <p>{locale === "hi" ? "अपॉइंटमेंट में अपनी बात साफ़-साफ़ रखने से आपको विकल्प समझने में मदद मिलती है। शुरुआत के लिए ये तीन बातें साथ रखें।" : "A little preparation can help you get more from your appointment. These three topics are a useful place to start."}</p>
+          </div>
+          <div className="care-discussion-grid">
+            {discussionCards.map((card) => <article className="care-discussion-card" key={card.number}>
+              <span className="care-discussion-number">{card.number}</span>
+              <h3>{card.title}</h3>
+              <p>{card.body}</p>
+            </article>)}
+          </div>
+          <aside className="care-detail-callout">
+            <span aria-hidden="true">✳</span>
+            <p>{locale === "hi" ? "कोई सवाल छोटा नहीं होता—अपनी शंकाएँ लिखकर लाएँ और विशेषज्ञ से खुलकर पूछें।" : "No question is too small. Write down what is on your mind and bring it to your specialist conversation."}</p>
+          </aside>
+        </div>
+      </section>
+
+      <section className="care-detail-journey">
+        <div className="care-content-wrap care-journey-layout">
+          <div className="care-journey-copy">
+            <span className="care-section-kicker">{locale === "hi" ? "साफ़ और आसान कदम" : "A clear way forward"}</span>
+            <h2>{locale === "hi" ? "हमारे साथ आपकी देखभाल की यात्रा" : "Your care journey, one step at a time"}</h2>
+            <p>{locale === "hi" ? "हमारी टीम बातचीत और अपॉइंटमेंट के अगले कदम समझने में मदद कर सकती है। आगे की देखभाल विशेषज्ञ की सलाह और आपकी पसंद के अनुसार तय होती है।" : "Our team can help you understand the conversation and appointment process. Any care plan is guided by a specialist’s advice and your preferences."}</p>
+            <Link href={getLocationHref(locationSlug, locale)} className="care-journey-link">{locale === "hi" ? `${location.name} के सभी उपचार देखें` : `Explore care in ${location.name}`} <ArrowUpRight size={16} /></Link>
+          </div>
+          <ol className="care-journey-steps">
+            {journey.map((step, index) => <li key={step}><span>{`0${index + 1}`}</span><strong>{step}</strong></li>)}
+          </ol>
+        </div>
+      </section>
+
+      <section className="care-detail-faq">
+        <div className="care-content-wrap care-faq-layout">
+          <div className="care-faq-intro">
+            <span className="care-section-kicker">{locale === "hi" ? "आम सवाल" : "Good to know"}</span>
+            <h2>{locale === "hi" ? "आपके मन में ये सवाल हैं?" : "Questions people often ask"}</h2>
+            <p>{locale === "hi" ? "जवाब सामान्य जानकारी के लिए हैं। आपकी अपनी स्थिति पर विशेषज्ञ से बात करें।" : "These answers are general information. Talk with a specialist about your individual situation."}</p>
+          </div>
+          <div className="care-faq-list">
+            {faqs.map((faq) => <details key={faq.question} className="care-faq-item"><summary>{faq.question}<span aria-hidden="true">+</span></summary><p>{faq.answer}</p></details>)}
+          </div>
         </div>
       </section>
 
