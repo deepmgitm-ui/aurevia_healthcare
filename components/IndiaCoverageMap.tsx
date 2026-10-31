@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ExternalLink, MapPin, Navigation } from "lucide-react";
+import { ArrowUpRight, ExternalLink, MapPin, Navigation } from "lucide-react";
+import Link from "next/link";
 import type { Map as LeafletMap, Marker as LeafletMarker } from "leaflet";
 
 type CoverageLocation = {
@@ -177,6 +178,9 @@ export default function IndiaCoverageMap() {
               <a href={googleMapsUrl(activeLocation)} target="_blank" rel="noopener noreferrer">
                 Open in Google Maps <ExternalLink size={14} />
               </a>
+              <Link href={`/locations/${activeLocation.slug}`} className="coverage-region-explore">
+                Explore treatments <ArrowUpRight size={14} />
+              </Link>
             </div>
           </aside>
         </div>

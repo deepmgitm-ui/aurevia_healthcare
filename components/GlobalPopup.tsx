@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import ContactForm from "./ContactForm";
@@ -17,6 +18,9 @@ const RECURRING_POPUP_INTERVAL_MS = 120_000;
 
 export default function GlobalPopup() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const isHindi = pathname.startsWith("/hi/");
+  const isCareLanding = pathname === "/hi/locations" || /^\/(?:hi\/)?locations\/[^/]+\/?$/.test(pathname) || /^\/(?:hi\/)?services\/[^/]+\/[^/]+\/?$/.test(pathname);
 
   const openModal = useCallback(() => {
     setIsOpen(true);
@@ -29,6 +33,8 @@ export default function GlobalPopup() {
   }, []);
 
   useEffect(() => {
+    if (isCareLanding) return;
+
     const initialTimer = setTimeout(() => {
       openModal();
     }, INITIAL_POPUP_DELAY_MS);
@@ -49,7 +55,7 @@ export default function GlobalPopup() {
       clearTimeout(recurringStartTimer);
       if (recurringInterval) clearInterval(recurringInterval);
     };
-  }, [openModal]);
+  }, [openModal, isCareLanding]);
 
   useEffect(() => {
     const consultationWindow = window as ConsultationWindow;
@@ -94,8 +100,8 @@ export default function GlobalPopup() {
             </button>
 
             <div className="bg-gradient-to-r from-[#0B485B] to-[#147D86] px-12 py-3 sm:px-14 sm:py-4 text-center text-white shrink-0">
-              <h3 id="consultation-popup-title" className="text-lg sm:text-xl font-bold mb-0.5 font-urbanist tracking-tight">Request Free Consultation</h3>
-              <p className="text-[#90E0EF] text-[10px] sm:text-xs font-medium">Quick, confidential and no-obligation</p>
+              <h3 id="consultation-popup-title" className="text-lg sm:text-xl font-bold mb-0.5 font-urbanist tracking-tight">{isHindi ? "निःशुल्क परामर्श के लिए अनुरोध" : "Request Free Consultation"}</h3>
+              <p className="text-[#90E0EF] text-[10px] sm:text-xs font-medium">{isHindi ? "जल्दी, गोपनीय और बिना किसी बाध्यता के" : "Quick, confidential and no-obligation"}</p>
             </div>
 
             <div

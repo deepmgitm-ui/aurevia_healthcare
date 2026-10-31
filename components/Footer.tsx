@@ -2,9 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Instagram, Linkedin, Phone, Mail, MessageCircle } from "lucide-react";
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isHindi = pathname.startsWith("/hi/");
   const openModal = () => {
     if (typeof window !== "undefined" && (window as any).openConsultationModal) {
       (window as any).openConsultationModal();
@@ -25,18 +28,18 @@ export default function Footer() {
               <span className="text-[30px] font-black tracking-tight text-white leading-none">Aurevia</span>
             </Link>
             <p className="text-[13.5px] text-[#CAF0F8]/58 max-w-[310px] leading-relaxed">
-              A trusted healthcare facilitation platform connecting patients with senior specialists, reputed hospitals and cashless treatment across 8 major regions in India.
+              {isHindi ? "एक हेल्थकेयर फैसिलिटेशन प्लेटफ़ॉर्म, जो भारत के 9 क्षेत्रों में मरीजों को विशेषज्ञों और अस्पतालों से जोड़ता है।" : "A trusted healthcare facilitation platform connecting patients with senior specialists, reputed hospitals and cashless treatment across 9 major regions in India."}
             </p>
           </div>
 
           {/* ── Care Column ── */}
           <div>
-            <h6 className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#CAF0F8]/45 mb-5">Care</h6>
+            <h6 className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#CAF0F8]/45 mb-5">{isHindi ? "देखभाल" : "Care"}</h6>
             <ul className="flex flex-col gap-3">
               {[
-                { href: "/treatments", label: "All treatments" },
-                { href: "/how-it-works", label: "How it works" },
-                { href: "/locations", label: "Locations" },
+                { href: "/treatments", label: isHindi ? "सभी उपचार" : "All treatments" },
+                { href: "/how-it-works", label: isHindi ? "कैसे काम करता है" : "How it works" },
+                { href: isHindi ? "/hi/locations" : "/locations", label: isHindi ? "हमारे क्षेत्र" : "Locations" },
               ].map(({ href, label }) => (
                 <li key={href}>
                   <Link href={href} className="text-[13.5px] text-[#CAF0F8]/80 hover:text-[#90E0EF] transition-colors duration-200">
@@ -46,7 +49,7 @@ export default function Footer() {
               ))}
               <li>
                 <button onClick={openModal} className="text-[13.5px] text-[#CAF0F8]/80 hover:text-[#90E0EF] transition-colors duration-200 text-left">
-                  Free consultation
+                  {isHindi ? "निःशुल्क परामर्श" : "Free consultation"}
                 </button>
               </li>
             </ul>
@@ -57,9 +60,9 @@ export default function Footer() {
             <h6 className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#CAF0F8]/45 mb-5">Aurevia</h6>
             <ul className="flex flex-col gap-3">
               {[
-                { href: "/about", label: "About" },
-                { href: "/voices", label: "Patient voices" },
-                { href: "/about#careers", label: "Careers" },
+                { href: "/about", label: isHindi ? "हमारे बारे में" : "About" },
+                { href: "/voices", label: isHindi ? "मरीजों के अनुभव" : "Patient voices" },
+                { href: "/about#careers", label: isHindi ? "करियर" : "Careers" },
               ].map(({ href, label }) => (
                 <li key={href}>
                   <Link href={href} className="text-[13.5px] text-[#CAF0F8]/80 hover:text-[#90E0EF] transition-colors duration-200">
@@ -69,7 +72,7 @@ export default function Footer() {
               ))}
               <li>
                 <button onClick={openModal} className="text-[13.5px] text-[#CAF0F8]/80 hover:text-[#90E0EF] transition-colors duration-200 text-left">
-                  Insurance partners
+                  {isHindi ? "बीमा साझेदार" : "Insurance partners"}
                 </button>
               </li>
             </ul>
@@ -77,7 +80,7 @@ export default function Footer() {
 
           {/* ── Reach Column ── */}
           <div>
-            <h6 className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#CAF0F8]/45 mb-5">Reach</h6>
+            <h6 className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#CAF0F8]/45 mb-5">{isHindi ? "संपर्क" : "Reach"}</h6>
             <ul className="flex flex-col gap-3">
               <li>
                 <a href="tel:+919990959440" className="flex items-center gap-2.5 text-[13.5px] text-[#CAF0F8]/80 hover:text-[#90E0EF] transition-colors duration-200 group">
@@ -94,7 +97,7 @@ export default function Footer() {
               <li>
                 <a href="https://wa.me/919990959440" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-[13.5px] text-[#CAF0F8]/80 hover:text-[#90E0EF] transition-colors duration-200 group">
                   <MessageCircle size={14} className="text-[#CAF0F8]/35 group-hover:text-[#90E0EF] transition-colors flex-shrink-0" strokeWidth={2} />
-                  WhatsApp us
+                  {isHindi ? "व्हाट्सऐप करें" : "WhatsApp us"}
                 </a>
               </li>
               <li>
@@ -108,7 +111,7 @@ export default function Footer() {
             {/* ── Social Icons ── */}
             <div className="mt-8">
               <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-[#CAF0F8]/38 mb-4">
-                Follow us
+                {isHindi ? "हमें फ़ॉलो करें" : "Follow us"}
               </p>
               <div className="flex items-center gap-3">
 
@@ -148,11 +151,11 @@ export default function Footer() {
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11.5px] text-[#CAF0F8]/40">
           <span>© 2026 Aurevia Healthcare. All rights reserved.</span>
           <div className="flex items-center gap-4 flex-wrap justify-center">
-            <Link href="/privacy-policy" className="hover:text-[#90E0EF] transition-colors duration-200">Privacy</Link>
+            <Link href="/privacy-policy" className="hover:text-[#90E0EF] transition-colors duration-200">{isHindi ? "गोपनीयता" : "Privacy"}</Link>
             <span className="opacity-30">·</span>
-            <Link href="/terms-conditions" className="hover:text-[#90E0EF] transition-colors duration-200">Terms</Link>
+            <Link href="/terms-conditions" className="hover:text-[#90E0EF] transition-colors duration-200">{isHindi ? "नियम" : "Terms"}</Link>
             <span className="opacity-30">·</span>
-            <Link href="/disclaimer" className="hover:text-[#90E0EF] transition-colors duration-200">Disclaimer</Link>
+            <Link href="/disclaimer" className="hover:text-[#90E0EF] transition-colors duration-200">{isHindi ? "अस्वीकरण" : "Disclaimer"}</Link>
           </div>
         </div>
 

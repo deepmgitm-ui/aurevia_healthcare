@@ -2,22 +2,10 @@ export const dynamic = "force-static";
 
 import type { MetadataRoute } from "next";
 import { siteLocationSlugs } from "@/lib/siteLocations";
+import { treatmentLandings } from "@/lib/locationLandingData";
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://aureviahealthcare.com";
-
-const services = [
-  "lasik",
-  "cataract",
-  "sinus",
-  "tonsillectomy",
-  "septoplasty",
-  "ear-perforation",
-  "rhinoplasty",
-  "gynecomastia",
-  "kidney-stone",
-  "dental",
-];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Static pages
@@ -25,6 +13,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/about",
     "/services",
+    "/locations",
+    "/hi/locations",
     "/contact",
     "/free-consultation",
     "/terms-conditions",
@@ -37,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Service pages (e.g., /services/lasik)
+  const services = treatmentLandings.map(({ slug }) => slug);
   const serviceRoutes: MetadataRoute.Sitemap = services.map((slug) => ({
     url: `${siteUrl}/services/${slug}`,
     lastModified: new Date(),
@@ -44,15 +35,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
+  const regionRoutes: MetadataRoute.Sitemap = siteLocationSlugs.flatMap((location) => [
+    { url: `${siteUrl}/locations/${location}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.75 },
+    { url: `${siteUrl}/hi/locations/${location}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.75 },
+  ]);
+
   // Location pages (e.g., /services/lasik/delhi)
   const locationRoutes: MetadataRoute.Sitemap = services.flatMap((slug) =>
-    siteLocationSlugs.map((loc) => ({
-      url: `${siteUrl}/services/${slug}/${loc}`,
-      lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    }))
+    siteLocationSlugs.flatMap((loc) => [
+      { url: `${siteUrl}/services/${slug}/${loc}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7 },
+      { url: `${siteUrl}/hi/services/${slug}/${loc}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7 },
+    ])
   );
 
-  return [...staticRoutes, ...serviceRoutes, ...locationRoutes];
+  return [...staticRoutes, ...serviceRoutes, ...regionRoutes, ...locationRoutes];
 }

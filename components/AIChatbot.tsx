@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent, type WheelEvent } from "react";
 import { AlertCircle, HeartPulse, MessageCircle, RotateCcw, Send, Sparkles, X } from "lucide-react";
+import { getHealthGptResponse } from "@/lib/healthGptLocal";
 
 type Message = {
   id: string;
@@ -69,10 +70,14 @@ export default function AIChatbot() {
   const [messages, setMessages] = useState<Message[]>([starterMessage]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const responseGenerationRef = useRef(0);
 
   const resetConversation = () => {
+    responseGenerationRef.current += 1;
     setMessages([starterMessage]);
     setInput("");
+    setIsLoading(false);
+    setIsWaitingForFirstToken(false);
     inputRef.current?.focus();
   };
 
@@ -108,105 +113,42 @@ export default function AIChatbot() {
 
     const userMessage: Message = { id: crypto.randomUUID(), role: "user", content };
     const nextMessages = [...messages, userMessage];
+    const responseGeneration = ++responseGenerationRef.current;
     setMessages(nextMessages);
     setInput("");
     setIsLoading(true);
     setIsWaitingForFirstToken(true);
 
-    let assistantMessageId: string | null = null;
-    let streamedReply = "";
-
     try {
-      const response = await fetch("/api/chat/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: nextMessages.map(({ role, content: messageContent }) => ({ role, content: messageContent })),
-        }),
-      });
+      const recentContext = nextMessages
+        .slice(-6)
+        .map((message) => message.content)
+        .join("\n");
 
-      if (!response.ok) {
-        const data = (await response.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(data?.error || "The assistant could not respond.");
-      }
-
-      if (!response.body) {
-        throw new Error("The assistant returned an empty response.");
-      }
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
-
-      const applyStreamEvent = (eventBlock: string) => {
-        for (const line of eventBlock.split(/\r?\n/)) {
-          if (!line.startsWith("data:")) continue;
-
-          const payload = line.slice(5).trim();
-          if (!payload || payload === "[DONE]") continue;
-
-          const chunk = JSON.parse(payload) as {
-            choices?: Array<{ delta?: { content?: string | null } }>;
-            error?: { message?: string };
-          };
-
-          if (chunk.error) {
-            throw new Error(chunk.error.message || "The assistant response was interrupted.");
-          }
-
-          const delta = chunk.choices?.[0]?.delta?.content;
-          if (!delta) continue;
-
-          streamedReply += delta;
-
-          if (!assistantMessageId) {
-            assistantMessageId = crypto.randomUUID();
-            const firstMessageId = assistantMessageId;
-            setIsWaitingForFirstToken(false);
-            setMessages((current) => [
-              ...current,
-              { id: firstMessageId, role: "assistant", content: streamedReply },
-            ]);
-          } else {
-            const currentMessageId = assistantMessageId;
-            setMessages((current) => current.map((message) => (
-              message.id === currentMessageId ? { ...message, content: streamedReply } : message
-            )));
-          }
-        }
-      };
-
-      while (true) {
-        const { done, value } = await reader.read();
-        buffer += decoder.decode(value, { stream: !done });
-
-        const events = buffer.split(/\r?\n\r?\n/);
-        buffer = events.pop() ?? "";
-        events.forEach(applyStreamEvent);
-
-        if (done) break;
-      }
-
-      if (buffer.trim()) applyStreamEvent(buffer);
-      if (!streamedReply.trim()) throw new Error("The assistant returned an empty response.");
+      // A tiny delay keeps the interaction natural without adding network latency.
+      await new Promise((resolve) => window.setTimeout(resolve, 90));
+      if (responseGeneration !== responseGenerationRef.current) return;
+      const reply = getHealthGptResponse(content, recentContext);
+      setIsWaitingForFirstToken(false);
+      setMessages((current) => [
+        ...current,
+        { id: crypto.randomUUID(), role: "assistant", content: reply },
+      ]);
     } catch (error) {
+      if (responseGeneration !== responseGenerationRef.current) return;
       const errorMessage = error instanceof Error
         ? error.message
         : "Something went wrong. Please try again shortly.";
 
-      setMessages((current) => assistantMessageId
-        ? current.map((message) => (
-          message.id === assistantMessageId
-            ? { ...message, content: `${streamedReply}\n\n${errorMessage}` }
-            : message
-        ))
-        : [
-          ...current,
-          { id: crypto.randomUUID(), role: "assistant", content: errorMessage },
-        ]);
+      setMessages((current) => [
+        ...current,
+        { id: crypto.randomUUID(), role: "assistant", content: errorMessage },
+      ]);
     } finally {
-      setIsLoading(false);
-      setIsWaitingForFirstToken(false);
+      if (responseGeneration === responseGenerationRef.current) {
+        setIsLoading(false);
+        setIsWaitingForFirstToken(false);
+      }
     }
   };
 

@@ -4,6 +4,11 @@
 
 /* ============ ORIGINAL AUREVIA DESIGN SYSTEM ============ */
 :root {
+  --font-manrope: Arial, "Segoe UI", sans-serif;
+  --font-newsreader: Georgia, "Times New Roman", serif;
+  --font-mono: Consolas, "Courier New", monospace;
+  --font-urbanist: "Trebuchet MS", "Segoe UI", sans-serif;
+  --font-trust-display: Georgia, "Times New Roman", serif;
   --paper: #FCFEFD;
   --paper-2: #F1F8F7;
   --paper-3: #DCEFEB;
@@ -3445,4 +3450,260 @@ body.dark-mode .coverage-map-canvas .leaflet-tile { filter: brightness(.72) satu
   footer button {
     touch-action: manipulation;
   }
+}
+
+/* Location → treatment landing pages */
+.care-landing {
+  --care-ink: #153c48;
+  --care-navy: #03045e;
+  --care-teal: #147d86;
+  --care-mint: #e4f3f0;
+  --care-soft: #f7faf9;
+  --care-muted: #5b7075;
+  background: var(--care-soft);
+  color: var(--care-ink);
+  font-family: var(--font-manrope), "Nirmala UI", "Noto Sans Devanagari", sans-serif;
+  overflow: hidden;
+}
+
+.care-landing-hi { font-family: "Nirmala UI", "Noto Sans Devanagari", var(--font-manrope), sans-serif; }
+.care-content-wrap { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+.care-region-hero,.care-detail-hero { position: relative; min-height: 610px; padding: 145px max(5vw, calc((100vw - 1160px) / 2)) 88px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .82fr); align-items: center; gap: 64px; background: radial-gradient(circle at 82% 32%, rgba(255,255,255,.82), transparent 23rem), linear-gradient(125deg, var(--care-region-wash) 0%, var(--care-mint) 54%, var(--care-region-highlight) 100%); }
+.care-region-hero-copy,.care-detail-hero-copy { max-width: 600px; position: relative; z-index: 2; }
+.care-breadcrumb { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; color: #60767a; font-size: 12px; margin-bottom: 36px; }
+.care-breadcrumb a { color: #60767a; text-decoration: none; }
+.care-breadcrumb a:hover { color: var(--care-teal); }
+.care-breadcrumb > span:last-child { color: var(--care-ink); font-weight: 700; }
+.care-region-kicker,.care-detail-eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--care-teal); font-size: 13px; font-weight: 750; margin-bottom: 18px; }
+.care-region-hero h1,.care-detail-hero h1 { max-width: 680px; color: var(--care-navy); font-family: var(--font-newsreader), "Nirmala UI", Georgia, serif; font-size: clamp(44px, 5.4vw, 76px); font-weight: 550; letter-spacing: -.045em; line-height: 1.02; margin: 0; }
+.care-region-hero p,.care-detail-hero-copy > p { max-width: 530px; color: #50686e; font-size: 17px; line-height: 1.8; margin: 22px 0 30px; }
+.care-button { min-height: 50px; padding: 0 21px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 999px; font-size: 14px; font-weight: 750; text-decoration: none; transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease; }
+.care-button:hover { transform: translateY(-2px); }
+.care-button-primary { background: var(--care-teal); color: #fff; box-shadow: 0 12px 25px rgba(20,125,134,.19); }
+.care-button-primary:hover { background: #0d6870; }
+.care-button-secondary { color: var(--care-ink); background: rgba(255,255,255,.78); border: 1px solid rgba(21,60,72,.12); }
+.care-button-light { color: var(--care-navy); background: #fff; }
+.care-language-switch { position: absolute; z-index: 5; top: 112px; right: max(5vw, calc((100vw - 1160px) / 2)); padding: 9px 15px; border: 1px solid rgba(3,4,94,.15); border-radius: 999px; background: rgba(255,255,255,.62); color: var(--care-navy); font-size: 12px; font-weight: 800; text-decoration: none; }
+.care-language-switch:hover { background: #fff; }
+.care-region-hero-art { width: min(100%, 500px); aspect-ratio: 1.12; justify-self: center; position: relative; overflow: hidden; border-radius: 24px 76px 24px 24px; background: var(--care-region-wash); box-shadow: 0 28px 66px color-mix(in srgb, var(--care-navy) 18%, transparent); }
+.care-region-hero-art::before { content: ""; position: absolute; z-index: 2; inset: 14px; border: 1px solid rgba(255,255,255,.46); border-radius: 17px 62px 17px 17px; pointer-events: none; }
+.care-region-hero-image { object-fit: cover; }
+.care-region-photo-shade { position: absolute; inset: 38% 0 0; background: linear-gradient(0deg, rgba(17,35,49,.68), transparent); }
+.care-region-art-label { position: absolute; z-index: 3; left: 24px; bottom: 23px; display: grid; gap: 4px; max-width: calc(100% - 48px); padding: 13px 16px; border-radius: 12px; color: var(--care-navy); background: rgba(255,255,255,.94); box-shadow: 0 9px 30px rgba(11,72,91,.14); }
+.care-region-art-label strong { font-size: 15px; }
+.care-region-art-label span { color: var(--care-muted); font-size: 11px; }
+.care-treatment-section { padding: 88px 0 108px; background: #fff; }
+.care-section-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 34px; }
+.care-section-kicker { display: block; color: var(--care-teal); font-size: 11px; font-weight: 800; letter-spacing: .13em; margin-bottom: 12px; }
+.care-section-heading h2,.care-overview-main h2,.care-related-inner h2 { color: var(--care-navy); font-family: var(--font-newsreader), "Nirmala UI", Georgia, serif; font-size: clamp(34px, 4vw, 50px); font-weight: 550; letter-spacing: -.035em; line-height: 1.1; margin: 0; }
+.care-section-heading p { color: var(--care-muted); font-size: 15px; line-height: 1.7; margin: 12px 0 0; }
+.care-text-link,.care-back-link { display: inline-flex; gap: 8px; align-items: center; color: var(--care-teal); font-size: 13px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+.care-text-link:hover,.care-back-link:hover { color: var(--care-navy); }
+.care-treatment-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; }
+.care-treatment-card { overflow: hidden; border: 1px solid #e5ecea; border-radius: 18px; color: inherit; background: #fff; text-decoration: none; transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease; }
+.care-treatment-card:hover { transform: translateY(-4px); border-color: rgba(20,125,134,.38); box-shadow: 0 20px 45px rgba(11,72,91,.1); }
+.care-treatment-card-image { position: relative; height: 168px; overflow: hidden; background: var(--care-mint); }
+.care-treatment-card-image img { object-fit: cover; transition: transform .35s ease; }
+.care-treatment-card:hover .care-treatment-card-image img { transform: scale(1.035); }
+.care-treatment-card-image::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(3,4,94,.42), transparent 68%); }
+.care-treatment-card-image > span { position: absolute; z-index: 1; bottom: 13px; left: 15px; padding: 6px 10px; color: #fff; background: rgba(3,4,94,.42); border: 1px solid rgba(255,255,255,.38); border-radius: 999px; font-size: 10px; font-weight: 750; }
+.care-treatment-card-body { min-height: 176px; padding: 18px 18px 17px; display: flex; flex-direction: column; align-items: flex-start; }
+.care-treatment-card-body h3 { color: var(--care-navy); font-size: 18px; line-height: 1.3; margin: 0; }
+.care-treatment-card-body p { color: var(--care-muted); font-size: 12px; line-height: 1.65; margin: 9px 0 17px; }
+.care-card-open { display: inline-flex; align-items: center; gap: 7px; color: var(--care-teal); font-size: 12px; font-weight: 800; margin-top: auto; }
+.care-detail-hero { min-height: 680px; grid-template-columns: minmax(0,1fr) minmax(350px,.88fr); gap: 56px; padding-top: 148px; padding-bottom: 90px; }
+.care-detail-hero-copy { max-width: 620px; }
+.care-detail-hero h1 { font-size: clamp(42px, 5vw, 68px); }
+.care-detail-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.care-detail-trust-note { display: flex; align-items: center; gap: 8px; margin-top: 20px; color: #4b7071; font-size: 12px; font-weight: 700; }
+.care-detail-image-wrap { min-height: 410px; position: relative; border-radius: 20px; overflow: hidden; background: #d9e9e6; box-shadow: 0 28px 65px rgba(3,4,94,.15); }
+.care-detail-image { object-fit: cover; }
+.care-image-caption { position: absolute; inset: auto 15px 15px; padding: 14px 16px; border-radius: 12px; background: rgba(255,255,255,.92); display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--care-ink); font-size: 12px; }
+.care-image-caption span { color: var(--care-muted); }
+.care-image-caption strong { color: var(--care-navy); }
+.care-detail-overview { padding: 86px 0; background: #fff; }
+.care-overview-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 68px; align-items: center; }
+.care-overview-main h2 { margin-bottom: 18px; }
+.care-overview-main > p { max-width: 700px; color: #50686e; font-size: 16px; line-height: 1.85; margin: 0 0 15px; }
+.care-overview-main > p.care-disclaimer { padding-top: 14px; border-top: 1px solid #e6eeec; color: #718286; font-size: 12px; line-height: 1.65; }
+.care-next-card { padding: 27px; border-radius: 18px; background: #edf6f4; }
+.care-next-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; color: var(--care-teal); background: #fff; }
+.care-next-card h3 { color: var(--care-navy); font-size: 20px; margin: 17px 0 8px; }
+.care-next-card p { color: #536a6f; font-size: 13px; line-height: 1.75; margin: 0 0 18px; }
+.care-process-section { padding: 78px 0 88px; background: #f5f8f6; }
+.care-process-heading { align-items: center; }
+.care-process-list { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 15px; }
+.care-process-step { min-height: 100px; padding: 18px; border-radius: 14px; background: #fff; display: flex; align-items: center; gap: 16px; color: var(--care-ink); font-size: 15px; font-weight: 750; }
+.care-process-index { width: 35px; height: 35px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; color: #fff; background: var(--care-teal); font-size: 11px; font-weight: 800; }
+.care-related-section { padding: 56px 0; color: #fff; background: var(--care-navy); }
+.care-related-inner { display: flex; justify-content: space-between; align-items: center; gap: 28px; }
+.care-related-inner .care-section-kicker { color: #9fe1d8; }
+.care-related-inner h2 { max-width: 650px; color: #fff; font-size: clamp(30px,3.4vw,43px); }
+.care-location-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; }
+.care-location-card { min-height: 88px; display: flex; align-items: center; gap: 16px; padding: 17px 20px; color: var(--care-ink); background: #fff; border: 1px solid #e5ecea; border-radius: 15px; text-decoration: none; transition: transform .18s ease, border-color .18s ease; }
+.care-location-card:hover { transform: translateY(-2px); border-color: var(--care-teal); }
+.care-location-pin { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px; color: var(--care-teal); background: var(--care-mint); }
+.care-location-card > span:nth-child(2) { display: grid; gap: 4px; flex: 1; }
+.care-location-card strong { color: var(--care-navy); font-size: 16px; }
+.care-location-card small { color: var(--care-muted); font-size: 11px; }
+.care-location-card > svg { color: var(--care-teal); }
+.care-directory-hero { min-height: 440px; grid-template-columns: 1fr; padding-bottom: 72px; }
+.care-directory-hero .care-region-hero-copy { padding-top: 24px; }
+.coverage-region-explore { color: #147d86 !important; }
+.locations-language-row { margin: 14px 0 -8px; }
+.locations-language-row a { display: inline-flex; padding: 8px 13px; border: 1px solid rgba(3,4,94,.15); border-radius: 999px; color: #03045e; background: rgba(255,255,255,.7); font-size: 12px; font-weight: 800; text-decoration: none; }
+.locations-language-row a:hover { background: #fff; }
+
+/* Treatment pages keep their region palette and add a specialty-specific accent. */
+.care-treatment-detail .care-detail-hero {
+  background:
+    radial-gradient(circle at 84% 23%, color-mix(in srgb, var(--care-location-accent) 14%, transparent), transparent 25rem),
+    linear-gradient(125deg, var(--care-location-wash) 0%, var(--care-mint) 56%, var(--care-region-highlight) 100%);
+}
+.care-treatment-detail .care-detail-eyebrow,
+.care-treatment-detail .care-section-kicker { color: var(--care-location-accent); }
+.care-treatment-detail .care-button-primary { background: var(--care-location-accent); box-shadow: 0 12px 28px color-mix(in srgb, var(--care-location-accent) 22%, transparent); }
+.care-treatment-detail .care-detail-image-wrap { background: var(--care-location-wash); box-shadow: 0 28px 65px color-mix(in srgb, var(--care-location-accent) 20%, transparent); }
+.care-treatment-detail .care-next-card { background: color-mix(in srgb, var(--care-location-wash) 82%, white); border: 1px solid color-mix(in srgb, var(--care-location-accent) 18%, white); }
+.care-treatment-detail .care-next-icon { color: var(--care-location-accent); }
+.care-treatment-detail .care-process-section { background: color-mix(in srgb, var(--care-location-wash) 68%, white); }
+.care-treatment-detail .care-process-index { background: var(--care-location-accent); }
+.care-treatment-detail .care-image-caption span { color: var(--care-treatment-accent); }
+.care-treatment-detail .care-related-section { background: linear-gradient(120deg, var(--care-location-navy), color-mix(in srgb, var(--care-location-navy) 72%, var(--care-location-accent))); }
+.care-detail-location-stamp { position: absolute; z-index: 2; top: 18px; left: 18px; display: flex; align-items: center; gap: 10px; max-width: calc(100% - 36px); padding: 8px 13px 8px 8px; border: 1px solid rgba(255,255,255,.76); border-radius: 16px; color: var(--care-location-navy); background: rgba(255,255,255,.9); box-shadow: 0 10px 28px rgba(24,46,57,.12); backdrop-filter: blur(10px); }
+.care-detail-location-image { width: 58px; height: 58px; flex: 0 0 auto; object-fit: cover; border-radius: 11px; }
+.care-detail-location-stamp > span { display: grid; gap: 3px; min-width: 0; }
+.care-detail-location-stamp strong { font-size: 13px; }
+.care-detail-location-stamp small { overflow: hidden; color: var(--care-location-accent); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Each city gets its own treatment-page composition, beyond its local photo and palette. */
+.care-treatment-detail.care-location-mumbai .care-detail-image-wrap { border-radius: 18px 78px 18px 18px; }
+.care-treatment-detail.care-location-delhi-ncr .care-detail-hero { grid-template-columns: minmax(320px,.9fr) minmax(0,1.1fr); }
+.care-treatment-detail.care-location-delhi-ncr .care-detail-image-wrap { grid-column: 1; grid-row: 1; min-height: 500px; border-radius: 8px 132px 8px 8px; }
+.care-treatment-detail.care-location-delhi-ncr .care-detail-hero-copy { grid-column: 2; grid-row: 1; padding: 24px 0 24px 18px; }
+.care-treatment-detail.care-location-delhi-ncr .care-overview-grid { grid-template-columns: .82fr 1.18fr; }
+.care-treatment-detail.care-location-delhi-ncr .care-next-card { grid-column: 1; grid-row: 1; border-radius: 4px 26px 4px 4px; }
+.care-treatment-detail.care-location-delhi-ncr .care-overview-main { grid-column: 2; grid-row: 1; }
+.care-treatment-detail.care-location-delhi-ncr .care-process-list { grid-template-columns: 1fr; max-width: 760px; margin-left: auto; }
+.care-treatment-detail.care-location-delhi-ncr .care-process-step { border-left: 4px solid var(--care-treatment-accent); border-radius: 4px 14px 14px 4px; }
+.care-treatment-detail.care-location-chandigarh .care-detail-hero { grid-template-columns: 1fr; gap: 34px; text-align: center; }
+.care-treatment-detail.care-location-chandigarh .care-detail-hero-copy { max-width: 870px; margin-inline: auto; }
+.care-treatment-detail.care-location-chandigarh .care-breadcrumb { justify-content: center; }
+.care-treatment-detail.care-location-chandigarh .care-detail-hero h1,
+.care-treatment-detail.care-location-chandigarh .care-detail-hero-copy > p { margin-inline: auto; }
+.care-treatment-detail.care-location-chandigarh .care-detail-actions { justify-content: center; }
+.care-treatment-detail.care-location-chandigarh .care-detail-trust-note { justify-content: center; }
+.care-treatment-detail.care-location-chandigarh .care-detail-image-wrap { width: min(100%,960px); min-height: 360px; justify-self: center; border-radius: 110px 18px 110px 18px; }
+.care-treatment-detail.care-location-chandigarh .care-overview-grid { grid-template-columns: 1fr 1fr; }
+.care-treatment-detail.care-location-ghaziabad .care-detail-hero { grid-template-columns: minmax(260px,.62fr) minmax(0,1.38fr); }
+.care-treatment-detail.care-location-ghaziabad .care-detail-image-wrap { grid-column: 1; grid-row: 1; min-height: 520px; border-radius: 180px 180px 18px 18px; }
+.care-treatment-detail.care-location-ghaziabad .care-detail-hero-copy { grid-column: 2; grid-row: 1; align-self: center; padding: 34px 0 34px 34px; border-left: 1px solid color-mix(in srgb,var(--care-location-accent) 35%,transparent); }
+.care-treatment-detail.care-location-ghaziabad .care-overview-grid { grid-template-columns: 1fr; max-width: 920px; }
+.care-treatment-detail.care-location-ghaziabad .care-process-list { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.care-treatment-detail.care-location-noida .care-detail-hero { display: grid; grid-template-columns: 1fr; gap: 0; padding-bottom: 76px; }
+.care-treatment-detail.care-location-noida .care-detail-image-wrap { grid-column: 1; grid-row: 1; width: 100%; min-height: 440px; border-radius: 28px 110px 28px 28px; }
+.care-treatment-detail.care-location-noida .care-detail-hero-copy { grid-column: 1; grid-row: 2; width: min(760px,90%); max-width: none; margin: -68px 0 0 5%; padding: 34px 38px; border: 1px solid rgba(255,255,255,.8); border-radius: 18px; background: color-mix(in srgb,var(--care-location-wash) 84%,white); box-shadow: 0 20px 55px rgba(22,50,65,.12); }
+.care-treatment-detail.care-location-noida .care-detail-hero-copy > p { margin-bottom: 22px; }
+.care-treatment-detail.care-location-noida .care-overview-grid { grid-template-columns: .95fr 1.05fr; }
+.care-treatment-detail.care-location-bangalore .care-detail-hero { grid-template-columns: minmax(0,1.08fr) minmax(320px,.92fr); }
+.care-treatment-detail.care-location-bangalore .care-detail-hero-copy { padding-left: 28px; border-left: 5px solid var(--care-location-accent); }
+.care-treatment-detail.care-location-bangalore .care-detail-image-wrap { align-self: end; min-height: 460px; border-radius: 240px 240px 18px 18px; }
+.care-treatment-detail.care-location-bangalore .care-process-list { grid-template-columns: 1fr; max-width: 780px; }
+.care-treatment-detail.care-location-bangalore .care-process-step { min-height: 76px; border-bottom: 1px solid color-mix(in srgb,var(--care-treatment-accent) 26%,transparent); border-radius: 0; background: transparent; }
+.care-treatment-detail.care-location-pune .care-detail-hero { grid-template-columns: minmax(300px,.94fr) minmax(0,1.06fr); }
+.care-treatment-detail.care-location-pune .care-detail-image-wrap { grid-column: 1; grid-row: 1; min-height: 440px; border-radius: 50% 18px 50% 18px; }
+.care-treatment-detail.care-location-pune .care-detail-hero-copy { grid-column: 2; grid-row: 1; align-self: center; padding: 12px 0 12px 22px; }
+.care-treatment-detail.care-location-pune .care-process-list { grid-template-columns: 1fr; }
+.care-treatment-detail.care-location-pune .care-process-step { border: 1px solid color-mix(in srgb,var(--care-treatment-accent) 22%,white); border-radius: 999px; }
+.care-treatment-detail.care-location-telangana .care-detail-hero { grid-template-columns: minmax(0,1.16fr) minmax(300px,.84fr); }
+.care-treatment-detail.care-location-telangana .care-detail-image-wrap { min-height: 500px; border-radius: 8px; }
+.care-treatment-detail.care-location-telangana .care-detail-hero-copy { max-width: 660px; }
+.care-treatment-detail.care-location-telangana .care-detail-overview { background: linear-gradient(135deg,#fff 0%,var(--care-location-wash) 100%); }
+.care-treatment-detail.care-location-telangana .care-process-list { grid-template-columns: 1fr; max-width: 760px; }
+.care-treatment-detail.care-location-telangana .care-process-step { position: relative; margin-left: 18px; border-radius: 4px 14px 14px 4px; }
+.care-treatment-detail.care-location-telangana .care-process-index { outline: 5px solid color-mix(in srgb,var(--care-treatment-wash) 65%,white); }
+.care-treatment-detail.care-location-ahmedabad .care-detail-hero { grid-template-columns: minmax(0,.94fr) minmax(320px,1.06fr); }
+.care-treatment-detail.care-location-ahmedabad .care-detail-image-wrap { align-self: center; min-height: 430px; transform: translateY(32px); border-radius: 50% 50% 18px 18px; }
+.care-treatment-detail.care-location-ahmedabad .care-detail-hero-copy { align-self: start; padding-top: 18px; }
+.care-treatment-detail.care-location-ahmedabad .care-detail-hero h1 { padding-bottom: 22px; border-bottom: 2px solid color-mix(in srgb,var(--care-location-accent) 35%,transparent); }
+.care-treatment-detail.care-location-ahmedabad .care-overview-grid { grid-template-columns: 1fr 1fr; }
+
+@media (max-width: 900px) {
+  .care-region-hero,.care-detail-hero { grid-template-columns: 1fr .75fr; gap: 30px; padding-left: 32px; padding-right: 32px; }
+  .care-region-hero-art { width: min(100%, 340px); }
+  .care-detail-image-wrap { min-height: 350px; }
+  .care-treatment-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .care-overview-grid { gap: 34px; }
+}
+
+@media (max-width: 680px) {
+  .care-content-wrap { width: min(calc(100% - 36px), 520px); }
+  .care-region-hero,.care-detail-hero { min-height: auto; grid-template-columns: 1fr; gap: 24px; padding: 132px 22px 45px; }
+  .care-region-hero h1,.care-detail-hero h1 { font-size: clamp(40px,12vw,54px); }
+  .care-region-hero p,.care-detail-hero-copy > p { font-size: 15px; line-height: 1.72; margin: 17px 0 23px; }
+  .care-breadcrumb { margin-bottom: 27px; font-size: 11px; gap: 7px; }
+  .care-language-switch { top: 95px; right: 20px; }
+  .care-region-hero-art { width: min(78vw, 290px); margin: 0 auto; }
+  .care-region-hero-art { aspect-ratio: 1.06; border-radius: 18px 52px 18px 18px; }
+  .care-region-art-label { left: 17px; bottom: 17px; }
+  .care-treatment-section { padding: 58px 0 68px; }
+  .care-section-heading { align-items: flex-start; flex-direction: column; margin-bottom: 24px; }
+  .care-section-heading h2,.care-overview-main h2 { font-size: 36px; }
+  .care-treatment-grid { grid-template-columns: 1fr; gap: 13px; }
+  .care-treatment-card { display: grid; grid-template-columns: 112px 1fr; min-height: 132px; }
+  .care-treatment-card-image { height: 100%; min-height: 132px; }
+  .care-treatment-card-image > span { left: 8px; bottom: 8px; font-size: 9px; padding: 5px 7px; }
+  .care-treatment-card-body { min-height: 132px; padding: 14px 13px; }
+  .care-treatment-card-body h3 { font-size: 15px; }
+  .care-treatment-card-body p { font-size: 11px; margin: 7px 0 10px; }
+  .care-card-open { font-size: 11px; }
+  .care-detail-hero { padding-top: 128px; }
+  .care-detail-image-wrap { min-height: 270px; }
+  .care-detail-actions { display: grid; grid-template-columns: 1fr; }
+  .care-detail-actions .care-button { width: 100%; }
+  .care-detail-overview { padding: 58px 0; }
+  .care-overview-grid { grid-template-columns: 1fr; gap: 24px; }
+  .care-overview-main > p { font-size: 14px; }
+  .care-next-card { padding: 22px; }
+  .care-process-section { padding: 58px 0; }
+  .care-process-heading { align-items: flex-start; }
+  .care-process-list { grid-template-columns: 1fr; gap: 9px; }
+  .care-process-step { min-height: 74px; }
+  .care-related-inner { align-items: flex-start; flex-direction: column; }
+  .care-related-section { padding: 42px 0; }
+  .care-location-grid { grid-template-columns: 1fr; }
+  .care-directory-hero { min-height: 350px; }
+  .care-directory-hero .care-region-hero-copy { padding-top: 28px; }
+}
+
+@media (max-width: 680px) {
+  .care-treatment-detail .care-detail-hero-copy,
+  .care-treatment-detail .care-detail-image-wrap { grid-column: 1; grid-row: auto; }
+  .care-treatment-detail.care-location-delhi-ncr .care-detail-image-wrap,
+  .care-treatment-detail.care-location-ghaziabad .care-detail-image-wrap,
+  .care-treatment-detail.care-location-pune .care-detail-image-wrap { order: 1; }
+  .care-treatment-detail.care-location-delhi-ncr .care-detail-hero-copy,
+  .care-treatment-detail.care-location-ghaziabad .care-detail-hero-copy,
+  .care-treatment-detail.care-location-pune .care-detail-hero-copy { order: 2; padding: 0; border-left: 0; }
+  .care-treatment-detail.care-location-chandigarh .care-detail-image-wrap { width: 100%; min-height: 250px; border-radius: 58px 14px; }
+  .care-treatment-detail.care-location-chandigarh .care-overview-grid,
+  .care-treatment-detail.care-location-delhi-ncr .care-overview-grid,
+  .care-treatment-detail.care-location-ahmedabad .care-overview-grid { grid-template-columns: 1fr; }
+  .care-treatment-detail.care-location-delhi-ncr .care-overview-main,
+  .care-treatment-detail.care-location-delhi-ncr .care-next-card { grid-column: 1; grid-row: auto; }
+  .care-treatment-detail.care-location-ghaziabad .care-detail-image-wrap { min-height: 300px; border-radius: 110px 110px 14px 14px; }
+  .care-treatment-detail.care-location-ghaziabad .care-process-list { grid-template-columns: 1fr; }
+  .care-treatment-detail.care-location-noida .care-detail-image-wrap { min-height: 270px; grid-row: 1; border-radius: 18px 66px 18px 18px; }
+  .care-treatment-detail.care-location-noida .care-detail-hero-copy { grid-row: 2; width: calc(100% - 20px); margin: -35px auto 0; padding: 24px 20px; }
+  .care-treatment-detail.care-location-noida .care-detail-actions { display: grid; }
+  .care-treatment-detail.care-location-bangalore .care-detail-hero-copy { padding-left: 18px; }
+  .care-treatment-detail.care-location-bangalore .care-detail-image-wrap { min-height: 280px; border-radius: 150px 150px 14px 14px; }
+  .care-treatment-detail.care-location-telangana .care-detail-image-wrap { min-height: 290px; }
+  .care-treatment-detail.care-location-telangana .care-process-list,
+  .care-treatment-detail.care-location-pune .care-process-list { grid-template-columns: 1fr; }
+  .care-treatment-detail.care-location-ahmedabad .care-detail-image-wrap { min-height: 285px; transform: none; border-radius: 50% 50% 14px 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .care-landing *, .care-landing *::before, .care-landing *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }

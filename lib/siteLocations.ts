@@ -4,6 +4,7 @@ export const siteLocations = [
   { name: "Ghaziabad", slug: "ghaziabad" },
   { name: "Noida", slug: "noida" },
   { name: "Mumbai", slug: "mumbai" },
+  { name: "Bengaluru", slug: "bangalore" },
   { name: "Pune", slug: "pune" },
   { name: "Telangana", slug: "telangana" },
   { name: "Ahmedabad", slug: "ahmedabad" },
