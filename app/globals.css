@@ -4,10 +4,10 @@
 
 /* ============ ORIGINAL AUREVIA DESIGN SYSTEM ============ */
 :root {
-  --font-manrope: Arial, "Segoe UI", sans-serif;
-  --font-newsreader: Georgia, "Times New Roman", serif;
+  --font-manrope: "Aptos", "Segoe UI Variable Text", "Segoe UI", "Inter", "Roboto", Arial, sans-serif;
+  --font-newsreader: "Aptos Display", "Segoe UI Variable Display", "Aptos", "Segoe UI Variable", "Segoe UI", "Inter", "Roboto", Arial, sans-serif;
   --font-mono: Consolas, "Courier New", monospace;
-  --font-urbanist: "Trebuchet MS", "Segoe UI", sans-serif;
+  --font-urbanist: "Aptos", "Segoe UI Variable Text", "Segoe UI", "Inter", "Roboto", Arial, sans-serif;
   --font-trust-display: Georgia, "Times New Roman", serif;
   --paper: #FCFEFD;
   --paper-2: #F1F8F7;
@@ -34,6 +34,7 @@ html,
 body {
   background: var(--paper);
   color: var(--ink);
+  font-family: var(--font-manrope);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility
@@ -1765,19 +1766,21 @@ body.dark-mode .treat-row:hover {
   background: var(--paper-3) !important;
 }
 
-/* ============ GLOBAL URBANIST TYPOGRAPHY OVERRIDE ============ */
+/* ============ CLEAR, PROFESSIONAL TYPOGRAPHY ============ */
 h1, h2, h3, .hero-headline, .sec-head h2, .pillar h3, .step h5, .foot-brand .word {
-  font-family: var(--font-urbanist), 'Urbanist', sans-serif !important;
+  font-family: var(--font-newsreader) !important;
+  font-weight: 700;
+  letter-spacing: -.025em;
 }
 
 .display, .hero-headline, .sec-head h2, .pillar h3, .step h5 {
-  font-family: var(--font-urbanist), 'Urbanist', sans-serif !important;
+  font-family: var(--font-newsreader) !important;
 }
 
 /* Extended Urbanist for form elements, buttons, and body text */
 input, select, textarea, button, .nav-cta, .btn-primary, .btn-ghost,
 .mobile-drawer-link, .mobile-drawer-cta, .foot-col a, .foot-col button {
-  font-family: var(--font-urbanist), 'Urbanist', var(--font-manrope), sans-serif;
+  font-family: var(--font-manrope);
 }
 
 /* ============ GLOBAL OVERFLOW FIX ============ */
@@ -2782,7 +2785,15 @@ body .font-manrope,
 body .font-newsreader,
 body .font-urbanist,
 body .font-mono {
-  font-family: Helvetica, Arial, sans-serif !important;
+  font-family: var(--font-manrope) !important;
+}
+
+body h1, body h2, body h3, body .display, body .hero-headline,
+body .sec-head h2, body .pillar h3, body .step h5,
+body .font-newsreader {
+  font-family: var(--font-newsreader) !important;
+  font-weight: 700;
+  letter-spacing: -.025em;
 }
 
 main.aurevia-static-page:not(.aurevia-page-index):not(.aurevia-page-treatments) {
@@ -2792,7 +2803,7 @@ main.aurevia-static-page:not(.aurevia-page-index):not(.aurevia-page-treatments) 
 }
 
 main.aurevia-static-page:not(.aurevia-page-index):not(.aurevia-page-treatments) * {
-  font-family: Helvetica, Arial, sans-serif !important;
+  font-family: var(--font-manrope) !important;
 }
 
 main.aurevia-static-page:not(.aurevia-page-index):not(.aurevia-page-treatments) .partners,
@@ -3467,6 +3478,7 @@ body.dark-mode .coverage-map-canvas .leaflet-tile { filter: brightness(.72) satu
 }
 
 .care-landing-hi { font-family: "Nirmala UI", "Noto Sans Devanagari", var(--font-manrope), sans-serif; }
+.care-landing-hi h1,.care-landing-hi h2,.care-landing-hi h3 { font-family: "Nirmala UI", "Noto Sans Devanagari", var(--font-manrope), sans-serif !important; font-weight: 700; letter-spacing: -.01em; }
 .care-content-wrap { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
 .care-region-hero,.care-detail-hero { position: relative; min-height: 610px; padding: 145px max(5vw, calc((100vw - 1160px) / 2)) 88px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, .82fr); align-items: center; gap: 64px; background: radial-gradient(circle at 82% 32%, rgba(255,255,255,.82), transparent 23rem), linear-gradient(125deg, var(--care-region-wash) 0%, var(--care-mint) 54%, var(--care-region-highlight) 100%); }
 .care-region-hero-copy,.care-detail-hero-copy { max-width: 600px; position: relative; z-index: 2; }
@@ -3475,7 +3487,7 @@ body.dark-mode .coverage-map-canvas .leaflet-tile { filter: brightness(.72) satu
 .care-breadcrumb a:hover { color: var(--care-teal); }
 .care-breadcrumb > span:last-child { color: var(--care-ink); font-weight: 700; }
 .care-region-kicker,.care-detail-eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--care-teal); font-size: 13px; font-weight: 750; margin-bottom: 18px; }
-.care-region-hero h1,.care-detail-hero h1 { max-width: 680px; color: var(--care-navy); font-family: var(--font-newsreader), "Nirmala UI", Georgia, serif; font-size: clamp(44px, 5.4vw, 76px); font-weight: 550; letter-spacing: -.045em; line-height: 1.02; margin: 0; }
+.care-region-hero h1,.care-detail-hero h1 { max-width: 680px; color: var(--care-navy); font-family: var(--font-newsreader), "Nirmala UI", sans-serif; font-size: clamp(44px, 5.4vw, 76px); font-weight: 700; letter-spacing: -.035em; line-height: 1.02; margin: 0; }
 .care-region-hero p,.care-detail-hero-copy > p { max-width: 530px; color: #50686e; font-size: 17px; line-height: 1.8; margin: 22px 0 30px; }
 .care-button { min-height: 50px; padding: 0 21px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 999px; font-size: 14px; font-weight: 750; text-decoration: none; transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease; }
 .care-button:hover { transform: translateY(-2px); }
@@ -3495,7 +3507,7 @@ body.dark-mode .coverage-map-canvas .leaflet-tile { filter: brightness(.72) satu
 .care-treatment-section { padding: 88px 0 108px; background: #fff; }
 .care-section-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 34px; }
 .care-section-kicker { display: block; color: var(--care-teal); font-size: 11px; font-weight: 800; letter-spacing: .13em; margin-bottom: 12px; }
-.care-section-heading h2,.care-overview-main h2,.care-related-inner h2 { color: var(--care-navy); font-family: var(--font-newsreader), "Nirmala UI", Georgia, serif; font-size: clamp(34px, 4vw, 50px); font-weight: 550; letter-spacing: -.035em; line-height: 1.1; margin: 0; }
+.care-section-heading h2,.care-overview-main h2,.care-related-inner h2 { color: var(--care-navy); font-family: var(--font-newsreader), "Nirmala UI", sans-serif; font-size: clamp(34px, 4vw, 50px); font-weight: 700; letter-spacing: -.03em; line-height: 1.1; margin: 0; }
 .care-section-heading p { color: var(--care-muted); font-size: 15px; line-height: 1.7; margin: 12px 0 0; }
 .care-text-link,.care-back-link { display: inline-flex; gap: 8px; align-items: center; color: var(--care-teal); font-size: 13px; font-weight: 800; text-decoration: none; white-space: nowrap; }
 .care-text-link:hover,.care-back-link:hover { color: var(--care-navy); }
@@ -3636,7 +3648,7 @@ body.dark-mode .coverage-map-canvas .leaflet-tile { filter: brightness(.72) satu
 /* Richer treatment pages: useful preparation, a clear journey and expandable answers. */
 .care-detail-discussion { padding: 104px 0 96px; background: linear-gradient(125deg,color-mix(in srgb,var(--care-location-wash) 92%,white),color-mix(in srgb,var(--care-treatment-wash) 72%,white)); }
 .care-detail-section-heading { max-width: 760px; margin-bottom: 38px; }
-.care-detail-section-heading h2,.care-journey-copy h2,.care-faq-intro h2 { color: var(--care-location-navy); font-family: var(--font-newsreader),"Nirmala UI",Georgia,serif; font-size: clamp(35px,4.3vw,55px); font-weight: 550; letter-spacing: -.04em; line-height: 1.08; margin: 10px 0 16px; }
+.care-detail-section-heading h2,.care-journey-copy h2,.care-faq-intro h2 { color: var(--care-location-navy); font-family: var(--font-newsreader),"Nirmala UI",sans-serif; font-size: clamp(35px,4.3vw,55px); font-weight: 700; letter-spacing: -.03em; line-height: 1.08; margin: 10px 0 16px; }
 .care-detail-section-heading > p,.care-journey-copy > p,.care-faq-intro > p { max-width: 650px; color: color-mix(in srgb,var(--care-location-navy) 72%,#536a6f); font-size: 16px; line-height: 1.8; margin: 0; }
 .care-discussion-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
 .care-discussion-card { position: relative; min-height: 245px; overflow: hidden; padding: 30px 28px; border: 1px solid color-mix(in srgb,var(--care-location-accent) 18%,white); border-radius: 20px 20px 20px 5px; background: rgba(255,255,255,.84); box-shadow: 0 18px 42px color-mix(in srgb,var(--care-location-navy) 8%,transparent); }
