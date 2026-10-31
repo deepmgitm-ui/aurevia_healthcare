@@ -64,7 +64,7 @@ export default function TreatmentLocationLandingPage({ slug, locationSlug, local
         <div className="care-detail-image-wrap">
           <Image src={heroImage} alt={locale === "hi" ? `${location.name} में ${copy.label} का दृश्य` : `${copy.label} care in ${location.name}`} fill priority sizes="(max-width: 900px) 100vw, 48vw" className="care-detail-image" />
           <div className="care-detail-location-stamp">
-            <Image src={locationVisual.image} alt="" width={58} height={58} className="care-detail-location-image" />
+            <Image src={locationVisual.image} alt="" width={82} height={82} className="care-detail-location-image" />
             <span><strong>{location.name}</strong><small>{locationVisual.caption[locale]}</small></span>
           </div>
           <div className="care-image-caption"><span>{copy.label}</span><strong>{location.name}</strong></div>
