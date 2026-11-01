@@ -1,14 +1,14 @@
 const delhiTreatmentImages: Record<string, string> = {
-  cataract: "/aurevia/treatments/cataract.webp",
-  lasik: "/aurevia/treatments/lasik.webp",
-  sinus: "/aurevia/treatments/sinus.webp",
-  tonsillectomy: "/aurevia/treatments/tonsillectomy.webp",
-  septoplasty: "/aurevia/treatments/rhinoplasty.webp",
-  "ear-perforation": "/services/ear_02.PNG",
-  rhinoplasty: "/services/rhinoplasty_02.PNG",
-  gynecomastia: "/aurevia/treatments/gynecomastia.webp",
-  "kidney-stone": "/aurevia/treatments/kidney-stones.webp",
-  dental: "/services/dental_02.PNG",
+  cataract: "/treatment-location-photos/delhi-ncr/cataract.webp",
+  lasik: "/treatment-location-photos/delhi-ncr/lasik.webp",
+  sinus: "/treatment-location-photos/delhi-ncr/sinus.webp",
+  tonsillectomy: "/treatment-location-photos/delhi-ncr/tonsillectomy.webp",
+  septoplasty: "/treatment-location-photos/delhi-ncr/septoplasty.webp",
+  "ear-perforation": "/treatment-location-photos/delhi-ncr/ear-perforation.webp",
+  rhinoplasty: "/treatment-location-photos/delhi-ncr/rhinoplasty.webp",
+  gynecomastia: "/treatment-location-photos/delhi-ncr/gynecomastia.webp",
+  "kidney-stone": "/treatment-location-photos/delhi-ncr/kidney-stone.webp",
+  dental: "/treatment-location-photos/delhi-ncr/dental.webp",
 };
 
 export function getTreatmentLocationImage(slug: string, locationSlug: string, defaultImage: string) {

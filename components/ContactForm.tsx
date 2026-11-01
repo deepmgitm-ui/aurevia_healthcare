@@ -4,7 +4,7 @@ import { useState, useRef, FormEvent, useId } from "react";
 import { usePathname } from "next/navigation";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import { Send, Loader2, User, Phone, Activity, ChevronDown, ShieldCheck, MapPin, MessageSquare } from "lucide-react";
+import { Send, Loader2, User, Phone, Activity, ChevronDown, ShieldCheck, MapPin, MessageSquare, CircleCheck, CircleAlert } from "lucide-react";
 import { siteLocationNames } from "@/lib/siteLocations";
 
 const cityOptions = [...siteLocationNames, "Other"];
@@ -14,9 +14,12 @@ interface ContactFormProps {
   layout?: "wide" | "compact";
   plain?: boolean;
   modalCompact?: boolean;
+  initialLocation?: string;
+  initialTreatment?: string;
+  compactLead?: boolean;
 }
 
-export default function ContactForm({ layout = "compact", plain = false, modalCompact = false }: ContactFormProps) {
+export default function ContactForm({ layout = "compact", plain = false, modalCompact = false, initialLocation, initialTreatment, compactLead = false }: ContactFormProps) {
   const pathname = usePathname();
   const isHindi = pathname.startsWith("/hi/");
   const formId = useId().replaceAll(":", "");
@@ -70,22 +73,29 @@ export default function ContactForm({ layout = "compact", plain = false, modalCo
         </div>
 
         <div className="space-y-2">
-          <label htmlFor={`${formId}-city`} className="block text-sm font-semibold text-[#254654] mb-2">{isHindi ? "शहर" : "City"}</label>
-          <div className="relative group">
+          <label htmlFor={initialLocation ? undefined : `${formId}-city`} className="block text-sm font-semibold text-[#254654] mb-2">{isHindi ? "शहर" : "City"}</label>
+          {initialLocation ? <>
+            <input type="hidden" name="user_city" value={initialLocation} />
+            <div className="flex min-h-[54px] items-center gap-3 rounded-xl border border-[#173f50]/15 bg-[#eef6f5] px-4 py-3 font-semibold text-[#183d4b]">
+              <MapPin size={19} className="shrink-0 text-[#147D86]" />
+              <span>{initialLocation}</span>
+              <span className="ml-auto text-xs font-medium text-[#5f747b]">{isHindi ? "इस पेज से" : "From this page"}</span>
+            </div>
+          </> : <div className="relative group">
             <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-[#03045E]/40 group-focus-within:text-[#03045E] transition-colors" size={20} />
             <select id={`${formId}-city`} name="user_city" required defaultValue="" className="w-full pl-12 pr-10 py-4 rounded-xl bg-[#F4F8FB] border border-[#173f50]/15 focus:bg-white focus:border-[#147D86] focus:ring-4 focus:ring-[#147D86]/10 outline-none transition-all appearance-none text-[#183d4b] font-medium cursor-pointer">
               <option value="" disabled>{isHindi ? "शहर चुनें..." : "Select a City..."}</option>
               {cityOptions.map((city, index) => (<option key={index} value={city}>{city === "Other" && isHindi ? "अन्य" : city}</option>))}
             </select>
             <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-[#03045E]/40 pointer-events-none" size={20} />
-          </div>
+          </div>}
         </div>
 
         <div className="space-y-2">
           <label htmlFor={`${formId}-treatment`} className="block text-sm font-semibold text-[#254654] mb-2">{isHindi ? "आप किस उपचार के बारे में बात करना चाहते हैं?" : "Which treatment would you like to discuss?"}</label>
           <div className="relative group">
             <Activity className="absolute left-4 top-1/2 -translate-y-1/2 text-[#03045E]/40 group-focus-within:text-[#03045E] transition-colors" size={20} />
-            <input id={`${formId}-treatment`} type="text" name="user_treatment" list={treatmentListId} required autoComplete="off" placeholder={isHindi ? "जैसे: मोतियाबिंद, लेसिक या अपना उपचार लिखें" : "e.g. Cataract, LASIK or type another treatment"} className="w-full pl-12 pr-4 py-4 rounded-xl bg-[#F4F8FB] border border-[#173f50]/15 focus:bg-white focus:border-[#147D86] focus:ring-4 focus:ring-[#147D86]/10 outline-none transition-all font-medium text-[#183d4b] placeholder:text-[#667d84]" />
+            <input id={`${formId}-treatment`} type="text" name="user_treatment" list={treatmentListId} defaultValue={initialTreatment ?? ""} required autoComplete="off" placeholder={isHindi ? "जैसे: मोतियाबिंद, लेसिक या अपना उपचार लिखें" : "e.g. Cataract, LASIK or type another treatment"} className="w-full pl-12 pr-4 py-4 rounded-xl bg-[#F4F8FB] border border-[#173f50]/15 focus:bg-white focus:border-[#147D86] focus:ring-4 focus:ring-[#147D86]/10 outline-none transition-all font-medium text-[#183d4b] placeholder:text-[#667d84]" />
             <datalist id={treatmentListId}>
               {treatmentOptions.map((treatment) => {
                 const hindiLabels: Record<string, string> = { "I'm not sure yet": "अभी तय नहीं", "LASIK": "लेसिक (LASIK)", "Cataract": "मोतियाबिंद", "Sinus": "साइनस", "Tonsillectomy": "टॉन्सिल सर्जरी", "Septoplasty": "सेप्टोप्लास्टी", "Eardrum repair": "कान के पर्दे की मरम्मत", "Liposuction": "लिपोसक्शन", "Lipoma": "लाइपोमा", "Rhinoplasty": "राइनोप्लास्टी", "Gynecomastia": "गाइनेकोमैस्टिया", "Kidney stones": "किडनी स्टोन", "Dental": "दाँतों का उपचार", "Orthopedic": "ऑर्थोपेडिक" };
@@ -121,16 +131,40 @@ export default function ContactForm({ layout = "compact", plain = false, modalCo
 
       {status === "success" && (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-emerald-50 border border-emerald-200 text-emerald-700 p-4 rounded-xl text-center font-medium flex items-center justify-center gap-2">
-          ✅ <span>{isHindi ? "अनुरोध भेज दिया गया! हमारी टीम जल्द आपसे संपर्क करेगी।" : "Request Sent! Our expert will call you shortly."}</span>
+          <CircleCheck size={19} aria-hidden="true" /> <span>{isHindi ? "अनुरोध भेज दिया गया! हमारी टीम जल्द आपसे संपर्क करेगी।" : "Request Sent! Our expert will call you shortly."}</span>
         </motion.div>
       )}
       {status === "error" && (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl text-center font-medium">
-          ❌ {isHindi ? "अनुरोध नहीं भेजा जा सका। विवरण जाँचें या हमें सीधे कॉल करें।" : "Failed to send. Please verify your details or call us directly."}
+          <CircleAlert size={19} aria-hidden="true" /> {isHindi ? "अनुरोध नहीं भेजा जा सका। विवरण जाँचें या हमें सीधे कॉल करें।" : "Failed to send. Please verify your details or call us directly."}
         </motion.div>
       )}
     </form>
   );
+
+  const compactLeadElement = (
+    <form ref={formRef} onSubmit={sendEmail} className="healthcare-form compact-lead-form">
+      <input type="hidden" name="user_city" defaultValue={initialLocation ?? ""} />
+      <input type="hidden" name="user_treatment" defaultValue={initialTreatment ?? ""} />
+      <input type="hidden" name="user_message" defaultValue="Treatment-page callback request" />
+      <label className="compact-lead-field">
+        <span>{isHindi ? "आपका नाम" : "Your name"}</span>
+        <input type="text" name="user_name" autoComplete="name" required placeholder={isHindi ? "अपना नाम लिखें" : "Enter your name"} />
+      </label>
+      <label className="compact-lead-field">
+        <span>{isHindi ? "संपर्क नंबर" : "Contact number"}</span>
+        <input type="tel" name="user_phone" autoComplete="tel" inputMode="tel" minLength={7} maxLength={20} required placeholder={isHindi ? "+91 के साथ अपना नंबर लिखें" : "Enter your phone number"} />
+      </label>
+      <button type="submit" disabled={loading} className="compact-lead-submit">
+        {loading ? <><Loader2 size={17} className="animate-spin" />{isHindi ? "भेजा जा रहा है…" : "Sending…"}</> : <>{isHindi ? "मुझसे संपर्क करें" : "Contact me"}<Send size={16} /></>}
+      </button>
+      <p className="compact-lead-privacy"><ShieldCheck size={14} aria-hidden="true" />{isHindi ? "हमारी टीम जल्द आपसे संपर्क करेगी।" : "Your details stay private. Our team will be in touch."}</p>
+      {status === "success" && <p role="status" className="compact-lead-status success">{isHindi ? "धन्यवाद—हम जल्द आपसे संपर्क करेंगे।" : "Thank you. We’ll be in touch shortly."}</p>}
+      {status === "error" && <p role="alert" className="compact-lead-status error">{isHindi ? "अनुरोध नहीं भेजा जा सका। कृपया फिर से कोशिश करें।" : "We couldn’t send your request. Please try again."}</p>}
+    </form>
+  );
+
+  if (compactLead) return compactLeadElement;
 
   if (plain) return formElement;
 

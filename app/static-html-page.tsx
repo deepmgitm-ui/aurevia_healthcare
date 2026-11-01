@@ -69,6 +69,7 @@ export default function StaticHtmlPage({ fileName }: { fileName: string }) {
       <title>{pageTitle[fileName] ?? "Aurevia Healthcare"}</title>
       <link rel="stylesheet" href="/aurevia/styles.css" />
       {styles ? <style dangerouslySetInnerHTML={{ __html: styles }} /> : null}
+      <link rel="stylesheet" href="/aurevia/redesign.css" />
       
       <main
         className={`aurevia-static-page aurevia-page-${pageSlug}`}

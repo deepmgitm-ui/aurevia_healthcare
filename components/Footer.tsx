@@ -156,6 +156,8 @@ export default function Footer() {
             <Link href="/terms-conditions" className="hover:text-[#90E0EF] transition-colors duration-200">{isHindi ? "नियम" : "Terms"}</Link>
             <span className="opacity-30">·</span>
             <Link href="/disclaimer" className="hover:text-[#90E0EF] transition-colors duration-200">{isHindi ? "अस्वीकरण" : "Disclaimer"}</Link>
+            <span className="opacity-30">·</span>
+            <Link href="/photo-credits" className="hover:text-[#90E0EF] transition-colors duration-200">{isHindi ? "फ़ोटो क्रेडिट" : "Photo credits"}</Link>
           </div>
         </div>
 

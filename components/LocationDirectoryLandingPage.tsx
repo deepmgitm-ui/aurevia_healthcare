@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { siteLocations } from "@/lib/siteLocations";
 import { getLandingCopy, getLocationHref, type LandingLocale } from "@/lib/locationLandingData";
+import IndiaCoverageMap from "@/components/IndiaCoverageMap";
 
 export default function LocationDirectoryLandingPage({ locale }: { locale: LandingLocale }) {
   const labels = getLandingCopy(locale);
@@ -17,6 +18,7 @@ export default function LocationDirectoryLandingPage({ locale }: { locale: Landi
           {locale === "hi" ? "English" : "हिन्दी"}
         </Link>
       </section>
+      <IndiaCoverageMap locale={locale} />
       <section className="care-treatment-section">
         <div className="care-content-wrap">
           <div className="care-section-heading"><div><span className="care-section-kicker">{labels.locations}</span><h2>{locale === "hi" ? "भारत में हमारी देखभाल" : "Care across our regions"}</h2></div></div>

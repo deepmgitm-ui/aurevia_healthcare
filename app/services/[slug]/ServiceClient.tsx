@@ -141,7 +141,7 @@ export default function ServiceClient() {
   ];
 
   return (
-    <main className="relative min-h-screen bg-gray-50">
+    <main className="aurevia-service-page relative min-h-screen bg-gray-50">
       <div className="relative h-[60vh] flex items-center justify-center">
         <Image src={service.bgImage} alt={service.title} fill className="object-cover" priority />
         <div className="absolute inset-0 bg-black/50"></div>

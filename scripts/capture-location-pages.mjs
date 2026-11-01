@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const exportRoot = path.join(repoRoot, "out");
-const screenshotRoot = path.join(repoRoot, "artifacts", "location-page-screenshots-current");
+const screenshotRoot = path.join(repoRoot, "artifacts", process.argv.includes("--mobile-check") ? "mobile-page-screenshots" : "location-page-screenshots-current");
 const browserPath = process.env.AUREVIA_BROWSER ?? "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe";
 const locations = ["chandigarh", "delhi-ncr", "ghaziabad", "noida", "mumbai", "bangalore", "pune", "telangana", "ahmedabad"];
 const treatments = ["cataract", "lasik", "sinus", "tonsillectomy", "septoplasty", "ear-perforation", "rhinoplasty", "gynecomastia", "kidney-stone", "dental"];
@@ -19,7 +19,26 @@ for (const location of locations) {
     routes.push(`/services/${treatment}/${location}/`, `/hi/services/${treatment}/${location}/`);
   }
 }
-const selectedRoutes = process.argv.includes("--bangalore-check")
+const popupCheck = process.argv.includes("--popup-check");
+const heroCheck = process.argv.includes("--hero-check");
+const mapCheck = process.argv.includes("--map-check");
+const mobileCheck = process.argv.includes("--mobile-check");
+const desktopCheck = process.argv.includes("--desktop-check");
+const viewportWidth = mobileCheck ? 390 : 1440;
+const viewportHeight = mobileCheck ? 844 : 1000;
+const selectedRoutes = heroCheck
+  ? ["/"]
+  : popupCheck
+  ? ["/"]
+  : mobileCheck
+  ? ["/", "/treatments/", "/locations/", "/locations/mumbai/", "/services/cataract/mumbai/", "/services/cataract/delhi-ncr/", "/services/lasik/bangalore/"]
+  : desktopCheck
+  ? ["/services/cataract/mumbai/", "/services/cataract/delhi-ncr/", "/services/lasik/bangalore/"]
+  : process.argv.includes("--map-check")
+  ? ["/locations/", "/hi/locations/"]
+  : process.argv.includes("--design-check")
+  ? ["/", "/about/", "/treatments/", "/how-it-works/", "/voices/", "/locations/", "/hi/locations/", "/locations/mumbai/", "/services/cataract/mumbai/", "/services/cataract/delhi-ncr/", "/services/lasik/bangalore/", "/photo-credits/"]
+  : process.argv.includes("--bangalore-check")
   ? ["/locations/bangalore/", "/hi/locations/bangalore/", "/services/lasik/bangalore/", "/hi/services/lasik/bangalore/"]
   : process.argv.includes("--city-layout-check")
   ? locations.flatMap((location) => [`/services/cataract/${location}/`, `/hi/services/cataract/${location}/`])
@@ -35,6 +54,8 @@ const selectedRoutes = process.argv.includes("--bangalore-check")
   : process.argv.includes("--treatments-only") ? routes.filter((route) => route.includes("/services/"))
   : routes;
 const useDevServer = process.argv.includes("--dev");
+const useLiveStatic = process.argv.includes("--live-static");
+const useRuntimeServer = useDevServer || useLiveStatic;
 
 const mime = new Map([
   [".html", "text/html; charset=utf-8"], [".txt", "text/plain; charset=utf-8"], [".css", "text/css; charset=utf-8"],
@@ -166,33 +187,62 @@ try {
   await openDebugSocket();
   await cdp("Page.enable");
   await cdp("Runtime.enable");
-  if (!useDevServer) await cdp("Emulation.setScriptExecutionDisabled", { value: true });
-  await cdp("Emulation.setDeviceMetricsOverride", { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
+  if (!useRuntimeServer) await cdp("Emulation.setScriptExecutionDisabled", { value: true });
+  await cdp("Emulation.setDeviceMetricsOverride", { width: viewportWidth, height: viewportHeight, deviceScaleFactor: 1, mobile: mobileCheck });
   await cdp("Emulation.setDefaultBackgroundColorOverride", { color: { r: 248, g: 250, b: 249, a: 1 } });
 
   for (const [index, route] of selectedRoutes.entries()) {
-    const loaded = waitForEvent("Page.loadEventFired", useDevServer ? 90000 : 20000);
+    const loaded = waitForEvent("Page.loadEventFired", useRuntimeServer ? 180000 : 20000);
     await cdp("Page.navigate", { url: `http://127.0.0.1:${sitePort}${route}` });
     await loaded;
+    await cdp("Runtime.evaluate", {
+      expression: "document.querySelectorAll('img[loading=lazy]').forEach(image => { image.loading = 'eager'; }); Promise.race([Promise.all(Array.from(document.images, image => image.decode().catch(() => {}))), new Promise(resolve => setTimeout(resolve, 1800))])",
+      awaitPromise: true,
+      returnByValue: true,
+    });
     let width, height;
-    if (useDevServer) {
+    if (useRuntimeServer) {
       await cdp("Runtime.evaluate", {
-        expression: "Promise.race([Promise.all([document.fonts.ready, ...Array.from(document.images, image => image.decode().catch(() => {}))]), new Promise(resolve => setTimeout(resolve, 2500))])",
+        expression: "Promise.race([Promise.all([document.fonts.ready, ...Array.from(document.images, image => image.decode().catch(() => {}))]), new Promise(resolve => setTimeout(resolve, 900))])",
         awaitPromise: true,
         returnByValue: true,
       });
       await cdp("Runtime.evaluate", {
-        expression: "window.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true})); new Promise(resolve => setTimeout(resolve, 250))",
-        awaitPromise: true,
+        expression: "document.querySelectorAll('.js-reveal').forEach(node => { node.style.opacity = '1'; node.style.transform = 'none'; }); document.querySelectorAll('.js-split').forEach(node => { node.style.visibility = 'visible'; });",
         returnByValue: true,
       });
+      if (!popupCheck) {
+        await cdp("Runtime.evaluate", {
+          expression: "window.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true})); new Promise(resolve => setTimeout(resolve, 250))",
+          awaitPromise: true,
+          returnByValue: true,
+        });
+      } else {
+        await cdp("Runtime.evaluate", {
+          expression: "new Promise(resolve => setTimeout(resolve, 900))",
+          awaitPromise: true,
+          returnByValue: true,
+        });
+      }
+      if (mapCheck) {
+        await cdp("Runtime.evaluate", {
+          expression: "new Promise(resolve => setTimeout(resolve, 5500))",
+          awaitPromise: true,
+          returnByValue: true,
+        });
+      }
       const metrics = await cdp("Runtime.evaluate", { expression: "({width: document.documentElement.scrollWidth, height: Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)})", returnByValue: true });
       ({ width, height } = metrics.result.value);
     } else {
+      await cdp("Runtime.evaluate", {
+        expression: "Promise.race([Promise.all(Array.from(document.images, image => image.decode().catch(() => {}))), new Promise(resolve => setTimeout(resolve, 2500))])",
+        awaitPromise: true,
+        returnByValue: true,
+      });
       let metrics = await cdp("Page.getLayoutMetrics");
       width = metrics.cssContentSize.width;
       height = metrics.cssContentSize.height;
-      await cdp("Emulation.setDeviceMetricsOverride", { width: 1440, height: Math.min(Math.ceil(height), 16000), deviceScaleFactor: 1, mobile: false });
+      await cdp("Emulation.setDeviceMetricsOverride", { width: viewportWidth, height: Math.min(Math.ceil(height), 16000), deviceScaleFactor: 1, mobile: mobileCheck });
       await new Promise((resolve) => setTimeout(resolve, 1000));
       metrics = await cdp("Page.getLayoutMetrics");
       width = metrics.cssContentSize.width;
@@ -200,9 +250,10 @@ try {
     }
     const image = await cdp("Page.captureScreenshot", {
       format: "png", fromSurface: true, captureBeyondViewport: true,
-      clip: { x: 0, y: 0, width: Math.max(1440, width), height, scale: 1 },
+      clip: { x: 0, y: 0, width: Math.max(viewportWidth, width), height: heroCheck || popupCheck ? viewportHeight : height, scale: 1 },
     });
-    await fs.writeFile(path.join(screenshotRoot, `${safeFilename(route)}.png`), Buffer.from(image.data, "base64"));
+    const filename = popupCheck ? "consultation-popup" : heroCheck ? "homepage-hero" : safeFilename(route);
+    await fs.writeFile(path.join(screenshotRoot, `${filename}.png`), Buffer.from(image.data, "base64"));
     if ((index + 1) % 20 === 0 || index + 1 === selectedRoutes.length) console.log(`Captured ${index + 1}/${selectedRoutes.length}: ${route}`);
   }
   console.log(`Saved ${selectedRoutes.length} full-page screenshots to ${screenshotRoot}`);

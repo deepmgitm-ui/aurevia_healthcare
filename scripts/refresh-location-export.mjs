@@ -5,15 +5,15 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const out = path.join(root, "out");
 const locations = {
-  chandigarh: { name: "Chandigarh", en: "Planned city · garden avenues", hi: "योजनाबद्ध शहर · हरे-भरे रास्ते", colors: ["#344657", "#2B445F", "#5A7897", "#ECF1F5", "#FAFCFD", "#687786", "#E4EDF4", "#F8FAFC"] },
-  "delhi-ncr": { name: "Delhi NCR", en: "Capital region · sandstone avenues", hi: "राजधानी क्षेत्र · बलुआ पत्थर के रास्ते", colors: ["#493D42", "#493243", "#98523E", "#F2EAE5", "#FBF8F5", "#716365", "#F1E5DC", "#FCF8F2"] },
-  ghaziabad: { name: "Ghaziabad", en: "Urban greenway · river corridor", hi: "शहरी हरित पट्टी · नदी किनारा", colors: ["#374739", "#3F5731", "#6B873E", "#F0F3E8", "#FBFCF8", "#67715D", "#E7EDD9", "#FAFBF4"] },
-  noida: { name: "Noida", en: "Modern skyline · open green spaces", hi: "आधुनिक स्काईलाइन · खुले हरित क्षेत्र", colors: ["#224253", "#1D3E62", "#1A7288", "#E6F2F4", "#F6FAFB", "#597078", "#E1EEF3", "#F8FBFC"] },
-  mumbai: { name: "Mumbai", en: "Coastal city · Arabian Sea", hi: "समुद्री शहर · अरब सागर", colors: ["#254453", "#183D59", "#A74550", "#E8F1F1", "#F7FAF9", "#5C7075", "#E5F0ED", "#FEF7F2"] },
-  bangalore: { name: "Bengaluru", en: "Garden city · modern skyline", hi: "गार्डन सिटी · आधुनिक स्काईलाइन", colors: ["#33483E", "#244A3B", "#397B60", "#E8F2EB", "#F7FAF6", "#5F7267", "#E1EFE5", "#F8FBF4"] },
-  pune: { name: "Pune", en: "Heritage gateway · Deccan hills", hi: "ऐतिहासिक धरोहर · दक्कन की पहाड़ियाँ", colors: ["#403F59", "#3F3A75", "#625F9B", "#EFEEF7", "#FAF9FC", "#68677B", "#ECEBF6", "#FCFBFE"] },
-  telangana: { name: "Telangana", en: "Hyderabad · Deccan heritage", hi: "हैदराबाद · दक्कन की विरासत", colors: ["#463F58", "#393454", "#76527E", "#F0ECF3", "#FBF9FC", "#706777", "#EFE9F1", "#FCF9FC"] },
-  ahmedabad: { name: "Ahmedabad", en: "Sabarmati riverfront · sandstone heritage", hi: "साबरमती रिवरफ्रंट · पत्थर की विरासत", colors: ["#4D4337", "#53402B", "#985A2B", "#F3EEE5", "#FBF9F4", "#73695B", "#F1E7D8", "#FCFAF4"] },
+  chandigarh: { name: "Chandigarh", en: "Planned city · garden avenues", hi: "योजनाबद्ध शहर · हरे-भरे रास्ते", colors: ["#263E55", "#244B70", "#3E83B9", "#E6F1FA", "#F7FAFD", "#566E83", "#DDEAF5", "#F7F4EC"] },
+  "delhi-ncr": { name: "Delhi NCR", en: "Capital region · sandstone avenues", hi: "राजधानी क्षेत्र · बलुआ पत्थर के रास्ते", colors: ["#442F36", "#4A2D3B", "#B85439", "#F6E4D9", "#FCF7F1", "#705A59", "#F3DCCB", "#FFF6E8"] },
+  ghaziabad: { name: "Ghaziabad", en: "Urban greenway · river corridor", hi: "शहरी हरित पट्टी · नदी किनारा", colors: ["#344632", "#34522E", "#6E923D", "#E9F0DD", "#FAFCF5", "#5D6B53", "#DEEACD", "#F6F2E5"] },
+  noida: { name: "Noida", en: "Modern skyline · open green spaces", hi: "आधुनिक स्काईलाइन · खुले हरित क्षेत्र", colors: ["#203F50", "#173B58", "#147F98", "#DDEFF2", "#F4FAFB", "#536D77", "#D2E9ED", "#F7F2E9"] },
+  mumbai: { name: "Mumbai", en: "Coastal city · Arabian Sea", hi: "समुद्री शहर · अरब सागर", colors: ["#243E4B", "#173A52", "#C34D58", "#DDF0EE", "#F8FAF6", "#566A70", "#F5E0D8", "#FFF0E4"] },
+  bangalore: { name: "Bengaluru", en: "Garden city · modern skyline", hi: "गार्डन सिटी · आधुनिक स्काईलाइन", colors: ["#2E493B", "#234C3B", "#32865D", "#E0F0E4", "#F6FAF5", "#587064", "#D7EBDD", "#F8F1E7"] },
+  pune: { name: "Pune", en: "Heritage gateway · Deccan hills", hi: "ऐतिहासिक धरोहर · दक्कन की पहाड़ियाँ", colors: ["#3E3C5D", "#403B78", "#7166B3", "#E9E7F6", "#FAF9FD", "#625F78", "#DEDDF1", "#FBF3E9"] },
+  telangana: { name: "Telangana", en: "Hyderabad · Deccan heritage", hi: "हैदराबाद · दक्कन की विरासत", colors: ["#43354E", "#463252", "#985D91", "#F0E4F0", "#FCF8FC", "#6B5C70", "#EBD8E9", "#FFF2E8"] },
+  ahmedabad: { name: "Ahmedabad", en: "Sabarmati riverfront · sandstone heritage", hi: "साबरमती रिवरफ्रंट · पत्थर की विरासत", colors: ["#4C3B27", "#5C4023", "#B97825", "#F4EBD7", "#FCF9F1", "#71614A", "#F0E1C3", "#FFF5E1"] },
 };
 
 const treatmentScenes = {
@@ -31,16 +31,16 @@ const treatmentScenes = {
 
 const treatments = ["cataract", "lasik", "sinus", "tonsillectomy", "septoplasty", "ear-perforation", "rhinoplasty", "gynecomastia", "kidney-stone", "dental"];
 const delhiTreatmentImages = {
-  cataract: "/aurevia/treatments/cataract.webp",
-  lasik: "/aurevia/treatments/lasik.webp",
-  sinus: "/aurevia/treatments/sinus.webp",
-  tonsillectomy: "/aurevia/treatments/tonsillectomy.webp",
-  septoplasty: "/aurevia/treatments/rhinoplasty.webp",
-  "ear-perforation": "/services/ear_02.PNG",
-  rhinoplasty: "/services/rhinoplasty_02.PNG",
-  gynecomastia: "/aurevia/treatments/gynecomastia.webp",
-  "kidney-stone": "/aurevia/treatments/kidney-stones.webp",
-  dental: "/services/dental_02.PNG",
+  cataract: "/treatment-location-photos/delhi-ncr/cataract.webp",
+  lasik: "/treatment-location-photos/delhi-ncr/lasik.webp",
+  sinus: "/treatment-location-photos/delhi-ncr/sinus.webp",
+  tonsillectomy: "/treatment-location-photos/delhi-ncr/tonsillectomy.webp",
+  septoplasty: "/treatment-location-photos/delhi-ncr/septoplasty.webp",
+  "ear-perforation": "/treatment-location-photos/delhi-ncr/ear-perforation.webp",
+  rhinoplasty: "/treatment-location-photos/delhi-ncr/rhinoplasty.webp",
+  gynecomastia: "/treatment-location-photos/delhi-ncr/gynecomastia.webp",
+  "kidney-stone": "/treatment-location-photos/delhi-ncr/kidney-stone.webp",
+  dental: "/treatment-location-photos/delhi-ncr/dental.webp",
 };
 const routes = ["locations", "hi/locations"];
 for (const location of Object.keys(locations)) {
@@ -84,7 +84,7 @@ for (const route of routes) {
   const location = locations[locationSlug];
   if (!location) continue;
   const alt = isHindi ? location.hi : location.en;
-  const scene = `<img alt="${escapeAttr(alt)}" loading="eager" decoding="async" class="care-region-hero-image" src="/location-scenes/${locationSlug}.svg"/><div class="care-region-photo-shade"></div><div class="care-region-art-label"><strong>${location.name}</strong><span>${alt}</span></div>`;
+  const scene = `<img alt="${escapeAttr(alt)}" loading="eager" decoding="async" class="care-region-hero-image" src="/location-photos/${locationSlug}.jpg"/><div class="care-region-photo-shade"></div><div class="care-region-art-label"><strong>${location.name}</strong><span>${alt}</span></div>`;
   const procedurePalette = location.colors;
   const procedureVars = procedure ? `;--care-treatment-accent:${procedure.accent};--care-treatment-wash:${procedure.wash};--care-treatment-glow:${procedure.glow};--care-location-wash:${location.colors[6]};--care-location-accent:${location.colors[2]};--care-location-navy:${location.colors[1]}` : "";
   html = html.replace(/(<main class="care-landing[^\"]*)/,
@@ -101,7 +101,7 @@ for (const route of routes) {
     html = html.replace(/(<div class="care-detail-image-wrap">)<img[^>]*class="care-detail-image"[^>]*\/>/,
       `$1<img alt="${escapeAttr(treatmentAlt)}" decoding="async" class="care-detail-image" src="${treatmentImage}"/>`);
     html = html.replace('<div class="care-image-caption">',
-      `<div class="care-detail-location-stamp"><img alt="" src="/location-scenes/${locationSlug}.svg"/><span><strong>${location.name}</strong><small>${escapeAttr(locationCaption)}</small></span></div><div class="care-image-caption">`);
+      `<div class="care-detail-location-stamp"><img alt="" src="/location-photos/${locationSlug}.jpg"/><span><strong>${location.name}</strong><small>${escapeAttr(locationCaption)}</small></span></div><div class="care-image-caption">`);
     html = html.replace(/<div class="care-image-caption"><span>[^<]*<\/span><strong>[^<]*<\/strong><\/div>/,
       `<div class="care-image-caption"><span>${treatmentLabel}</span><strong>${location.name}</strong></div>`);
   }

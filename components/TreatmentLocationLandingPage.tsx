@@ -13,6 +13,7 @@ import {
 import { getLocationVisual } from "@/lib/locationVisuals";
 import { getTreatmentVisual } from "@/lib/treatmentVisuals";
 import { getTreatmentLocationImage } from "@/lib/treatmentLocationImages";
+import ContactForm from "@/components/ContactForm";
 
 export default function TreatmentLocationLandingPage({ slug, locationSlug, locale }: { slug: string; locationSlug: string; locale: LandingLocale }) {
   const treatment = getTreatment(slug);
@@ -105,11 +106,11 @@ export default function TreatmentLocationLandingPage({ slug, locationSlug, local
             <p>{copy.intro}</p>
             <p className="care-disclaimer">{labels.careNote}</p>
           </div>
-          <aside className="care-next-card">
-            <div className="care-next-icon"><ArrowUpRight size={20} /></div>
-            <h3>{labels.nextSteps}</h3>
-            <p>{labels.nextStepsBody}</p>
-            <a href="tel:+919990959440" className="care-text-link">{labels.call} +91 99909 59440 <ArrowUpRight size={15} /></a>
+          <aside className="care-next-card care-inline-lead-card">
+            <span className="care-section-kicker">{locale === "hi" ? "केयर टीम" : "Aurevia care team"}</span>
+            <h3>{locale === "hi" ? "हम आपसे संपर्क करेंगे" : "We’ll contact you"}</h3>
+            <p>{locale === "hi" ? `${location.name} में ${copy.label} के बारे में बात करने के लिए अपना नाम और संपर्क नंबर दें।` : `Share your name and contact number to discuss ${copy.label.toLowerCase()} in ${location.name}.`}</p>
+            <ContactForm compactLead initialLocation={location.name} initialTreatment={copy.label} />
           </aside>
         </div>
       </section>
@@ -129,7 +130,7 @@ export default function TreatmentLocationLandingPage({ slug, locationSlug, local
             </article>)}
           </div>
           <aside className="care-detail-callout">
-            <span aria-hidden="true">✳</span>
+            <span aria-hidden="true"><MessageCircle size={18} /></span>
             <p>{locale === "hi" ? "कोई सवाल छोटा नहीं होता—अपनी शंकाएँ लिखकर लाएँ और विशेषज्ञ से खुलकर पूछें।" : "No question is too small. Write down what is on your mind and bring it to your specialist conversation."}</p>
           </aside>
         </div>

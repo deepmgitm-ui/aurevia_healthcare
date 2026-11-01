@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import ContactForm from "./ContactForm";
+import { getLocation, getTreatment } from "@/lib/locationLandingData";
 
 type ConsultationWindow = Window & {
   openConsultationModal?: () => void;
@@ -20,6 +21,13 @@ export default function GlobalPopup() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const isHindi = pathname.startsWith("/hi/");
+  const routeParts = pathname.split("/").filter(Boolean);
+  const servicesIndex = routeParts.indexOf("services");
+  const isTreatmentLanding = servicesIndex >= 0 && routeParts.length > servicesIndex + 2;
+  const treatmentSlug = isTreatmentLanding ? routeParts[servicesIndex + 1] : "";
+  const locationSlug = isTreatmentLanding ? routeParts[servicesIndex + 2] : "";
+  const pageLocation = isTreatmentLanding ? getLocation(locationSlug) : undefined;
+  const pageTreatment = isTreatmentLanding ? getTreatment(treatmentSlug) : undefined;
   const isCareLanding = pathname === "/hi/locations" || /^\/(?:hi\/)?locations\/[^/]+\/?$/.test(pathname) || /^\/(?:hi\/)?services\/[^/]+\/[^/]+\/?$/.test(pathname);
 
   const openModal = useCallback(() => {
@@ -55,7 +63,7 @@ export default function GlobalPopup() {
       clearTimeout(recurringStartTimer);
       if (recurringInterval) clearInterval(recurringInterval);
     };
-  }, [openModal, isCareLanding]);
+  }, [openModal, isCareLanding, isTreatmentLanding]);
 
   useEffect(() => {
     const consultationWindow = window as ConsultationWindow;
@@ -81,12 +89,12 @@ export default function GlobalPopup() {
         <div className="fixed inset-0 z-[150] flex items-center justify-center p-2 sm:p-4">
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={closeModal}
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm cursor-pointer"
+            className="fixed inset-0 bg-[#1c302d]/45 backdrop-blur-[3px] cursor-pointer"
           />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 15 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 15 }} transition={{ type: "spring", duration: 0.4 }}
-            className="consultation-popup-card relative w-full max-w-xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden font-urbanist z-10"
+            className="consultation-popup-card relative w-full max-w-xl bg-white rounded-[26px] shadow-2xl flex flex-col overflow-hidden font-urbanist z-10"
             role="dialog"
             aria-modal="true"
             aria-labelledby="consultation-popup-title"
@@ -99,15 +107,22 @@ export default function GlobalPopup() {
               <X size={20} className="stroke-[2.5]" />
             </button>
 
-            <div className="bg-gradient-to-r from-[#0B485B] to-[#147D86] px-12 py-3 sm:px-14 sm:py-4 text-center text-white shrink-0">
-              <h3 id="consultation-popup-title" className="text-lg sm:text-xl font-bold mb-0.5 font-urbanist tracking-tight">{isHindi ? "निःशुल्क परामर्श के लिए अनुरोध" : "Request Free Consultation"}</h3>
-              <p className="text-[#90E0EF] text-[10px] sm:text-xs font-medium">{isHindi ? "जल्दी, गोपनीय और बिना किसी बाध्यता के" : "Quick, confidential and no-obligation"}</p>
+            <div className="consultation-popup-header px-12 py-5 sm:px-14 sm:py-6 text-center text-white shrink-0">
+              <span className="consultation-popup-kicker">{isHindi ? "ऑरिया केयर टीम" : "Aurevia care team"}</span>
+              <h3 id="consultation-popup-title" className="text-xl sm:text-2xl font-semibold mb-1 font-urbanist tracking-tight">{isHindi ? "निःशुल्क परामर्श का अनुरोध" : "Request a free consultation"}</h3>
+              <p className="consultation-popup-subtitle text-xs sm:text-sm">{isHindi ? "जल्दी, गोपनीय और बिना किसी बाध्यता के" : "A calm, confidential conversation about your care"}</p>
             </div>
 
             <div
               className="p-3 sm:p-5 flex-1"
             >
-              <ContactForm layout="wide" plain={true} modalCompact={true} />
+              <ContactForm
+                layout="wide"
+                plain={true}
+                modalCompact={true}
+                initialLocation={pageLocation?.name}
+                initialTreatment={pageTreatment?.[isHindi ? "hi" : "en"].label}
+              />
             </div>
           </motion.div>
         </div>
