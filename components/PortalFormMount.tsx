@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import ContactForm from "@/components/ContactForm";
 
-export default function PortalFormMount() {
-  const [mounted, setMounted] = useState(false);
+const subscribeToMount = () => () => {};
+const getClientMountedSnapshot = () => true;
+const getServerMountedSnapshot = () => false;
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+export default function PortalFormMount() {
+  const mounted = useSyncExternalStore(subscribeToMount, getClientMountedSnapshot, getServerMountedSnapshot);
 
   if (!mounted || typeof document === "undefined") {
     return null;
@@ -20,5 +20,5 @@ export default function PortalFormMount() {
     return null;
   }
 
-  return createPortal(<ContactForm />, targetNode);
+  return createPortal(<ContactForm layout="wide" plain />, targetNode);
 }

@@ -10,18 +10,18 @@
   --font-urbanist: var(--font-body), "Noto Sans Devanagari", "Segoe UI", Arial, sans-serif;
   --font-trust-display: Georgia, "Times New Roman", serif;
   --paper: #FCFEFD;
-  --paper-2: #F1F8F7;
-  --paper-3: #DCEFEB;
-  --cyan: #E6F5F3;
-  --ink: #0B485B;
-  --ink-2: #147D86;
-  --ink-soft: rgba(11, 72, 91, .68);
-  --ink-faint: rgba(11, 72, 91, .42);
-  --line: rgba(11, 72, 91, .14);
-  --line-strong: rgba(11, 72, 91, .24);
-  --amber: #32AAA4;
-  --amber-deep: #147D86;
-  --gold: #9DDED8;
+  --paper-2: #F0F6FB;
+  --paper-3: #DCEAF6;
+  --cyan: #E7F2FA;
+  --ink: #173A5E;
+  --ink-2: #2477AD;
+  --ink-soft: rgba(23, 58, 94, .68);
+  --ink-faint: rgba(23, 58, 94, .42);
+  --line: rgba(23, 58, 94, .14);
+  --line-strong: rgba(23, 58, 94, .24);
+  --amber: #398FC2;
+  --amber-deep: #1F6FA5;
+  --gold: #E8C275;
 }
 
 * {
@@ -4381,3 +4381,45 @@ body.dark-mode footer.bg-\[\#03045E\] { background: #0c2230 !important; }
   .care-treatment-detail.care-location-mumbai .care-detail-hero-copy { padding: 20px 0 20px 16px; }
   .care-treatment-detail.care-location-delhi-ncr .care-detail-image-wrap { box-shadow: 8px 9px 0 #b85439; }
 }
+
+/* Shared brand pages use a clear blue palette; region pages retain their city palettes. */
+.interior-page { --interior-ink:#173a5e; --interior-muted:#5a7185; --interior-teal:#287fb7; --interior-line:#dbe7f0; color:var(--interior-ink); }
+.interior-hero { background:radial-gradient(ellipse at 82% 16%,rgba(107,177,220,.2),transparent 27rem),linear-gradient(123deg,#eaf4fb 0%,#f6f9fc 62%,#eaf2f8 100%); }
+.contact-copy h1 em,.consultation-copy h1 em,.service-directory-hero h1 em,.contact-next h2 em,.directory-section-heading h2 em { color:#2477ad; }
+.interior-eyebrow { color:#2877a8; }
+.interior-eyebrow>span { background:#e2b96d; box-shadow:0 0 0 4px rgba(226,185,109,.18); }
+.contact-way { border-color:#dbe7ef; background:rgba(255,255,255,.82); }
+.contact-way:hover { border-color:#8ab9d4; box-shadow:0 12px 26px rgba(28,76,107,.09); }
+.contact-way-icon,.contact-way-icon--mint,.contact-way-icon--peach { color:#287caf; background:#e7f2fa; }
+.contact-way>svg:last-child { color:#5685a1; }
+.contact-note { color:#587489; }
+.contact-form-card,.consultation-form-wrap { border-color:#dbe7ef; box-shadow:0 20px 58px rgba(25,64,93,.1); }
+.contact-form-card .healthcare-form button[type=submit],.consultation-form-wrap .healthcare-form button[type=submit] { background:#246fa8; box-shadow:0 8px 18px rgba(36,111,168,.18); }
+.consultation-hero { background:radial-gradient(ellipse at 89% 15%,rgba(99,170,215,.19),transparent 26rem),linear-gradient(125deg,#eaf4fb 0%,#f4f8fc 57%,#e9f1f8 100%); }
+.promise-icon,.form-top-mark { color:#287caf; background:#e3f0f8; }
+.consultation-step>span { color:#2477ad; }
+.consultation-direct { color:#284e69; border-color:#d6e4ee; }
+.interior-text-link,.directory-help>a { color:#2477ad; }
+.directory-help { border-color:#dbe7ef; background:linear-gradient(105deg,#eaf4fa,#f5f8fb); }
+.directory-help-icon { color:#287caf; background:#e5f1f8; }
+.service-directory-card:hover { border-color:#a6cadf; box-shadow:0 17px 38px rgba(35,75,103,.1); }
+.legal-hero { background:radial-gradient(ellipse at 92% 15%,rgba(112,177,214,.18),transparent 24rem),linear-gradient(120deg,#eaf4fa,#f7fafc 70%,#eaf2f8); }
+.legal-content a,.legal-intro a { color:#2477ad; }
+
+/* Compact, two-column consultation form for the shared footer CTA. */
+main.aurevia-static-page .cta { padding:clamp(54px,7vw,82px) 0; background:linear-gradient(125deg,#153d65,#246fa8); }
+main.aurevia-static-page .cta-inner { grid-template-columns:minmax(0,1fr) minmax(0,.95fr); gap:clamp(30px,5vw,64px); align-items:center; }
+main.aurevia-static-page .cta h2,main.aurevia-static-page .cta h2 em { font-size:clamp(38px,4.7vw,62px); line-height:1.02; }
+main.aurevia-static-page #react-contact-form-portal { padding:clamp(17px,2vw,24px); border:1px solid rgba(255,255,255,.72); border-radius:18px; background:#fff; box-shadow:0 18px 45px rgba(8,31,55,.18); }
+main.aurevia-static-page #react-contact-form-portal .healthcare-form { gap:10px; }
+main.aurevia-static-page #react-contact-form-portal .healthcare-form > :not([hidden]) ~ :not([hidden]) { margin-top:0; }
+main.aurevia-static-page #react-contact-form-portal .healthcare-form > div.grid { column-gap:12px; row-gap:8px; }
+main.aurevia-static-page #react-contact-form-portal .healthcare-form .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top:4px; }
+main.aurevia-static-page #react-contact-form-portal .healthcare-form label { margin:0 0 3px; color:#31556f; font-size:11px; line-height:1.35; }
+main.aurevia-static-page #react-contact-form-portal .healthcare-form input,main.aurevia-static-page #react-contact-form-portal .healthcare-form select { min-height:42px; padding-top:9px; padding-bottom:9px; border-color:#d5e3ed; border-radius:9px; background:#f6f9fc; font-size:13px; }
+main.aurevia-static-page #react-contact-form-portal .healthcare-form textarea { height:64px; min-height:64px; padding-top:10px; padding-bottom:10px; border-color:#d5e3ed; border-radius:9px; background:#f6f9fc; font-size:13px; }
+main.aurevia-static-page #react-contact-form-portal .healthcare-form button[type=submit] { min-height:44px; padding:10px 16px; border-radius:10px; background:#246fa8; box-shadow:none; font-size:14px; line-height:1.25; }
+main.aurevia-static-page #react-contact-form-portal .healthcare-form > .flex { margin-top:0; color:#60798a; font-size:9px; line-height:1.45; }
+main.aurevia-static-page #react-contact-form-portal .healthcare-form > .flex svg { width:14px; height:14px; }
+@media(max-width:900px) { main.aurevia-static-page .cta-inner { grid-template-columns:1fr; gap:26px; } main.aurevia-static-page #react-contact-form-portal { max-width:720px; width:100%; } }
+@media(max-width:600px) { main.aurevia-static-page .cta { padding:58px 0; } main.aurevia-static-page .cta h2,main.aurevia-static-page .cta h2 em { font-size:clamp(36px,10vw,50px); } main.aurevia-static-page #react-contact-form-portal .healthcare-form > div.grid { grid-template-columns:1fr; } main.aurevia-static-page #react-contact-form-portal .healthcare-form textarea { height:58px; min-height:58px; } }

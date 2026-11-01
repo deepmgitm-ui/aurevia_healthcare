@@ -1,14 +1,14 @@
 /* Aurevia's shared, city-aware visual system for the original content pages. */
 :root {
-  --aurevia-ink: #17394f;
-  --aurevia-blue: #2c78a8;
-  --aurevia-teal: #168b91;
-  --aurevia-aqua: #dff3f4;
-  --aurevia-paper: #f4f9fa;
+  --aurevia-ink: #173a5e;
+  --aurevia-blue: #287caf;
+  --aurevia-teal: #398fc2;
+  --aurevia-aqua: #e5f2fb;
+  --aurevia-paper: #f5f9fd;
   --aurevia-white: #ffffff;
-  --aurevia-line: #d6e5e9;
-  --aurevia-muted: #506b78;
-  --aurevia-warm: #e6a56f;
+  --aurevia-line: #d8e6f0;
+  --aurevia-muted: #526e83;
+  --aurevia-warm: #e4bb73;
 }
 
 .aurevia-static-page {
@@ -235,18 +235,18 @@
 .aurevia-page-index .voice .stars { color: #e3a52f; }
 .aurevia-page-voices .v-card .stars { color: #e3a52f; }
 
-.aurevia-page-index .cta { padding: 102px 0; background: linear-gradient(125deg,#153d54,#1f7180); color: #fff; }
+.aurevia-page-index .cta { padding: clamp(54px,7vw,82px) 0; background: linear-gradient(125deg,#153d65,#246fa8); color: #fff; }
 .aurevia-page-index .cta h2,
 .aurevia-page-index .cta h2 em { color: #fff; font-family: var(--font-display), Georgia, serif; font-size: clamp(42px,5vw,68px); font-weight: 450; }
-.aurevia-page-index .cta h2 em { color: #e9c48f; }
+.aurevia-page-index .cta h2 em { color: #e8c275; }
 .aurevia-page-index .cta .eyebrow { color: #c9e0e4; font-family: var(--font-body), sans-serif; font-size: 12px; letter-spacing: .04em; text-transform: none; }
 .aurevia-page-index .cta-sub { color: rgba(255,255,255,.78); font-size: 15px; line-height: 1.7; }
-.aurevia-page-index .cta-inner { align-items: start; gap: 70px; }
+.aurevia-page-index .cta-inner { align-items: center; grid-template-columns:minmax(0,1fr) minmax(0,.95fr); gap:clamp(30px,5vw,64px); }
 .aurevia-page-index .cta-inner a { color: #fff; }
 .aurevia-page-index .cta-inner > div:first-child > div[style*="display:flex"] > div > div[style*="font-size:32px"] { font-size: 23px !important; }
 .aurevia-page-index .cta-inner > div:first-child > div[style*="display:flex"] > div > div[style*="font-size:32px"] a { font-size: 22px; }
 .aurevia-page-index .cta .form,
-.aurevia-page-index #react-contact-form-portal { padding: 28px; border: 1px solid rgba(255,255,255,.72); border-radius: 20px; background: #fff; box-shadow: 0 18px 48px rgba(9,39,55,.18); color: var(--aurevia-ink); }
+.aurevia-page-index #react-contact-form-portal { padding:clamp(17px,2vw,24px); border: 1px solid rgba(255,255,255,.72); border-radius:18px; background:#fff; box-shadow:0 18px 45px rgba(8,31,55,.18); color:var(--aurevia-ink); }
 .aurevia-page-index .cta .form label,
 .aurevia-page-index #react-contact-form-portal label { color: #31576a; font-size: 12px; font-weight: 600; }
 .aurevia-page-index .cta .form input,
@@ -254,7 +254,7 @@
 .aurevia-page-index .cta .form textarea,
 .aurevia-page-index #react-contact-form-portal input,
 .aurevia-page-index #react-contact-form-portal select,
-.aurevia-page-index #react-contact-form-portal textarea { min-height: 48px; border: 1px solid #d6e5e9; border-radius: 10px; background: #f6fafb; color: #17394f; }
+.aurevia-page-index #react-contact-form-portal textarea { min-height:42px; padding-top:9px; padding-bottom:9px; border:1px solid #d5e3ed; border-radius:9px; background:#f6f9fc; color:#173a5e; font-size:13px; }
 .aurevia-page-index .cta .form textarea,
 .aurevia-page-index #react-contact-form-portal textarea { min-height: 100px; }
 .aurevia-page-index .cta .legal { color: #6c838c; }
@@ -469,3 +469,18 @@
 .aurevia-page-how-it-works .how-contact-options a { text-decoration:underline; text-decoration-color:rgba(23,57,79,.22); text-underline-offset:4px; }
 @media(max-width:760px) { .journey-story { padding:68px 0 54px; }.journey-story-wrap { width:calc(100% - 36px); }.journey-story-intro { margin-bottom:28px; }.journey-story-intro h2 { font-size:clamp(34px,9vw,46px); }.journey-story-layout { grid-template-columns:1fr; gap:16px; }.journey-story-visual { z-index:2; top:82px; height:39vh; min-height:245px; border-radius:16px 50px 16px 16px; }.journey-story-visual figcaption { right:18px; bottom:17px; left:18px; }.journey-story-place { font-size:23px; }.journey-story-step { min-height:48vh; padding:36px 4px; }.journey-story-step h3 { font-size:34px; }.journey-story-step p { font-size:14px; }.aurevia-page-how-it-works .how-contact-options { grid-template-columns:1fr; gap:20px; }.aurevia-page-how-it-works .how-contact-options>div:nth-child(3) { grid-column:auto; } }
 @media(prefers-reduced-motion:reduce) { .journey-story-step,.journey-story-image { transition:none !important; } }
+
+/* Small-screen-safe form sizing for the full site consultation CTA. */
+.aurevia-static-page .cta { padding:clamp(54px,7vw,82px) 0; background:linear-gradient(125deg,#153d65,#246fa8); }
+.aurevia-static-page .cta-inner { grid-template-columns:minmax(0,1fr) minmax(0,.95fr); gap:clamp(30px,5vw,64px); align-items:center; }
+.aurevia-static-page .cta h2,.aurevia-static-page .cta h2 em { font-size:clamp(38px,4.7vw,62px); line-height:1.02; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form { gap:10px; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form > :not([hidden]) ~ :not([hidden]) { margin-top:0; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form > div.grid { column-gap:12px; row-gap:8px; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top:4px; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form label { margin:0 0 3px; font-size:11px; line-height:1.35; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form textarea { height:64px !important; min-height:64px !important; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form button[type=submit] { min-height:44px; padding:10px 16px; border-radius:10px; background:#246fa8; box-shadow:none; font-size:14px; line-height:1.25; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form > .flex { margin-top:0; font-size:9px; line-height:1.45; }
+@media(max-width:900px) { .aurevia-static-page .cta-inner { grid-template-columns:1fr; gap:26px; }.aurevia-static-page #react-contact-form-portal { max-width:720px; width:100%; } }
+@media(max-width:600px) { .aurevia-static-page .cta { padding:58px 0; }.aurevia-static-page .cta h2,.aurevia-static-page .cta h2 em { font-size:clamp(36px,10vw,50px); }.aurevia-static-page #react-contact-form-portal .healthcare-form > div.grid { grid-template-columns:1fr; }.aurevia-static-page #react-contact-form-portal .healthcare-form textarea { height:58px !important; min-height:58px !important; } }

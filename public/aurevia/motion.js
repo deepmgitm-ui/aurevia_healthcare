@@ -2,6 +2,7 @@
 const motionReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 window.refreshAureviaAnimations = function () {
+  window.refreshAureviaJourneyStory?.();
   const gsap = window.gsap;
   const trigger = window.ScrollTrigger;
 
@@ -65,10 +66,10 @@ window.refreshAureviaAnimations = function () {
   window.setTimeout(() => trigger.refresh(), 120);
 };
 
-window.refreshAureviaAnimations();
-
-// Keep the photograph in place while the care story advances with the reader.
-(() => {
+// Keep one photograph sticky and change it only when the story step at the
+// reader's visual centre changes. Rebind after client-side route transitions.
+window.refreshAureviaJourneyStory = function () {
+  window.aureviaJourneyStoryCleanup?.();
   const story = document.querySelector(".journey-story");
   if (!story) return;
   const image = story.querySelector(".journey-story-image.is-current") || story.querySelector(".journey-story-image");
@@ -90,6 +91,7 @@ window.refreshAureviaAnimations();
   }
   let activeImage = image;
   let imageRequest = 0;
+  let frame = 0;
 
   const activate = (step) => {
     if (step.classList.contains("is-active")) return;
@@ -116,10 +118,33 @@ window.refreshAureviaAnimations();
     place.textContent = step.dataset.place || "Here with you";
   };
 
-  if (!("IntersectionObserver" in window)) return;
-  const observer = new IntersectionObserver((entries) => {
-    const current = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-    if (current) activate(current.target);
-  }, { rootMargin: "-42% 0px -42% 0px", threshold: [0.05, 0.2, 0.4, 0.65] });
-  steps.forEach((step) => observer.observe(step));
-})();
+  const updateFromScroll = () => {
+    if (frame) return;
+    frame = requestAnimationFrame(() => {
+      frame = 0;
+      const storyBounds = story.getBoundingClientRect();
+      if (storyBounds.bottom < window.innerHeight * 0.28 || storyBounds.top > window.innerHeight * 0.72) return;
+      const readerFocus = window.innerHeight * 0.5;
+      const nearestStep = steps.reduce((nearest, step) => {
+        const rect = step.getBoundingClientRect();
+        const distance = readerFocus < rect.top ? rect.top - readerFocus : readerFocus > rect.bottom ? readerFocus - rect.bottom : 0;
+        const nearestRect = nearest.getBoundingClientRect();
+        const nearestDistance = readerFocus < nearestRect.top ? nearestRect.top - readerFocus : readerFocus > nearestRect.bottom ? readerFocus - nearestRect.bottom : 0;
+        return distance < nearestDistance ? step : nearest;
+      }, steps[0]);
+      activate(nearestStep);
+    });
+  };
+
+  window.addEventListener("scroll", updateFromScroll, { passive: true });
+  window.addEventListener("resize", updateFromScroll, { passive: true });
+  window.aureviaJourneyStoryCleanup = () => {
+    window.removeEventListener("scroll", updateFromScroll);
+    window.removeEventListener("resize", updateFromScroll);
+    if (frame) cancelAnimationFrame(frame);
+    imageRequest += 1;
+  };
+  updateFromScroll();
+};
+
+window.refreshAureviaAnimations();
