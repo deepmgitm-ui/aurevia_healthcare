@@ -1,4 +1,8 @@
 
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: "Terms and conditions", description: "Read the terms that apply when using Aurevia Healthcare's website and care coordination information.", path: "/terms-conditions/" });
+
 export default function TermsConditionsPage() {
   return (
     <main className="legal-page">

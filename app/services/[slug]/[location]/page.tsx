@@ -4,6 +4,7 @@ import TreatmentLocationLandingPage from "@/components/TreatmentLocationLandingP
 import { getLocation, getTreatment } from "@/lib/locationLandingData";
 import { siteLocationSlugs } from "@/lib/siteLocations";
 import { treatmentLandings } from "@/lib/locationLandingData";
+import { pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return treatmentLandings.flatMap(({ slug }) => siteLocationSlugs.map((location) => ({ slug, location })));
@@ -13,12 +14,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug, location: locationSlug } = await params;
   const treatment = getTreatment(slug);
   const location = getLocation(locationSlug);
-  if (!treatment || !location) return { title: "Treatment page not found | Aurevia Healthcare" };
-  return {
-    title: `${treatment.en.label} in ${location.name} | Aurevia Healthcare`,
-    description: `${treatment.en.summary} Explore care options in ${location.name}.`,
-    alternates: { languages: { en: `/services/${slug}/${locationSlug}`, hi: `/hi/services/${slug}/${locationSlug}` } },
-  };
+  if (!treatment || !location) return { title: "Treatment page not found" };
+  return pageMetadata({
+    title: `${treatment.en.label} in ${location.name}`,
+    description: `${treatment.en.summary} Explore local care coordination in ${location.name}.`,
+    path: `/services/${slug}/${locationSlug}/`,
+    languages: { en: `/services/${slug}/${locationSlug}/`, hi: `/hi/services/${slug}/${locationSlug}/` },
+  });
 }
 
 export default async function Page({ params }: { params: Promise<{ slug: string; location: string }> }) {

@@ -4,6 +4,19 @@
 // }
 
 import ServiceClient from "./ServiceClient";
+import { getTreatment } from "@/lib/locationLandingData";
+import { pageMetadata } from "@/lib/seo";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const treatment = getTreatment(slug);
+  if (!treatment) return pageMetadata({ title: "Treatment guide", description: "Explore specialist-guided treatment information from Aurevia Healthcare.", path: `/services/${slug}/` });
+  return pageMetadata({
+    title: `${treatment.en.label} treatment guide`,
+    description: treatment.en.summary,
+    path: `/services/${slug}/`,
+  });
+}
 
 export async function generateStaticParams() {
   const services = [

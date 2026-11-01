@@ -1,20 +1,7 @@
-import type { Metadata } from "next";
 import ContactPageClient from "./ContactPageClient";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Contact Us – Aurevia Health Care",
-  description:
-    "Get in touch with Aurevia Health Care. Call, WhatsApp, or fill our form for free medical consultation. Available 24/7 for expert healthcare guidance.",
-  openGraph: {
-    title: "Contact Us – Aurevia Health Care",
-    description:
-      "Reach out to our medical experts 24/7. Free consultation for LASIK, Cataract, ENT, Dental & more.",
-    url: "https://aureviahealthcare.com/contact",
-  },
-  alternates: {
-    canonical: "https://aureviahealthcare.com/contact",
-  },
-};
+export const metadata = pageMetadata({ title: "Contact Aurevia Healthcare", description: "Contact Aurevia's care coordination team by phone, WhatsApp or form to ask about treatment and consultation options.", path: "/contact/" });
 
 export default function ContactPage() {
   return <ContactPageClient />;

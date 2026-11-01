@@ -8,6 +8,7 @@ import { Instagram, Linkedin, Phone, Mail, MessageCircle } from "lucide-react";
 export default function Footer() {
   const pathname = usePathname();
   const isHindi = pathname.startsWith("/hi/");
+  const canConfigureMetaPixel = /^\d{6,20}$/.test(process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "");
   const openModal = () => {
     if (typeof window !== "undefined" && (window as any).openConsultationModal) {
       (window as any).openConsultationModal();
@@ -158,6 +159,10 @@ export default function Footer() {
             <Link href="/disclaimer" className="hover:text-[#90E0EF] transition-colors duration-200">{isHindi ? "अस्वीकरण" : "Disclaimer"}</Link>
             <span className="opacity-30">·</span>
             <Link href="/photo-credits" className="hover:text-[#90E0EF] transition-colors duration-200">{isHindi ? "फ़ोटो क्रेडिट" : "Photo credits"}</Link>
+            {canConfigureMetaPixel && <>
+              <span className="opacity-30">·</span>
+              <button type="button" onClick={() => window.dispatchEvent(new Event("aurevia:open-cookie-settings"))} className="hover:text-[#90E0EF] transition-colors duration-200">{isHindi ? "कुकी सेटिंग" : "Cookie settings"}</button>
+            </>}
           </div>
         </div>
 

@@ -5,15 +5,6 @@ import PortalFormMount from "@/components/PortalFormMount";
 import AnimationTrigger from "@/components/AnimationTrigger"; // 👈 Naya import
 import CoverageMapMount from "@/components/CoverageMapMount";
 
-const pageTitle: Record<string, string> = {
-  "index.html": "Aurevia Healthcare - Care you can trust",
-  "about.html": "About - Aurevia Healthcare",
-  "treatments.html": "Treatments - Aurevia Healthcare",
-  "how-it-works.html": "How it works - Aurevia Healthcare",
-  "locations.html": "Locations - Aurevia Healthcare",
-  "voices.html": "Patient voices - Aurevia Healthcare",
-};
-
 const routeMap: Record<string, string> = {
   "index.html": "/",
   "about.html": "/about/",
@@ -66,7 +57,6 @@ export default function StaticHtmlPage({ fileName }: { fileName: string }) {
 
   return (
     <>
-      <title>{pageTitle[fileName] ?? "Aurevia Healthcare"}</title>
       <link rel="stylesheet" href="/aurevia/styles.css" />
       {styles ? <style dangerouslySetInnerHTML={{ __html: styles }} /> : null}
       <link rel="stylesheet" href="/aurevia/redesign.css" />

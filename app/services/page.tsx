@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, HeartPulse } from "lucide-react";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Treatments | Aurevia Healthcare", description: "Explore treatment pathways and speak with our care coordination team." };
+export const metadata = pageMetadata({ title: "Treatments and specialist care", description: "Explore LASIK, cataract, ENT, dental, urology and other treatment pathways supported by Aurevia's care coordination team.", path: "/services/" });
 
 const treatments = [
   ["lasik", "LASIK", "A clearer view, with specialist-guided vision correction.", "/treatments/lasik-bg.webp", "Vision care"],

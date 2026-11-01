@@ -1,9 +1,6 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Photo credits | Aurevia Healthcare",
-  description: "Credits and licenses for location photographs used on Aurevia Healthcare pages.",
-};
+export const metadata = pageMetadata({ title: "Photo credits and image sources", description: "Sources and license information for city and illustrative treatment photography used across Aurevia Healthcare pages.", path: "/photo-credits/" });
 
 const photos = [
   ["Chandigarh", "Chetanstr", "Capital Complex Chandigarh", "https://commons.wikimedia.org/wiki/File:Capital_Complex_Chandigarh.jpg", "CC BY 4.0", "https://creativecommons.org/licenses/by/4.0/"],

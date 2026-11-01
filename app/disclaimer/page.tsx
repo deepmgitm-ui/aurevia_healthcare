@@ -1,4 +1,8 @@
 
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: "Medical disclaimer", description: "Understand the limits of Aurevia Healthcare website information and the role of independent doctors and hospitals in medical decisions.", path: "/disclaimer/" });
+
 export default function DisclaimerPage() {
   return (
     <main className="legal-page">

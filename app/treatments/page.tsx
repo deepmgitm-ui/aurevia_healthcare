@@ -5,6 +5,9 @@ import Script from "next/script";
 import AnimationTrigger from "@/components/AnimationTrigger";
 import PortalFormMount from "@/components/PortalFormMount";
 import { orthopedicGeneralSurgeries, orthopedicSurgeryCategories } from "./treatmentsData";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: "Orthopedic surgery guide", description: "Explore orthopedic surgery categories and learn what to discuss with a qualified orthopedic specialist.", path: "/treatments/" });
 
 function getTreatmentsFragments() {
   const filePath = path.join(process.cwd(), "public", "aurevia", "treatments.html");

@@ -1,4 +1,8 @@
 
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: "Privacy policy", description: "Read how Aurevia Healthcare handles contact details, consultation requests and optional website measurement preferences.", path: "/privacy-policy/" });
+
 export default function PrivacyPolicyPage() {
   return (
     <main className="legal-page">
@@ -61,8 +65,14 @@ export default function PrivacyPolicyPage() {
             <div>
               <h2 className="legal-h2">6. Your Consent</h2>
               <p>
-                By using our site, you consent to our online privacy policy. If we decide to change our privacy policy, 
-                we will post those changes on this page.
+                Your use of this site is subject to this policy. Optional advertising measurement is only enabled if it is configured and you choose to allow it. Policy changes will be posted on this page.
+              </p>
+            </div>
+
+            <div>
+              <h2 className="legal-h2">7. Optional advertising measurement</h2>
+              <p>
+                If Aurevia configures Meta Pixel, it will only load after you choose “Allow” in cookie preferences. Page-view measurement is limited to selected general information pages. The pixel is not loaded on treatment, location, contact or consultation pages, and Aurevia does not send form details or treatment selections to Meta. You can change your choice using “Cookie settings” in the footer when the pixel is configured.
               </p>
             </div>
 
