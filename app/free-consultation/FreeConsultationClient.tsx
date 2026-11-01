@@ -1,58 +1,27 @@
 "use client";
 
 import ContactForm from "@/components/ContactForm";
-import { motion } from "framer-motion";
+import { ArrowRight, Check, Phone, ShieldCheck, Sparkles } from "lucide-react";
+
+const steps = ["Tell us what you need", "Speak with a care coordinator", "Choose your next step"];
 
 export default function FreeConsultationClient() {
   return (
-    <div className="min-h-screen bg-gray-50 pt-32 pb-16 px-6 flex items-center justify-center">
-      <div className="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-8 items-center">
-        
-        <motion.div 
-          initial={{ opacity: 0, x: -30 }} 
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-        >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 font-urbanist">
-            Book Your <span className="text-[#147D86]">Free Surgery Consultation</span>
-          </h1>
-          <p className="text-gray-600 text-lg mb-6">
-            Talk to experienced surgeons and specialists about LASIK, ENT, urology, aesthetics or dental treatments. No fees, no hidden charges—just honest guidance so you can choose the right procedure.
-          </p>
-          <ul className="space-y-3 mb-8 text-gray-700 font-medium">
-            <li className="flex items-center gap-2">✅ 100% free, no-obligation consultation</li>
-            <li className="flex items-center gap-2">✅ Expert Advice from Top Specialists</li>
-            <li className="flex items-center gap-2">✅ 24/7 care coordination and support</li>
-          </ul>
-          <div className="space-y-3 text-gray-800">
-            <p className="font-semibold">Prefer to talk directly?</p>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href="tel:+919990959440"
-                className="inline-flex items-center justify-center rounded-full bg-[#147D86] px-5 py-2 text-sm font-semibold text-white shadow-md hover:bg-[#106872] transition-colors"
-              >
-                Call Our Expert
-              </a>
-              <a
-                href="https://wa.me/919990959440"
-                className="inline-flex items-center justify-center rounded-full border border-[#147D86] px-5 py-2 text-sm font-semibold text-[#147D86] hover:bg-[#E9F7F5] transition-colors"
-              >
-                Chat on WhatsApp
-              </a>
-            </div>
+    <main className="interior-page consultation-page">
+      <section className="consultation-hero">
+        <div className="interior-shell consultation-layout">
+          <div className="consultation-copy">
+            <p className="interior-eyebrow"><span /> A little clarity can go a long way</p>
+            <h1>Your questions deserve a <em>real conversation.</em></h1>
+            <p className="interior-intro">Speak with our care team about a treatment, a doctor or what happens next. Start with your details and we’ll help you find the right person to talk to.</p>
+            <div className="consultation-promise"><span className="promise-icon"><ShieldCheck size={23} /></span><div><strong>No-cost initial guidance</strong><p>There’s no fee to share your questions with our care coordination team.</p></div></div>
+            <div className="consultation-steps">{steps.map((step, index) => <div className="consultation-step" key={step}><span>{String(index + 1).padStart(2,"0")}</span><p>{step}</p>{index < steps.length - 1 && <ArrowRight size={15} />}</div>)}</div>
+            <a className="consultation-direct" href="tel:+919990959440"><span><Phone size={17} /></span><span><small>Prefer to call?</small><strong>+91 99909 59440</strong></span><ArrowRight size={17} /></a>
           </div>
-        </motion.div>
-
-        <motion.div 
-          initial={{ opacity: 0, x: 30 }} 
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-          className="w-full"
-        >
-           <ContactForm />
-        </motion.div>
-
-      </div>
-    </div>
+          <div className="consultation-form-wrap"><div className="consultation-form-top"><span className="form-top-mark"><Sparkles size={18} /></span><span className="interior-eyebrow">Your care, at your pace</span></div><h2>Let’s start here.</h2><p className="consultation-form-lead">Share your contact details and the treatment you’d like to discuss.</p><ContactForm layout="wide" /><p className="form-privacy"><Check size={14} /> Your details are kept private and used to coordinate your call.</p></div>
+        </div>
+      </section>
+      <section className="consultation-bottom"><div className="interior-shell"><p>Need help choosing a treatment?</p><a href="/treatments">Browse our treatment guide <ArrowRight size={16} /></a></div></section>
+    </main>
   );
 }

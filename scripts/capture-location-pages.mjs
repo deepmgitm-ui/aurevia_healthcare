@@ -38,6 +38,8 @@ const selectedRoutes = heroCheck
   ? ["/locations/", "/hi/locations/"]
   : process.argv.includes("--design-check")
   ? ["/", "/about/", "/treatments/", "/how-it-works/", "/voices/", "/locations/", "/hi/locations/", "/locations/mumbai/", "/services/cataract/mumbai/", "/services/cataract/delhi-ncr/", "/services/lasik/bangalore/", "/photo-credits/"]
+  : process.argv.includes("--interior-pages")
+  ? ["/contact/", "/free-consultation/", "/services/", "/services/lasik/", "/services/cataract/", "/services/sinus/", "/services/tonsillectomy/", "/services/septoplasty/", "/services/ear-perforation/", "/services/rhinoplasty/", "/services/gynecomastia/", "/services/kidney-stone/", "/services/dental/", "/privacy-policy/", "/terms-conditions/", "/disclaimer/", "/photo-credits/", "/about/", "/voices/", "/how-it-works/", "/treatments/"]
   : process.argv.includes("--bangalore-check")
   ? ["/locations/bangalore/", "/hi/locations/bangalore/", "/services/lasik/bangalore/", "/hi/services/lasik/bangalore/"]
   : process.argv.includes("--city-layout-check")
@@ -213,7 +215,7 @@ try {
       });
       if (!popupCheck) {
         await cdp("Runtime.evaluate", {
-          expression: "window.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true})); new Promise(resolve => setTimeout(resolve, 250))",
+          expression: "window.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true})); document.querySelector('[role=dialog][aria-labelledby=consultation-popup-title]')?.parentElement?.remove(); document.body.classList.remove('consult-modal-open'); new Promise(resolve => setTimeout(resolve, 250))",
           awaitPromise: true,
           returnByValue: true,
         });

@@ -42,22 +42,24 @@ const photos = [
 
 export default function PhotoCreditsPage() {
   return (
-    <main className="min-h-screen bg-[#f7f8f6] px-5 py-16 text-[#243a40] sm:px-10">
-      <div className="mx-auto max-w-4xl">
-        <p className="mb-3 text-xs font-bold uppercase tracking-[0.22em] text-[#63827c]">Aurevia Healthcare</p>
-        <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">Photo credits</h1>
-        <p className="mt-4 max-w-2xl leading-7 text-[#617277]">City photographs and treatment stock images are credited to their creators below. Treatment photos are illustrative stock imagery; they do not depict Aurevia patients, facilities or outcomes, and do not imply endorsement.</p>
-        <div className="mt-10 divide-y divide-[#dce4df] rounded-2xl border border-[#dce4df] bg-white px-5 sm:px-8">
+    <main className="legal-page photo-credits-page">
+      <section className="legal-hero">
+      <div className="legal-container">
+        <p className="interior-eyebrow"><span /> Aurevia Healthcare · Visual library</p>
+        <h1 className="legal-title">Photo credits</h1>
+        <p className="legal-intro">City photographs and treatment stock images are credited to their creators below. Treatment photos are illustrative stock imagery; they do not depict Aurevia patients, facilities or outcomes, and do not imply endorsement.</p>
+        <div className="photo-credit-list">
           {photos.map(([city, author, subject, source, license, licenseUrl]) => (
-            <section key={city} className="grid gap-2 py-5 sm:grid-cols-[150px_1fr] sm:gap-6">
-              <h2 className="font-bold">{city}</h2>
-              <p className="text-sm leading-6 text-[#52666a]">
-                “{subject}” by {author}. <a className="font-semibold text-[#176f70] underline underline-offset-2" href={source} target="_blank" rel="noreferrer">Source</a> · <a className="font-semibold text-[#176f70] underline underline-offset-2" href={licenseUrl} target="_blank" rel="noreferrer">{license}</a>. Photo displayed as supplied.
+            <section key={city} className="photo-credit-row">
+              <h2>{city}</h2>
+              <p>
+                “{subject}” by {author}. <a href={source} target="_blank" rel="noreferrer">Source</a> · <a href={licenseUrl} target="_blank" rel="noreferrer">{license}</a>. Photo displayed as supplied.
               </p>
             </section>
           ))}
         </div>
       </div>
+      </section>
     </main>
   );
 }
