@@ -38,8 +38,8 @@ function animatePageIn() {
 
   main.animate(
     [
-      { opacity: 0, transform: "translateY(14px)" },
-      { opacity: 1, transform: "translateY(0)" },
+      { opacity: 0 },
+      { opacity: 1 },
     ],
     {
       duration: 420,
@@ -57,8 +57,8 @@ function animatePageOut() {
 
   const animation = main.animate(
     [
-      { opacity: 1, transform: "translateY(0)" },
-      { opacity: 0.86, transform: "translateY(-8px)" },
+      { opacity: 1 },
+      { opacity: 0.86 },
     ],
     {
       duration: 160,
@@ -126,6 +126,9 @@ export default function RouteAnimator() {
       if (url.origin !== window.location.origin) return;
       const isSameDocument = url.pathname === window.location.pathname && url.search === window.location.search;
       if (isSameDocument) return;
+      // Let exported location pages use their real static URLs on shared hosting.
+      // The regular anchors work even when a host does not serve Next's RSC payloads.
+      if (/^\/(?:hi\/)?locations(?:\/|$)/.test(url.pathname)) return;
 
       event.preventDefault();
       navigationLockedRef.current = true;

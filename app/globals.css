@@ -40,9 +40,7 @@ body {
   text-rendering: optimizeLegibility
 }
 
-body {
-  overflow-x: hidden
-}
+html, body { overflow-x: clip }
 
 img {
   display: block;
