@@ -66,3 +66,40 @@ window.refreshAureviaAnimations = function () {
 };
 
 window.refreshAureviaAnimations();
+
+// Keep the photograph in place while the care story advances with the reader.
+(() => {
+  const story = document.querySelector(".journey-story");
+  if (!story) return;
+  const image = story.querySelector(".journey-story-image");
+  const caption = story.querySelector(".journey-story-caption");
+  const place = story.querySelector(".journey-story-place");
+  const steps = [...story.querySelectorAll("[data-journey-step]")];
+  if (!image || !caption || !place || steps.length < 2) return;
+
+  const activate = (step) => {
+    if (step.classList.contains("is-active")) return;
+    steps.forEach((item) => item.classList.toggle("is-active", item === step));
+    const nextImage = step.dataset.image;
+    if (nextImage && image.getAttribute("src") !== nextImage) {
+      image.classList.add("is-changing");
+      const preload = new Image();
+      preload.onload = () => {
+        image.src = nextImage;
+        image.alt = step.dataset.alt || "Aurevia care journey";
+        requestAnimationFrame(() => image.classList.remove("is-changing"));
+      };
+      preload.onerror = () => image.classList.remove("is-changing");
+      preload.src = nextImage;
+    }
+    caption.textContent = step.dataset.caption || "Care, as it unfolds";
+    place.textContent = step.dataset.place || "Here with you";
+  };
+
+  if (!("IntersectionObserver" in window)) return;
+  const observer = new IntersectionObserver((entries) => {
+    const current = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (current) activate(current.target);
+  }, { rootMargin: "-38% 0px -38% 0px", threshold: [0.05, 0.25, 0.5, 0.75] });
+  steps.forEach((step) => observer.observe(step));
+})();

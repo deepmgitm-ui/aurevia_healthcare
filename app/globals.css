@@ -4338,6 +4338,36 @@ body.dark-mode footer.bg-\[\#03045E\] { background: #0c2230 !important; }
 @media(max-width:900px) { .contact-layout,.consultation-layout { grid-template-columns:1fr; gap:38px; }.interior-hero,.consultation-hero { padding-top:130px; }.contact-copy h1,.consultation-copy h1,.service-directory-hero h1 { max-width:760px; }.contact-form-card,.consultation-form-wrap { max-width:700px; }.contact-next-inner { grid-template-columns:1fr 1fr; }.contact-next-inner .interior-text-link { grid-column:2; }.service-card-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media(max-width:600px) { .interior-shell { width:calc(100% - 32px); }.interior-hero { min-height:auto; padding:116px 0 80px; }.consultation-hero,.service-directory-hero,.legal-hero { padding:118px 0 60px; }.contact-copy h1,.consultation-copy h1,.service-directory-hero h1 { font-size:clamp(42px,12vw,58px); }.interior-intro { font-size:15px; }.contact-form-card,.consultation-form-wrap { padding:21px 16px; border-radius:16px; }.contact-form-card .healthcare-form>div.grid,.consultation-form-wrap .healthcare-form>div.grid { grid-template-columns:1fr; }.contact-next { padding:60px 0; }.contact-next-inner { grid-template-columns:1fr; gap:18px; }.contact-next-inner .interior-text-link { grid-column:auto; }.consultation-steps { align-items:flex-start; flex-direction:column; }.consultation-step>svg { display:none; }.consultation-bottom .interior-shell,.directory-help { align-items:flex-start; flex-direction:column; }.service-directory-list { padding:54px 0 68px; }.directory-section-heading { align-items:flex-start; flex-direction:column; gap:12px; }.service-card-grid { grid-template-columns:1fr; }.service-card-image { height:210px; }.directory-help { padding:18px; }.legal-container { width:calc(100% - 32px); }.legal-content { gap:18px; font-size:13px; }.legal-highlight { padding:18px !important; }.photo-credit-row { grid-template-columns:1fr; gap:6px; padding:15px; }.directory-count { margin-top:23px; } }
 
+/* Real city photography gives the region picker a human, memorable entry point. */
+.care-landing .care-location-card { min-height:104px; gap:15px; padding:11px 16px; border-radius:17px; box-shadow:0 9px 24px rgba(36,64,60,.045); }
+.care-landing .care-location-card-image { width:90px; height:76px; flex:0 0 auto; object-fit:cover; border-radius:12px; background:var(--care-mint); transition:filter .2s ease,transform .25s ease; }
+.care-landing .care-location-card:hover .care-location-card-image { filter:saturate(1.08); transform:scale(1.025); }
+.care-landing .care-location-card > span:nth-child(2) { gap:5px; }
+.care-landing .care-location-card strong { font-size:17px; letter-spacing:-.02em; }
+.care-landing .care-location-card > svg { margin-left:auto; }
+.care-landing .care-location-card:focus-visible { outline:3px solid color-mix(in srgb,var(--care-teal) 55%,white); outline-offset:3px; }
+@media(max-width:600px) { .care-landing .care-location-card { min-height:92px; padding:9px 12px; gap:12px; }.care-landing .care-location-card-image { width:75px; height:70px; border-radius:11px; }.care-landing .care-location-card strong { font-size:15px; } }
+
+/* Calm appointment dialog: open, familiar fields and a clear way out. */
+.consultation-popup-backdrop { background:rgba(18,39,51,.62) !important; }
+.consultation-popup-card { max-width:500px !important; max-height:calc(100dvh - 24px) !important; border:1px solid #dbe3e5 !important; border-radius:15px !important; box-shadow:0 24px 72px rgba(10,30,42,.26) !important; }
+.consultation-popup-header { min-height:65px; padding:17px 64px 15px 24px !important; color:#174e68 !important; background:#fff !important; border-bottom:1px solid #e2e7e8; }
+.consultation-popup-header h3 { margin:0 0 3px !important; color:#145679 !important; font-size:17px !important; font-weight:650 !important; }
+.consultation-popup-subtitle { color:#6f7e83 !important; font-size:11px !important; }
+.consultation-popup-card > button { top:10px !important; right:10px !important; width:38px !important; height:38px !important; color:#77858b !important; background:#f4f7f7 !important; }
+.consultation-popup-card > button:hover { color:#164f69 !important; background:#e9f1f2 !important; }
+.consultation-popup-card > div:last-child { min-height:0; overflow-y:auto; padding:17px 24px 21px !important; }
+.consultation-compact-form { gap:12px !important; }
+.consultation-compact-grid { grid-template-columns:1fr !important; gap:11px !important; }
+.consultation-compact-form label { margin:0 !important; color:#355b6b !important; font-size:12px !important; font-weight:500 !important; }
+.consultation-compact-form input,.consultation-compact-form select,.consultation-compact-form textarea { min-height:45px !important; border:1px solid #d8dfe1 !important; border-radius:10px !important; color:#243e4c !important; background:#fff !important; box-shadow:none !important; }
+.consultation-compact-form input:focus,.consultation-compact-form select:focus,.consultation-compact-form textarea:focus { border-color:#3b93a5 !important; outline:3px solid rgba(51,145,163,.12) !important; }
+.consultation-compact-form textarea { min-height:82px !important; }
+.consultation-compact-form button[type=submit] { min-height:47px !important; margin-top:2px !important; border-radius:999px !important; color:#fff !important; background:#1388a5 !important; box-shadow:none !important; }
+.consultation-compact-form button[type=submit]:hover { background:#0d718e !important; }
+.consultation-compact-form > .flex { margin-top:0 !important; color:#55737b !important; font-size:10px !important; }
+@media(max-width:600px) { .consultation-popup-card > div:last-child { padding:14px 16px 16px !important; }.consultation-popup-header { padding-left:17px !important; }.consultation-compact-form textarea { min-height:65px !important; } }
+
 @media (max-width: 700px) {
   .care-landing .care-treatment-card-image { height: 190px; }
   .care-treatment-detail .care-detail-location-image { width: 62px; height: 62px; }

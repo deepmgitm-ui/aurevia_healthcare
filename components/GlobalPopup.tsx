@@ -89,28 +89,27 @@ export default function GlobalPopup() {
         <div className="fixed inset-0 z-[150] flex items-center justify-center p-2 sm:p-4">
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={closeModal}
-            className="fixed inset-0 bg-[#1c302d]/45 backdrop-blur-[3px] cursor-pointer"
+            className="consultation-popup-backdrop fixed inset-0 bg-[#173344]/55 backdrop-blur-[2px] cursor-pointer"
           />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 15 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 15 }} transition={{ type: "spring", duration: 0.4 }}
-            className="consultation-popup-card relative w-full max-w-xl bg-white rounded-[26px] shadow-2xl flex flex-col overflow-hidden font-urbanist z-10"
+            className="consultation-popup-card relative w-full max-w-xl bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden font-urbanist z-10"
             role="dialog"
             aria-modal="true"
             aria-labelledby="consultation-popup-title"
           >
             <button
               onClick={closeModal}
-              className="absolute top-2 right-2 sm:top-3 sm:right-3 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 text-white hover:text-red-300 transition-all duration-200 cursor-pointer backdrop-blur-sm"
+              className="absolute top-2 right-2 sm:top-3 sm:right-3 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-transparent hover:bg-[#edf4f3] text-[#60737a] hover:text-[#174e63] transition-all duration-200 cursor-pointer"
               aria-label="Close modal"
             >
               <X size={20} className="stroke-[2.5]" />
             </button>
 
-            <div className="consultation-popup-header px-12 py-5 sm:px-14 sm:py-6 text-center text-white shrink-0">
-              <span className="consultation-popup-kicker">{isHindi ? "ऑरिया केयर टीम" : "Aurevia care team"}</span>
-              <h3 id="consultation-popup-title" className="text-xl sm:text-2xl font-semibold mb-1 font-urbanist tracking-tight">{isHindi ? "निःशुल्क परामर्श का अनुरोध" : "Request a free consultation"}</h3>
-              <p className="consultation-popup-subtitle text-xs sm:text-sm">{isHindi ? "जल्दी, गोपनीय और बिना किसी बाध्यता के" : "A calm, confidential conversation about your care"}</p>
+            <div className="consultation-popup-header px-6 py-5 sm:px-7 sm:py-5 text-left shrink-0">
+              <h3 id="consultation-popup-title" className="text-lg sm:text-xl font-semibold mb-1 font-urbanist tracking-tight">{isHindi ? "निःशुल्क परामर्श बुक करें" : "Book a free consultation"}</h3>
+              <p className="consultation-popup-subtitle text-xs sm:text-sm">{isHindi ? "हमारी केयर टीम आपका अगला कदम तय करने में मदद करेगी।" : "Our care team will help you plan the next step."}</p>
             </div>
 
             <div

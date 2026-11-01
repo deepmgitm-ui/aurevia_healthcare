@@ -24,8 +24,8 @@ export default function LocationDirectoryLandingPage({ locale }: { locale: Landi
           <div className="care-section-heading"><div><span className="care-section-kicker">{labels.locations}</span><h2>{locale === "hi" ? "भारत में हमारी देखभाल" : "Care across our regions"}</h2></div></div>
           <div className="care-location-grid">
             {siteLocations.map((location) => (
-              <Link href={getLocationHref(location.slug, locale)} key={location.slug} className="care-location-card">
-                <span className="care-location-pin"><MapPin size={18} /></span>
+              <Link href={getLocationHref(location.slug, locale)} key={location.slug} className={`care-location-card care-location-card-${location.slug}`}>
+                <img className="care-location-card-image" src={`/location-photos/${location.slug}.jpg`} alt={locale === "hi" ? `${location.name} का दृश्य` : `A view of ${location.name}`} loading="lazy" />
                 <span><strong>{location.name}</strong><small>{locale === "hi" ? "उपचार देखें" : "Explore treatments"}</small></span>
                 <ArrowUpRight size={18} />
               </Link>
