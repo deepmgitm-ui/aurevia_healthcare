@@ -4505,6 +4505,23 @@ body.dark-mode footer.bg-\[\#03045E\] { background: #0c2230 !important; }
   .google-review-controls { gap:10px; }
 }
 
+/* City-specific desktop compositions must yield to a full-width mobile hero. */
+@media(max-width:680px) {
+  .care-treatment-detail[class*="care-location-"] .care-detail-hero {
+    grid-template-columns:minmax(0,1fr);
+  }
+  .care-treatment-detail .care-detail-hero-copy {
+    min-width:0;
+    width:100%;
+  }
+  .care-treatment-detail .care-detail-hero h1,
+  .care-treatment-detail .care-detail-hero-copy > p {
+    max-width:100%;
+    overflow-wrap:normal;
+    word-break:normal;
+  }
+}
+
 /* Shared brand pages use a clear blue palette; region pages retain their city palettes. */
 .interior-page { --interior-ink:#173a5e; --interior-muted:#5a7185; --interior-teal:#287fb7; --interior-line:#dbe7f0; color:var(--interior-ink); }
 .interior-hero { background:radial-gradient(ellipse at 82% 16%,rgba(107,177,220,.2),transparent 27rem),linear-gradient(123deg,#eaf4fb 0%,#f6f9fc 62%,#eaf2f8 100%); }
