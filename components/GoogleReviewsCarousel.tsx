@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play, Star } from "lucide-react";
 
 const reviews = [
@@ -14,22 +14,28 @@ const reviews = [
   },
 ];
 
+const motionPreferenceQuery = "(prefers-reduced-motion: reduce)";
+const subscribeToMotionPreference = (callback: () => void) => {
+  const query = window.matchMedia(motionPreferenceQuery);
+  query.addEventListener("change", callback);
+  return () => query.removeEventListener("change", callback);
+};
+const getMotionPreference = () => window.matchMedia(motionPreferenceQuery).matches;
+const getServerMotionPreference = () => true;
+
 export default function GoogleReviewsCarousel() {
   const [activeReview, setActiveReview] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const touchStartX = useRef<number | null>(null);
+  const prefersReducedMotion = useSyncExternalStore(subscribeToMotionPreference, getMotionPreference, getServerMotionPreference);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setIsPlaying(false);
-      return;
-    }
-    if (!isPlaying) return;
+    if (!isPlaying || prefersReducedMotion) return;
     const interval = window.setInterval(() => {
       setActiveReview((current) => (current + 1) % reviews.length);
     }, 6500);
     return () => window.clearInterval(interval);
-  }, [isPlaying]);
+  }, [isPlaying, prefersReducedMotion]);
 
   const showReview = (index: number) => {
     setActiveReview((index + reviews.length) % reviews.length);
@@ -86,9 +92,11 @@ export default function GoogleReviewsCarousel() {
           ))}
         </div>
         <span className="google-review-count">{activeReview + 1} / {reviews.length}</span>
-        <button type="button" className="google-review-arrow" onClick={() => setIsPlaying((playing) => !playing)} aria-label={isPlaying ? "समीक्षाएँ रोकें" : "समीक्षाएँ चलाएँ"}>
-          {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-        </button>
+        {!prefersReducedMotion && (
+          <button type="button" className="google-review-arrow" onClick={() => setIsPlaying((playing) => !playing)} aria-label={isPlaying ? "समीक्षाएँ रोकें" : "समीक्षाएँ चलाएँ"}>
+            {isPlaying ? <Pause size={16} /> : <Play size={16} />}
+          </button>
+        )}
         <button type="button" className="google-review-arrow" onClick={() => showReview(activeReview + 1)} aria-label="अगली समीक्षा">
           <ChevronRight size={19} />
         </button>
