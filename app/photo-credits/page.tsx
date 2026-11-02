@@ -35,6 +35,9 @@ const photos = [
   ["Delhi NCR gynecomastia care", "Pavel Danilyuk", "Doctor examines a patient", "https://www.pexels.com/photo/patient-at-doctors-office-7108335/", "Pexels License", "https://www.pexels.com/license/"],
   ["Delhi NCR kidney stone care", "RDNE Stock project", "Doctors discuss a patient's treatment", "https://www.pexels.com/photo/doctor-talking-to-a-patient-6129681/", "Pexels License", "https://www.pexels.com/license/"],
   ["Delhi NCR dental care", "iam luisao", "Dentist checks a patient's teeth", "https://www.pexels.com/photo/a-dentist-checking-her-patient-12917364/", "Pexels License", "https://www.pexels.com/license/"],
+  ["Specialist conversation", "Vitaly Gariev", "Doctor consults with patient in modern office", "https://unsplash.com/photos/doctor-consults-with-patient-in-modern-office-7-l5EL7YHI4", "Unsplash License", "https://unsplash.com/license"],
+  ["Care guidance", "Vitaly Gariev", "Doctor consulting with patient at desk", "https://unsplash.com/photos/doctor-consulting-with-patient-at-desk-GBcLdqOBbXE", "Unsplash License", "https://unsplash.com/license"],
+  ["Clinic conversation", "National Cancer Institute", "A smiling doctor in a white coat talking to a patient in a clinic", "https://unsplash.com/photos/doctor-talking-to-patient-in-clinic-tl447mekwuQ", "Unsplash License", "https://unsplash.com/license"],
 ] as const;
 
 export default function PhotoCreditsPage() {

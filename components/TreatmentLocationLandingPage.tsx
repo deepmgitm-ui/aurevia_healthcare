@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { ArrowLeft, ArrowUpRight, Check, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, ClipboardCheck, MapPin, MessageCircle, Phone, ShieldCheck, UserRoundCheck } from "lucide-react";
 import {
   getLandingCopy,
   getLocation,
@@ -69,6 +69,17 @@ export default function TreatmentLocationLandingPage({ slug, locationSlug, local
         { question: "What should I share in the first conversation?", answer: "Tell us about your concern, previous assessments, current medicines and questions. Bring any reports you already have." },
         { question: "Is the information on this page personal medical advice?", answer: "No. This page offers general information. Diagnosis and treatment decisions should follow an individual assessment by a qualified specialist." },
       ];
+  const aureviaPromises = locale === "hi"
+    ? [
+        { icon: UserRoundCheck, title: "एक care coordinator", body: "अपॉइंटमेंट और अगले कदम समझने के लिए एक ही टीम सदस्य से जुड़े रहें।" },
+        { icon: ClipboardCheck, title: "लिखित अनुमान", body: "आगे बढ़ने से पहले उपलब्ध प्रक्रिया और अनुमानित खर्च समझें।" },
+        { icon: ShieldCheck, title: "बीमा में मदद", body: "आपकी पॉलिसी और पात्रता के अनुसार हमारी टीम दस्तावेज़ और समन्वय में मदद कर सकती है।" },
+      ]
+    : [
+        { icon: UserRoundCheck, title: "One care coordinator", body: "Stay connected with one team member for appointments and next steps." },
+        { icon: ClipboardCheck, title: "A written estimate", body: "Understand the proposed care and estimated costs before you decide." },
+        { icon: ShieldCheck, title: "Insurance coordination", body: "Our team can help with documents and coordination, subject to your policy and eligibility." },
+      ];
 
   return (
     <main className={`care-landing care-treatment-detail care-location-${locationSlug} ${locale === "hi" ? "care-landing-hi" : ""}`} lang={locale === "hi" ? "hi" : "en"} style={themeStyle}>
@@ -86,6 +97,9 @@ export default function TreatmentLocationLandingPage({ slug, locationSlug, local
             <a className="care-button care-button-secondary" href="https://wa.me/919990959440" target="_blank" rel="noreferrer"><MessageCircle size={17} />{labels.whatsapp}</a>
           </div>
           <div className="care-detail-trust-note"><Check size={16} />{locale === "hi" ? "आपकी स्थिति के अनुसार मार्गदर्शन" : "Guidance shaped around your situation"}</div>
+          <ul className="care-detail-promise-list" aria-label={locale === "hi" ? "Aurevia से सहयोग" : "Support from Aurevia"}>
+            {aureviaPromises.map(({ icon: Icon, title }) => <li key={title}><Icon size={16} /><span>{title}</span></li>)}
+          </ul>
         </div>
         <div className="care-detail-image-wrap">
           <Image src={heroImage} alt={locale === "hi" ? `${location.name} में ${copy.label} का दृश्य` : `${copy.label} care in ${location.name}`} fill priority sizes="(max-width: 900px) 100vw, 48vw" className="care-detail-image" />
@@ -106,7 +120,7 @@ export default function TreatmentLocationLandingPage({ slug, locationSlug, local
             <p>{copy.intro}</p>
             <p className="care-disclaimer">{labels.careNote}</p>
           </div>
-          <aside className="care-next-card care-inline-lead-card">
+          <aside className="care-next-card care-inline-lead-card" id="care-consultation">
             <span className="care-section-kicker">{locale === "hi" ? "केयर टीम" : "Aurevia care team"}</span>
             <h3>{locale === "hi" ? "हम आपसे संपर्क करेंगे" : "We’ll contact you"}</h3>
             <p>{locale === "hi" ? `${location.name} में ${copy.label} के बारे में बात करने के लिए अपना नाम और संपर्क नंबर दें।` : `Share your name and contact number to discuss ${copy.label.toLowerCase()} in ${location.name}.`}</p>
@@ -133,6 +147,24 @@ export default function TreatmentLocationLandingPage({ slug, locationSlug, local
             <span aria-hidden="true"><MessageCircle size={18} /></span>
             <p>{locale === "hi" ? "कोई सवाल छोटा नहीं होता—अपनी शंकाएँ लिखकर लाएँ और विशेषज्ञ से खुलकर पूछें।" : "No question is too small. Write down what is on your mind and bring it to your specialist conversation."}</p>
           </aside>
+        </div>
+      </section>
+
+      <section className="care-specialist-section">
+        <div className="care-content-wrap care-specialist-layout">
+          <figure className="care-specialist-photo">
+            <Image src="/aurevia/photos/doctor-patient.jpg" alt={locale === "hi" ? "डॉक्टर मरीज की बात ध्यान से सुनते हुए" : "A doctor listening to a patient during a consultation"} fill sizes="(max-width: 760px) 100vw, 48vw" />
+            <figcaption>{locale === "hi" ? "विशेषज्ञ से खुलकर बात करने के लिए समय" : "Space for an open specialist conversation"}</figcaption>
+          </figure>
+          <div className="care-specialist-copy">
+            <span className="care-section-kicker">{locale === "hi" ? `${location.name} में देखभाल` : `Care in ${location.name}`}</span>
+            <h2>{locale === "hi" ? "सिर्फ़ प्रक्रिया नहीं—पूरी बात समझें।" : "Understand the whole picture before you decide."}</h2>
+            <p>{locale === "hi" ? `${copy.label} पर विशेषज्ञ से बात करते समय जाँच, उपलब्ध विकल्प, खर्च और रिकवरी के बारे में सवाल पूछें। Aurevia की टीम अपॉइंटमेंट और अस्पताल से जुड़े अगले कदम समझने में मदद कर सकती है।` : `During a conversation about ${copy.label.toLowerCase()}, ask about assessment, available options, costs and recovery. The Aurevia team can help coordinate appointments and explain the next steps with the hospital.`}</p>
+            <div className="care-specialist-promises">
+              {aureviaPromises.map(({ icon: Icon, title, body }) => <article key={title}><span><Icon size={18} /></span><div><h3>{title}</h3><p>{body}</p></div></article>)}
+            </div>
+            <Link href="#care-consultation" className="care-journey-link">{locale === "hi" ? "अपनी बातचीत शुरू करें" : "Start a conversation"}<ArrowUpRight size={16} /></Link>
+          </div>
         </div>
       </section>
 

@@ -167,6 +167,10 @@
 .aurevia-page-index .trust-cell .num .plus { color: #d69d65; }
 .aurevia-page-index .trust-cell .lbl { color: #5b737d; font-size: 13px; }
 .aurevia-page-index .trust-cell .key { color: #7d9aa4; font-family: var(--font-body), sans-serif; font-size: 10px; letter-spacing: .03em; }
+.aurevia-page-index .trust-cell .num .n { display:block; min-height:1.25em; font-size:clamp(23px,2.4vw,36px); letter-spacing:-.045em; white-space:nowrap; }
+.aurevia-page-index .trust-cell:nth-child(2) .num .n { font-size:clamp(21px,2.05vw,31px); }
+.aurevia-page-index .trust-cell:nth-child(3) .num .n { font-size:clamp(17px,1.8vw,25px); letter-spacing:-.035em; }
+.aurevia-page-index .trust-cell:nth-child(4) .num .n { font-size:clamp(23px,2.2vw,34px); }
 
 .aurevia-page-index .about-t,
 .aurevia-page-index .process-p,
@@ -463,6 +467,12 @@
 .journey-story-step-label { display:inline-flex; width:max-content; max-width:100%; margin-bottom:18px; padding:7px 11px; border:1px solid #d1e2d8; border-radius:999px; color:#3e756d; background:rgba(255,255,255,.72); font-size:11px; }
 .journey-story-step h3 { max-width:500px; margin:0 0 15px; color:#1b4150; font:400 clamp(32px,4vw,47px)/1.07 var(--font-display),Georgia,serif; letter-spacing:-.035em; }
 .journey-story-step p { max-width:430px; margin:0; color:#5d7478; font-size:15px; line-height:1.8; }
+@media(max-width:760px) {
+  .aurevia-page-index .trust-cell .num .n { font-size:clamp(21px,6vw,29px); }
+  .aurevia-page-index .trust-cell:nth-child(2) .num .n { font-size:clamp(19px,5vw,25px); }
+  .aurevia-page-index .trust-cell:nth-child(3) .num .n { font-size:clamp(16px,4.4vw,21px); }
+  .aurevia-page-index .trust-cell:nth-child(4) .num .n { font-size:clamp(20px,5.5vw,27px); }
+}
 .aurevia-page-how-it-works .how-contact-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px 30px; align-items:start; margin-top:36px; }
 .aurevia-page-how-it-works .how-contact-value { margin-top:6px; font:400 clamp(20px,2.3vw,29px)/1.25 var(--font-display),Georgia,serif; overflow-wrap:anywhere; }
 .aurevia-page-how-it-works .how-contact-options>div:nth-child(3) { grid-column:1 / -1; }
