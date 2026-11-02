@@ -171,6 +171,14 @@
 .aurevia-page-index .trust-cell:nth-child(2) .num .n { font-size:clamp(21px,2.05vw,31px); }
 .aurevia-page-index .trust-cell:nth-child(3) .num .n { font-size:clamp(17px,1.8vw,25px); letter-spacing:-.035em; }
 .aurevia-page-index .trust-cell:nth-child(4) .num .n { font-size:clamp(23px,2.2vw,34px); }
+.aurevia-page-index .google-voices { padding:88px 0 94px; background:linear-gradient(120deg,#f1f7fa,#f8fbfc 68%,#edf5f8); }
+.aurevia-page-index .google-rating-card { display:flex; align-items:center; gap:15px; width:max-content; max-width:100%; margin-top:34px; padding:15px 19px; border:1px solid #d5e4ec; border-radius:15px; color:#173a5e; background:rgba(255,255,255,.84); box-shadow:0 12px 28px rgba(24,70,99,.07); text-decoration:none; transition:transform .18s ease,border-color .18s ease; }
+.aurevia-page-index .google-rating-card:hover { transform:translateY(-2px); border-color:#9cc3d8; }
+.aurevia-page-index .google-rating-mark { display:grid; width:36px; height:36px; flex:0 0 auto; place-items:center; border-radius:50%; color:#4285f4; background:#fff; font:750 22px/1 Arial,sans-serif; box-shadow:0 2px 8px rgba(30,61,81,.12); }
+.aurevia-page-index .google-rating-score { color:#173a5e; font-size:27px; font-weight:700; letter-spacing:-.04em; }
+.aurevia-page-index .google-rating-stars { color:#e0a22f; letter-spacing:2px; font-size:14px; }
+.aurevia-page-index .google-rating-detail { color:#617789; font-size:11px; }
+.aurevia-page-index .google-rating-open { margin-left:12px; color:#287caf; font-size:11px; font-weight:700; white-space:nowrap; }
 
 .aurevia-page-index .about-t,
 .aurevia-page-index .process-p,
