@@ -131,7 +131,7 @@ export default function ContactForm({ layout = "compact", plain = false, modalCo
 
       {status === "success" && (
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-emerald-50 border border-emerald-200 text-emerald-700 p-4 rounded-xl text-center font-medium flex items-center justify-center gap-2">
-          <CircleCheck size={19} aria-hidden="true" /> <span>{isHindi ? "अनुरोध भेज दिया गया! हमारी टीम जल्द आपसे संपर्क करेगी।" : "Request Sent! Our expert will call you shortly."}</span>
+          <CircleCheck size={19} aria-hidden="true" /> <span>{isHindi ? "परामर्श बुक करने के लिए धन्यवाद। हमारी टीम 30 मिनट के भीतर आपसे संपर्क करेगी।" : "Thank you for booking your consultation. We’ll contact you within 30 minutes."}</span>
         </motion.div>
       )}
       {status === "error" && (
@@ -159,7 +159,7 @@ export default function ContactForm({ layout = "compact", plain = false, modalCo
         {loading ? <><Loader2 size={17} className="animate-spin" />{isHindi ? "भेजा जा रहा है…" : "Sending…"}</> : <>{isHindi ? "मुझसे संपर्क करें" : "Contact me"}<Send size={16} /></>}
       </button>
       <p className="compact-lead-privacy"><ShieldCheck size={14} aria-hidden="true" />{isHindi ? "हमारी टीम जल्द आपसे संपर्क करेगी।" : "Your details stay private. Our team will be in touch."}</p>
-      {status === "success" && <p role="status" className="compact-lead-status success">{isHindi ? "धन्यवाद—हम जल्द आपसे संपर्क करेंगे।" : "Thank you. We’ll be in touch shortly."}</p>}
+      {status === "success" && <p role="status" className="compact-lead-status success">{isHindi ? "परामर्श बुक करने के लिए धन्यवाद। हमारी टीम 30 मिनट के भीतर आपसे संपर्क करेगी।" : "Thank you for booking your consultation. We’ll contact you within 30 minutes."}</p>}
       {status === "error" && <p role="alert" className="compact-lead-status error">{isHindi ? "अनुरोध नहीं भेजा जा सका। कृपया फिर से कोशिश करें।" : "We couldn’t send your request. Please try again."}</p>}
     </form>
   );
