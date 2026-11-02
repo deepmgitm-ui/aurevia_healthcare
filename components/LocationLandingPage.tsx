@@ -11,6 +11,8 @@ import {
   type LandingLocale,
 } from "@/lib/locationLandingData";
 import { getLocationVisual } from "@/lib/locationVisuals";
+import { getTreatmentLocationImage } from "@/lib/treatmentLocationImages";
+import TreatmentCardImage from "@/components/TreatmentCardImage";
 
 export default function LocationLandingPage({ locationSlug, locale }: { locationSlug: string; locale: LandingLocale }) {
   const location = getLocation(locationSlug);
@@ -67,10 +69,15 @@ export default function LocationLandingPage({ locationSlug, locale }: { location
           <div className="care-treatment-grid">
             {treatmentLandings.map((treatment) => {
               const copy = treatment[locale];
+              const treatmentImage = getTreatmentLocationImage(treatment.slug, locationSlug, treatment.image);
               return (
                 <Link className="care-treatment-card" href={getTreatmentHref(treatment.slug, locationSlug, locale)} key={treatment.slug}>
                   <div className="care-treatment-card-image">
-                    <Image src={treatment.image} alt="" fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" />
+                    <TreatmentCardImage
+                      src={treatmentImage}
+                      fallbackSrc={treatment.image}
+                      alt={locale === "hi" ? `${location.name} में ${copy.label}` : `${copy.label} care in ${location.name}`}
+                    />
                     <span>{copy.category}</span>
                   </div>
                   <div className="care-treatment-card-body">

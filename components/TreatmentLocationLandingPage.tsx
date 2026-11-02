@@ -13,6 +13,7 @@ import {
 import { getLocationVisual } from "@/lib/locationVisuals";
 import { getTreatmentVisual } from "@/lib/treatmentVisuals";
 import { getTreatmentLocationImage } from "@/lib/treatmentLocationImages";
+import { getLocationDoctorImage } from "@/lib/locationDoctorImages";
 import ContactForm from "@/components/ContactForm";
 
 export default function TreatmentLocationLandingPage({ slug, locationSlug, locale }: { slug: string; locationSlug: string; locale: LandingLocale }) {
@@ -153,7 +154,7 @@ export default function TreatmentLocationLandingPage({ slug, locationSlug, local
       <section className="care-specialist-section">
         <div className="care-content-wrap care-specialist-layout">
           <figure className="care-specialist-photo">
-            <Image src="/aurevia/photos/doctor-patient.jpg" alt={locale === "hi" ? "डॉक्टर मरीज की बात ध्यान से सुनते हुए" : "A doctor listening to a patient during a consultation"} fill sizes="(max-width: 760px) 100vw, 48vw" />
+            <Image src={getLocationDoctorImage(locationSlug)} alt={locale === "hi" ? `${location.name} में डॉक्टर मरीज की बात ध्यान से सुनते हुए` : `A doctor listening to a patient in ${location.name}`} fill sizes="(max-width: 760px) 100vw, 48vw" />
             <figcaption>{locale === "hi" ? "विशेषज्ञ से खुलकर बात करने के लिए समय" : "Space for an open specialist conversation"}</figcaption>
           </figure>
           <div className="care-specialist-copy">
