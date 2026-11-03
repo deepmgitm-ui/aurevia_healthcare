@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
-const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() ?? "";
+const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || "1506228088076406";
 const consentKey = "aurevia-marketing-consent";
 const allowedPaths = new Set(["/", "/about/", "/how-it-works/"]);
 
