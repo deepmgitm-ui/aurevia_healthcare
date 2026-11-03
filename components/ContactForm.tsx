@@ -17,25 +17,40 @@ interface ContactFormProps {
   initialLocation?: string;
   initialTreatment?: string;
   compactLead?: boolean;
+  forceHindi?: boolean;
 }
 
-export default function ContactForm({ layout = "compact", plain = false, modalCompact = false, initialLocation, initialTreatment, compactLead = false }: ContactFormProps) {
+export default function ContactForm({ layout = "compact", plain = false, modalCompact = false, initialLocation, initialTreatment, compactLead = false, forceHindi = false }: ContactFormProps) {
   const pathname = usePathname();
-  const isHindi = pathname.startsWith("/hi/");
+  const isHindi = forceHindi || pathname.startsWith("/hi/");
   const formId = useId().replaceAll(":", "");
   const treatmentListId = `${formId}-treatment-options`;
   const formRef = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [campaignLocation, setCampaignLocation] = useState<string | undefined>(initialLocation);
+  const [campaignTracking, setCampaignTracking] = useState({ source: "", medium: "", campaign: "", content: "", term: "", landingPage: "" });
 
   useEffect(() => {
-    if (!compactLead || initialLocation) return;
-    const requestedLocation = new URLSearchParams(window.location.search).get("location")?.trim().toLowerCase();
-    if (!requestedLocation) return;
-    const location = siteLocations.find(({ name, slug }) => name.toLowerCase() === requestedLocation || slug === requestedLocation);
-    const fallback = cityOptions.find((city) => city.toLowerCase() === requestedLocation);
-    setCampaignLocation(location?.name ?? fallback);
+    if (!compactLead) return;
+    const params = new URLSearchParams(window.location.search);
+    const requestedLocation = params.get("location")?.trim().toLowerCase();
+    if (!initialLocation && requestedLocation) {
+      const location = siteLocations.find(({ name, slug }) => name.toLowerCase() === requestedLocation || slug === requestedLocation);
+      const fallback = cityOptions.find((city) => city.toLowerCase() === requestedLocation);
+      setCampaignLocation(location?.name ?? fallback);
+    }
+    const isShortAdPath = window.location.pathname.startsWith("/gp/");
+    const pathParts = window.location.pathname.split("/").filter(Boolean);
+    const pathCode = pathParts[pathParts.length - 1] ?? "";
+    setCampaignTracking({
+      source: params.get("utm_source") ?? (isShortAdPath ? "facebook" : ""),
+      medium: params.get("utm_medium") ?? (isShortAdPath ? "paid_social" : ""),
+      campaign: params.get("utm_campaign") ?? (isShortAdPath ? pathCode : ""),
+      content: params.get("utm_content") ?? (isShortAdPath ? pathCode : ""),
+      term: params.get("utm_term") ?? "",
+      landingPage: window.location.pathname,
+    });
   }, [compactLead, initialLocation]);
 
   const leadLocation = initialLocation ?? campaignLocation;
@@ -166,6 +181,12 @@ export default function ContactForm({ layout = "compact", plain = false, modalCo
 
   const compactLeadElement = (
     <form ref={formRef} onSubmit={sendEmail} className="healthcare-form compact-lead-form">
+      <input type="hidden" name="utm_source" value={campaignTracking.source} readOnly />
+      <input type="hidden" name="utm_medium" value={campaignTracking.medium} readOnly />
+      <input type="hidden" name="utm_campaign" value={campaignTracking.campaign} readOnly />
+      <input type="hidden" name="utm_content" value={campaignTracking.content} readOnly />
+      <input type="hidden" name="utm_term" value={campaignTracking.term} readOnly />
+      <input type="hidden" name="landing_page" value={campaignTracking.landingPage} readOnly />
       {leadLocation ? <>
         <input type="hidden" name="user_city" value={leadLocation} readOnly />
         <p className="compact-lead-location"><MapPin size={14} aria-hidden="true" /><span>{isHindi ? "स्थान" : "Location"}: {leadLocation}</span></p>

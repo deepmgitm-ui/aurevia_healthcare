@@ -7,19 +7,19 @@ import { ArrowRight, Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone } f
 import HealthcareBenefits from "@/components/HealthcareBenefits";
 import { resolveSiteLocation, siteLocationDetails } from "@/lib/locationDetails";
 
-export default function Footer() {
+export default function Footer({ languageHrefOverride, locale }: { languageHrefOverride?: string; locale?: "en" | "hi" } = {}) {
   const pathname = usePathname();
-  const isHindi = pathname.startsWith("/hi/");
-  const isCampaignPage = /(?:^|\/)campaigns\//.test(pathname);
+  const isHindi = locale === "hi" || pathname.startsWith("/hi/");
+  const isCampaignPage = /(?:^|\/)(?:campaigns|gp)\//.test(pathname);
   const treatmentSlug = pathname.match(/^\/(?:hi\/)?(?:services|campaigns)\/([^/]+)/)?.[1];
   const eyeCare = treatmentSlug === "lasik" || treatmentSlug === "cataract";
   const routeLocationSlug = pathname.match(/^\/(?:hi\/)?locations\/([^/]+)/)?.[1]
     ?? pathname.match(/^\/(?:hi\/)?services\/[^/]+\/([^/]+)/)?.[1];
   const activeLocation = resolveSiteLocation(routeLocationSlug);
   const hasLocalizedRoute = /^\/(?:hi\/)?(?:locations|services|campaigns)(?:\/|$)/.test(pathname);
-  const languageHref = hasLocalizedRoute
+  const languageHref = languageHrefOverride ?? (hasLocalizedRoute
     ? isHindi ? pathname.replace(/^\/hi(?=\/|$)/, "") || "/" : `/hi${pathname === "/" ? "" : pathname}`
-    : isHindi ? "/" : "/hi/";
+    : isHindi ? "/" : "/hi/");
   const openModal = () => {
     if (typeof window !== "undefined" && (window as any).openConsultationModal) {
       (window as any).openConsultationModal();
