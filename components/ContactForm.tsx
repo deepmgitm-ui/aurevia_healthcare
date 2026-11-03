@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useRef, FormEvent, useId } from "react";
+import { useState, useRef, FormEvent, useId, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { Send, Loader2, User, Phone, Activity, ChevronDown, ShieldCheck, MapPin, MessageSquare, CircleCheck, CircleAlert } from "lucide-react";
-import { siteLocationNames } from "@/lib/siteLocations";
+import { siteLocationNames, siteLocations } from "@/lib/siteLocations";
 
 const cityOptions = [...siteLocationNames, "Other"];
 const treatmentOptions = ["I'm not sure yet", "LASIK", "Cataract", "Sinus", "Tonsillectomy", "Septoplasty", "Eardrum repair", "Rhinoplasty", "Gynecomastia", "Kidney stones", "Dental", "Liposuction", "Lipoma", "Orthopedic"];
@@ -27,6 +27,18 @@ export default function ContactForm({ layout = "compact", plain = false, modalCo
   const formRef = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [campaignLocation, setCampaignLocation] = useState<string | undefined>(initialLocation);
+
+  useEffect(() => {
+    if (!compactLead || initialLocation) return;
+    const requestedLocation = new URLSearchParams(window.location.search).get("location")?.trim().toLowerCase();
+    if (!requestedLocation) return;
+    const location = siteLocations.find(({ name, slug }) => name.toLowerCase() === requestedLocation || slug === requestedLocation);
+    const fallback = cityOptions.find((city) => city.toLowerCase() === requestedLocation);
+    setCampaignLocation(location?.name ?? fallback);
+  }, [compactLead, initialLocation]);
+
+  const leadLocation = initialLocation ?? campaignLocation;
 
   const sendEmail = (e: FormEvent) => {
     e.preventDefault();
@@ -144,7 +156,18 @@ export default function ContactForm({ layout = "compact", plain = false, modalCo
 
   const compactLeadElement = (
     <form ref={formRef} onSubmit={sendEmail} className="healthcare-form compact-lead-form">
-      <input type="hidden" name="user_city" defaultValue={initialLocation ?? ""} />
+      {leadLocation ? <>
+        <input type="hidden" name="user_city" value={leadLocation} readOnly />
+        <p className="compact-lead-location"><MapPin size={14} aria-hidden="true" /><span>{isHindi ? "स्थान" : "Location"}: {leadLocation}</span></p>
+      </> : (
+        <label className="compact-lead-field">
+          <span>{isHindi ? "शहर" : "City"}</span>
+          <select name="user_city" required defaultValue="">
+            <option value="" disabled>{isHindi ? "शहर चुनें" : "Select your city"}</option>
+            {cityOptions.map((city) => <option key={city} value={city}>{city === "Other" && isHindi ? "अन्य" : city}</option>)}
+          </select>
+        </label>
+      )}
       <input type="hidden" name="user_treatment" defaultValue={initialTreatment ?? ""} />
       <input type="hidden" name="user_message" defaultValue="Treatment-page callback request" />
       <label className="compact-lead-field">

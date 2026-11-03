@@ -4,10 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Instagram, Linkedin, Phone, Mail, MessageCircle } from "lucide-react";
+import HealthcareBenefits from "@/components/HealthcareBenefits";
 
 export default function Footer() {
   const pathname = usePathname();
   const isHindi = pathname.startsWith("/hi/");
+  const isCampaignPage = /(?:^|\/)campaigns\//.test(pathname);
+  const treatmentSlug = pathname.match(/^\/(?:hi\/)?(?:services|campaigns)\/([^/]+)/)?.[1];
+  const eyeCare = treatmentSlug === "lasik" || treatmentSlug === "cataract";
   const canConfigureMetaPixel = /^\d{6,20}$/.test(process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "");
   const openModal = () => {
     if (typeof window !== "undefined" && (window as any).openConsultationModal) {
@@ -16,6 +20,8 @@ export default function Footer() {
   };
 
   return (
+    <>
+    {!isCampaignPage && <HealthcareBenefits locale={isHindi ? "hi" : "en"} eyeCare={eyeCare} />}
     <footer className="bg-[#03045E] text-white font-urbanist">
       <div className="max-w-[1440px] mx-auto px-5 sm:px-10 pt-14 pb-8">
 
@@ -168,5 +174,6 @@ export default function Footer() {
 
       </div>
     </footer>
+    </>
   );
 }

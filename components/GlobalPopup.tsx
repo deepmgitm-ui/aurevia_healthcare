@@ -28,7 +28,7 @@ export default function GlobalPopup() {
   const locationSlug = isTreatmentLanding ? routeParts[servicesIndex + 2] : "";
   const pageLocation = isTreatmentLanding ? getLocation(locationSlug) : undefined;
   const pageTreatment = isTreatmentLanding ? getTreatment(treatmentSlug) : undefined;
-  const isCareLanding = pathname === "/hi/locations" || /^\/(?:hi\/)?locations\/[^/]+\/?$/.test(pathname) || /^\/(?:hi\/)?services\/[^/]+\/[^/]+\/?$/.test(pathname);
+  const isCareLanding = pathname === "/hi/locations" || /^\/(?:hi\/)?locations\/[^/]+\/?$/.test(pathname) || /^\/(?:hi\/)?services\/[^/]+\/[^/]+\/?$/.test(pathname) || /^\/(?:hi\/)?campaigns\/[^/]+\/?$/.test(pathname);
 
   const openModal = useCallback(() => {
     setIsOpen(true);
