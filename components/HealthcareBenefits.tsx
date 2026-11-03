@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { resolveSiteLocation, type SiteLocationDetails } from "@/lib/locationDetails";
 import {
   BadgeCheck,
   Building2,
@@ -48,9 +52,19 @@ const benefits = {
   ],
 } as const;
 
-export default function HealthcareBenefits({ locale = "en", campaign = false, eyeCare = false }: { locale?: BenefitsLocale; campaign?: boolean; eyeCare?: boolean }) {
+export default function HealthcareBenefits({ locale = "en", campaign = false, eyeCare = false, location }: { locale?: BenefitsLocale; campaign?: boolean; eyeCare?: boolean; location?: SiteLocationDetails }) {
+  const [activeLocation, setActiveLocation] = useState(location);
+  useEffect(() => {
+    if (!campaign || location) {
+      setActiveLocation(location);
+      return;
+    }
+    setActiveLocation(resolveSiteLocation(new URLSearchParams(window.location.search).get("location")));
+  }, [campaign, location]);
+
   const copy = benefits[locale];
   const hindi = locale === "hi";
+  const cityState = activeLocation?.fullLabel[locale];
 
   return (
     <section className={`healthcare-benefits${campaign ? " healthcare-benefits-campaign" : ""}`} aria-labelledby={campaign ? "campaign-benefits-title" : "healthcare-benefits-title"} lang={hindi ? "hi" : "en"}>
@@ -59,7 +73,7 @@ export default function HealthcareBenefits({ locale = "en", campaign = false, ey
           <span className="healthcare-benefits-mark"><Building2 size={21} strokeWidth={1.8} aria-hidden="true" /></span>
           <div>
             <p>{hindi ? "AUREVIA केयर" : "AUREVIA CARE"}</p>
-            <h2 id={campaign ? "campaign-benefits-title" : "healthcare-benefits-title"}>{hindi ? "हमारी स्वास्थ्य सेवाओं के लाभ" : "Our healthcare benefits"}</h2>
+            <h2 id={campaign ? "campaign-benefits-title" : "healthcare-benefits-title"}>{hindi ? `हमारी स्वास्थ्य सेवाओं के लाभ${cityState ? ` · ${cityState} में` : ""}` : `Our healthcare benefits${cityState ? ` · ${cityState}` : ""}`}</h2>
           </div>
         </div>
         <div className="healthcare-benefits-grid">
@@ -86,8 +100,8 @@ export default function HealthcareBenefits({ locale = "en", campaign = false, ey
         </div>
         <p className="healthcare-benefits-note">
           {hindi
-            ? "अस्पताल, डॉक्टर, EMI, बीमा और फ़ॉलो-अप की उपलब्धता शहर, प्रदाता और पात्रता के अनुसार बदल सकती है। आगे बढ़ने से पहले लागू सुविधाओं और खर्च की पुष्टि करें।"
-            : "Hospital, specialist, EMI, insurance and follow-up availability can vary by city, provider and eligibility. Please confirm applicable benefits and costs before proceeding."}
+            ? `${cityState ? `${cityState} में ` : ""}अस्पताल, डॉक्टर, EMI, बीमा और फ़ॉलो-अप की उपलब्धता प्रदाता और पात्रता के अनुसार बदल सकती है। आगे बढ़ने से पहले लागू सुविधाओं और खर्च की पुष्टि करें।`
+            : `${cityState ? `In ${cityState}, ` : ""}hospital, specialist, EMI, insurance and follow-up availability can vary by provider and eligibility. Please confirm applicable benefits and costs before proceeding.`}
         </p>
       </div>
     </section>

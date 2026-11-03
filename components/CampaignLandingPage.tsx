@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, Check, ChevronDown, HeartHandshake, MapPin, ShieldCheck } from "lucide-react";
+import { ArrowDown, ArrowRight, Check, ChevronDown, HeartHandshake, Mail, MapPin, MessageCircle, Phone, ShieldCheck } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
 import HealthcareBenefits from "@/components/HealthcareBenefits";
 import type { CampaignLocale, CampaignTreatment } from "@/lib/campaignLandingData";
+import { siteLocationDetails } from "@/lib/locationDetails";
 
 export default function CampaignLandingPage({ treatment, locale }: { treatment: CampaignTreatment; locale: CampaignLocale }) {
   const hindi = locale === "hi";
@@ -90,7 +91,44 @@ export default function CampaignLandingPage({ treatment, locale }: { treatment: 
         <div className="campaign-form-card"><div className="campaign-form-head"><span>{hindi ? "आपका अगला कदम" : "YOUR NEXT STEP"}</span><h3>{copy.formTitle}</h3><p>{copy.formBody}</p></div><ContactForm compactLead initialTreatment={treatment.en.label} /><div className="campaign-form-foot"><ShieldCheck size={14} />{hindi ? "आपकी जानकारी केवल संपर्क और समन्वय के लिए है।" : "Your details are used only to arrange a conversation."}</div></div>
       </section>
 
-      <footer className="campaign-footer"><Link href={hindi ? "/hi/" : "/"} className="campaign-footer-brand">Aurevia<span>Healthcare</span></Link><p>{hindi ? "आपके लिए सही देखभाल तक पहुँच आसान बनाने में मदद।" : "Helping make the next step in care easier to navigate."}</p><div className="campaign-footer-links"><a href="tel:+919990959440">+91 99909 59440</a><span>·</span><a href="mailto:info@aureviahealthcare.com">info@aureviahealthcare.com</a></div></footer>
+      <footer className="aurevia-site-footer campaign-site-footer" lang={hindi ? "hi" : "en"}>
+        <div className="aurevia-footer-shell">
+          <div className="aurevia-footer-grid">
+            <div className="aurevia-footer-brand">
+              <Link href={hindi ? "/hi/" : "/"} className="aurevia-footer-logo" aria-label={hindi ? "Aurevia Healthcare — होम" : "Aurevia Healthcare home"}>
+                <Image src="/logo.png" alt="" width={38} height={42} className="object-contain" />
+                <span>Aurevia <small>HEALTHCARE</small></span>
+              </Link>
+              <p>{hindi ? "हम मरीजों को उपचार के विकल्प समझने, अस्पतालों से जुड़ने और अगले कदम तय करने में मदद करते हैं।" : "We help patients understand treatment options, connect with hospitals and navigate the next steps of care."}</p>
+              <div className="aurevia-footer-contact-note">{hindi ? "यह पेज सामान्य जानकारी और देखभाल समन्वय के लिए है।" : "This page shares general information and care coordination support."}</div>
+            </div>
+
+            <nav className="aurevia-footer-nav" aria-label={hindi ? "देखभाल के लिंक" : "Care links"}>
+              <h2>{hindi ? "देखभाल" : "Explore care"}</h2>
+              <ul>
+                <li><Link href="/treatments">{hindi ? "सभी उपचार" : "All treatments"}<ArrowRight size={13} aria-hidden="true" /></Link></li>
+                <li><Link href="/how-it-works">{hindi ? "कैसे काम करता है" : "How care works"}<ArrowRight size={13} aria-hidden="true" /></Link></li>
+                <li><Link href={hindi ? "/hi/locations" : "/locations"}>{hindi ? "सभी क्षेत्र" : "All locations"}<ArrowRight size={13} aria-hidden="true" /></Link></li>
+              </ul>
+            </nav>
+
+            <nav className="aurevia-footer-locations" aria-label={hindi ? "क्षेत्र चुनें" : "Care locations"}>
+              <h2>{hindi ? "अपने शहर में" : "Care by location"}</h2>
+              <ul>{siteLocationDetails.map((region) => <li key={region.slug}><Link href={`${hindi ? "/hi" : ""}/locations/${region.slug}`}><MapPin size={13} aria-hidden="true" />{region.fullLabel[locale]}</Link></li>)}</ul>
+            </nav>
+
+            <div className="aurevia-footer-contact">
+              <h2>{hindi ? "हमसे संपर्क करें" : "Speak with us"}</h2>
+              <p>{hindi ? "हमारी टीम से अपने सवालों के बारे में बात करें।" : "Talk with our team about the questions on your mind."}</p>
+              <a href="tel:+919990959440" className="footer-contact-link"><Phone size={16} aria-hidden="true" /><span><small>{hindi ? "हमें कॉल करें" : "Call our care team"}</small>+91 99909 59440</span></a>
+              <a href="mailto:info@aureviahealthcare.com" className="footer-contact-link"><Mail size={16} aria-hidden="true" /><span><small>{hindi ? "ईमेल" : "Email us"}</small>info@aureviahealthcare.com</span></a>
+              <a href="https://wa.me/919990959440" target="_blank" rel="noopener noreferrer" className="footer-whatsapp-link"><MessageCircle size={16} aria-hidden="true" />{hindi ? "WhatsApp पर बात करें" : "Message us on WhatsApp"}</a>
+            </div>
+          </div>
+          <div className="aurevia-footer-trustline"><span>{hindi ? "उपचार की उपयुक्तता और उपलब्ध सुविधाएँ हर व्यक्ति व प्रदाता के अनुसार बदलती हैं।" : "Treatment suitability and available services vary by person and provider."}</span><Link href="/disclaimer">{hindi ? "अस्वीकरण" : "Disclaimer"}</Link></div>
+          <div className="aurevia-footer-bottom"><span>© {new Date().getFullYear()} Aurevia Healthcare</span><nav aria-label={hindi ? "कानूनी जानकारी" : "Legal information"}><Link href="/privacy-policy">{hindi ? "गोपनीयता" : "Privacy"}</Link><Link href="/terms-conditions">{hindi ? "नियम व शर्तें" : "Terms"}</Link><Link href="/photo-credits">{hindi ? "फ़ोटो क्रेडिट" : "Photo credits"}</Link><Link href={switchHref}>{hindi ? "English" : "हिन्दी"}</Link></nav></div>
+        </div>
+      </footer>
 
       <aside className="campaign-medical-note">{copy.disclaimer}</aside>
     </main>
