@@ -53,6 +53,16 @@ export default function ContactForm({ layout = "compact", plain = false, modalCo
       emailjs.sendForm(serviceID, templateID, formRef.current, publicKey)
         .then(() => {
           setLoading(false);
+          if (compactLead) {
+            const values = new FormData(formRef.current!);
+            const query = new URLSearchParams();
+            const treatmentValue = String(values.get("user_treatment") ?? initialTreatment ?? "").trim();
+            const locationValue = String(values.get("user_city") ?? leadLocation ?? "").trim();
+            if (treatmentValue) query.set("treatment", treatmentValue);
+            if (locationValue) query.set("location", locationValue);
+            window.location.assign(`${isHindi ? "/hi" : ""}/thank-you/${query.size ? `?${query.toString()}` : ""}`);
+            return;
+          }
           setStatus("success");
           formRef.current?.reset();
           setTimeout(() => setStatus("idle"), 5000);

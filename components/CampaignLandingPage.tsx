@@ -1,136 +1,124 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, Check, ChevronDown, HeartHandshake, Mail, MapPin, MessageCircle, Phone, ShieldCheck } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowDown, ArrowRight, Check, ChevronDown, MapPin, Phone, ShieldCheck } from "lucide-react";
 import ContactForm from "@/components/ContactForm";
-import HealthcareBenefits from "@/components/HealthcareBenefits";
 import type { CampaignLocale, CampaignTreatment } from "@/lib/campaignLandingData";
-import { siteLocationDetails } from "@/lib/locationDetails";
+import { resolveSiteLocation } from "@/lib/locationDetails";
+import { getTreatmentLocationImage } from "@/lib/treatmentLocationImages";
 
 export default function CampaignLandingPage({ treatment, locale }: { treatment: CampaignTreatment; locale: CampaignLocale }) {
   const hindi = locale === "hi";
   const copy = treatment[locale];
-  const switchHref = hindi ? `/campaigns/${treatment.slug}/` : `/hi/campaigns/${treatment.slug}/`;
+  const [locationSlug, setLocationSlug] = useState<string>();
+  const location = resolveSiteLocation(locationSlug);
+  const visualImage = locationSlug ? getTreatmentLocationImage(treatment.slug, locationSlug, treatment.image) : treatment.image;
+  const isLasik = treatment.slug === "lasik";
+  const mumbaiLasik = isLasik && locationSlug === "mumbai";
+  const languageHref = `${hindi ? "/campaigns" : "/hi/campaigns"}/${treatment.slug}/${locationSlug ? `?location=${encodeURIComponent(locationSlug)}` : ""}`;
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search).get("location");
+    if (query) setLocationSlug(resolveSiteLocation(query)?.slug);
+  }, []);
+
+  const city = location?.name;
+  const cityPill = mumbaiLasik
+    ? (hindi ? "मुंबई में LASIK · घाटकोपर और जोगेश्वरी" : "LASIK in Mumbai · Ghatkopar & Jogeshwari")
+    : city ? `${copy.label} ${hindi ? "में" : "in"} ${location?.fullLabel[locale]}` : copy.label;
+  const heroHeadline = isLasik
+    ? (hindi ? "चश्मे से आज़ादी की ओर।\nनिःशुल्क LASIK परामर्श, विशेषज्ञों के साथ।" : "Say goodbye to glasses.\nFree LASIK consultation with senior eye surgeons.")
+    : copy.headline.replace("\n", " ");
+  const introHeading = isLasik
+    ? (hindi ? "एक छोटी प्रक्रिया, जो चश्मे और लेंस की ज़रूरत कम कर सकती है" : "A quick procedure that can reduce your need for glasses and lenses")
+    : copy.introTitle;
+  const introBody = isLasik
+    ? (hindi ? "LASIK में लेज़र से कॉर्निया का आकार बदला जाता है, ताकि रोशनी रेटिना पर सही तरह केंद्रित हो। दोनों आँखों की प्रक्रिया में लगभग 10 मिनट लग सकते हैं। सामान्य कामकाज पर लौटने का समय हर व्यक्ति के अनुसार बदलता है।" : "LASIK uses a laser to reshape the cornea so light focuses correctly on the retina. The procedure takes about 10 minutes for both eyes, and most people get back to routine work within a few days.*")
+    : copy.intro;
+  const stepTitles = isLasik
+    ? (hindi ? ["निःशुल्क परामर्श", "₹1,000 में आँखों की जाँच", "लगभग 10 मिनट की प्रक्रिया", "निःशुल्क फॉलो-अप"] : ["Free consultation", "Eye tests for ₹1,000", "10-minute procedure", "Free follow-ups"])
+    : (hindi ? ["निःशुल्क परामर्श", "रिपोर्ट और ज़रूरतों की समीक्षा", "विशेषज्ञ से विकल्पों पर बात", "आगे की देखभाल की योजना"] : ["Free consultation", "Review reports and needs", "Discuss options with a specialist", "Plan your follow-up"]);
+  const stepBodies = isLasik
+    ? (hindi ? ["वरिष्ठ नेत्र विशेषज्ञ से मिलें और अपनी नज़र के बारे में बात करें।", "पात्रता जाँचने के लिए LASIK से पहले की जाँच कराएँ।", "लेज़र प्रक्रिया और आपके लिए लागू देखभाल की जानकारी समझें।", "सर्जरी के बाद नियमित जाँच और देखभाल की योजना समझें।"] : ["Meet a senior eye surgeon and discuss your vision.", "Complete pre-LASIK tests worth ₹5,000 to check eligibility.", "Quick laser procedure with free pick & drop.", "Regular check-ups after surgery at no extra cost."])
+    : (hindi ? ["अपनी चिंता और सवाल साझा करें।", "उपलब्ध रिपोर्ट और स्वास्थ्य संबंधी जानकारी साथ रखें।", "योग्य विशेषज्ञ जाँच के बाद उपयुक्त विकल्प समझाएँगे।", "अपनी स्थिति के अनुसार आगे की देखभाल तय करें।"] : ["Meet our care team and share what you would like to understand.", "Keep any reports and relevant health information handy.", "A qualified specialist can explain options after an assessment.", "Plan follow-up around your individual needs."]);
 
   return (
-    <main lang={hindi ? "hi" : "en"} className={`campaign-page campaign-tone-${treatment.tone}${hindi ? " campaign-hindi" : ""}`}>
+    <main lang={hindi ? "hi" : "en"} className={`campaign-page campaign-pdf-layout${hindi ? " campaign-hindi" : ""}`}>
+      <div className="campaign-offer-strip">
+        <span>{isLasik ? (hindi ? "इस हफ़्ते सीमित स्लॉट · ₹5,000 की आँखों की जाँच सिर्फ़ ₹1,000 में" : "Limited slots this week · ₹5,000 eye tests for just ₹1,000") : (hindi ? `${copy.label} के लिए निःशुल्क परामर्श उपलब्ध` : `Free ${copy.label.toLowerCase()} consultation available`)}</span>
+        <a href="#campaign-form">{hindi ? "निःशुल्क परामर्श बुक करें" : "Book your free consultation"}<ArrowRight size={14} /></a>
+      </div>
       <header className="campaign-header">
         <Link href={hindi ? "/hi/" : "/"} className="campaign-brand" aria-label="Aurevia Healthcare home">
           <Image src="/logo-new.png" alt="" width={43} height={46} priority />
-          <span><strong>Aurevia</strong><small>{hindi ? "हेल्थकेयर फैसिलिटेटर्स" : "Healthcare facilitators"}</small></span>
+          <span><strong>Aurevia <i>Healthcare</i></strong><small>{hindi ? "हेल्थकेयर फैसिलिटेटर्स" : "Healthcare facilitators"}</small></span>
         </Link>
         <div className="campaign-header-actions">
-          <a className="campaign-call" href="tel:+919990959440">+91 99909 59440</a>
-          <Link className="campaign-language" href={switchHref}>{hindi ? "English" : "हिन्दी"}</Link>
-          <a className="campaign-header-cta" href="#campaign-form">{hindi ? "कॉल का अनुरोध करें" : "Request a call"}<ArrowRight size={15} /></a>
+          <a className="campaign-call" href="tel:+919990959440"><Phone size={14} />{hindi ? "कॉल करें" : "Call 99909 59440"}</a>
+          <Link className="campaign-language" href={languageHref}>{hindi ? "English" : "हिन्दी"}</Link>
+          <a className="campaign-header-cta" href="#campaign-form">{hindi ? "निःशुल्क परामर्श बुक करें" : "Book Free Consultation"}<ArrowRight size={15} /></a>
         </div>
       </header>
 
-      <section className="campaign-hero" aria-labelledby="campaign-title">
+      <section className="campaign-hero campaign-pdf-hero" aria-labelledby="campaign-title">
         <div className="campaign-hero-copy">
-          <div className="campaign-breadcrumb"><span>{hindi ? "Aurevia केयर" : "Aurevia care"}</span><i />{copy.category}</div>
-          <p className="campaign-eyebrow"><span />{copy.eyebrow}</p>
-          <h1 id="campaign-title">{copy.headline.split("\n").map((line, i) => <span key={line}>{i === 1 ? <em>{line}</em> : line}{i === 0 && copy.headline.includes("\n") ? <br /> : null}</span>)}</h1>
-          <p className="campaign-summary">{copy.summary}</p>
-          <div className="campaign-hero-actions">
-            <a className="campaign-primary-button" href="#campaign-form">{hindi ? "अपनी बातचीत शुरू करें" : "Start a conversation"}<ArrowRight size={18} /></a>
-            <a className="campaign-text-link" href="#campaign-pathway">{copy.explore}<ArrowDown size={15} /></a>
-          </div>
-          <div className="campaign-hero-note"><ShieldCheck size={16} />{hindi ? "कोई दबाव नहीं · पहले जानकारी, फिर आपका फ़ैसला" : "No pressure · understand first, decide in your time"}</div>
+          <p className="campaign-location-pill"><MapPin size={14} />{cityPill}</p>
+          <h1 id="campaign-title">{heroHeadline.split("\n").map((line, index) => <span key={`${line}-${index}`}>{index === 1 ? <em>{line}</em> : line}{index === 0 && heroHeadline.includes("\n") ? <br /> : null}</span>)}</h1>
+          <p className="campaign-summary">{isLasik ? (hindi ? "जानें कि LASIK आपके लिए उपयुक्त है या नहीं। ₹5,000 तक की आँखों की जाँच सिर्फ़ ₹1,000 में, निःशुल्क परामर्श, पिकअप-ड्रॉप और फॉलो-अप के साथ।" : "Find out if LASIK is right for you. Complete eye tests worth ₹5,000 for just ₹1,000, with free pick & drop and free follow-ups.") : copy.summary}</p>
+          <ul className="campaign-hero-points">
+            {(isLasik ? (hindi ? ["निःशुल्क परामर्श", "निःशुल्क पिकअप और ड्रॉप", "वरिष्ठ नेत्र विशेषज्ञ", "निःशुल्क फॉलो-अप"] : ["Free consultation", "Free pick & drop", "Senior eye surgeons", "Free follow-ups"]) : (hindi ? ["निःशुल्क परामर्श", "अपनी भाषा में जानकारी", "अगले कदमों में सहायता", "फ़ैसला आपका"] : ["Free consultation", "Clear information", "Support with next steps", "Your decision, your pace"])).map((item) => <li key={item}><Check size={16} />{item}</li>)}
+          </ul>
+          <a className="campaign-hero-textlink" href="#campaign-pathway">{hindi ? "उपचार के बारे में जानें" : `Learn about ${copy.label.toLowerCase()}`}<ArrowDown size={15} /></a>
         </div>
-
-        <div className="campaign-hero-visual">
-          <div className="campaign-image-frame">
-            <Image src={treatment.image} alt={copy.imageAlt} fill priority sizes="(max-width: 820px) 100vw, 52vw" />
-            <div className="campaign-image-wash" />
-            <div className="campaign-image-caption"><span className="campaign-caption-mark"><HeartHandshake size={18} /></span><span><strong>{treatment.en.label}</strong><small>{hindi ? "विशेषज्ञ देखभाल पर बातचीत" : "A specialist-guided conversation"}</small></span></div>
-            <div className="campaign-image-index">{treatment.slug === "lasik" ? "01 / EYE CARE" : treatment.en.category.split(" · ")[0]}</div>
-          </div>
-          <div className="campaign-orbit campaign-orbit-one" />
-          <div className="campaign-orbit campaign-orbit-two" />
-          <div className="campaign-image-side-note">{hindi ? "हर व्यक्ति की देखभाल अलग होती है" : "Care is personal. Your questions matter."}</div>
-        </div>
-        <div className="campaign-scroll-cue"><span />{hindi ? "नीचे और जानें" : "Scroll to explore"}</div>
+        <aside className="campaign-form-card campaign-hero-form" id="campaign-form">
+          <div className="campaign-form-head"><span>{hindi ? "आपकी देखभाल की शुरुआत" : "START YOUR CARE JOURNEY"}</span><h2>{hindi ? "निःशुल्क परामर्श बुक करें" : "Book your free consultation"}</h2><p>{hindi ? "हमारी टीम 30 मिनट के भीतर आपसे संपर्क करेगी।" : "Our team will call you within 30 minutes."}</p></div>
+          <ContactForm compactLead initialTreatment={treatment.en.label} initialLocation={city} />
+          <div className="campaign-form-foot"><ShieldCheck size={14} />{hindi ? "स्पैम नहीं। आपकी जानकारी सुरक्षित है।" : "No spam. Your details are safe with us."}</div>
+        </aside>
       </section>
 
-      <section className="campaign-trust-strip" aria-label={hindi ? "हमारा तरीका" : "Our approach"}>
-        {copy.signals.map((signal, i) => <div className="campaign-trust-item" key={signal}><span className="campaign-trust-number">0{i + 1}</span><p>{signal}</p><Check size={17} /></div>)}
+      <section className="campaign-pdf-proof" aria-label={hindi ? "हमारी देखभाल" : "Care support"}>
+        {(isLasik ? (hindi ? ["निःशुल्क परामर्श", "LASIK से पहले आँखों की जाँच", "विशेषज्ञ द्वारा पात्रता जाँच", "आपके शहर में सहायता"] : ["Free consultation", "Pre-LASIK eye tests", "Surgeon-led eligibility check", `Care support${city ? ` in ${city}` : " near you"}`]) : (hindi ? ["निःशुल्क परामर्श", "विशेषज्ञ से बातचीत", "विकल्प आसान भाषा में", `आपके शहर में सहायता`] : ["Free consultation", "Specialist discussion", "Options in plain language", `Care support${city ? ` in ${city}` : " near you"}`])).map((item, index) => <div className="campaign-proof-item" key={item}><strong>0{index + 1}</strong><span>{item}</span></div>)}
       </section>
 
-      <section className="campaign-intro campaign-section" id="campaign-pathway">
-        <div className="campaign-section-kicker"><span>01</span>{hindi ? "इलाज को समझें" : "UNDERSTAND YOUR OPTIONS"}</div>
-        <div className="campaign-intro-grid">
-          <h2>{copy.introTitle}</h2>
-          <div className="campaign-intro-body"><p>{copy.intro}</p><a href="#campaign-pathway-steps">{hindi ? "कैसे आगे बढ़ें" : "See how it works"}<ArrowDown size={15} /></a></div>
-        </div>
-        <div className="campaign-insight-row"><div className="campaign-insight-symbol">{treatment.slug === "lasik" || treatment.slug === "cataract" ? "◉" : "✳"}</div><p>{hindi ? "आपकी जाँच और आपकी प्राथमिकताएँ—दोनों आगे की बातचीत का हिस्सा हैं।" : "Your assessment and your priorities both belong in the conversation."}</p><span>{copy.category}</span></div>
-      </section>
-
-      <section className="campaign-pathway" id="campaign-pathway-steps">
-        <div className="campaign-section campaign-pathway-inner">
-          <div className="campaign-section-kicker campaign-section-kicker-light"><span>02</span>{hindi ? "तीन आसान कदम" : "A SIMPLE WAY FORWARD"}</div>
-          <div className="campaign-pathway-heading"><h2>{copy.stepsTitle}</h2><p>{hindi ? "कोई जल्दबाज़ी नहीं। सही सवालों से शुरुआत करें।" : "No rush. Start with the questions that matter to you."}</p></div>
-          <div className="campaign-step-grid">{copy.steps.map((step, index) => <article className="campaign-step-card" key={step.title}><div className="campaign-step-top"><span>0{index + 1}</span><i /></div><h3>{step.title}</h3><p>{step.body}</p></article>)}</div>
+      <section className="campaign-pdf-intro campaign-section" id="campaign-pathway">
+        <div className="campaign-pdf-intro-image"><Image src={visualImage} alt={copy.imageAlt} fill sizes="(max-width: 760px) 100vw, 48vw" /><span>{city ? `${copy.category} · ${location?.fullLabel[locale]}` : copy.category}</span></div>
+        <div className="campaign-pdf-intro-copy"><p className="campaign-eyebrow">{isLasik ? (hindi ? "LASIK क्या है?" : "WHAT IS LASIK?") : copy.category}</p><h2>{introHeading}</h2><p>{introBody}</p>
+          {isLasik && <div className="campaign-eligibility"><strong>{hindi ? "आप पात्र हो सकते हैं यदि:" : "You may be eligible if:"}</strong><ul>{(hindi ? ["आपकी उम्र 18–40 वर्ष है", "आपके चश्मे का नंबर कम-से-कम एक साल से स्थिर है", "आँखों की कोई बड़ी बीमारी नहीं है (डॉक्टर पुष्टि करेंगे)"] : ["You are 18–40 years old", "Your glasses power has been stable for 1+ year", "You have no major eye disease (your doctor will confirm)"]).map((item) => <li key={item}>{item}</li>)}</ul></div>}
+          <a className="campaign-orange-button" href="#campaign-form">{hindi ? "निःशुल्क पात्रता जाँच कराएँ" : "Check my eligibility for free"}<ArrowRight size={15} /></a>
+          {isLasik && <small className="campaign-safety-note">{hindi ? "पात्रता और उपचार का निर्णय जाँच के बाद आपका नेत्र विशेषज्ञ करेगा।" : "Your eye surgeon will confirm eligibility after an examination."}</small>}
         </div>
       </section>
 
-      <section className="campaign-support campaign-section">
-        <div className="campaign-section-kicker"><span>03</span>{hindi ? "AUREVIA केयर समन्वय" : "AUREVIA CARE COORDINATION"}</div>
-        <div className="campaign-support-heading"><h2>{copy.supportTitle}</h2><p>{hindi ? "सवालों के जवाब और सही लोगों तक पहुँचने में मदद।" : "Helpful answers, thoughtful coordination, and room to decide."}</p></div>
-        <div className="campaign-support-grid">{copy.support.map((item, index) => <article className="campaign-support-card" key={item.title}><span className="campaign-support-num">0{index + 1}</span><h3>{item.title}</h3><p>{item.body}</p><div className="campaign-support-line" /></article>)}</div>
+      <section className="campaign-pdf-steps">
+        <div className="campaign-section campaign-pdf-steps-inner">
+          <p className="campaign-eyebrow">{hindi ? "कैसे आगे बढ़ें" : "HOW IT WORKS"}</p>
+          <h2>{isLasik ? (hindi ? "परामर्श से साफ़ नज़र तक, 4 आसान कदम" : "From consultation to clear vision in 4 simple steps") : (hindi ? `${copy.label} के लिए 4 आसान कदम` : `Four simple steps to explore ${copy.label.toLowerCase()}`)}</h2>
+          <div className="campaign-pdf-step-grid">{stepTitles.map((title, index) => <article className="campaign-pdf-step" key={title}><span>{index + 1}</span><h3>{title}</h3><p>{stepBodies[index]}</p></article>)}</div>
+          <a className="campaign-orange-button" href="#campaign-form">{hindi ? "निःशुल्क परामर्श बुक करें" : "Book Free Consultation"}<ArrowRight size={15} /></a>
+        </div>
       </section>
 
-      <HealthcareBenefits locale={locale} campaign eyeCare={treatment.slug === "lasik" || treatment.slug === "cataract"} />
+      <section className="campaign-city-section campaign-section">
+        <p className="campaign-eyebrow">{hindi ? "आपके शहर में" : "CARE NEAR YOU"}</p>
+        <h2>{mumbaiLasik ? (hindi ? "मुंबई में दो पार्टनर अस्पताल" : "Two partner hospitals in Mumbai") : city ? (hindi ? `${location?.fullLabel.hi} में सहायता` : `Care support in ${location?.fullLabel.en}`) : (hindi ? "आपके नज़दीक देखभाल समन्वय" : "Care coordination close to home")}</h2>
+        {mumbaiLasik ? <div className="campaign-hospital-grid"><article><h3>{hindi ? "घाटकोपर ईस्ट" : "Ghatkopar East"}</h3><p>{hindi ? "पवई, विक्रोली, कुर्ला, चेंबूर और आसपास के इलाक़ों के लिए सुविधाजनक।" : "Convenient for Powai, Vikhroli, Kurla, Chembur & nearby areas."}</p><strong>{hindi ? "निःशुल्क पिकअप और ड्रॉप उपलब्ध" : "Free pick & drop available"}</strong></article><article><h3>{hindi ? "जोगेश्वरी वेस्ट" : "Jogeshwari West"}</h3><p>{hindi ? "अंधेरी, गोरेगाँव, विले पार्ले और आसपास के इलाक़ों के लिए सुविधाजनक।" : "Convenient for Andheri, Goregaon, Vile Parle & nearby areas."}</p><strong>{hindi ? "निःशुल्क पिकअप और ड्रॉप उपलब्ध" : "Free pick & drop available"}</strong></article></div> : <div className="campaign-city-card"><div className="campaign-city-photo"><Image src={city ? `/location-photos/${location?.slug}.jpg` : visualImage} alt={city ? `${location?.name} care location` : copy.imageAlt} fill sizes="(max-width: 620px) 100vw, 180px" /></div><MapPin size={23} /><div><h3>{city ? location?.fullLabel[locale] : (hindi ? "अपना शहर चुनें" : "Choose your city")}</h3><p>{city ? (hindi ? "हमारी टीम आपके शहर में उपलब्ध परामर्श और अपॉइंटमेंट के अगले कदम समझने में मदद करेगी।" : "Our team can help you understand consultation availability and appointment next steps in your city.") : (hindi ? "परामर्श अनुरोध करते समय शहर चुनें; हमारी टीम उपलब्ध विकल्पों के बारे में बताएगी।" : "Choose your city when you request a call and our team will explain the available options.")}</p></div><a href="#campaign-form">{hindi ? "परामर्श लें" : "Ask our team"}<ArrowRight size={15} /></a></div>}
+      </section>
+
+      {isLasik && <section className="campaign-offer-band"><div><span>{hindi ? "इस महीने का ऑफ़र" : "THIS MONTH’S OFFER"}</span><h2>{hindi ? "₹5,000 तक की LASIK आँखों की जाँच सिर्फ़ ₹1,000 में" : <>Complete LASIK eye tests worth <s>₹5,000</s> for just ₹1,000</>}</h2><p>{hindi ? "साथ में निःशुल्क परामर्श · पिकअप और ड्रॉप · फॉलो-अप" : "Plus free consultation · free pick & drop · free follow-ups"}</p></div><a className="campaign-orange-button" href="#campaign-form">{hindi ? "ऑफ़र के बारे में पूछें" : "Claim This Offer"}<ArrowRight size={15} /></a></section>}
 
       <section className="campaign-faq campaign-section">
-        <div className="campaign-section-kicker"><span>04</span>{hindi ? "सवाल और जवाब" : "GOOD TO KNOW"}</div>
-        <div className="campaign-faq-layout"><div className="campaign-faq-heading"><h2>{copy.faqTitle}</h2><p>{hindi ? "हर स्थिति अलग है। अपने मामले पर विशेषज्ञ से बात करें।" : "Every situation is different. A qualified specialist can guide you on yours."}</p><span className="campaign-faq-doodle">?</span></div><div className="campaign-faq-list">{copy.faqs.map((faq, index) => <details className="campaign-faq-item" key={faq.q} open={index === 0}><summary><span>{faq.q}</span><ChevronDown size={18} /></summary><p>{faq.a}</p></details>)}</div></div>
+        <p className="campaign-eyebrow">{hindi ? "अक्सर पूछे जाने वाले सवाल" : "FAQs"}</p>
+        <h2>{hindi ? "आपके सवालों के जवाब" : "Your questions, answered"}</h2>
+        <div className="campaign-faq-list">{copy.faqs.map((faq, index) => <details className="campaign-faq-item" key={faq.q} open={index === 0}><summary><span>{faq.q}</span><ChevronDown size={18} /></summary><p>{faq.a}</p></details>)}</div>
       </section>
 
-      <section className="campaign-final-cta" id="campaign-form">
-        <div className="campaign-final-copy"><div className="campaign-section-kicker campaign-section-kicker-light"><span>05</span>{hindi ? "बात शुरू करें" : "LET’S TALK"}</div><h2>{copy.ctaTitle}</h2><p>{copy.ctaBody}</p><div className="campaign-final-reassurance"><span><MapPin size={16} /></span>{hindi ? "अपने शहर से विशेषज्ञ देखभाल के विकल्प समझें" : "Explore specialist care options in your city"}</div></div>
-        <div className="campaign-form-card"><div className="campaign-form-head"><span>{hindi ? "आपका अगला कदम" : "YOUR NEXT STEP"}</span><h3>{copy.formTitle}</h3><p>{copy.formBody}</p></div><ContactForm compactLead initialTreatment={treatment.en.label} /><div className="campaign-form-foot"><ShieldCheck size={14} />{hindi ? "आपकी जानकारी केवल संपर्क और समन्वय के लिए है।" : "Your details are used only to arrange a conversation."}</div></div>
-      </section>
+      <section className="campaign-pdf-final"><h2>{isLasik ? (hindi ? "चश्मे के बिना देखने की ओर बढ़ें?" : "Ready to see life without glasses?") : (hindi ? `${copy.label} पर बातचीत शुरू करें?` : `Ready to talk about ${copy.label.toLowerCase()}?`)}</h2><p>{hindi ? "आज ही निःशुल्क परामर्श बुक करें। हमारी टीम आपके नज़दीक उपलब्ध विकल्प समझने में मदद करेगी।" : "Book your free consultation today. Our team will help you explore the options available near you."}</p><a className="campaign-orange-button" href="#campaign-form">{hindi ? "निःशुल्क परामर्श बुक करें" : "Book Free Consultation"}<ArrowRight size={15} /></a></section>
 
-      <footer className="aurevia-site-footer campaign-site-footer" lang={hindi ? "hi" : "en"}>
-        <div className="aurevia-footer-shell">
-          <div className="aurevia-footer-grid">
-            <div className="aurevia-footer-brand">
-              <Link href={hindi ? "/hi/" : "/"} className="aurevia-footer-logo" aria-label={hindi ? "Aurevia Healthcare — होम" : "Aurevia Healthcare home"}>
-                <Image src="/logo.png" alt="" width={38} height={42} className="object-contain" />
-                <span>Aurevia <small>HEALTHCARE</small></span>
-              </Link>
-              <p>{hindi ? "हम मरीजों को उपचार के विकल्प समझने, अस्पतालों से जुड़ने और अगले कदम तय करने में मदद करते हैं।" : "We help patients understand treatment options, connect with hospitals and navigate the next steps of care."}</p>
-              <div className="aurevia-footer-contact-note">{hindi ? "यह पेज सामान्य जानकारी और देखभाल समन्वय के लिए है।" : "This page shares general information and care coordination support."}</div>
-            </div>
-
-            <nav className="aurevia-footer-nav" aria-label={hindi ? "देखभाल के लिंक" : "Care links"}>
-              <h2>{hindi ? "देखभाल" : "Explore care"}</h2>
-              <ul>
-                <li><Link href="/treatments">{hindi ? "सभी उपचार" : "All treatments"}<ArrowRight size={13} aria-hidden="true" /></Link></li>
-                <li><Link href="/how-it-works">{hindi ? "कैसे काम करता है" : "How care works"}<ArrowRight size={13} aria-hidden="true" /></Link></li>
-                <li><Link href={hindi ? "/hi/locations" : "/locations"}>{hindi ? "सभी क्षेत्र" : "All locations"}<ArrowRight size={13} aria-hidden="true" /></Link></li>
-              </ul>
-            </nav>
-
-            <nav className="aurevia-footer-locations" aria-label={hindi ? "क्षेत्र चुनें" : "Care locations"}>
-              <h2>{hindi ? "अपने शहर में" : "Care by location"}</h2>
-              <ul>{siteLocationDetails.map((region) => <li key={region.slug}><Link href={`${hindi ? "/hi" : ""}/locations/${region.slug}`}><MapPin size={13} aria-hidden="true" />{region.fullLabel[locale]}</Link></li>)}</ul>
-            </nav>
-
-            <div className="aurevia-footer-contact">
-              <h2>{hindi ? "हमसे संपर्क करें" : "Speak with us"}</h2>
-              <p>{hindi ? "हमारी टीम से अपने सवालों के बारे में बात करें।" : "Talk with our team about the questions on your mind."}</p>
-              <a href="tel:+919990959440" className="footer-contact-link"><Phone size={16} aria-hidden="true" /><span><small>{hindi ? "हमें कॉल करें" : "Call our care team"}</small>+91 99909 59440</span></a>
-              <a href="mailto:info@aureviahealthcare.com" className="footer-contact-link"><Mail size={16} aria-hidden="true" /><span><small>{hindi ? "ईमेल" : "Email us"}</small>info@aureviahealthcare.com</span></a>
-              <a href="https://wa.me/919990959440" target="_blank" rel="noopener noreferrer" className="footer-whatsapp-link"><MessageCircle size={16} aria-hidden="true" />{hindi ? "WhatsApp पर बात करें" : "Message us on WhatsApp"}</a>
-            </div>
-          </div>
-          <div className="aurevia-footer-trustline"><span>{hindi ? "उपचार की उपयुक्तता और उपलब्ध सुविधाएँ हर व्यक्ति व प्रदाता के अनुसार बदलती हैं।" : "Treatment suitability and available services vary by person and provider."}</span><Link href="/disclaimer">{hindi ? "अस्वीकरण" : "Disclaimer"}</Link></div>
-          <div className="aurevia-footer-bottom"><span>© {new Date().getFullYear()} Aurevia Healthcare</span><nav aria-label={hindi ? "कानूनी जानकारी" : "Legal information"}><Link href="/privacy-policy">{hindi ? "गोपनीयता" : "Privacy"}</Link><Link href="/terms-conditions">{hindi ? "नियम व शर्तें" : "Terms"}</Link><Link href="/photo-credits">{hindi ? "फ़ोटो क्रेडिट" : "Photo credits"}</Link><Link href={switchHref}>{hindi ? "English" : "हिन्दी"}</Link></nav></div>
-        </div>
-      </footer>
-
-      <aside className="campaign-medical-note">{copy.disclaimer}</aside>
+      <footer className="campaign-pdf-footer"><span>© {new Date().getFullYear()} Aurevia Healthcare · info@aureviahealthcare.com</span><span>{copy.disclaimer}</span><Link href={hindi ? "/hi/privacy-policy/" : "/privacy-policy/"}>{hindi ? "गोपनीयता नीति" : "Privacy Policy"}</Link></footer>
+      <p className="campaign-medical-note">{copy.disclaimer}</p>
     </main>
   );
 }
