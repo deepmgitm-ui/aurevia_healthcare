@@ -10,7 +10,6 @@ import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 import HealthcareBenefits from "@/components/HealthcareBenefits";
 import type { CampaignLocale, CampaignTreatment } from "@/lib/campaignLandingData";
 import { resolveSiteLocation } from "@/lib/locationDetails";
-import { getLocationDoctorImage } from "@/lib/locationDoctorImages";
 import { getTreatmentLocationImage } from "@/lib/treatmentLocationImages";
 
 const googleProfileUrl = "https://www.google.com/maps/place/Aurevia+HealthCare,+maruti+industrial+development+area,+Sector+18,+Gurugram,+Haryana+122015/@28.4898737,77.0620363,17z/data=!4m2!3m1!1s0x27da9535d6e66a7d:0x3c07f42f9d285c4";
@@ -106,11 +105,6 @@ export default function CampaignLandingPage({ treatment, locale, initialLocation
           <div className="campaign-pdf-step-grid">{stepTitles.map((title, index) => <article className="campaign-pdf-step" key={title}><span>{index + 1}</span><h3>{title}</h3><p>{stepBodies[index]}</p></article>)}</div>
           <a className="campaign-orange-button" href="#campaign-form">{hindi ? "निःशुल्क परामर्श बुक करें" : "Book Free Consultation"}<ArrowRight size={15} /></a>
         </div>
-      </section>
-
-      <section className="campaign-specialist-section campaign-section">
-        <div className="campaign-specialist-photo"><Image src={getLocationDoctorImage(location?.slug ?? "mumbai")} alt={city ? `Illustrative doctor-patient consultation in ${city}` : "Illustrative doctor speaking with a patient during a consultation"} fill sizes="(max-width: 760px) 100vw, 42vw" /><span>{hindi ? `परामर्श की झलक${city ? ` · ${city}` : ""}` : `A consultation, pictured${city ? ` · ${city}` : ""}`}</span></div>
-        <div className="campaign-specialist-copy"><p className="campaign-eyebrow">{hindi ? "विशेषज्ञ की सलाह" : "SPECIALIST GUIDANCE"}</p><h2>{isLasik ? (hindi ? "अनुभवी नेत्र विशेषज्ञ से अपनी नज़र के बारे में बात करें" : "Experienced eye surgeons you can trust") : (hindi ? `${copy.label} पर विशेषज्ञ से चर्चा करें` : `Discuss ${copy.label.toLowerCase()} with a specialist`)}</h2><p>{hindi ? "विशेषज्ञ आपकी रिपोर्ट और स्वास्थ्य संबंधी जानकारी देखकर उपयुक्तता, संभावित जोखिम, विकल्प और आगे की देखभाल समझा सकते हैं। Aurevia टीम परामर्श के समन्वय में मदद करती है।" : "A qualified specialist can review your reports and health history, then discuss suitability, possible risks, alternatives and follow-up. Our team can help coordinate that conversation."}</p><p className="campaign-specialist-caption">{hindi ? "यह तस्वीर परामर्श के अनुभव को दिखाने के लिए है; यह किसी नामित डॉक्टर या अस्पताल का चित्र नहीं है।" : "Illustrative consultation photo; it does not identify a named doctor or hospital."}</p><a className="campaign-text-link" href="#campaign-form">{hindi ? "विशेषज्ञ से बात करने के लिए अनुरोध करें" : "Request a specialist conversation"}<ArrowRight size={15} /></a></div>
       </section>
 
       <section className="campaign-city-section campaign-section">
