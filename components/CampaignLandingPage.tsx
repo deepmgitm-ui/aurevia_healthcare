@@ -57,7 +57,7 @@ export default function CampaignLandingPage({ treatment, locale, initialLocation
         <a href="#campaign-form">{hindi ? "निःशुल्क परामर्श बुक करें" : "Book your free consultation"}<ArrowRight size={14} /></a>
       </div>
       <header className="campaign-header">
-        <Link href={hindi ? "/hi/" : "/"} className="campaign-brand" aria-label="Aurevia Healthcare home">
+        <Link href="/" className="campaign-brand" aria-label="Aurevia Healthcare home">
           <Image src="/logo-new.png" alt="" width={43} height={46} priority />
           <span><strong>Aurevia <i>Healthcare</i></strong><small>{hindi ? "हेल्थकेयर फैसिलिटेटर्स" : "Healthcare facilitators"}</small></span>
         </Link>

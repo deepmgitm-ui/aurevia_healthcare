@@ -23,7 +23,7 @@ export default function CampaignThankYou({ hindi = false }: { hindi?: boolean })
   return (
     <main className={`campaign-thank-you${hindi ? " campaign-hindi" : ""}`} lang={hindi ? "hi" : "en"}>
       <header className="campaign-thank-header">
-        <Link href={hindi ? "/hi/" : "/"} className="campaign-thank-brand"><Image src="/logo-new.png" alt="" width={40} height={42} priority /><strong>Aurevia <i>Healthcare</i></strong></Link>
+        <Link href="/" className="campaign-thank-brand"><Image src="/logo-new.png" alt="" width={40} height={42} priority /><strong>Aurevia <i>Healthcare</i></strong></Link>
       </header>
       <section className="campaign-thank-content">
         <span className="campaign-thank-check"><Check size={39} strokeWidth={2.5} /></span>
@@ -41,7 +41,7 @@ export default function CampaignThankYou({ hindi = false }: { hindi?: boolean })
         </div>
         <p className="campaign-thank-contact">{hindi ? "कॉल का इंतज़ार नहीं करना चाहते? अभी संपर्क करें:" : "Can’t wait for the call? Reach us now:"}</p>
         <div className="campaign-thank-actions"><a className="campaign-thank-call" href="tel:+919990959440">{hindi ? "कॉल करें 99909 59440" : "Call 99909 59440"}</a><a className="campaign-thank-whatsapp" href="https://wa.me/919990959440" target="_blank" rel="noopener noreferrer">WhatsApp Us</a></div>
-        <Link className="campaign-thank-home" href={hindi ? "/hi/" : "/"}>{hindi ? "← होम पेज पर वापस जाएँ" : "← Back to home"}</Link>
+        <Link className="campaign-thank-home" href="/">{hindi ? "← होम पेज पर वापस जाएँ" : "← Back to home"}</Link>
       </section>
     </main>
   );

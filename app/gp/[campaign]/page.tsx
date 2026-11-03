@@ -15,7 +15,8 @@ export async function generateMetadata({ params }: { params: Promise<{ campaign:
   const route = getGpCampaignRoute(campaign);
   if (!route) return { title: "Campaign | Aurevia Healthcare", robots: { index: false, follow: false } };
   const copy = route.treatment[route.locale];
-  const canonical = new URL(`/gp/${campaign}/`, SITE_URL).toString();
+  const canonicalSlug = buildGpCampaignSlug(route.treatment.slug, route.location.slug, route.locale);
+  const canonical = new URL(`/gp/${canonicalSlug}/`, SITE_URL).toString();
   return {
     title: `${copy.label} in ${route.location.name} | Aurevia Healthcare`,
     description: copy.summary,

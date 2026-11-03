@@ -109,7 +109,7 @@ export default function Footer({ languageHrefOverride, locale }: { languageHrefO
               <Link href="/terms-conditions">{isHindi ? "नियम व शर्तें" : "Terms"}</Link>
               <Link href="/disclaimer">{isHindi ? "अस्वीकरण" : "Disclaimer"}</Link>
               <Link href="/photo-credits">{isHindi ? "फ़ोटो क्रेडिट" : "Photo credits"}</Link>
-              <Link href={languageHref}>{isHindi ? "English" : "हिन्दी"}</Link>
+              {(hasLocalizedRoute || languageHrefOverride) && <Link href={languageHref}>{isHindi ? "English" : "हिन्दी"}</Link>}
               <button type="button" onClick={() => window.dispatchEvent(new Event("aurevia:open-cookie-settings"))}>{isHindi ? "कुकी सेटिंग" : "Cookie settings"}</button>
             </nav>
           </div>
