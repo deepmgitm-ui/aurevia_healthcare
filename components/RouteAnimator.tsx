@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
 
 type AureviaWindow = Window & {
   aureviaLenis?: {
@@ -48,41 +47,24 @@ function animatePageIn() {
   );
 }
 
-function animatePageOut() {
-  if (getMotionPreference()) return Promise.resolve();
-
-  const main = document.querySelector("main");
-  if (!main) return Promise.resolve();
-
-  const animation = main.animate(
-    [
-      { opacity: 1, transform: "translate3d(0, 0, 0)", filter: "blur(0)" },
-      { opacity: 0.92, transform: "translate3d(0, -3px, 0)", filter: "blur(.6px)" },
-    ],
-    {
-      duration: 130,
-      easing: "cubic-bezier(.4, 0, .2, 1)",
-      fill: "both",
-    },
-  );
-
-  return animation.finished.catch(() => undefined);
-}
-
 export default function RouteAnimator() {
-  const pathname = usePathname();
-  const router = useRouter();
   const [isLeaving, setIsLeaving] = useState(false);
+  const [isEntering, setIsEntering] = useState(false);
   const navigationLockedRef = useRef(false);
-  const navigationFailsafeRef = useRef<number | null>(null);
 
   useEffect(() => {
-    navigationLockedRef.current = false;
-    if (navigationFailsafeRef.current !== null) {
-      window.clearTimeout(navigationFailsafeRef.current);
-      navigationFailsafeRef.current = null;
+    let enterTimer: number | null = null;
+    let refreshTimer: number | null = null;
+
+    try {
+      if (window.sessionStorage.getItem("aurevia-route-transition") === "enter") {
+        window.sessionStorage.removeItem("aurevia-route-transition");
+        setIsEntering(true);
+        enterTimer = window.setTimeout(() => setIsEntering(false), 620);
+      }
+    } catch {
+      // The page still works when browser storage is unavailable.
     }
-    const revealFrame = window.requestAnimationFrame(() => setIsLeaving(false));
 
     const hash = window.location.hash;
 
@@ -96,20 +78,20 @@ export default function RouteAnimator() {
 
     animatePageIn();
 
-    const timer = window.setTimeout(() => {
+    refreshTimer = window.setTimeout(() => {
       const aureviaWindow = window as AureviaWindow;
       aureviaWindow.refreshAureviaAnimations?.();
       aureviaWindow.aureviaLenis?.resize?.();
     }, 220);
 
     return () => {
-      window.cancelAnimationFrame(revealFrame);
-      window.clearTimeout(timer);
+      if (enterTimer !== null) window.clearTimeout(enterTimer);
+      if (refreshTimer !== null) window.clearTimeout(refreshTimer);
     };
-  }, [pathname]);
+  }, []);
 
   useEffect(() => {
-    const handleClick = async (event: MouseEvent) => {
+    const handleClick = (event: MouseEvent) => {
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       if (navigationLockedRef.current) return;
 
@@ -125,56 +107,46 @@ export default function RouteAnimator() {
       if (url.origin !== window.location.origin) return;
       const isSameDocument = url.pathname === window.location.pathname && url.search === window.location.search;
       if (isSameDocument) return;
-      // Let exported location pages use their real static URLs on shared hosting.
-      // The regular anchors work even when a host does not serve Next's RSC payloads.
-      if (/^\/(?:hi\/)?locations(?:\/|$)/.test(url.pathname)) return;
 
       event.preventDefault();
       navigationLockedRef.current = true;
+      if (getMotionPreference()) {
+        window.location.assign(url.href);
+        return;
+      }
+
       setIsLeaving(true);
-      navigationFailsafeRef.current = window.setTimeout(() => {
-        navigationLockedRef.current = false;
-        setIsLeaving(false);
-        navigationFailsafeRef.current = null;
-      }, 8_000);
-      await Promise.all([
-        animatePageOut(),
-        getMotionPreference()
-          ? Promise.resolve()
-          : new Promise<void>((resolve) => window.setTimeout(resolve, 190)),
-      ]);
-      // Reset the current document before mounting the destination so Lenis,
-      // native history restoration, and the App Router cannot preserve a
-      // stale scroll position between pages.
-      scrollToPageTop();
-      router.push(`${url.pathname}${url.search}${url.hash}`, { scroll: !url.hash });
+      try {
+        window.sessionStorage.setItem("aurevia-route-transition", "enter");
+      } catch {
+        // Continue with the outgoing transition even without session storage.
+      }
+      window.setTimeout(() => window.location.assign(url.href), 360);
     };
 
     document.addEventListener("click", handleClick as unknown as EventListener, true);
     return () => document.removeEventListener("click", handleClick as unknown as EventListener, true);
-  }, [router]);
+  }, []);
 
   return (
-    <div aria-hidden="true" className={`aurevia-route-wipe${isLeaving ? " is-active" : ""}`}>
-      {isLeaving ? (
-        <div className="aurevia-route-screen">
-          <div className="aurevia-route-glow aurevia-route-glow-one" />
-          <div className="aurevia-route-glow aurevia-route-glow-two" />
-          <div className="aurevia-route-lockup">
-            <svg className="aurevia-route-emblem" viewBox="0 0 64 64" fill="none">
-              <circle className="aurevia-route-ring" cx="32" cy="32" r="25" />
-              <path className="aurevia-route-petal" d="M32 9c7 7 7 13 0 19-7-6-7-12 0-19Z" />
-              <path className="aurevia-route-petal" d="M55 32c-7 7-13 7-19 0 6-7 12-7 19 0Z" />
-              <path className="aurevia-route-petal" d="M32 55c-7-7-7-13 0-19 7 6 7 12 0 19Z" />
-              <path className="aurevia-route-petal" d="M9 32c7-7 13-7 19 0-6 7-12 7-19 0Z" />
-              <circle className="aurevia-route-core" cx="32" cy="32" r="5" />
-            </svg>
-            <span className="aurevia-route-wordmark">Aurevia <i>Healthcare</i></span>
-            <span className="aurevia-route-caption">Care, coordinated around you</span>
-          </div>
-          <div className="aurevia-route-progress"><span /></div>
+    <div aria-hidden="true" className={`aurevia-route-wipe${isLeaving ? " is-active" : ""}${isEntering ? " is-entering" : ""}`}>
+      <div className="aurevia-route-screen">
+        <div className="aurevia-route-glow aurevia-route-glow-one" />
+        <div className="aurevia-route-glow aurevia-route-glow-two" />
+        <div className="aurevia-route-lockup">
+          <svg className="aurevia-route-emblem" viewBox="0 0 64 64" fill="none">
+            <circle className="aurevia-route-ring" cx="32" cy="32" r="25" />
+            <path className="aurevia-route-petal" d="M32 9c7 7 7 13 0 19-7-6-7-12 0-19Z" />
+            <path className="aurevia-route-petal" d="M55 32c-7 7-13 7-19 0 6-7 12-7 19 0Z" />
+            <path className="aurevia-route-petal" d="M32 55c-7-7-7-13 0-19 7 6 7 12 0 19Z" />
+            <path className="aurevia-route-petal" d="M9 32c7-7 13-7 19 0-6 7-12 7-19 0Z" />
+            <circle className="aurevia-route-core" cx="32" cy="32" r="5" />
+          </svg>
+          <span className="aurevia-route-wordmark">Aurevia <i>Healthcare</i></span>
+          <span className="aurevia-route-caption">Care, coordinated around you</span>
         </div>
-      ) : null}
+        <div className="aurevia-route-progress"><span /></div>
+      </div>
     </div>
   );
 }
