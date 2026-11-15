@@ -13,7 +13,7 @@ export default function GoogleReviewsCarousel({ locale = "hi" }: { locale?: "en"
         <span className="google-review-source-stars" aria-hidden="true">
           {Array.from({ length: 5 }, (_, index) => <Star key={index} size={17} fill="currentColor" strokeWidth={1.5} />)}
         </span>
-        <span className="google-review-source-count">49 {english ? "Google reviews" : "Google reviews"}</span>
+        <span className="google-review-source-count">47 {english ? "Google reviews" : "Google reviews"}</span>
       </div>
 
       <div className="google-review-source-copy">

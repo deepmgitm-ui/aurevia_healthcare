@@ -116,7 +116,7 @@ export default function CampaignLandingPage({ treatment, locale, initialLocation
       <HealthcareBenefits locale={locale} campaign eyeCare={isLasik || treatment.slug === "cataract"} location={location} />
 
       <section className="campaign-google-reviews campaign-section" aria-labelledby="campaign-google-title">
-        <div className="campaign-google-heading"><div><p className="campaign-eyebrow">{hindi ? "Google पर साझा किए गए अनुभव" : "PATIENT STORIES"}</p><h2 id="campaign-google-title">{hindi ? "उन लोगों की बात, जिन्होंने हमारी देखभाल चुनी" : `Hear from people who chose ${copy.label.toLowerCase()}`}</h2></div><a className="campaign-google-rating" href={googleProfileUrl} target="_blank" rel="noopener noreferrer"><strong>5.0</strong><span><i aria-label="5 out of 5 stars">★★★★★</i><small>{hindi ? "49 Google समीक्षाएँ · गुरुग्राम" : "49 Google reviews · Gurugram"}</small></span><ArrowRight size={16} /></a></div>
+        <div className="campaign-google-heading"><div><p className="campaign-eyebrow">{hindi ? "Google पर साझा किए गए अनुभव" : "PATIENT STORIES"}</p><h2 id="campaign-google-title">{hindi ? "उन लोगों की बात, जिन्होंने हमारी देखभाल चुनी" : `Hear from people who chose ${copy.label.toLowerCase()}`}</h2></div><a className="campaign-google-rating" href={googleProfileUrl} target="_blank" rel="noopener noreferrer"><strong>5.0</strong><span><i aria-label="5 out of 5 stars">★★★★★</i><small>{hindi ? "47 Google समीक्षाएँ · गुरुग्राम" : "47 Google reviews · Gurugram"}</small></span><ArrowRight size={16} /></a></div>
         <GoogleReviewsCarousel locale={locale} />
       </section>
 
