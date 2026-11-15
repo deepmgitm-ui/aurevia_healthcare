@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 63523)
-Total output lines: 5307
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -3936,7 +3933,215 @@ footer.bg-\[\#03045E\] a:hover, footer.bg-\[\#03045E\] button:hover { color: #e7
   box-shadow: 0 0 0 3px rgba(111,145,131,.15) !important;
 }
 .healthcare-form button[type="submit"] {
-  …3523 tokens truncated…via-service-page > div:nth-child(2) > div:first-child li { border: 1px solid #dce9ec; background: #f3f8f9; }
+  border-radius: 12px !important;
+  background: linear-gradient(110deg, #365e54, #66897d) !important;
+  box-shadow: 0 9px 22px rgba(38, 61, 57, .15) !important;
+  font-weight: 600 !important;
+}
+.healthcare-form button[type="submit"]:hover { background: #294a42 !important; }
+
+/* Small two-field callback form on every treatment/location page. */
+.care-inline-lead-card { padding: 26px !important; border-radius: 20px !important; }
+.care-inline-lead-card > .care-section-kicker { margin-bottom: 8px; color: var(--care-teal); font-size: 10px; font-weight: 600; letter-spacing: .12em; }
+.care-inline-lead-card > h3 { margin: 0 0 8px !important; color: var(--care-navy); font-family: var(--font-newsreader), Georgia, serif; font-size: 27px; font-weight: 500; letter-spacing: -.02em; }
+.care-inline-lead-card > p { margin: 0 0 20px !important; color: #5e6e69; font-size: 13px; line-height: 1.55; }
+.compact-lead-form { display: grid; gap: 13px; }
+.compact-lead-field { display: grid; gap: 7px; color: #344943 !important; font-size: 12px; font-weight: 500 !important; }
+.compact-lead-field input { width: 100%; min-height: 48px; padding: 0 14px; border: 1px solid #d9e2d9 !important; border-radius: 10px !important; background: rgba(255,255,255,.85) !important; font-family: var(--font-manrope), sans-serif; font-size: 14px; outline: none; }
+.compact-lead-field input::placeholder { color: #8a9690; }
+.compact-lead-field input:focus { border-color: var(--care-teal) !important; box-shadow: 0 0 0 3px color-mix(in srgb,var(--care-teal) 15%,transparent) !important; }
+.compact-lead-submit { display: flex; min-height: 48px; align-items: center; justify-content: center; gap: 10px; border-radius: 10px; background: var(--care-teal); color: #fff; font-size: 14px; font-weight: 600; transition: transform .18s ease, filter .18s ease; }
+.compact-lead-submit:hover { filter: brightness(.94); transform: translateY(-1px); }
+.compact-lead-submit:disabled { cursor: wait; opacity: .7; }
+.compact-lead-privacy { display: flex; align-items: center; justify-content: center; gap: 7px; color: #687972; font-size: 11px; line-height: 1.45; text-align: center; }
+.compact-lead-status { padding: 10px 12px; border-radius: 10px; font-size: 12px; line-height: 1.5; }
+.compact-lead-status.success { background: #e9f3ec; color: #315c47; }
+.compact-lead-status.error { background: #f9ece8; color: #9b4e3d; }
+
+/* A familiar map pin with a clear center replaces the skewed custom marker. */
+.coverage-map-marker-shell { display: grid; place-items: center; border: 0; background: transparent; }
+.coverage-map-marker { display: grid; width: 34px; height: 40px; place-items: center; background: transparent; box-shadow: none; transform: translateY(0); transition: transform .18s ease, filter .18s ease; }
+.coverage-map-marker svg { width: 32px; height: 38px; overflow: visible; filter: drop-shadow(0 3px 5px rgba(38,61,57,.2)); }
+.coverage-map-marker svg path { fill: #fffdfa; stroke: #47766d; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.coverage-map-marker svg circle { fill: #c98770; stroke: #fffdfa; stroke-width: 1.2; }
+.coverage-map-marker-shell:hover .coverage-map-marker { background: transparent; transform: translateY(-2px); filter: saturate(1.12); }
+.coverage-region-list button.active { border-color: #6e9284; background: linear-gradient(115deg,#385f55,#6d8f82); box-shadow: 0 8px 20px rgba(38,61,57,.12); }
+.coverage-active-card > a:not(.coverage-region-explore) { border-radius: 0 0 14px 14px; background: #47766d; color: #fff; }
+.coverage-active-card > a:not(.coverage-region-explore):hover { background: #263d39; }
+.coverage-active-card > a.coverage-region-explore { margin-top: 8px; border: 1px solid #dbe5dd; border-radius: 12px; background: #f7f8f3; color: #355a50; }
+.coverage-active-card > a.coverage-region-explore:hover { background: #e8eee8; }
+
+/* Region and treatment pages keep their individual city identity, with softer surfaces. */
+.care-region-hero, .care-detail-hero {
+  background: linear-gradient(122deg,
+    color-mix(in srgb,var(--care-region-wash) 80%,#fbfaf7),
+    color-mix(in srgb,var(--care-mint) 68%,#f7f3ec) 62%,
+    var(--care-region-highlight)) !important;
+}
+.care-landing h1, .care-landing h2, .care-landing h3 { font-weight: 500; }
+.care-landing .care-region-hero h1, .care-landing .care-detail-hero h1,
+.care-landing .care-section-heading h2, .care-landing .care-overview-main h2,
+.care-landing .care-related-inner h2, .care-landing .care-detail-section-heading h2,
+.care-landing .care-journey-copy h2, .care-landing .care-faq-intro h2 {
+  font-family: var(--font-newsreader), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -.025em;
+}
+.care-region-hero p, .care-detail-hero-copy > p { color: color-mix(in srgb,var(--care-ink) 78%,#fff) !important; }
+.care-button { font-weight: 600; }
+.care-treatment-card, .care-location-card, .care-next-card { box-shadow: 0 12px 30px rgba(38,61,57,.07); }
+.care-treatment-card { border-color: color-mix(in srgb,var(--care-teal) 16%,#fff) !important; }
+.care-treatment-card:hover { box-shadow: 0 18px 42px color-mix(in srgb,var(--care-teal) 16%,transparent) !important; }
+.care-process-section, .care-related-section { filter: saturate(.86); }
+.care-detail-faq { background: color-mix(in srgb,var(--care-location-wash) 34%,#fbfaf7) !important; }
+.care-detail-journey, .care-process-section, .care-related-section {
+  background: linear-gradient(116deg,
+    color-mix(in srgb,var(--care-location-navy, #263d39) 72%,#263d39),
+    color-mix(in srgb,var(--care-location-accent, #6f9183) 38%,#263d39)) !important;
+}
+
+/* Recolor shared Tailwind brand utilities on the legacy information pages too. */
+[class~="text-[#03045E]"], [class~="text-[#0B485B]"] { color: var(--ink) !important; }
+[class~="text-[#147D86]"], [class~="text-[#00B5B8]"] { color: var(--ink-2) !important; }
+[class~="text-[#E85D04]"] { color: var(--amber-deep) !important; }
+[class~="bg-[#03045E]"], [class~="bg-[#0B485B]"] { background-color: var(--brand-forest) !important; }
+[class~="bg-[#147D86]"] { background-color: var(--ink-2) !important; }
+[class~="border-[#03045E]"] { border-color: var(--line-strong) !important; }
+
+/* Clear keyboard focus and honor reduced-motion preferences throughout. */
+:where(a,button,input,select,textarea,summary):focus-visible {
+  outline: 3px solid rgba(201,135,112,.72) !important;
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+/* Aurevia refresh: coastal blue, clear aqua and a small warm saffron note. */
+:root {
+  --paper: #f5fafb;
+  --paper-2: #edf5f7;
+  --paper-3: #deedf0;
+  --cyan: #e5f4f5;
+  --ink: #17394f;
+  --ink-2: #267f93;
+  --ink-soft: rgba(23, 57, 79, .72);
+  --ink-faint: rgba(23, 57, 79, .48);
+  --line: rgba(23, 57, 79, .13);
+  --line-strong: rgba(23, 57, 79, .23);
+  --amber: #dca36b;
+  --amber-deep: #a96936;
+  --gold: #e8c48e;
+  --brand-forest: #17394f;
+  --brand-sage: #3f94a0;
+  --brand-rose: #dfa36c;
+  --brand-cream: #f2f8f9;
+  color-scheme: light;
+}
+
+html { background: var(--paper); }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), "Noto Sans Devanagari", "Segoe UI", Arial, sans-serif !important;
+}
+
+/* Shared navigation: readable above city pages and homepage photography. */
+header.fixed {
+  background: rgba(250, 253, 253, .93) !important;
+  border-bottom: 1px solid rgba(23,57,79,.1) !important;
+  box-shadow: 0 8px 26px rgba(23,57,79,.06) !important;
+  backdrop-filter: blur(16px);
+}
+header .nav-text, header .nav-text-sub { color: var(--ink) !important; }
+header .theme-btn { border-color: var(--line) !important; background: #edf5f6 !important; color: var(--ink) !important; }
+header .theme-btn:hover { background: #dcecef !important; }
+header .drawer-bg { background: rgba(247,251,252,.98) !important; }
+header .drawer-border, header .nav-border { border-color: var(--line) !important; }
+header .pulse-dot { background: var(--brand-rose) !important; }
+
+footer.bg-\[\#03045E\] {
+  background: linear-gradient(130deg,#16394f 0%,#1d5970 58%,#247b83 100%) !important;
+  color: #f8fcfc !important;
+}
+footer.bg-\[\#03045E\] .text-\[\#CAF0F8\]\/58 { color: rgba(248,252,252,.76) !important; }
+footer.bg-\[\#03045E\] .text-\[\#CAF0F8\]\/80 { color: rgba(248,252,252,.86) !important; }
+footer.bg-\[\#03045E\] .text-\[\#CAF0F8\]\/45,
+footer.bg-\[\#03045E\] .text-\[\#CAF0F8\]\/40,
+footer.bg-\[\#03045E\] .text-\[\#CAF0F8\]\/38 { color: rgba(229,244,246,.66) !important; }
+footer.bg-\[\#03045E\] a:hover, footer.bg-\[\#03045E\] button:hover { color: #f0c48a !important; }
+
+/* The consultation dialog follows the same blue/aqua language as the site. */
+.consultation-popup-card {
+  border: 1px solid rgba(255,255,255,.92);
+  border-radius: 24px !important;
+  background: #f8fbfc !important;
+  box-shadow: 0 28px 90px rgba(15,50,69,.28) !important;
+}
+.consultation-popup-header { background: linear-gradient(118deg,#1b5672 0%,#267f91 66%,#43a3a0 100%) !important; }
+.consultation-popup-kicker { color: #e8c38e !important; }
+.consultation-popup-card > div:last-child { padding: 22px 26px 26px !important; }
+.consultation-compact-form label, .healthcare-form label { color: #284d60 !important; }
+.consultation-compact-form input,
+.consultation-compact-form textarea,
+.consultation-compact-form select,
+.healthcare-form input,
+.healthcare-form textarea,
+.healthcare-form select { border-color: #d5e4e8 !important; background: #f4f9fa !important; color: #17394f !important; }
+.consultation-compact-form input:focus,
+.consultation-compact-form textarea:focus,
+.consultation-compact-form select:focus,
+.healthcare-form input:focus,
+.healthcare-form textarea:focus,
+.healthcare-form select:focus { border-color: #4e9ca9 !important; box-shadow: 0 0 0 3px rgba(48,140,157,.15) !important; }
+.consultation-compact-form button[type="submit"],
+.healthcare-form button[type="submit"] { background: linear-gradient(110deg,#216a99,#168b91) !important; box-shadow: 0 9px 22px rgba(23,88,116,.18) !important; }
+.consultation-compact-form button[type="submit"]:hover,
+.healthcare-form button[type="submit"]:hover { background: #1b607b !important; }
+
+/* Forms, informational pages and city-specific treatment pages share tokens. */
+.care-inline-lead-card { border: 1px solid rgba(37,119,144,.2) !important; box-shadow: 0 14px 36px rgba(23,57,79,.075) !important; }
+.compact-lead-field { color: #284d60 !important; }
+.compact-lead-field input { border-color: #d5e4e8 !important; background: #f4f9fa !important; color: #17394f !important; }
+.compact-lead-field input:focus { border-color: var(--care-teal) !important; }
+.compact-lead-submit { box-shadow: 0 7px 18px rgba(23,88,116,.14); }
+.coverage-region-list button.active { background: linear-gradient(112deg,#216a99,#168b91) !important; box-shadow: 0 8px 20px rgba(23,88,116,.16) !important; }
+.coverage-map-marker svg path { stroke: #267f93 !important; }
+.coverage-map-marker svg circle { fill: #dfa36c !important; }
+.coverage-active-card > a:not(.coverage-region-explore) { background: #267f93 !important; }
+.coverage-active-card > a:not(.coverage-region-explore):hover { background: #17394f !important; }
+.coverage-active-card > a.coverage-region-explore { border-color: #d5e4e8 !important; background: #f3f8f9 !important; color: #216a80 !important; }
+
+/* Keep city color identities, while making shared structures feel like one brand. */
+.care-treatment-card, .care-location-card, .care-next-card { box-shadow: 0 12px 32px rgba(23,57,79,.08) !important; }
+.care-treatment-card { border-color: color-mix(in srgb,var(--care-teal) 23%,#fff) !important; }
+.care-treatment-card:hover { box-shadow: 0 18px 42px color-mix(in srgb,var(--care-teal) 19%,transparent) !important; }
+.care-detail-image, .care-region-image { filter: saturate(.96) contrast(1.01); }
+
+/* Treatment overview routes use the same calm utility-first brand language. */
+.aurevia-service-page { background: #f4f9fa !important; color: #17394f; padding-bottom: 54px; }
+.aurevia-service-page > div:first-child {
+  height: min(64vh,620px) !important;
+  min-height: 480px !important;
+  margin: 76px auto 0;
+  border-radius: 0 0 28px 28px;
+  overflow: hidden;
+  background: #1b4d64;
+}
+.aurevia-service-page > div:first-child::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg,rgba(13,46,64,.72),rgba(13,46,64,.16)); }
+.aurevia-service-page > div:first-child > div.relative { z-index: 2; text-align: left; width: min(100%,1240px); margin-inline: auto; }
+.aurevia-service-page > div:first-child h1 { max-width: 780px; font-family: var(--font-newsreader), Georgia, serif; font-size: clamp(42px,6vw,74px); font-weight: 500; letter-spacing: -.045em; line-height: 1.03; }
+.aurevia-service-page > div:first-child p { color: rgba(255,255,255,.82); font-family: var(--font-manrope), sans-serif; font-size: 16px; font-weight: 500; letter-spacing: .02em; }
+.aurevia-service-page > div:nth-child(2) { max-width: 1160px; margin-top: -42px; padding-inline: 24px; }
+.aurevia-service-page > div:nth-child(2) > div:first-child { overflow: hidden; border: 1px solid #d9e7ea; border-radius: 22px; background: #fff; box-shadow: 0 18px 50px rgba(23,57,79,.12); }
+.aurevia-service-page > div:nth-child(2) > div:first-child > div:first-child { border-color: #deeaed; background: #f7fbfc; }
+.aurevia-service-page > div:nth-child(2) > div:first-child > div:first-child button { min-height: 58px; font-weight: 600; }
+.aurevia-service-page > div:nth-child(2) > div:first-child > div:nth-child(2) { padding: clamp(24px,4vw,48px); }
+.aurevia-service-page > div:nth-child(2) > div:first-child h2 { color: #1e5067; font-family: var(--font-newsreader), Georgia, serif; font-size: 34px; font-weight: 500; letter-spacing: -.025em; }
+.aurevia-service-page > div:nth-child(2) > div:first-child p,
+.aurevia-service-page > div:nth-child(2) > div:first-child li { color: #526d78; line-height: 1.75; }
+.aurevia-service-page > div:nth-child(2) > div:first-child li { border: 1px solid #dce9ec; background: #f3f8f9; }
 .aurevia-service-page > div:nth-child(2) > div:last-child { border-color: #deeaed; background: #eef6f7; }
 .aurevia-service-page > div:nth-child(2) > div:last-child p { color: #335b6d; }
 .aurevia-service-page > div:nth-child(2) > div:last-child a { min-height: 48px; display: inline-flex; align-items: center; }
@@ -5042,61 +5247,3 @@ body.dark-mode .aurevia-chatbot :is(button,a,input):focus-visible { outline-colo
 .consultation-popup-card .consultation-compact-form > .consultation-compact-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr))!important; }
 .consultation-popup-card .consultation-compact-grid > div { min-width:0; }
 @media(max-width:600px) { .consultation-popup-card .consultation-compact-form > .consultation-compact-grid { grid-template-columns:1fr!important; } }
-
-/* Aurevia route transition: a short branded motion-graphic interstitial. */
-.aurevia-route-wipe { inset:0; z-index:9999; height:auto; overflow:hidden; background:transparent; opacity:0; transition:opacity .18s ease; }
-.aurevia-route-wipe::before { display:none; }
-.aurevia-route-wipe.is-active { opacity:1; }
-.aurevia-route-screen { position:absolute; inset:0; display:grid; place-items:center; overflow:hidden; isolation:isolate; background:radial-gradient(ellipse at 50% 48%,#173e50 0%,#0d2939 42%,#091c29 100%); animation:aurevia-route-screen-in .32s cubic-bezier(.22,1,.36,1) both; }
-.aurevia-route-screen::before,.aurevia-route-screen::after { content:""; position:absolute; z-index:-1; width:min(75vw,720px); aspect-ratio:1; border:1px solid rgba(180,225,237,.14); border-radius:50%; animation:aurevia-route-orbit 5s linear infinite; }
-.aurevia-route-screen::after { width:min(55vw,520px); border-color:rgba(232,190,112,.16); animation-duration:7s; animation-direction:reverse; }
-.aurevia-route-glow { position:absolute; z-index:-1; width:min(46vw,460px); aspect-ratio:1; border-radius:50%; filter:blur(95px); opacity:.28; }
-.aurevia-route-glow-one { top:2%; left:12%; background:#1e97ae; animation:aurevia-route-drift 3.6s ease-in-out infinite alternate; }
-.aurevia-route-glow-two { right:8%; bottom:-15%; background:#bd8b42; opacity:.17; animation:aurevia-route-drift 4.2s ease-in-out infinite alternate-reverse; }
-.aurevia-route-lockup { display:grid; justify-items:center; gap:13px; color:#f5fbff; animation:aurevia-route-lockup-in .5s .08s cubic-bezier(.22,1,.36,1) both; }
-.aurevia-route-emblem { width:60px; height:60px; overflow:visible; animation:aurevia-route-emblem-turn 3s cubic-bezier(.45,0,.55,1) infinite; }
-.aurevia-route-ring { stroke:rgba(193,228,234,.46); stroke-width:1.2; stroke-dasharray:3 5; transform-origin:center; animation:aurevia-route-ring-turn 9s linear infinite; }
-.aurevia-route-petal { fill:#e0b467; transform-origin:center; animation:aurevia-route-petal-breathe 1.4s ease-in-out infinite alternate; }
-.aurevia-route-petal:nth-of-type(3) { animation-delay:.18s; fill:#54bfd1; }
-.aurevia-route-petal:nth-of-type(4) { animation-delay:.36s; }
-.aurevia-route-petal:nth-of-type(5) { animation-delay:.54s; fill:#54bfd1; }
-.aurevia-route-core { fill:#f5f1df; }
-.aurevia-route-wordmark { font:600 19px/1.1 "DM Sans",sans-serif; letter-spacing:.02em; }
-.aurevia-route-wordmark i { display:block; margin-top:4px; color:#b8d1dd; font-size:9px; font-style:normal; font-weight:600; letter-spacing:.2em; text-align:center; text-transform:uppercase; }
-.aurevia-route-caption { color:#b3ccd8; font:400 12px/1.3 "DM Sans",sans-serif; letter-spacing:.03em; }
-.aurevia-route-progress { position:absolute; right:0; bottom:0; left:0; height:3px; background:rgba(219,239,245,.12); }
-.aurevia-route-progress span { display:block; width:0; height:100%; background:linear-gradient(90deg,#55bfd1,#ead09a,#62bdcb); box-shadow:0 0 14px rgba(95,207,219,.55); animation:aurevia-route-progress-fill .72s cubic-bezier(.2,.72,.2,1) forwards; }
-@keyframes aurevia-route-screen-in { from { opacity:0; clip-path:inset(0 0 100% 0 round 0 0 50% 50%); } to { opacity:1; clip-path:inset(0 0 0 0 round 0); } }
-@keyframes aurevia-route-lockup-in { from { opacity:0; transform:translateY(16px) scale(.94); } to { opacity:1; transform:translateY(0) scale(1); } }
-@keyframes aurevia-route-emblem-turn { 0%,15% { transform:rotate(-14deg) scale(.92); } 55% { transform:rotate(8deg) scale(1.06); } 100% { transform:rotate(0) scale(1); } }
-@keyframes aurevia-route-ring-turn { to { transform:rotate(360deg); } }
-@keyframes aurevia-route-petal-breathe { from { opacity:.7; transform:scale(.9); } to { opacity:1; transform:scale(1.08); } }
-@keyframes aurevia-route-orbit { to { transform:rotate(360deg); } }
-@keyframes aurevia-route-drift { to { transform:translate3d(35px,-24px,0) scale(1.15); } }
-@keyframes aurevia-route-progress-fill { 0% { width:0; } 55% { width:68%; } 100% { width:100%; } }
-
-.google-reviews-feed { max-width:1060px; margin:0 auto; }
-.google-review-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
-.google-review-card { min-height:250px; padding:23px; border-radius:18px; transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease; }
-.google-review-card:hover { transform:translateY(-4px); border-color:#e6c885; box-shadow:0 20px 42px rgba(24,70,99,.11); }
-.google-review-feed-head { display:flex; align-items:center; gap:11px; }
-.google-review-feed-avatar { display:grid; width:42px; height:42px; flex:0 0 auto; place-items:center; border:1px solid #e8d8b1; border-radius:50%; color:#805f25; background:linear-gradient(145deg,#fffaf0,#f0e1bd); font-size:15px; font-weight:700; }
-.google-review-feed-author { display:grid; min-width:0; gap:4px; }
-.google-review-feed-author strong { overflow:hidden; color:#24455e; font-size:12px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
-.google-review-feed-author span { color:#8294a1; font-size:10px; }
-.google-review-google-mark { display:grid; width:28px; height:28px; flex:0 0 auto; margin-left:auto; place-items:center; border-radius:50%; color:#4285f4; background:#fff; box-shadow:0 2px 8px rgba(30,61,81,.1); font:750 18px/1 Arial,sans-serif; }
-.google-review-feed-stars { display:flex; gap:2px; margin:18px 0 0; color:#d6a136; }
-.google-review-card blockquote { margin:15px 0 19px; color:#38576d; font:400 14px/1.65 "DM Sans",sans-serif; }
-.google-review-feed-link { display:inline-flex; align-items:center; gap:5px; margin-top:auto; color:#287caf; font-size:11px; font-weight:700; text-decoration:none; }
-.google-review-feed-link:hover { color:#174f76; }
-body.dark-mode .google-review-card { border-color:rgba(230,244,251,.14); background:#153448; }
-body.dark-mode .google-review-feed-author strong { color:#eff7fb; }
-body.dark-mode .google-review-feed-author span,body.dark-mode .google-review-card blockquote { color:#c1d3df; }
-body.dark-mode .google-review-feed-avatar { border-color:#806c49; color:#f0d49c; background:linear-gradient(145deg,#3d4b4b,#394252); }
-body.dark-mode .google-review-feed-link { color:#8dc8e5; }
-@media(max-width:900px) { .google-review-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-@media(max-width:600px) { .google-review-grid { grid-template-columns:1fr; } .google-review-card { min-height:0; padding:21px; } .aurevia-route-emblem { width:54px; height:54px; } .aurevia-route-caption { font-size:11px; } }
-@media(prefers-reduced-motion:reduce) {
-  .aurevia-route-screen,.aurevia-route-screen::before,.aurevia-route-screen::after,.aurevia-route-glow,.aurevia-route-lockup,.aurevia-route-emblem,.aurevia-route-ring,.aurevia-route-petal,.aurevia-route-progress span { animation:none!important; }
-  .google-review-card { transition:none; }
-}

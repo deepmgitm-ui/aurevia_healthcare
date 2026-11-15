@@ -8,6 +8,7 @@ import RouteAnimator from "@/components/RouteAnimator"; // 👈 Naya Import
 import MetaPixel from "@/components/MetaPixel";
 import "leaflet/dist/leaflet.css";
 import "./globals.css";
+import "./route-motion.css";
 
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://aureviahealthcare.com").replace(/\/$/, "");
