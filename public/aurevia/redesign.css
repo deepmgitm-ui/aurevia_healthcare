@@ -590,3 +590,108 @@
 .aurevia-page-index .hero-mission p { margin-top:14px; color:#58748a; font-size:15px; line-height:1.6; }
 @media(max-width:900px){ .aurevia-page-index .hero-doctors { min-height:390px; }.aurevia-page-index .hero-doctors > img { width:112%; height:390px; }.aurevia-page-index .hero-doctors-note { right:-4px; } }
 @media(max-width:700px){ .aurevia-page-index .hero-doctors { width:min(100%,390px); min-height:300px; margin:0 auto; }.aurevia-page-index .hero-doctors::before { inset:5% 0 7%; }.aurevia-page-index .hero-doctors > img { width:112%; height:clamp(290px,82vw,370px); }.aurevia-page-index .hero-doctors-note { right:0; bottom:7%; padding:10px 12px; font-size:11px; }.aurevia-page-index .hero-doctors-note strong { font-size:12px; }.aurevia-page-index .hero-mission { padding:38px 0 42px; }.aurevia-page-index .hero-mission-inner { grid-template-columns:28px minmax(0,1fr); gap:10px; }.aurevia-page-index .hero-mission-quote { font-size:54px; }.aurevia-page-index .hero-mission h2 { font-size:clamp(21px,6vw,28px); line-height:1.4; }.aurevia-page-index .hero-mission p { margin-top:10px; font-size:14px; } }
+
+/* Immersive care-team hero; Aurevia's own typography, content and actions. */
+.aurevia-page-index .care-hero {
+  margin:0 16px; padding:150px 0 34px; min-height:660px;
+  border-radius:0 0 64px 24px;
+  background:radial-gradient(ellipse at 86% 32%,rgba(104,169,199,.3),transparent 52%),linear-gradient(115deg,#102f45 8%,#1a4963 64%,#2c627b);
+  color:#fff;
+}
+.aurevia-page-index .care-hero > .wrap { position:relative; z-index:1; }
+.aurevia-page-index .care-hero::after {
+  content:""; position:absolute; top:76px; right:0; bottom:0; width:64%; z-index:0;
+  background:linear-gradient(180deg,rgba(18,51,73,.14),rgba(18,51,73,.52)),url("/aurevia/assets/hospital-corner.webp") center right / cover no-repeat;
+  opacity:.55; pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.5) 24%,#000 60%);
+  mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.5) 24%,#000 60%);
+}
+body.dark-mode .aurevia-page-index .care-hero::after { opacity:.38; }
+.aurevia-page-index .care-hero::before { inset:80px -180px auto auto; width:700px; height:700px; border-color:rgba(195,233,250,.13); box-shadow:0 0 0 60px rgba(177,221,242,.025),0 0 0 120px rgba(177,221,242,.02); }
+.aurevia-page-index .care-hero .hero-grid { grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:24px; min-height:420px; }
+.aurevia-page-index .care-hero .hero-copy { position:relative; z-index:2; padding-bottom:32px; }
+.aurevia-page-index .care-hero .eyebrow { color:#b3d9ee!important; font-size:12px; letter-spacing:.12em; }
+.aurevia-page-index .care-hero .hero-headline { font-family:var(--font-body),"DM Sans",sans-serif; font-size:clamp(32px,3.8vw,49px)!important; font-weight:650; line-height:1.18; letter-spacing:-.045em; color:#fff!important; }
+.aurevia-page-index .care-hero .hero-headline .line + .line { margin-top:10px; }
+.aurevia-page-index .care-hero .hero-headline em { color:#b9e6fc!important; font-weight:500!important; }
+.aurevia-page-index .care-hero .hero-tag { color:#d0e6f1; font-size:12px; letter-spacing:.035em; text-transform:none; }
+.aurevia-page-index .care-hero .hero-tag::before { background:#95d1ef!important; }
+.aurevia-page-index .care-hero .hero-sub p { color:#d6e5ee; font-size:16px; line-height:1.75; max-width:510px; }
+.aurevia-page-index .care-hero .hero-actions { display:flex; gap:12px; }
+.aurevia-page-index .care-hero .btn-primary { min-height:50px; padding:14px 20px; background:#c3eaff!important; color:#123c56!important; box-shadow:none; font-size:14px; }
+.aurevia-page-index .care-hero .btn-ghost { display:inline-flex; align-items:center; justify-content:center; gap:12px; min-height:50px; padding:14px 20px; background:rgba(255,255,255,.08); border-color:#86abc0; color:#fff!important; cursor:pointer; font-size:14px; }
+.aurevia-page-index .care-hero .btn-ghost:hover { background:rgba(255,255,255,.16); }
+.aurevia-page-index .care-hero .hero-treatment-link { flex-basis:100%; width:fit-content; padding:4px 0; color:#d0e6f1; font-size:13px; text-decoration:underline; text-underline-offset:5px; }
+.aurevia-page-index .care-hero .hero-quick-locations { margin-top:18px; }
+.aurevia-page-index .care-hero .hero-quick-locations span { color:#b8d1df; }
+.aurevia-page-index .care-hero .hero-quick-locations a { color:#e2f3fc; background:rgba(255,255,255,.07); border-color:rgba(206,233,249,.23); }
+.aurevia-page-index .care-hero .hero-doctors { align-self:end; min-height:400px; margin:0 -28px -34px -40px; }
+.aurevia-page-index .care-hero .hero-doctors::before { background:radial-gradient(ellipse at 50% 60%,rgba(174,220,240,.22),transparent 70%); }
+.aurevia-page-index .care-hero .hero-doctors::after,.aurevia-page-index .care-hero .hero-doctors-halo { display:none; }
+.aurevia-page-index .care-hero .hero-doctors > img { width:120%; height:430px; filter:drop-shadow(0 10px 24px rgba(0,0,0,.12)); }
+.aurevia-page-index .care-hero .hero-doctors-note { right:0; bottom:8%; background:rgba(237,248,255,.92); backdrop-filter:blur(16px); border-color:rgba(255,255,255,.7); box-shadow:0 8px 26px rgba(7,28,44,.16); }
+.aurevia-page-index .care-hero .hero-foot { position:relative; z-index:2; margin-top:34px; }
+.aurevia-page-index .care-hero .scroll-hint,.aurevia-page-index .care-hero .hero-foot > .mono { color:#b8d1df!important; }
+.aurevia-page-index .care-hero .scroll-hint .bar { background:#85b4ce; }
+.aurevia-page-index .hero-mission { background:#e7f3fc; padding:40px 0; }
+.aurevia-page-index .hero-mission-inner { grid-template-columns:38px minmax(0,1fr); max-width:1120px; gap:16px; align-items:center; }
+.aurevia-page-index .hero-mission h2 { max-width:none; font-size:clamp(18px,2.6vw,32px); line-height:1.3; text-wrap:nowrap; }
+.aurevia-page-index .hero-mission-quote { font-size:64px; }
+.aurevia-page-index .hero-mission p { margin-top:8px; font-size:14px; }
+
+/* A shared card for every mounted consultation form, including interior pages. */
+.aurevia-static-page #react-contact-form-portal { min-width:0; padding:24px; border:1px solid #d8e6f0; border-radius:20px; background:#fff; color:#173a5e; box-shadow:0 18px 42px rgba(8,31,55,.12); color-scheme:light; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form label { color:#284d60!important; font-size:13px; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form :is(input,select,textarea) { min-height:46px; color:#173a5e!important; background:#f4f8fc!important; border-color:#bfcedb!important; font-size:16px; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form :is(input,textarea)::placeholder { color:#61778a!important; opacity:1; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form :is(input,select,textarea):focus { outline:2px solid #287caf; outline-offset:2px; background:#fff!important; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form button[type=submit] { background:#216a99!important; color:#fff!important; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form > .flex { color:#526e83!important; font-size:12px; }
+.aurevia-static-page section.cta { color:#fff; }
+.aurevia-static-page section.cta h2,.aurevia-static-page section.cta h2 em { color:#fff!important; }
+.aurevia-static-page section.cta .eyebrow,.aurevia-static-page section.cta .cta-sub { color:#d5e6f2!important; }
+.aurevia-static-page section.cta .how-contact-value a { color:#fff; }
+body.dark-mode .aurevia-static-page #react-contact-form-portal { background:#183a50; border-color:#52748a; color:#f2f8fc; color-scheme:dark; }
+body.dark-mode .aurevia-static-page #react-contact-form-portal .healthcare-form label { color:#e0edf6!important; }
+body.dark-mode .aurevia-static-page #react-contact-form-portal .healthcare-form :is(input,select,textarea) { color:#f2f8fc!important; background:#102b3f!important; border-color:#648299!important; }
+body.dark-mode .aurevia-static-page #react-contact-form-portal .healthcare-form :is(input,textarea)::placeholder { color:#abc1d1!important; }
+body.dark-mode .aurevia-static-page #react-contact-form-portal .healthcare-form :is(input,select,textarea):focus { outline-color:#93d5fc; background:#15364d!important; }
+body.dark-mode .aurevia-static-page #react-contact-form-portal .healthcare-form .group > svg { color:#b4d4e8!important; }
+body.dark-mode .aurevia-static-page #react-contact-form-portal .healthcare-form button[type=submit] { background:#b8e4ff!important; color:#12344b!important; }
+body.dark-mode .aurevia-static-page #react-contact-form-portal .healthcare-form > .flex { color:#c0d4e2!important; }
+body.dark-mode .aurevia-page-index .hero-mission { background:#163b53; }
+body.dark-mode .aurevia-page-index .hero-mission h2,body.dark-mode .aurevia-page-index .hero-mission-quote { color:#d2edff; }
+body.dark-mode .aurevia-page-index .hero-mission p { color:#c1d6e4; }
+.aurevia-page-index .care-hero :is(a,button):focus-visible { outline:3px solid #fff; outline-offset:4px; }
+@media(max-width:1000px) {
+  .aurevia-page-index .care-hero .hero-grid { grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); }
+  .aurevia-page-index .care-hero .hero-headline { font-size:clamp(28px,3.8vw,40px)!important; }
+  .aurevia-page-index .care-hero .hero-doctors > img { height:360px; width:135%; }
+}
+@media(max-width:700px) {
+  .aurevia-page-index .care-hero { margin:0 8px; padding:114px 0 26px; min-height:0; border-radius:0 0 40px 20px; }
+  .aurevia-page-index .care-hero .wrap { padding-inline:20px; }
+  .aurevia-page-index .care-hero::after { top:auto; bottom:0; width:100%; height:46%; opacity:.38; -webkit-mask-image:linear-gradient(180deg,transparent,#000 45%); mask-image:linear-gradient(180deg,transparent,#000 45%); }
+  .aurevia-page-index .care-hero .hero-grid { grid-template-columns:1fr; gap:14px; }
+  .aurevia-page-index .care-hero .hero-copy { padding-bottom:0; }
+  .aurevia-page-index .care-hero .hero-headline { font-size:clamp(24px,7.4vw,43px)!important; }
+  .aurevia-page-index .care-hero .hero-tag { font-size:11px; letter-spacing:0; gap:10px; }
+  .aurevia-page-index .care-hero .hero-sub p { font-size:15px; }
+  .aurevia-page-index .care-hero .hero-actions { flex-direction:row; flex-wrap:wrap; align-items:center; gap:10px; }
+  .aurevia-page-index .care-hero .hero-actions :is(.btn-primary,.btn-ghost) { flex:1 1 auto; min-height:48px; padding:12px 15px; font-size:13px; }
+  .aurevia-page-index .care-hero .hero-doctors { width:100%; min-height:230px; margin:0; }
+  .aurevia-page-index .care-hero .hero-doctors > img { width:110%; height:clamp(230px,64vw,350px); }
+  .aurevia-page-index .care-hero .hero-doctors-note { bottom:0; right:0; font-size:11px; padding:9px 12px; }
+  .aurevia-page-index .care-hero .hero-foot { margin-top:26px; gap:10px; }
+  .aurevia-page-index .hero-mission-inner { grid-template-columns:20px minmax(0,1fr); gap:8px; padding-inline:20px; }
+  .aurevia-page-index .hero-mission h2 { font-size:clamp(12px,3.65vw,23px); letter-spacing:-.035em!important; }
+  .aurevia-page-index .hero-mission-quote { font-size:36px; }
+  .aurevia-page-index .hero-mission p { font-size:13px; }
+  .aurevia-static-page #react-contact-form-portal { padding:20px 16px; }
+}
+.aurevia-page-index .care-hero .hero-headline,.aurevia-page-index .care-hero .hero-headline em { font-family:"DM Sans",Arial,sans-serif!important; }
+.aurevia-static-page #react-contact-form-portal .healthcare-form p.text-xs { color:#526e83; }
+body.dark-mode .aurevia-static-page #react-contact-form-portal .healthcare-form p.text-xs { color:#c0d4e2; }
+body.dark-mode .aurevia-page-how-it-works :is(.timeline,.expect,.insurance,.faqs) { background:#102b3b; color:#edf6fc; }
+body.dark-mode .aurevia-page-how-it-works :is(.timeline,.expect,.insurance,.faqs) :is(h2,h3,h4,h5,summary) { color:#edf6fc; }
+body.dark-mode .aurevia-page-how-it-works :is(.timeline,.expect,.insurance,.faqs) :is(p,.ans) { color:#c4d9e7; }

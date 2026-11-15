@@ -5225,3 +5225,25 @@ body.dark-mode .aurevia-chat-footnote { color:#a7bdc8; }
   .aurevia-page-about .values .v-grid { grid-template-columns:1fr; }
   .aurevia-page-about .values .v-cell { border-right:0; }
 }
+
+/* Complete light/dark pairs for the assistant's interactive surfaces. */
+.aurevia-chat-panel { height:min(650px,calc(100dvh - 108px)); min-height:0; max-height:calc(100dvh - 108px); font-family:var(--font-body),"DM Sans",sans-serif; }
+.aurevia-chat-header,.aurevia-chat-disclaimer,.aurevia-chat-contact-links,.aurevia-chat-form,.aurevia-chat-footnote { flex-shrink:0; }
+.aurevia-chat-close,.aurevia-chat-reset { width:44px; height:44px; cursor:pointer; }
+.aurevia-chat-suggestions button { min-height:44px; }
+.aurevia-chat-form input { min-width:0; font-size:16px; }
+.aurevia-chat-form button { min-width:44px; min-height:44px; }
+.aurevia-chatbot :is(button,a,input):focus-visible { outline:2px solid #287caf; outline-offset:3px; }
+body.dark-mode .aurevia-chat-contact-links a { background:#183e55; border-color:#628298; color:#e7f4fc; }
+body.dark-mode .aurevia-chat-contact-links a:hover { background:#235472; border-color:#a5d9f5; }
+body.dark-mode .aurevia-chat-message.assistant a { color:#9bdaff; }
+body.dark-mode .aurevia-chat-close,body.dark-mode .aurevia-chat-reset { background:#183e55; color:#f0f8ff; border-color:#628298; }
+body.dark-mode .aurevia-chat-close:hover,body.dark-mode .aurevia-chat-reset:hover { background:#2a5a77; }
+body.dark-mode .aurevia-chat-suggestions button:hover { background:#235472; color:#fff; }
+body.dark-mode .aurevia-chat-form button:not(:disabled) { background:#b8e4ff; color:#12344b; }
+body.dark-mode .aurevia-chat-trigger { border-color:#abd7f0; box-shadow:0 0 0 5px rgba(147,209,244,.12),0 12px 30px rgba(0,0,0,.3); }
+body.dark-mode .aurevia-chatbot :is(button,a,input):focus-visible { outline-color:#b8e4ff; }
+/* Keep shared form grids independent of legacy page grid rules. */
+.consultation-popup-card .consultation-compact-form > .consultation-compact-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr))!important; }
+.consultation-popup-card .consultation-compact-grid > div { min-width:0; }
+@media(max-width:600px) { .consultation-popup-card .consultation-compact-form > .consultation-compact-grid { grid-template-columns:1fr!important; } }

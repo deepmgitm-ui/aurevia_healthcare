@@ -1,24 +1,18 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
 import ContactForm from "@/components/ContactForm";
 
-const subscribeToMount = () => () => {};
-const getClientMountedSnapshot = () => true;
-const getServerMountedSnapshot = () => false;
-
 export default function PortalFormMount() {
-  const mounted = useSyncExternalStore(subscribeToMount, getClientMountedSnapshot, getServerMountedSnapshot);
+  const pathname = usePathname();
+  const [targetNode, setTargetNode] = useState<HTMLElement | null>(null);
 
-  if (!mounted || typeof document === "undefined") {
-    return null;
-  }
+  useEffect(() => {
+    // Resolve after React commits the page; render-time lookup can find the previous page's node.
+    setTargetNode(document.getElementById("react-contact-form-portal"));
+  }, [pathname]);
 
-  const targetNode = document.getElementById("react-contact-form-portal");
-  if (!targetNode) {
-    return null;
-  }
-
-  return createPortal(<ContactForm layout="wide" plain />, targetNode);
+  return targetNode ? createPortal(<ContactForm layout="wide" plain />, targetNode) : null;
 }

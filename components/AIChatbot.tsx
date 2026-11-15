@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent, type WheelEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { AlertCircle, Bot, HeartPulse, RotateCcw, Send, Sparkles, X } from "lucide-react";
 import { getHealthGptResponse } from "@/lib/healthGptLocal";
 
@@ -81,11 +81,15 @@ export default function AIChatbot() {
     inputRef.current?.focus();
   };
 
-  const handleMessageWheel = (event: WheelEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    event.stopPropagation();
-    event.currentTarget.scrollTop += event.deltaY;
-  };
+  useEffect(() => {
+    const openFromHero = (event: MouseEvent) => {
+      if (event.target instanceof Element && event.target.closest("[data-open-health-gpt]")) {
+        setIsOpen(true);
+      }
+    };
+    document.addEventListener("click", openFromHero);
+    return () => document.removeEventListener("click", openFromHero);
+  }, []);
 
   useEffect(() => {
     if (isOpen) inputRef.current?.focus();
@@ -94,17 +98,23 @@ export default function AIChatbot() {
   useEffect(() => {
     if (!isOpen) return;
 
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEscape);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
     return () => {
+      document.removeEventListener("keydown", closeOnEscape);
       document.body.style.overflow = previousOverflow;
     };
   }, [isOpen]);
 
   useEffect(() => {
+    if (!isOpen) return;
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isWaitingForFirstToken]);
+  }, [isOpen, messages, isWaitingForFirstToken]);
 
   const sendMessage = async (event?: FormEvent, suggestedMessage?: string) => {
     event?.preventDefault();
@@ -155,7 +165,7 @@ export default function AIChatbot() {
   return (
     <div className="aurevia-chatbot" data-open={isOpen}>
       {isOpen && (
-        <section className="aurevia-chat-panel" aria-label="Health GPT by Aurevia">
+        <section id="aurevia-health-gpt" className="aurevia-chat-panel" aria-label="Health GPT by Aurevia">
           <header className="aurevia-chat-header">
             <div className="aurevia-chat-identity">
               <span className="aurevia-chat-avatar" aria-hidden="true"><HeartPulse size={19} strokeWidth={1.8} /></span>
@@ -186,7 +196,7 @@ export default function AIChatbot() {
             <a href="https://wa.me/919990959440" target="_blank" rel="noreferrer">WhatsApp</a>
           </div>
 
-          <div className="aurevia-chat-messages" aria-live="polite" onWheel={handleMessageWheel}>
+          <div className="aurevia-chat-messages" aria-live="polite" data-lenis-prevent>
             {messages.map((message) => (
               <div key={message.id} className={`aurevia-chat-message ${message.role}`}>
                 {message.role === "assistant" && <span className="aurevia-message-mark" aria-hidden="true"><HeartPulse size={13} /></span>}
@@ -237,6 +247,7 @@ export default function AIChatbot() {
         onClick={() => setIsOpen((open) => !open)}
         aria-label={isOpen ? "Close Health GPT" : "Open Health GPT"}
         aria-expanded={isOpen}
+        aria-controls="aurevia-health-gpt"
       >
         <span className="aurevia-chat-trigger-icon">{isOpen ? <X size={22} /> : <Bot size={24} strokeWidth={1.8} />}</span>
         {!isOpen && <span className="aurevia-chat-trigger-label">Health GPT</span>}

@@ -112,7 +112,7 @@ export default function Navbar() {
           </Link>
 
           {/* 2. DESKTOP LINKS */}
-          <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
+          <nav className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             <Link href="/about" className="text-[14px] font-medium text-[#03045E]/70 hover:text-[#03045E] transition-colors nav-text">{isHindi ? "हमारे बारे में" : "About"}</Link>
             <Link href="/treatments" className="text-[14px] font-medium text-[#03045E]/70 hover:text-[#03045E] transition-colors nav-text">{isHindi ? "उपचार" : "Treatments"}</Link>
             <Link href="/how-it-works" className="text-[14px] font-medium text-[#03045E]/70 hover:text-[#03045E] transition-colors nav-text">{isHindi ? "यह कैसे काम करता है" : "How it works"}</Link>
@@ -136,7 +136,7 @@ export default function Navbar() {
             <Link
               href="/#contact"
               onClick={closeMenu}
-              className="hidden md:flex items-center justify-center gap-2 bg-transparent hover:bg-[#03045E]/5 text-[#03045E] px-4 py-2 rounded-full text-[14px] font-semibold transition-all duration-200 border border-[#03045E]/10 nav-text nav-border"
+              className="hidden lg:flex items-center justify-center gap-2 bg-transparent hover:bg-[#03045E]/5 text-[#03045E] px-4 py-2 rounded-full text-[14px] font-semibold transition-all duration-200 border border-[#03045E]/10 nav-text nav-border"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#E85D04] animate-pulse pulse-dot" />
               {isHindi ? "मुफ़्त परामर्श" : "Free consultation"}
@@ -145,7 +145,7 @@ export default function Navbar() {
             {/* Mobile Hamburger Button */}
             <button
               onClick={toggleMenu}
-              className="md:hidden flex items-center justify-center w-11 h-11 rounded-full bg-gray-50 border border-gray-200 text-[#03045E] shadow-sm theme-btn"
+              className="lg:hidden flex items-center justify-center w-11 h-11 rounded-full bg-gray-50 border border-gray-200 text-[#03045E] shadow-sm theme-btn"
               aria-label="Toggle menu"
               aria-expanded={open}
               aria-controls="mobile-navigation"
@@ -159,7 +159,7 @@ export default function Navbar() {
       {/* ════════════ MOBILE DRAWER ════════════ */}
       <div
         id="mobile-navigation"
-        className={`fixed inset-0 z-[50] md:hidden bg-white/95 backdrop-blur-xl w-screen h-[100dvh]
+        className={`fixed inset-0 z-[50] lg:hidden bg-white/95 backdrop-blur-xl w-screen h-[100dvh]
                     transition-all duration-300 ease-[cubic-bezier(0.6,0.1,0.2,1)] 
                     flex flex-col pt-[100px] px-5 sm:px-8 pb-[max(24px,env(safe-area-inset-bottom))] overflow-y-auto overscroll-contain drawer-bg
                     ${open ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-4"}`}

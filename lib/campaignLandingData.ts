@@ -15,7 +15,7 @@ type LanguageCopy = {
   stepsTitle: string;
   steps: { title: string; body: string }[];
   supportTitle: string;
-  support: { title: string; body: string }[];
+  support: readonly { title: string; body: string }[];
   faqTitle: string;
   faqs: { q: string; a: string }[];
   ctaTitle: string;
