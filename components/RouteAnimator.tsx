@@ -155,6 +155,26 @@ export default function RouteAnimator() {
   }, [router]);
 
   return (
-    <div aria-hidden="true" className={`aurevia-route-wipe${isLeaving ? " is-active" : ""}`} />
+    <div aria-hidden="true" className={`aurevia-route-wipe${isLeaving ? " is-active" : ""}`}>
+      {isLeaving ? (
+        <div className="aurevia-route-screen">
+          <div className="aurevia-route-glow aurevia-route-glow-one" />
+          <div className="aurevia-route-glow aurevia-route-glow-two" />
+          <div className="aurevia-route-lockup">
+            <svg className="aurevia-route-emblem" viewBox="0 0 64 64" fill="none">
+              <circle className="aurevia-route-ring" cx="32" cy="32" r="25" />
+              <path className="aurevia-route-petal" d="M32 9c7 7 7 13 0 19-7-6-7-12 0-19Z" />
+              <path className="aurevia-route-petal" d="M55 32c-7 7-13 7-19 0 6-7 12-7 19 0Z" />
+              <path className="aurevia-route-petal" d="M32 55c-7-7-7-13 0-19 7 6 7 12 0 19Z" />
+              <path className="aurevia-route-petal" d="M9 32c7-7 13-7 19 0-6 7-12 7-19 0Z" />
+              <circle className="aurevia-route-core" cx="32" cy="32" r="5" />
+            </svg>
+            <span className="aurevia-route-wordmark">Aurevia <i>Healthcare</i></span>
+            <span className="aurevia-route-caption">Care, coordinated around you</span>
+          </div>
+          <div className="aurevia-route-progress"><span /></div>
+        </div>
+      ) : null}
+    </div>
   );
 }

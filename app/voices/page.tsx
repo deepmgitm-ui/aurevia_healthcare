@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { pageMetadata } from "@/lib/seo";
-import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
+import GoogleReviewsFeed from "@/components/GoogleReviewsFeed";
 
 export const metadata = pageMetadata({
   title: "Patient voices and Google reviews",
@@ -25,7 +25,7 @@ export default function VoicesPage() {
             <span className="google-reviews-rating">5.0</span>
             <span className="google-reviews-summary-copy">
               <span className="google-reviews-stars" aria-label="5 out of 5 stars">★★★★★</span>
-              <span>49 Google reviews · Gurugram</span>
+              <span>47 Google reviews · Gurugram</span>
             </span>
             <ArrowUpRight className="google-reviews-summary-arrow" size={19} aria-hidden="true" />
           </a>
@@ -37,11 +37,11 @@ export default function VoicesPage() {
           <div className="google-reviews-section-heading">
             <div>
               <p className="google-reviews-kicker">VERIFIED AT THE SOURCE</p>
-              <h2>Reviews from the original source</h2>
+              <h2>A few words that stayed with us</h2>
             </div>
             <a href={googleProfileUrl} target="_blank" rel="noopener noreferrer" className="google-reviews-all-link">Open Aurevia on Google <ArrowUpRight size={16} aria-hidden="true" /></a>
           </div>
-          <GoogleReviewsCarousel locale="en" />
+          <GoogleReviewsFeed />
         </div>
       </section>
     </main>
