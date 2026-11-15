@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
 type AureviaWindow = Window & {
@@ -42,7 +41,7 @@ function animatePageIn() {
       { opacity: 1 },
     ],
     {
-      duration: 420,
+      duration: 320,
       easing: "cubic-bezier(.22, 1, .36, 1)",
       fill: "both",
     },
@@ -61,7 +60,7 @@ function animatePageOut() {
       { opacity: 0.86 },
     ],
     {
-      duration: 160,
+      duration: 130,
       easing: "cubic-bezier(.4, 0, .2, 1)",
       fill: "both",
     },
@@ -142,7 +141,7 @@ export default function RouteAnimator() {
         animatePageOut(),
         getMotionPreference()
           ? Promise.resolve()
-          : new Promise<void>((resolve) => window.setTimeout(resolve, 480)),
+          : new Promise<void>((resolve) => window.setTimeout(resolve, 190)),
       ]);
       // Reset the current document before mounting the destination so Lenis,
       // native history restoration, and the App Router cannot preserve a
@@ -156,26 +155,6 @@ export default function RouteAnimator() {
   }, [router]);
 
   return (
-    <div aria-hidden="true" className={`aurevia-route-wipe${isLeaving ? " is-active" : ""}`}>
-      <span className="aurevia-route-orbit aurevia-route-orbit-one" />
-      <span className="aurevia-route-orbit aurevia-route-orbit-two" />
-      <div className="aurevia-route-content">
-        <div className="aurevia-route-logo-shell">
-          <span className="aurevia-route-logo-ring" />
-          <Image src="/logo.png" alt="" width={54} height={64} priority className="aurevia-route-logo" />
-        </div>
-        <div className="aurevia-route-copy">
-          <strong>Aurevia</strong>
-          <span>Healthcare Facilitators</span>
-        </div>
-        <div className="aurevia-route-pulse" aria-hidden="true">
-          <i />
-          <svg viewBox="0 0 160 24" role="presentation">
-            <path d="M0 12h45l7-7 10 15 10-18 10 10h78" />
-          </svg>
-        </div>
-        <p>Guiding your next step in care</p>
-      </div>
-    </div>
+    <div aria-hidden="true" className={`aurevia-route-wipe${isLeaving ? " is-active" : ""}`} />
   );
 }

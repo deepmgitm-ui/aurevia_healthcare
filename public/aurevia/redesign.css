@@ -511,19 +511,43 @@
 @media(max-width:900px) { .aurevia-static-page .cta-inner { grid-template-columns:1fr; gap:26px; }.aurevia-static-page #react-contact-form-portal { max-width:720px; width:100%; } }
 @media(max-width:600px) { .aurevia-static-page .cta { padding:58px 0; }.aurevia-static-page .cta h2,.aurevia-static-page .cta h2 em { font-size:clamp(36px,10vw,50px); }.aurevia-static-page #react-contact-form-portal .healthcare-form > div.grid { grid-template-columns:1fr; }.aurevia-static-page #react-contact-form-portal .healthcare-form textarea { height:58px !important; min-height:58px !important; } }
 
-/* Search, treatment query and assistant trigger */
-.aurevia-page-index .hero-headline .line { overflow:visible; }
-.aurevia-page-index .hero-care-search { width:min(100%,540px); margin-top:28px; padding:16px; border:1px solid #c7dce8; border-radius:18px; background:rgba(255,255,255,.94); box-shadow:0 14px 34px rgba(23,58,94,.08); }
-.aurevia-page-index .hero-care-search label { display:block; margin:0 0 10px; color:#173a5e; font-size:13px; font-weight:600; }
-.aurevia-page-index .hero-care-search-row { display:flex; gap:8px; }
-.aurevia-page-index .hero-care-search-row input { min-width:0; flex:1; height:48px; padding:0 14px; border:1px solid #b8d0df; border-radius:11px; background:#fff; color:#173a5e; font:inherit; font-size:14px; }
-.aurevia-page-index .hero-care-search-row input:focus-visible { outline:3px solid rgba(36,119,173,.25); border-color:#2477ad; }
-.aurevia-page-index .hero-care-search-row button { display:flex; align-items:center; justify-content:center; gap:8px; min-width:100px; min-height:48px; padding:0 14px; border-radius:11px; background:#173a5e; color:#fff; font-size:14px; font-weight:600; }
-.aurevia-page-index .hero-care-search-row button svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; }
-.aurevia-page-index .hero-care-search-hint { display:block; margin-top:9px; color:#526e83; font-size:11px; line-height:1.45; }
-.aurevia-page-treatments .treatment-search-status { margin:0 0 18px; padding:13px 16px; border-radius:12px; background:#eaf4fa; color:#173a5e; font-size:14px; font-weight:600; }
-.aurevia-page-treatments .ortho-surgery-link[hidden], .aurevia-page-treatments .ortho-category[hidden] { display:none !important; }
-.aurevia-chat-trigger-icon svg { animation:aurevia-bot-float 3s ease-in-out infinite; }
-@keyframes aurevia-bot-float { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-3px) } }
-@media(max-width:640px){ .aurevia-page-index .hero-care-search { padding:13px; margin-top:22px; } .aurevia-page-index .hero-care-search-row button { min-width:84px; padding:0 10px; } }
-@media(prefers-reduced-motion:reduce){ .aurevia-chat-trigger-icon svg { animation:none; } }
+/* Homepage: calm, clinical blue hero and readable treatment pathways. */
+.aurevia-page-index .hero { min-height:0; padding:clamp(126px,13vw,166px) 0 56px; background:radial-gradient(ellipse at 86% 18%,rgba(190,220,243,.62),transparent 35%),linear-gradient(115deg,#f5f9fd,#edf5fb 68%,#e8f2fa); }
+.aurevia-page-index .hero-grid { grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); align-items:center; gap:clamp(28px,5vw,68px); }
+.aurevia-page-index .hero-copy { max-width:680px; }
+.aurevia-page-index .hero .eyebrow { margin-bottom:20px!important; color:#2b6d9d; }
+.aurevia-page-index .hero-headline { max-width:none; font-size:clamp(42px,5.2vw,70px)!important; line-height:1.02; letter-spacing:-.045em; }
+.aurevia-page-index .hero-headline .line { display:block; overflow:visible; }
+.aurevia-page-index .hero-headline .line span { white-space:nowrap; }
+.aurevia-page-index .hero-headline em { color:#1f6fa5!important; font-weight:600!important; font-style:normal!important; }
+.aurevia-page-index .hero-tag { margin-top:19px; color:#356f97; font-size:12px; letter-spacing:.06em; text-transform:uppercase; }
+.aurevia-page-index .hero-sub { margin-top:18px; max-width:560px; }
+.aurevia-page-index .hero-sub p { color:#4b6376; font-size:16px; line-height:1.72; }
+.aurevia-page-index .hero-actions { margin-top:26px; gap:11px; }
+.aurevia-page-index .hero-actions .btn-primary { background:#1f6fa5; }
+.aurevia-page-index .hero-actions .btn-ghost { border-color:#abc9df; background:rgba(255,255,255,.78); color:#17496e; }
+.aurevia-page-index .hero-photo { position:relative; display:block; min-width:0; width:100%; height:clamp(390px,42vw,540px); overflow:visible; margin:0; border-radius:30px; }
+.aurevia-page-index .hero-photo > img { width:100%; height:100%; border:7px solid rgba(255,255,255,.88); border-radius:30px; object-fit:cover; object-position:center; box-shadow:0 24px 65px rgba(21,66,101,.17); }
+.aurevia-page-index .hero-photo::after { content:""; position:absolute; inset:7px; border-radius:24px; background:linear-gradient(180deg,transparent 50%,rgba(13,42,68,.64)); pointer-events:none; }
+.aurevia-page-index .hero-photo-caption { position:absolute; z-index:2; left:26px; bottom:24px; display:flex; flex-direction:column; gap:6px; color:#fff; }
+.aurevia-page-index .hero-photo-caption span { font-size:11px; font-weight:650; letter-spacing:.1em; text-transform:uppercase; }
+.aurevia-page-index .hero-photo-caption strong { font-family:var(--font-display),Georgia,serif; font-size:clamp(21px,2.4vw,31px); font-weight:500; }
+.aurevia-page-index .hero-photo-note { position:absolute; z-index:3; right:-16px; bottom:76px; display:flex; align-items:center; gap:11px; max-width:255px; padding:14px 17px; border:1px solid #d9e8f3; border-radius:16px; background:#fff; box-shadow:0 14px 34px rgba(21,66,101,.15); color:#536b7c; font-size:12px; line-height:1.45; }
+.aurevia-page-index .hero-photo-note strong { color:#173a5e; font-size:13px; }
+.aurevia-page-index .hero-photo-note-icon { display:grid; flex:0 0 32px; width:32px; height:32px; place-items:center; border-radius:50%; background:#e7f2fa; color:#2477ad; font-weight:700; }
+.aurevia-page-index .hero-quick-locations { margin-top:20px; }
+.aurevia-page-index .treat-p { padding:clamp(76px,9vw,118px) 0; background:#f1f6fb; }
+.aurevia-page-index .treat-list { gap:17px; border:0; }
+.aurevia-page-index .treat-group { position:relative; overflow:hidden; padding:10px 26px; border:1px solid #dbe7f0; border-radius:22px; background:rgba(255,255,255,.88); box-shadow:0 10px 32px rgba(23,58,94,.045); }
+.aurevia-page-index .treat-group .watermark-text { color:rgba(31,111,165,.035); }
+.aurevia-page-index .treat-row { grid-template-columns:minmax(0,.82fr) minmax(0,1.55fr) 44px; gap:24px; min-height:116px; padding:22px 2px; border-color:#e0eaf2; cursor:pointer; }
+.aurevia-page-index .treat-row .ix { display:none; }
+.aurevia-page-index .treat-row .nm { white-space:normal; font-size:clamp(24px,2.5vw,34px); line-height:1.08; }
+.aurevia-page-index .treat-row .meta { max-width:650px; padding:0; color:#50677a; font-size:14px; line-height:1.65; letter-spacing:0; }
+.aurevia-page-index .treat-row .go { width:40px; height:40px; border-color:#b9d2e4; color:#2477ad; }
+.aurevia-page-index .treat-row:hover { padding-left:10px; padding-right:0; }
+.aurevia-page-index .treat-row:hover .go { background:#1f6fa5; border-color:#1f6fa5; }
+.aurevia-page-index .treat-row:hover .go svg { stroke:#fff; }
+@media(max-width:900px){ .aurevia-page-index .hero-grid { grid-template-columns:minmax(0,1fr) minmax(0,.86fr); gap:24px; } .aurevia-page-index .hero-headline { font-size:clamp(36px,5.1vw,52px)!important; } .aurevia-page-index .hero-photo { height:420px; } .aurevia-page-index .hero-photo-note { right:-8px; } }
+@media(max-width:700px){ .aurevia-page-index .hero { padding:112px 0 34px; } .aurevia-page-index .hero-grid { grid-template-columns:minmax(0,1fr); gap:27px; } .aurevia-page-index .hero-headline { font-size:clamp(31px,8.6vw,48px)!important; line-height:1.08; letter-spacing:-.04em; } .aurevia-page-index .hero-tag { font-size:10px; } .aurevia-page-index .hero-sub p { font-size:15px; line-height:1.65; } .aurevia-page-index .hero-actions { flex-direction:column; align-items:stretch; } .aurevia-page-index .hero-actions a { min-height:50px; justify-content:center; } .aurevia-page-index .hero-photo { width:100%; height:clamp(280px,82vw,390px); margin:0 auto; } .aurevia-page-index .hero-photo > img { border-width:5px; border-radius:24px; } .aurevia-page-index .hero-photo::after { inset:5px; border-radius:19px; } .aurevia-page-index .hero-photo-note { right:8px; bottom:64px; max-width:218px; padding:11px 13px; } .aurevia-page-index .hero-photo-caption { left:19px; bottom:19px; } .aurevia-page-index .treat-p { padding:68px 0 58px; } .aurevia-page-index .treat-list { gap:12px; } .aurevia-page-index .treat-group { padding:5px 16px; border-radius:17px; } .aurevia-page-index .treat-row { grid-template-columns:minmax(0,1fr) 38px; grid-template-rows:auto auto; gap:9px 10px; min-height:0; padding:18px 0; } .aurevia-page-index .treat-row .nm { grid-column:1; grid-row:1; font-size:clamp(22px,6vw,28px); } .aurevia-page-index .treat-row .meta { display:block; grid-column:1/-1; grid-row:2; font-size:13px; line-height:1.6; } .aurevia-page-index .treat-row .go { grid-column:2; grid-row:1; width:36px; height:36px; } .aurevia-page-index .treat-row:hover { padding-left:0; } }
+@media(prefers-reduced-motion:reduce){ .aurevia-page-index .treat-row,.aurevia-page-index .treat-row .nm,.aurevia-page-index .treat-row .go { transition:none!important; } }

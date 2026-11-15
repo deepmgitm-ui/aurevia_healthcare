@@ -4,6 +4,9 @@
 
 /* ============ ORIGINAL AUREVIA DESIGN SYSTEM ============ */
 :root {
+  --font-body: "DM Sans";
+  --font-display: "Newsreader";
+  --font-devanagari: "Noto Sans Devanagari";
   --font-manrope: var(--font-body), "Noto Sans Devanagari", "Segoe UI", Arial, sans-serif;
   --font-newsreader: var(--font-display), Georgia, "Noto Sans Devanagari", serif;
   --font-mono: Consolas, "Courier New", monospace;
@@ -2721,195 +2724,14 @@ html {
 }
 
 .aurevia-route-wipe {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  pointer-events: none;
-  color: #fff;
-  background:
-    radial-gradient(circle at 50% 46%, rgba(157, 222, 216, .22), transparent 31%),
-    linear-gradient(135deg, #073b4d 0%, #0b5965 48%, #147d86 100%);
-  opacity: 0;
-  clip-path: inset(100% 0 0 0 round 48% 48% 0 0);
-  transform: translateY(10%);
-  transition:
-    opacity .18s ease,
-    clip-path .48s cubic-bezier(.22, 1, .36, 1),
-    transform .48s cubic-bezier(.22, 1, .36, 1);
+  position:fixed; inset:0 0 auto; z-index:200; height:3px; overflow:hidden; pointer-events:none;
+  background:rgba(36,119,173,.10); opacity:0; transition:opacity .12s ease;
 }
-
-.aurevia-route-wipe.is-active {
-  opacity: 1;
-  clip-path: inset(0 0 0 0 round 0);
-  transform: translateY(0);
-}
-
-.aurevia-route-wipe::before {
-  content: "";
-  position: absolute;
-  inset: -30%;
-  background:
-    linear-gradient(115deg, transparent 37%, rgba(255, 255, 255, .08) 49%, transparent 61%);
-  transform: translateX(-45%) rotate(-6deg);
-}
-
-.aurevia-route-wipe.is-active::before {
-  animation: aurevia-route-sheen .9s .08s ease-out both;
-}
-
-.aurevia-route-content {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  justify-items: center;
-  width: min(86vw, 420px);
-  opacity: 0;
-  transform: translateY(18px) scale(.96);
-  transition: opacity .28s .13s ease, transform .42s .1s cubic-bezier(.22, 1, .36, 1);
-}
-
-.aurevia-route-wipe.is-active .aurevia-route-content {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.aurevia-route-logo-shell {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 92px;
-  height: 92px;
-  border: 1px solid rgba(255, 255, 255, .24);
-  border-radius: 28px;
-  background: rgba(255, 255, 255, .12);
-  box-shadow: 0 22px 60px rgba(2, 28, 36, .26), inset 0 1px 0 rgba(255, 255, 255, .3);
-  backdrop-filter: blur(16px);
-}
-
-.aurevia-route-logo {
-  position: relative;
-  z-index: 2;
-  width: 48px;
-  height: auto;
-  filter: drop-shadow(0 8px 18px rgba(2, 28, 36, .18));
-}
-
-.aurevia-route-logo-ring {
-  position: absolute;
-  inset: -9px;
-  border: 1px solid rgba(157, 222, 216, .52);
-  border-right-color: transparent;
-  border-radius: 32px;
-}
-
-.is-active .aurevia-route-logo-ring {
-  animation: aurevia-route-spin 1.15s cubic-bezier(.22, 1, .36, 1) both;
-}
-
-.aurevia-route-copy {
-  display: grid;
-  justify-items: center;
-  margin-top: 24px;
-}
-
-.aurevia-route-copy strong {
-  font-family: var(--font-newsreader), Georgia, serif;
-  font-size: clamp(38px, 7vw, 54px);
-  font-weight: 700;
-  line-height: .95;
-  letter-spacing: -.045em;
-}
-
-.aurevia-route-copy span {
-  margin-top: 8px;
-  color: rgba(230, 252, 249, .72);
-  font-family: var(--font-mono), monospace;
-  font-size: 9px;
-  font-weight: 600;
-  letter-spacing: .28em;
-  text-transform: uppercase;
-}
-
-.aurevia-route-pulse {
-  position: relative;
-  width: 180px;
-  height: 26px;
-  margin-top: 22px;
-  overflow: hidden;
-}
-
-.aurevia-route-pulse svg {
-  width: 100%;
-  height: 100%;
-  fill: none;
-  stroke: #9dded8;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 190;
-  stroke-dashoffset: 190;
-}
-
-.is-active .aurevia-route-pulse svg {
-  animation: aurevia-route-draw .65s .16s ease-out forwards;
-}
-
-.aurevia-route-pulse i {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  z-index: 2;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #e6fcf9;
-  box-shadow: 0 0 0 5px rgba(157, 222, 216, .16), 0 0 20px #9dded8;
-  opacity: 0;
-}
-
-.is-active .aurevia-route-pulse i {
-  animation: aurevia-route-dot .7s .15s ease-out forwards;
-}
-
-.aurevia-route-content > p {
-  margin-top: 10px;
-  color: rgba(255, 255, 255, .62);
-  font-size: 11px;
-  letter-spacing: .04em;
-}
-
-.aurevia-route-orbit {
-  position: absolute;
-  border: 1px solid rgba(157, 222, 216, .12);
-  border-radius: 50%;
-}
-
-.aurevia-route-orbit-one { width: min(72vw, 720px); aspect-ratio: 1; }
-.aurevia-route-orbit-two { width: min(92vw, 940px); aspect-ratio: 1; }
-
-@keyframes aurevia-route-sheen {
-  to { transform: translateX(45%) rotate(-6deg); }
-}
-
-@keyframes aurevia-route-spin {
-  from { transform: rotate(-130deg) scale(.88); opacity: 0; }
-  to { transform: rotate(230deg) scale(1); opacity: 1; }
-}
-
-@keyframes aurevia-route-draw { to { stroke-dashoffset: 0; } }
-
-@keyframes aurevia-route-dot {
-  0% { left: 0; opacity: 0; }
-  12% { opacity: 1; }
-  100% { left: calc(100% - 7px); opacity: 1; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .aurevia-route-wipe { display: none; }
-}
+.aurevia-route-wipe.is-active { opacity:1; }
+.aurevia-route-wipe::before { content:""; position:absolute; inset:0 auto 0 0; width:38%; background:linear-gradient(90deg,#2477ad,#69a8d2); transform:translateX(-110%); }
+.aurevia-route-wipe.is-active::before { animation:aurevia-route-progress .42s cubic-bezier(.22,1,.36,1) forwards; }
+@keyframes aurevia-route-progress { to { transform:translateX(280%); } }
+@media(prefers-reduced-motion:reduce) { .aurevia-route-wipe { display:none; } }
 
 /* Aurevia typography and accent cleanup. The homepage hero and treatment
    presentation keep their designed display treatment; supporting pages use
@@ -5208,4 +5030,18 @@ body:has(.campaign-thank-you) > header,body:has(.campaign-thank-you) > footer,bo
   .campaign-thank-next li p { font-size:12px; }
   .campaign-thank-actions { gap:8px; }
   .campaign-thank-actions a { min-height:45px; padding:0 14px; border-radius:9px; font-size:12px; }
+}
+
+.campaign-pdf-layout .campaign-contact-action { display:inline-flex; min-height:39px; align-items:center; justify-content:center; gap:7px; padding:0 12px; border:1.5px solid #103451; border-radius:99px; color:#103451; background:#fff; font-size:11px; font-weight:650; transition:background .18s ease,border-color .18s ease,transform .18s ease; }
+.campaign-pdf-layout .campaign-contact-action:hover { transform:translateY(-1px); background:#edf6f5; }
+.campaign-pdf-layout .campaign-whatsapp { border-color:#c9e2d5; color:#137447; background:#f4faf6; }
+.campaign-pdf-layout .campaign-whatsapp:hover { border-color:#137447; background:#eaf6ef; }
+.campaign-pdf-layout .campaign-contact-action:focus-visible { outline:3px solid #f49a45; outline-offset:3px; }
+.campaign-pdf-layout .campaign-cta-mobile { display:none; }
+@media(max-width:620px) {
+  .campaign-pdf-layout .campaign-contact-action { display:inline-flex; width:32px; min-width:32px; min-height:32px; height:32px; padding:0; }
+  .campaign-pdf-layout .campaign-contact-action svg { width:14px; height:14px; }
+  .campaign-pdf-layout .campaign-contact-label { display:none; }
+  .campaign-pdf-layout .campaign-cta-desktop { display:none; }
+  .campaign-pdf-layout .campaign-cta-mobile { display:inline; }
 }

@@ -6,13 +6,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RouteAnimator from "@/components/RouteAnimator"; // 👈 Naya Import
 import MetaPixel from "@/components/MetaPixel";
-import { DM_Sans, Newsreader, Noto_Sans_Devanagari } from "next/font/google";
 import "leaflet/dist/leaflet.css";
 import "./globals.css";
 
-const bodyFont = DM_Sans({ subsets: ["latin"], variable: "--font-body", display: "swap" });
-const displayFont = Newsreader({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-display", display: "swap" });
-const hindiFont = Noto_Sans_Devanagari({ subsets: ["devanagari"], weight: ["400", "500", "600", "700"], variable: "--font-devanagari", display: "swap" });
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://aureviahealthcare.com").replace(/\/$/, "");
 
@@ -79,7 +75,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-developer="TtStDeEp">
-      <body className={`${bodyFont.variable} ${displayFont.variable} ${hindiFont.variable} antialiased font-manrope`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet" />
+      </head>
+      <body className="antialiased font-manrope">
         <>
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
           
