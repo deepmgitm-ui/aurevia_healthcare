@@ -1,0 +1,79 @@
+/* One responsive layout for the consultation dialog in either theme. */
+.consultation-popup-shell { padding:20px; }
+.consultation-popup-shell .consultation-popup-card {
+  width:100%; max-width:560px!important; max-height:calc(100dvh - 40px)!important;
+  min-width:0; border:1px solid #d6e4ed!important; border-radius:22px!important;
+  background:#fff; color:#173a5e; font-family:"DM Sans",Arial,sans-serif;
+  box-shadow:0 28px 90px rgba(8,27,43,.3)!important;
+}
+.consultation-popup-shell .consultation-popup-header {
+  flex:none; min-height:0; padding:24px 76px 20px 28px!important;
+  background:#f5f9fd!important; color:#173a5e!important; border-bottom:1px solid #dce7ef;
+}
+.consultation-popup-shell .consultation-popup-header h3 {
+  margin:0 0 7px!important; color:#173a5e!important; font-family:inherit;
+  font-size:23px!important; font-weight:650!important; line-height:1.25; letter-spacing:-.035em;
+}
+.consultation-popup-shell .consultation-popup-subtitle { margin:0; color:#526e83!important; font-size:14px!important; line-height:1.5; }
+.consultation-popup-shell .consultation-popup-card > .consultation-popup-close {
+  top:18px!important; right:18px!important; width:44px!important; height:44px!important;
+  border:1px solid #d6e4ed; border-radius:50%; background:#fff!important; color:#315b76!important;
+}
+.consultation-popup-shell .consultation-popup-card > .consultation-popup-close:hover { background:#e6f1f9!important; }
+.consultation-popup-shell .consultation-popup-card > .consultation-popup-body {
+  min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:22px 28px 26px!important;
+}
+.consultation-popup-shell .consultation-compact-form { width:100%; min-width:0; }
+.consultation-popup-shell .consultation-compact-form > .consultation-compact-grid {
+  display:grid; grid-template-columns:repeat(2,minmax(0,1fr))!important; gap:16px!important;
+}
+.consultation-popup-shell .consultation-compact-grid > div { min-width:0; }
+.consultation-popup-shell .consultation-compact-grid > div:nth-child(n+3),
+.consultation-popup-shell .consultation-compact-grid > .consultation-message-field { grid-column:1/-1; }
+.consultation-popup-shell .consultation-compact-form label {
+  display:block; margin:0 0 6px!important; color:#284d60!important;
+  font-size:13px!important; font-weight:600!important; line-height:1.4; letter-spacing:0!important;
+}
+.consultation-popup-shell .consultation-compact-form :is(input:not([type=hidden]),select,textarea) {
+  display:block; width:100%; max-width:100%; min-width:0; height:48px!important; min-height:48px!important;
+  padding:11px 14px 11px 42px!important; border:1px solid #bdcedb!important; border-radius:11px!important;
+  background:#f7fafc!important; color:#173a5e!important; font:400 16px/1.5 "DM Sans",Arial,sans-serif!important;
+  box-shadow:none!important;
+}
+.consultation-popup-shell .consultation-compact-form select { padding-right:36px!important; }
+.consultation-popup-shell .consultation-compact-form textarea { height:86px!important; min-height:86px!important; max-height:180px!important; resize:vertical!important; }
+.consultation-popup-shell .consultation-compact-form :is(input,textarea)::placeholder { color:#657d90; font-size:14px; opacity:1; }
+.consultation-popup-shell .consultation-compact-form .group > svg { left:14px!important; width:18px; height:18px; color:#5d7f96!important; }
+.consultation-popup-shell .consultation-compact-form .group > svg[class*="right-"] { left:auto!important; right:12px!important; }
+.consultation-popup-shell .consultation-compact-form p.text-xs { margin-top:7px; color:#526e83!important; font-size:12px; line-height:1.5; }
+.consultation-popup-shell .consultation-compact-form > :not([hidden]) ~ :not([hidden]) { margin-top:18px!important; }
+.consultation-popup-shell .consultation-compact-form button[type=submit] {
+  min-height:50px!important; padding:12px 16px!important; border-radius:11px!important;
+  background:#216a99!important; color:#fff!important; font-size:15px!important; font-weight:650!important; box-shadow:none!important;
+}
+.consultation-popup-shell .consultation-compact-form button[type=submit]:hover { background:#195779!important; }
+.consultation-popup-shell .consultation-compact-form > .flex { gap:8px; margin-top:14px!important; color:#526e83!important; font-size:11px!important; line-height:1.5; }
+.consultation-popup-shell :is(button,input,select,textarea):focus-visible { outline:3px solid #67b3df!important; outline-offset:2px; }
+body.dark-mode .consultation-popup-shell .consultation-popup-card { background:#183a50; border-color:#52748a!important; }
+body.dark-mode .consultation-popup-shell .consultation-popup-header { background:#153448!important; border-color:#385b71; }
+body.dark-mode .consultation-popup-shell .consultation-popup-header h3 { background:transparent; color:#f2f8fc!important; }
+body.dark-mode .consultation-popup-shell .consultation-popup-subtitle { background:transparent; color:#c0d4e2!important; }
+body.dark-mode .consultation-popup-shell .consultation-popup-card > .consultation-popup-close { background:#234b65!important; color:#edf7ff!important; border-color:#648299; }
+body.dark-mode .consultation-popup-shell .consultation-compact-form label { color:#e0edf6!important; }
+body.dark-mode .consultation-popup-shell .consultation-compact-form :is(input:not([type=hidden]),select,textarea) { background:#102b3f!important; color:#f2f8fc!important; border-color:#648299!important; }
+body.dark-mode .consultation-popup-shell .consultation-compact-form :is(input,textarea)::placeholder { color:#abc1d1!important; }
+body.dark-mode .consultation-popup-shell .consultation-compact-form :is(p.text-xs,.group>svg),
+body.dark-mode .consultation-popup-shell .consultation-compact-form > .flex { color:#c0d4e2!important; }
+body.dark-mode .consultation-popup-shell .consultation-compact-form button[type=submit] { background:#b8e4ff!important; color:#12344b!important; }
+body.dark-mode .consultation-popup-shell .consultation-compact-form button[type=submit]:hover { background:#d4efff!important; }
+@media(max-width:600px) {
+  .consultation-popup-shell { padding:12px; }
+  .consultation-popup-shell .consultation-popup-card { max-height:calc(100dvh - 24px)!important; border-radius:18px!important; }
+  .consultation-popup-shell .consultation-popup-header { padding:20px 66px 17px 20px!important; }
+  .consultation-popup-shell .consultation-popup-header h3 { font-size:21px!important; }
+  .consultation-popup-shell .consultation-popup-subtitle { font-size:13px!important; }
+  .consultation-popup-shell .consultation-popup-card > .consultation-popup-close { top:14px!important; right:14px!important; }
+  .consultation-popup-shell .consultation-popup-card > .consultation-popup-body { padding:18px 20px 22px!important; }
+  .consultation-popup-shell .consultation-compact-form > .consultation-compact-grid { grid-template-columns:minmax(0,1fr)!important; gap:14px!important; }
+  .consultation-popup-shell .consultation-compact-grid > div { grid-column:1/-1; }
+}

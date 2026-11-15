@@ -86,7 +86,7 @@ export default function GlobalPopup() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[150] flex items-center justify-center p-2 sm:p-4">
+        <div className="consultation-popup-shell fixed inset-0 z-[150] flex items-center justify-center">
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={closeModal}
             className="consultation-popup-backdrop fixed inset-0 bg-[#173344]/55 backdrop-blur-[2px] cursor-pointer"
@@ -101,7 +101,7 @@ export default function GlobalPopup() {
           >
             <button
               onClick={closeModal}
-              className="absolute top-2 right-2 sm:top-3 sm:right-3 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-transparent hover:bg-[#edf4f3] text-[#60737a] hover:text-[#174e63] transition-all duration-200 cursor-pointer"
+              className="consultation-popup-close absolute z-50 flex items-center justify-center transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X size={20} className="stroke-[2.5]" />
@@ -113,7 +113,7 @@ export default function GlobalPopup() {
             </div>
 
             <div
-              className="p-3 sm:p-5 flex-1"
+              className="consultation-popup-body flex-1"
             >
               <ContactForm
                 layout="wide"

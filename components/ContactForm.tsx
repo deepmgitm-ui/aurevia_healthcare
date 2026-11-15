@@ -143,7 +143,7 @@ export default function ContactForm({ layout = "compact", plain = false, modalCo
           <p className="text-xs leading-relaxed text-[#5f747b]">{isHindi ? "सूची से चुनें या अपना उपचार खुद लिखें।" : "Choose a suggestion or type the treatment in your own words."}</p>
         </div>
 
-        <div className={`space-y-2 ${layout === "wide" ? "md:col-span-2" : ""} ${modalCompact ? "col-span-2" : ""}`}>
+        <div className={`space-y-2 ${layout === "wide" ? "md:col-span-2" : ""} ${modalCompact ? "consultation-message-field" : ""}`}>
           <label htmlFor={`${formId}-message`} className="block text-sm font-semibold text-[#254654] mb-2">{isHindi ? "और कुछ बताना चाहेंगे?" : "Anything else you would like us to know?"}</label>
           <div className="relative group">
             <MessageSquare className="absolute left-4 top-4 text-[#03045E]/40 group-focus-within:text-[#03045E] transition-colors" size={20} />
