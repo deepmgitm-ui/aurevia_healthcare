@@ -2,16 +2,6 @@
 const motionReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 window.refreshAureviaAnimations = function () {
-  document.querySelectorAll("[data-coverage-toggle]").forEach((button) => {
-    button.onclick = () => {
-      const ticker = button.closest(".hero-coverage");
-      const paused = ticker.dataset.paused !== "true";
-      ticker.dataset.paused = String(paused);
-      button.setAttribute("aria-pressed", String(paused));
-      button.setAttribute("aria-label", paused ? "Resume scrolling city names" : "Pause scrolling city names");
-      button.textContent = paused ? "Play" : "Pause";
-    };
-  });
   window.refreshAureviaJourneyStory?.();
   const gsap = window.gsap;
   const trigger = window.ScrollTrigger;
