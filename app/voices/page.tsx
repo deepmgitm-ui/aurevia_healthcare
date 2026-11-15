@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { pageMetadata } from "@/lib/seo";
 import GoogleReviewsFeed from "@/components/GoogleReviewsFeed";
 
@@ -8,8 +8,6 @@ export const metadata = pageMetadata({
   description: "Read patient feedback on Aurevia Healthcare’s Google Business Profile.",
   path: "/voices/",
 });
-
-const googleProfileUrl = "https://www.google.com/maps/place/Aurevia+HealthCare,+maruti+industrial+development+area,+Sector+18,+Gurugram,+Haryana+122015/@28.4898737,77.0620363,17z/data=!4m2!3m1!1s0x27da9535d6e66a7d:0x3c07f42f9d285c4";
 
 export default function VoicesPage() {
   return (
@@ -21,14 +19,13 @@ export default function VoicesPage() {
           <h1>Patient voices, shared on Google.</h1>
           <p className="google-reviews-intro">Read feedback in its original context on Aurevia Healthcare’s Google Business Profile.</p>
 
-          <a className="google-reviews-summary" href={googleProfileUrl} target="_blank" rel="noopener noreferrer">
+          <div className="google-reviews-summary" aria-label="Google rating, 5 out of 5 from 47 reviews">
             <span className="google-reviews-rating">5.0</span>
             <span className="google-reviews-summary-copy">
               <span className="google-reviews-stars" aria-label="5 out of 5 stars">★★★★★</span>
               <span>47 Google reviews · Gurugram</span>
             </span>
-            <ArrowUpRight className="google-reviews-summary-arrow" size={19} aria-hidden="true" />
-          </a>
+          </div>
         </div>
       </section>
 
@@ -39,7 +36,6 @@ export default function VoicesPage() {
               <p className="google-reviews-kicker">VERIFIED AT THE SOURCE</p>
               <h2>A few words that stayed with us</h2>
             </div>
-            <a href={googleProfileUrl} target="_blank" rel="noopener noreferrer" className="google-reviews-all-link">Open Aurevia on Google <ArrowUpRight size={16} aria-hidden="true" /></a>
           </div>
           <GoogleReviewsFeed />
         </div>

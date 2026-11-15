@@ -28,27 +28,7 @@ function scrollToPageTop() {
   document.body.scrollTop = 0;
 }
 
-function animatePageIn() {
-  if (getMotionPreference()) return;
-
-  const main = document.querySelector("main");
-  if (!main) return;
-
-  main.animate(
-    [
-      { opacity: 0, transform: "translate3d(0, 9px, 0)", filter: "blur(2px)" },
-      { opacity: 1, transform: "translate3d(0, 0, 0)", filter: "blur(0)" },
-    ],
-    {
-      duration: 360,
-      easing: "cubic-bezier(.22, 1, .36, 1)",
-      fill: "both",
-    },
-  );
-}
-
 export default function RouteAnimator() {
-  const [isLeaving, setIsLeaving] = useState(false);
   const [isEntering, setIsEntering] = useState(false);
   const navigationLockedRef = useRef(false);
 
@@ -60,7 +40,7 @@ export default function RouteAnimator() {
       if (window.sessionStorage.getItem("aurevia-route-transition") === "enter") {
         window.sessionStorage.removeItem("aurevia-route-transition");
         setIsEntering(true);
-        enterTimer = window.setTimeout(() => setIsEntering(false), 620);
+        enterTimer = window.setTimeout(() => setIsEntering(false), 720);
       }
     } catch {
       // The page still works when browser storage is unavailable.
@@ -75,8 +55,6 @@ export default function RouteAnimator() {
     } else {
       scrollToPageTop();
     }
-
-    animatePageIn();
 
     refreshTimer = window.setTimeout(() => {
       const aureviaWindow = window as AureviaWindow;
@@ -115,13 +93,12 @@ export default function RouteAnimator() {
         return;
       }
 
-      setIsLeaving(true);
       try {
         window.sessionStorage.setItem("aurevia-route-transition", "enter");
       } catch {
-        // Continue with the outgoing transition even without session storage.
+        // The destination still loads normally when storage is unavailable.
       }
-      window.setTimeout(() => window.location.assign(url.href), 360);
+      window.location.assign(url.href);
     };
 
     document.addEventListener("click", handleClick as unknown as EventListener, true);
@@ -129,7 +106,7 @@ export default function RouteAnimator() {
   }, []);
 
   return (
-    <div aria-hidden="true" className={`aurevia-route-wipe${isLeaving ? " is-active" : ""}${isEntering ? " is-entering" : ""}`}>
+    <div aria-hidden="true" className={`aurevia-route-wipe${isEntering ? " is-entering" : ""}`}>
       <div className="aurevia-route-screen">
         <div className="aurevia-route-glow aurevia-route-glow-one" />
         <div className="aurevia-route-glow aurevia-route-glow-two" />
@@ -140,7 +117,7 @@ export default function RouteAnimator() {
             <path className="aurevia-route-petal" d="M55 32c-7 7-13 7-19 0 6-7 12-7 19 0Z" />
             <path className="aurevia-route-petal" d="M32 55c-7-7-7-13 0-19 7 6 7 12 0 19Z" />
             <path className="aurevia-route-petal" d="M9 32c7-7 13-7 19 0-6 7-12 7-19 0Z" />
-            <circle className="aurevia-route-core" cx="32" cy="32" r="5" />
+            <path className="aurevia-route-pulse" d="M13 33h9l5-9 8 17 6-11h10" />
           </svg>
           <span className="aurevia-route-wordmark">Aurevia <i>Healthcare</i></span>
           <span className="aurevia-route-caption">Care, coordinated around you</span>

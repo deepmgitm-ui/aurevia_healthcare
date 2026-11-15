@@ -48,12 +48,12 @@ export default function GoogleReviewsFeed() {
               {Array.from({ length: 5 }, (_, index) => <Star key={index} size={15} fill="currentColor" strokeWidth={1.5} />)}
             </div>
             <blockquote>“{review.excerpt}”</blockquote>
-            <a className="google-review-feed-link" href={googleProfileUrl} target="_blank" rel="noopener noreferrer">
-              Read on Google <ArrowUpRight size={14} aria-hidden="true" />
-            </a>
           </article>
         ))}
       </div>
+      <a className="google-reviews-bottom-link" href={googleProfileUrl} target="_blank" rel="noopener noreferrer">
+        Read all 47 Google reviews <ArrowUpRight size={16} aria-hidden="true" />
+      </a>
       <p className="google-reviews-note"><Star size={14} fill="currentColor" aria-hidden="true" /> Selected excerpts from Google Maps. Reviewer photos and full reviews remain on Google; open the profile for the complete, latest listing.</p>
     </div>
   );
