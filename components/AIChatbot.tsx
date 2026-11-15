@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent, type WheelEvent } from "react";
-import { AlertCircle, HeartPulse, MessageCircle, RotateCcw, Send, Sparkles, X } from "lucide-react";
+import { AlertCircle, Bot, HeartPulse, RotateCcw, Send, Sparkles, X } from "lucide-react";
 import { getHealthGptResponse } from "@/lib/healthGptLocal";
 
 type Message = {
@@ -238,7 +238,7 @@ export default function AIChatbot() {
         aria-label={isOpen ? "Close Health GPT" : "Open Health GPT"}
         aria-expanded={isOpen}
       >
-        <span className="aurevia-chat-trigger-icon">{isOpen ? <X size={22} /> : <MessageCircle size={22} />}</span>
+        <span className="aurevia-chat-trigger-icon">{isOpen ? <X size={22} /> : <Bot size={24} strokeWidth={1.8} />}</span>
         {!isOpen && <span className="aurevia-chat-trigger-label">Health GPT</span>}
         {!isOpen && <span className="aurevia-chat-trigger-pulse" aria-hidden="true" />}
       </button>

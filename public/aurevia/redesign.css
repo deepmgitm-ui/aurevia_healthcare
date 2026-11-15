@@ -154,11 +154,19 @@
 .aurevia-page-index .scroll-hint .bar::after { background: #2f91a4; }
 .aurevia-page-index .hero-foot > .mono { color: #67818b !important; font-family: var(--font-body), sans-serif; letter-spacing: .02em !important; text-transform: none !important; }
 
-.aurevia-page-index .marquee { padding: 19px 0; background: #fff; border-block: 1px solid #e0eaed; }
-.aurevia-page-index .marquee .watermark-text { display: none; }
-.aurevia-page-index .marquee-track { gap: 34px; }
-.aurevia-page-index .marquee-track span { color: #326b82; font-family: var(--font-body), sans-serif; font-size: 15px; font-weight: 600; }
-.aurevia-page-index .marquee-track i { color: #dfad77; font-size: 11px; }
+.aurevia-page-index .marquee { padding: clamp(34px, 4.5vw, 58px) 0; background: #fff; border-block: 1px solid #e0eaed; }
+.aurevia-page-index .specialties-heading { display:flex; align-items:end; justify-content:space-between; gap:24px; margin-bottom:24px; }
+.aurevia-page-index .specialties-heading > span { color:#173a5e; font-family:var(--font-display), Georgia, serif; font-size:clamp(25px,3vw,38px); line-height:1.05; letter-spacing:-.035em; }
+.aurevia-page-index .specialties-heading p { max-width:360px; color:#5b737d; font-size:14px; line-height:1.55; }
+.aurevia-page-index .marquee-track { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px 12px; }
+.aurevia-page-index .marquee-track span { display:flex; align-items:center; min-height:58px; padding:12px 16px; border:1px solid #e0ebee; border-radius:14px; background:linear-gradient(135deg,#f7fbfc,#fff); color:#285d75; font-family:var(--font-body),sans-serif; font-size:clamp(15px,1.6vw,19px); font-weight:650; line-height:1.25; transition:transform .2s ease,border-color .2s ease,background .2s ease; }
+.aurevia-page-index .marquee-track span:hover { transform:translateY(-2px); border-color:#b9d6df; background:#f4fafb; }
+.aurevia-page-index .marquee-track i { display:none; }
+@media(max-width:700px){ .aurevia-page-index .specialties-heading { align-items:flex-start; flex-direction:column; gap:8px; margin-bottom:18px; } .aurevia-page-index .marquee-track { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; } .aurevia-page-index .marquee-track span { min-height:52px; padding:11px 12px; font-size:15px; } }
+@media(max-width:380px){ .aurevia-page-index .marquee-track { grid-template-columns:1fr; } }
+
+
+
 
 .aurevia-page-index .trust { padding: 54px 0; background: #fff; }
 .aurevia-page-index .trust-grid { overflow: hidden; border: 1px solid #dae8ec; border-radius: 20px; background: linear-gradient(115deg, #f5fafb, #fff); }
@@ -502,3 +510,20 @@
 .aurevia-static-page #react-contact-form-portal .healthcare-form > .flex { margin-top:0; font-size:9px; line-height:1.45; }
 @media(max-width:900px) { .aurevia-static-page .cta-inner { grid-template-columns:1fr; gap:26px; }.aurevia-static-page #react-contact-form-portal { max-width:720px; width:100%; } }
 @media(max-width:600px) { .aurevia-static-page .cta { padding:58px 0; }.aurevia-static-page .cta h2,.aurevia-static-page .cta h2 em { font-size:clamp(36px,10vw,50px); }.aurevia-static-page #react-contact-form-portal .healthcare-form > div.grid { grid-template-columns:1fr; }.aurevia-static-page #react-contact-form-portal .healthcare-form textarea { height:58px !important; min-height:58px !important; } }
+
+/* Search, treatment query and assistant trigger */
+.aurevia-page-index .hero-headline .line { overflow:visible; }
+.aurevia-page-index .hero-care-search { width:min(100%,540px); margin-top:28px; padding:16px; border:1px solid #c7dce8; border-radius:18px; background:rgba(255,255,255,.94); box-shadow:0 14px 34px rgba(23,58,94,.08); }
+.aurevia-page-index .hero-care-search label { display:block; margin:0 0 10px; color:#173a5e; font-size:13px; font-weight:600; }
+.aurevia-page-index .hero-care-search-row { display:flex; gap:8px; }
+.aurevia-page-index .hero-care-search-row input { min-width:0; flex:1; height:48px; padding:0 14px; border:1px solid #b8d0df; border-radius:11px; background:#fff; color:#173a5e; font:inherit; font-size:14px; }
+.aurevia-page-index .hero-care-search-row input:focus-visible { outline:3px solid rgba(36,119,173,.25); border-color:#2477ad; }
+.aurevia-page-index .hero-care-search-row button { display:flex; align-items:center; justify-content:center; gap:8px; min-width:100px; min-height:48px; padding:0 14px; border-radius:11px; background:#173a5e; color:#fff; font-size:14px; font-weight:600; }
+.aurevia-page-index .hero-care-search-row button svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; }
+.aurevia-page-index .hero-care-search-hint { display:block; margin-top:9px; color:#526e83; font-size:11px; line-height:1.45; }
+.aurevia-page-treatments .treatment-search-status { margin:0 0 18px; padding:13px 16px; border-radius:12px; background:#eaf4fa; color:#173a5e; font-size:14px; font-weight:600; }
+.aurevia-page-treatments .ortho-surgery-link[hidden], .aurevia-page-treatments .ortho-category[hidden] { display:none !important; }
+.aurevia-chat-trigger-icon svg { animation:aurevia-bot-float 3s ease-in-out infinite; }
+@keyframes aurevia-bot-float { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-3px) } }
+@media(max-width:640px){ .aurevia-page-index .hero-care-search { padding:13px; margin-top:22px; } .aurevia-page-index .hero-care-search-row button { min-width:84px; padding:0 10px; } }
+@media(prefers-reduced-motion:reduce){ .aurevia-chat-trigger-icon svg { animation:none; } }

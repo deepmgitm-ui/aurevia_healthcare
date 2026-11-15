@@ -241,13 +241,19 @@
       <div class="hero-copy">
         <div class="eyebrow" id="heroEyebrow" style="opacity:0;transform:translateY(20px);margin-bottom:26px">Aurevia Healthcare · Care coordination across India</div>
         <h1 class="display hero-headline" style="color: var(--ink);">
-          <span class="line"><span>Aurevia Healthcare</span></span>
-          <span class="line"><span><em style="color: var(--ink); font-style: normal;">Care you can trust.</em></span></span>
+          <span class="line"><span>Aurevia</span></span>
+          <span class="line"><span>Healthcare</span></span>
+          <span class="line"><span><em style="color: var(--ink); font-style: normal;">Care &amp; Trust</em></span></span>
         </h1>
         <div class="hero-tag" id="heroTag">A real person to guide the next step</div>
         <div class="hero-sub" id="heroSub">
           <p>Finding the right specialist and hospital can feel like a lot. We help you understand your options, coordinate appointments and stay with you through the process.</p>
         </div>
+        <form class="hero-care-search" action="/treatments/" method="get" role="search" aria-label="Find healthcare services">
+          <label for="hero-care-query">What care are you looking for?</label>
+          <div class="hero-care-search-row"><input id="hero-care-query" name="q" type="search" placeholder="Search a treatment or specialty" autocomplete="off"><button type="submit" aria-label="Search treatments"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg><span>Search</span></button></div>
+          <span class="hero-care-search-hint">Explore care options and speak with a coordinator</span>
+        </form>
         <div class="hero-actions" id="heroActions">
           <a href="#contact" class="btn-primary magnetic">
             Talk to our care team
@@ -289,14 +295,15 @@
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee" aria-hidden="true">
-  <span class="watermark-text">AUREVIA HEALTHCARE</span>
-  <div class="marquee-track">
-    <span>LASIK</span><i>◆</i><span>Cataract surgery</span><i>◆</i><span>Sinus care</span><i>◆</i><span>Tonsillectomy</span><i>◆</i><span>Liposuction</span><i>◆</i><span>Lipoma removal</span><i>◆</i><span>Rhinoplasty</span><i>◆</i><span>Gynecomastia</span><i>◆</i><span>Kidney stones</span><i>◆</i><span>Orthopedic</span><i>◆</i>
-    <span>LASIK</span><i>◆</i><span>Cataract surgery</span><i>◆</i><span>Sinus care</span><i>◆</i><span>Tonsillectomy</span><i>◆</i><span>Liposuction</span><i>◆</i><span>Lipoma removal</span><i>◆</i><span>Rhinoplasty</span><i>◆</i><span>Gynecomastia</span><i>◆</i><span>Kidney stones</span><i>◆</i><span>Orthopedic</span><i>◆</i>
+<!-- TREATMENT SPECIALTIES -->
+<section class="marquee" aria-label="Treatments and specialties">
+  <div class="wrap">
+    <div class="specialties-heading"><span>Care across specialties</span><p>Explore treatment options with a care coordinator by your side.</p></div>
+    <div class="marquee-track">
+      <span>LASIK</span><span>Cataract surgery</span><span>Sinus care</span><span>Tonsillectomy</span><span>Liposuction</span><span>Lipoma removal</span><span>Rhinoplasty</span><span>Gynecomastia</span><span>Kidney stones</span><span>Orthopedic care</span>
+    </div>
   </div>
-</div>
+</section>
 
 <!-- TRUST -->
 <section class="trust">

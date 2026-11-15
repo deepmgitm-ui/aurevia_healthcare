@@ -4,6 +4,7 @@ import Link from "next/link";
 import Script from "next/script";
 import AnimationTrigger from "@/components/AnimationTrigger";
 import PortalFormMount from "@/components/PortalFormMount";
+import TreatmentQueryFilter from "@/components/TreatmentQueryFilter";
 import { orthopedicGeneralSurgeries, orthopedicSurgeryCategories } from "./treatmentsData";
 import { pageMetadata } from "@/lib/seo";
 
@@ -163,6 +164,7 @@ export default function TreatmentsPage() {
       <link rel="stylesheet" href="/aurevia/redesign.css" />
 
       <main className="aurevia-static-page aurevia-page-treatments">
+        <TreatmentQueryFilter />
         <div dangerouslySetInnerHTML={{ __html: beforeOrthopedic }} />
         <OrthopedicArticle />
         <div dangerouslySetInnerHTML={{ __html: afterOrthopedic }} />
