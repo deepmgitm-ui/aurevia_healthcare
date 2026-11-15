@@ -21,7 +21,7 @@
 }
 .consultation-popup-shell .consultation-popup-card > .consultation-popup-close:hover { background:#e6f1f9!important; }
 .consultation-popup-shell .consultation-popup-card > .consultation-popup-body {
-  min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:22px 28px 26px!important;
+  min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:22px 28px 26px!important; background:#fff!important;
 }
 .consultation-popup-shell .consultation-compact-form { width:100%; min-width:0; }
 .consultation-popup-shell .consultation-compact-form > .consultation-compact-grid {
@@ -41,7 +41,7 @@
   box-shadow:none!important;
 }
 .consultation-popup-shell .consultation-compact-form select { padding-right:36px!important; }
-.consultation-popup-shell .consultation-compact-form textarea { height:86px!important; min-height:86px!important; max-height:180px!important; resize:vertical!important; }
+.consultation-popup-shell .consultation-compact-form textarea[name] { height:86px!important; min-height:86px!important; max-height:180px!important; resize:vertical!important; }
 .consultation-popup-shell .consultation-compact-form :is(input,textarea)::placeholder { color:#657d90; font-size:14px; opacity:1; }
 .consultation-popup-shell .consultation-compact-form .group > svg { left:14px!important; width:18px; height:18px; color:#5d7f96!important; }
 .consultation-popup-shell .consultation-compact-form .group > svg[class*="right-"] { left:auto!important; right:12px!important; }
@@ -55,6 +55,7 @@
 .consultation-popup-shell .consultation-compact-form > .flex { gap:8px; margin-top:14px!important; color:#526e83!important; font-size:11px!important; line-height:1.5; }
 .consultation-popup-shell :is(button,input,select,textarea):focus-visible { outline:3px solid #67b3df!important; outline-offset:2px; }
 body.dark-mode .consultation-popup-shell .consultation-popup-card { background:#183a50; border-color:#52748a!important; }
+body.dark-mode .consultation-popup-shell .consultation-popup-card > .consultation-popup-body { background:#183a50!important; }
 body.dark-mode .consultation-popup-shell .consultation-popup-header { background:#153448!important; border-color:#385b71; }
 body.dark-mode .consultation-popup-shell .consultation-popup-header h3 { background:transparent; color:#f2f8fc!important; }
 body.dark-mode .consultation-popup-shell .consultation-popup-subtitle { background:transparent; color:#c0d4e2!important; }
