@@ -4,6 +4,7 @@ import Script from "next/script";
 import PortalFormMount from "@/components/PortalFormMount";
 import AnimationTrigger from "@/components/AnimationTrigger"; // 👈 Naya import
 import CoverageMapMount from "@/components/CoverageMapMount";
+import SpecialtyStripControls from "@/components/SpecialtyStripControls";
 
 const routeMap: Record<string, string> = {
   "index.html": "/",
@@ -67,6 +68,7 @@ export default function StaticHtmlPage({ fileName }: { fileName: string }) {
       />
       
       <PortalFormMount />
+      <SpecialtyStripControls active={fileName === "index.html"} />
       {fileName === "locations.html" ? <CoverageMapMount /> : null}
       
       {/* 👇 NAYA TRIGGER YAHAN LAGA DIYA HAI 👇 */}
