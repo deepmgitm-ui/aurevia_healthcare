@@ -1,0 +1,52 @@
+/* Dark surfaces and their foregrounds belong together, including legacy cards. */
+body.dark-mode {
+  --paper:#102b3b!important; --paper-2:#15384a!important; --paper-3:#1c485a!important;
+  --ink:#f2f8fc!important; --ink-soft:#c0d4e2!important; --ink-faint:#9db6c8!important;
+  --ink-2:#a6dcff!important; --line:#385b71!important; --line-strong:#648299!important;
+  --aurevia-ink:#f2f8fc; --aurevia-muted:#c0d4e2; --aurevia-blue:#a6dcff;
+  --aurevia-paper:#102b3b; --aurevia-line:#385b71;
+}
+body.dark-mode .aurevia-static-page { background:#102b3b; color:#f2f8fc; }
+body.dark-mode .aurevia-static-page :is(.trust-grid,.pillar,.treat-group,.index-cell,.proc,.proc.light,.proc-aside,.voice,.mv-card,.logo-card,.google-rating-card) {
+  background:#183a50!important; border-color:#385b71!important; color:#f2f8fc;
+}
+body.dark-mode .aurevia-static-page :is(.trust-cell,.treat-row,.proc-detail,.proc-media,.pillars,.index-grid) { border-color:#385b71; }
+body.dark-mode .aurevia-static-page :is(.index-cell,.proc-aside,.pillar,.treat-group):hover { background:#204860!important; }
+body.dark-mode .aurevia-static-page :is(.marquee-group span,.marquee-track span,.proc-head .icon,.proc-media,.proc-detail .b,.page-head .lead .meta) { background:#183a50; border-color:#385b71; color:#e6f3fc; }
+body.dark-mode .aurevia-static-page :is(.specialties-heading>span,.trust-cell .num,.index-cell .nm,.proc-head h2,.proc-detail h5,.pillar h3,.google-rating-score) { color:#f2f8fc!important; }
+body.dark-mode .aurevia-static-page :is(.specialties-heading p,.trust-cell .lbl,.treat-row .meta,.proc-media figcaption,.proc-aside .v,.proc-detail p,.proc-detail li,.pillar p,.google-rating-detail) { color:#c0d4e2!important; }
+body.dark-mode .aurevia-static-page :is(.specialties-all,.sec-head .link,.google-rating-open,.pillar .num,.proc-head .num,.index-cell .ix,.proc-aside .k,.proc-detail .k) { color:#a6dcff; }
+body.dark-mode .aurevia-static-page .treat-row .go { border-color:#648299; color:#b9e5ff; }
+body.dark-mode .aurevia-static-page .treat-row:hover .go { background:#b9e5ff; color:#12344b; }
+body.dark-mode .aurevia-static-page .treat-row:hover .go svg { stroke:#12344b; }
+body.dark-mode .aurevia-static-page .trust-grid { box-shadow:0 12px 32px rgba(0,0,0,.12); }
+body.dark-mode .aurevia-static-page .google-rating-mark { background:#fff; }
+body.dark-mode .aurevia-static-page:not(.aurevia-page-index) :is(.page-head,.index,.timeline,.expect,.insurance,.faqs) { background:#102b3b!important; }
+body.dark-mode .aurevia-static-page:not(.aurevia-page-index) :is(p,.lead p,.crumb) { color:#c0d4e2; }
+body.dark-mode .aurevia-static-page:not(.aurevia-page-index) :is(h1,h2,h3,h4,h5,h6,summary,.proc-body .overview) { color:#f2f8fc; }
+body.dark-mode .aurevia-static-page:not(.aurevia-page-index) :is(.crumb a,.proc-head h2 em) { color:#a6dcff; }
+
+body.dark-mode .aurevia-static-page .journey-story { background:#102b3b; color:#f2f8fc; }
+body.dark-mode .aurevia-static-page .journey-story :is(h2,h3) { color:#f2f8fc; }
+body.dark-mode .aurevia-static-page .journey-story :is(h2 em,.journey-story-intro>p) { color:#a6dcff; }
+body.dark-mode .aurevia-static-page .journey-story-step p { color:#c0d4e2; }
+body.dark-mode .aurevia-static-page .journey-story-step .journey-story-label { color:#c0d4e2; background:#183a50; border-color:#385b71; }
+body.dark-mode .aurevia-static-page .hero-doctors-note { background:rgba(24,58,80,.95); border-color:#648299; color:#c0d4e2; }
+body.dark-mode .aurevia-static-page .hero-doctors-note strong { color:#f2f8fc; }
+body.dark-mode .aurevia-static-page .hero-doctors-note-mark { background:#28536e; color:#c3eaff; }
+
+body.dark-mode .healthcare-benefits { background:#102b3b; color:#f2f8fc; border-color:#385b71; }
+body.dark-mode .healthcare-benefits-heading { border-color:#385b71; }
+body.dark-mode .healthcare-benefits :is(.healthcare-benefits-heading h2,.healthcare-benefit-card h3) { color:#f2f8fc; }
+body.dark-mode .healthcare-benefits :is(.healthcare-benefits-heading p,.healthcare-benefit-card p,.healthcare-benefits-note) { color:#c0d4e2; }
+body.dark-mode .healthcare-benefits .healthcare-benefit-card { background:#183a50; border-color:#385b71; }
+body.dark-mode .healthcare-benefits :is(.healthcare-benefits-mark,.healthcare-benefit-icon) { background:#28536e; color:#b9e5ff; }
+
+body.dark-mode .consultation-popup-card { background:#183a50; color:#f2f8fc; border:1px solid #648299; }
+body.dark-mode .consultation-popup-card :is(.consultation-popup-header,.consultation-popup-subtitle,h3) { background:#183a50; color:#f2f8fc; border-color:#385b71; }
+body.dark-mode .consultation-popup-card .healthcare-form label { color:#e0edf6!important; }
+body.dark-mode .consultation-popup-card .healthcare-form :is(input,select,textarea) { background:#102b3f!important; color:#f2f8fc!important; border-color:#648299!important; }
+body.dark-mode .consultation-popup-card .healthcare-form :is(input,textarea)::placeholder { color:#abc1d1!important; opacity:1; }
+body.dark-mode .consultation-popup-card .healthcare-form :is(p.text-xs,.group>svg,.text-xs) { color:#c0d4e2!important; }
+body.dark-mode .consultation-popup-card .healthcare-form button[type=submit] { background:#b8e4ff!important; color:#12344b!important; }
+body.dark-mode .consultation-popup-card button[aria-label="Close modal"] { background:#28536e; color:#f2f8fc; }
