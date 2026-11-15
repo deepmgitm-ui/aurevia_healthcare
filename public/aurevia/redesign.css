@@ -570,3 +570,23 @@
 @media(prefers-reduced-motion:reduce){ .aurevia-page-index .marquee-track { animation:none!important; transform:none!important; }.aurevia-page-index .marquee-group[aria-hidden="true"] { display:none; }.aurevia-page-index .specialties-window { mask-image:none; } }
 
 @media(max-width:360px){ .aurevia-page-index .specialties-all { display:none; } .aurevia-page-index .specialties-heading > span { font-size:21px; } }
+
+/* Transparent doctor cutout and a clear mission statement below the hero. */
+.aurevia-page-index .hero { position:relative; overflow:hidden; }
+.aurevia-page-index .hero-doctors { position:relative; display:grid; min-width:0; min-height:clamp(370px,39vw,500px); place-items:center; margin:0; isolation:isolate; }
+.aurevia-page-index .hero-doctors::before { content:""; position:absolute; z-index:-2; inset:4% 0 5%; border-radius:48% 48% 36% 36%; background:radial-gradient(ellipse at 50% 64%,rgba(150,193,225,.30),rgba(220,236,248,.58) 53%,rgba(241,247,252,0) 76%); }
+.aurevia-page-index .hero-doctors::after { content:""; position:absolute; z-index:-1; width:74%; aspect-ratio:1; border:1px solid rgba(36,119,173,.12); border-radius:50%; box-shadow:0 0 0 34px rgba(36,119,173,.035),0 0 0 72px rgba(36,119,173,.025); }
+.aurevia-page-index .hero-doctors-halo { position:absolute; z-index:-1; border:1px solid rgba(36,119,173,.12); border-radius:50%; pointer-events:none; }
+.aurevia-page-index .hero-doctors-halo-one { inset:11% 10% 14%; }
+.aurevia-page-index .hero-doctors-halo-two { inset:19% 19% 22%; border-color:rgba(36,119,173,.08); }
+.aurevia-page-index .hero-doctors > img { z-index:1; width:min(116%,690px); max-width:none; height:clamp(360px,39vw,500px); object-fit:contain; object-position:center bottom; filter:drop-shadow(0 22px 22px rgba(29,76,114,.12)); }
+.aurevia-page-index .hero-doctors-note { position:absolute; z-index:2; right:-4px; bottom:8%; display:flex; align-items:center; gap:10px; padding:12px 15px; border:1px solid rgba(255,255,255,.94); border-radius:15px; background:rgba(255,255,255,.94); box-shadow:0 12px 30px rgba(26,69,106,.12); color:#536b7c; font-size:12px; line-height:1.4; }
+.aurevia-page-index .hero-doctors-note strong { color:#173a5e; font-size:13px; }
+.aurevia-page-index .hero-doctors-note-mark { display:grid; width:30px; height:30px; place-items:center; border-radius:50%; background:#e7f2fa; color:#2477ad; font-weight:700; }
+.aurevia-page-index .hero-mission { padding:clamp(40px,6vw,70px) 0; background:linear-gradient(125deg,#e8f3fb,#f3f8fc 58%,#e6f1fa); }
+.aurevia-page-index .hero-mission-inner { position:relative; display:grid; grid-template-columns:52px minmax(0,880px); justify-content:center; align-items:start; gap:18px; }
+.aurevia-page-index .hero-mission-quote { color:#2477ad; font-family:var(--font-display),Georgia,serif; font-size:86px; line-height:.78; font-weight:600; }
+.aurevia-page-index .hero-mission h2 { max-width:880px; color:#174d76; font-family:var(--font-body),sans-serif!important; font-size:clamp(23px,3.2vw,40px); font-weight:500!important; line-height:1.38; letter-spacing:-.025em!important; text-wrap:balance; }
+.aurevia-page-index .hero-mission p { margin-top:14px; color:#58748a; font-size:15px; line-height:1.6; }
+@media(max-width:900px){ .aurevia-page-index .hero-doctors { min-height:390px; }.aurevia-page-index .hero-doctors > img { width:112%; height:390px; }.aurevia-page-index .hero-doctors-note { right:-4px; } }
+@media(max-width:700px){ .aurevia-page-index .hero-doctors { width:min(100%,390px); min-height:300px; margin:0 auto; }.aurevia-page-index .hero-doctors::before { inset:5% 0 7%; }.aurevia-page-index .hero-doctors > img { width:112%; height:clamp(290px,82vw,370px); }.aurevia-page-index .hero-doctors-note { right:0; bottom:7%; padding:10px 12px; font-size:11px; }.aurevia-page-index .hero-doctors-note strong { font-size:12px; }.aurevia-page-index .hero-mission { padding:38px 0 42px; }.aurevia-page-index .hero-mission-inner { grid-template-columns:28px minmax(0,1fr); gap:10px; }.aurevia-page-index .hero-mission-quote { font-size:54px; }.aurevia-page-index .hero-mission h2 { font-size:clamp(21px,6vw,28px); line-height:1.4; }.aurevia-page-index .hero-mission p { margin-top:10px; font-size:14px; } }
