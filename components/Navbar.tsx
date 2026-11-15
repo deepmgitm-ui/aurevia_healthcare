@@ -1,17 +1,34 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { Menu, Sun, Moon } from "lucide-react";
+
+function subscribeToTheme(onChange: () => void) {
+  window.addEventListener("storage", onChange);
+  window.addEventListener("aurevia-theme-change", onChange);
+  return () => {
+    window.removeEventListener("storage", onChange);
+    window.removeEventListener("aurevia-theme-change", onChange);
+  };
+}
+
+function getThemeSnapshot() {
+  return localStorage.getItem("theme") === "dark";
+}
+
+function getServerThemeSnapshot() {
+  return false;
+}
 
 export default function Navbar() {
   const pathname = usePathname();
   const isHindi = pathname.startsWith("/hi/");
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [isDark, setIsDark] = useState(false);
+  const isDark = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, getServerThemeSnapshot);
 
   // Scroll detect karne ke liye
   useEffect(() => {
@@ -24,7 +41,10 @@ export default function Navbar() {
   useEffect(() => {
     if (localStorage.getItem("theme") === "dark") {
       document.body.classList.add("dark-mode");
-      setIsDark(true);
+      document.documentElement.style.colorScheme = "dark";
+    } else {
+      document.body.classList.remove("dark-mode");
+      document.documentElement.style.colorScheme = "light";
     }
   }, []);
 
@@ -32,13 +52,14 @@ export default function Navbar() {
   const toggleTheme = () => {
     if (isDark) {
       document.body.classList.remove("dark-mode");
+      document.documentElement.style.colorScheme = "light";
       localStorage.setItem("theme", "light");
-      setIsDark(false);
     } else {
       document.body.classList.add("dark-mode");
+      document.documentElement.style.colorScheme = "dark";
       localStorage.setItem("theme", "dark");
-      setIsDark(true);
     }
+    window.dispatchEvent(new Event("aurevia-theme-change"));
   };
 
   // Mobile menu open hone par background scroll band karna
@@ -94,9 +115,9 @@ export default function Navbar() {
           <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             <Link href="/about" className="text-[14px] font-medium text-[#03045E]/70 hover:text-[#03045E] transition-colors nav-text">{isHindi ? "हमारे बारे में" : "About"}</Link>
             <Link href="/treatments" className="text-[14px] font-medium text-[#03045E]/70 hover:text-[#03045E] transition-colors nav-text">{isHindi ? "उपचार" : "Treatments"}</Link>
-            <Link href="/how-it-works" className="text-[14px] font-medium text-[#03045E]/70 hover:text-[#03045E] transition-colors nav-text">{isHindi ? "कैसे काम करता है" : "How it works"}</Link>
-            <Link href={isHindi ? "/hi/locations" : "/locations"} className="text-[14px] font-medium text-[#03045E]/70 hover:text-[#03045E] transition-colors nav-text">{isHindi ? "हमारे क्षेत्र" : "Locations"}</Link>
-            <Link href="/voices" className="text-[14px] font-medium text-[#03045E]/70 hover:text-[#03045E] transition-colors nav-text">{isHindi ? "अनुभव" : "Voices"}</Link>
+            <Link href="/how-it-works" className="text-[14px] font-medium text-[#03045E]/70 hover:text-[#03045E] transition-colors nav-text">{isHindi ? "यह कैसे काम करता है" : "How it works"}</Link>
+            <Link href={isHindi ? "/hi/locations" : "/locations"} className="text-[14px] font-medium text-[#03045E]/70 hover:text-[#03045E] transition-colors nav-text">{isHindi ? "हमारे शहर" : "Locations"}</Link>
+            <Link href="/voices" className="text-[14px] font-medium text-[#03045E]/70 hover:text-[#03045E] transition-colors nav-text">{isHindi ? "मरीजों के अनुभव" : "Voices"}</Link>
           </nav>
 
           {/* 3. RIGHT SIDE ACTIONS */}
@@ -106,7 +127,7 @@ export default function Navbar() {
             <button
               onClick={toggleTheme}
               className="flex items-center justify-center w-11 h-11 md:w-10 md:h-10 rounded-full bg-gray-50 border border-gray-200 text-[#03045E] shadow-sm hover:bg-gray-100 transition-all duration-300 theme-btn"
-              aria-label={isHindi ? "थीम बदलें" : "Toggle Dark Mode"}
+              aria-label={isHindi ? "रंग थीम बदलें" : "Toggle light and dark theme"}
             >
               {isDark ? <Sun size={20} strokeWidth={1.75} /> : <Moon size={20} strokeWidth={1.75} />}
             </button>
@@ -118,7 +139,7 @@ export default function Navbar() {
               className="hidden md:flex items-center justify-center gap-2 bg-transparent hover:bg-[#03045E]/5 text-[#03045E] px-4 py-2 rounded-full text-[14px] font-semibold transition-all duration-200 border border-[#03045E]/10 nav-text nav-border"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#E85D04] animate-pulse pulse-dot" />
-              {isHindi ? "निःशुल्क परामर्श" : "Free consultation"}
+              {isHindi ? "मुफ़्त परामर्श" : "Free consultation"}
             </Link>
 
             {/* Mobile Hamburger Button */}
@@ -146,13 +167,13 @@ export default function Navbar() {
         <div className="flex flex-col w-full max-w-sm mx-auto">
           <Link href="/about" onClick={closeMenu} className="text-[18px] font-semibold text-[#03045E] py-3 border-b border-gray-100 block nav-text drawer-border">{isHindi ? "हमारे बारे में" : "About"}</Link>
           <Link href="/treatments" onClick={closeMenu} className="text-[18px] font-semibold text-[#03045E] py-3 border-b border-gray-100 block nav-text drawer-border">{isHindi ? "उपचार" : "Treatments"}</Link>
-          <Link href="/how-it-works" onClick={closeMenu} className="text-[18px] font-semibold text-[#03045E] py-3 border-b border-gray-100 block nav-text drawer-border">{isHindi ? "कैसे काम करता है" : "How it works"}</Link>
-          <Link href={isHindi ? "/hi/locations" : "/locations"} onClick={closeMenu} className="text-[18px] font-semibold text-[#03045E] py-3 border-b border-gray-100 block nav-text drawer-border">{isHindi ? "हमारे क्षेत्र" : "Locations"}</Link>
-          <Link href="/voices" onClick={closeMenu} className="text-[18px] font-semibold text-[#03045E] py-3 border-b border-gray-100 block nav-text drawer-border">{isHindi ? "अनुभव" : "Voices"}</Link>
+          <Link href="/how-it-works" onClick={closeMenu} className="text-[18px] font-semibold text-[#03045E] py-3 border-b border-gray-100 block nav-text drawer-border">{isHindi ? "यह कैसे काम करता है" : "How it works"}</Link>
+          <Link href={isHindi ? "/hi/locations" : "/locations"} onClick={closeMenu} className="text-[18px] font-semibold text-[#03045E] py-3 border-b border-gray-100 block nav-text drawer-border">{isHindi ? "हमारे शहर" : "Locations"}</Link>
+          <Link href="/voices" onClick={closeMenu} className="text-[18px] font-semibold text-[#03045E] py-3 border-b border-gray-100 block nav-text drawer-border">{isHindi ? "मरीजों के अनुभव" : "Voices"}</Link>
           
           <Link href="/#contact" onClick={closeMenu} className="text-[18px] font-bold text-[#E85D04] py-3 border-b border-gray-100 flex items-center gap-2 nav-text-accent drawer-border">
             <span className="w-2 h-2 rounded-full bg-[#E85D04] animate-pulse pulse-dot" />
-            {isHindi ? "निःशुल्क परामर्श" : "Free consultation"}
+            {isHindi ? "मुफ़्त परामर्श" : "Free consultation"}
           </Link>
         </div>
       </div>

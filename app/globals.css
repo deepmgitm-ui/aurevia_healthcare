@@ -5045,3 +5045,183 @@ body:has(.campaign-thank-you) > header,body:has(.campaign-thank-you) > footer,bo
   .campaign-pdf-layout .campaign-cta-desktop { display:none; }
   .campaign-pdf-layout .campaign-cta-mobile { display:inline; }
 }
+
+/* Patient review source card: keep review wording on its verified Google source. */
+.google-review-source-card {
+  display: grid;
+  grid-template-columns: minmax(220px, .72fr) minmax(0, 1.28fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 58px);
+  max-width: 960px;
+  margin: 0 auto;
+  padding: clamp(24px, 4vw, 42px);
+  border: 1px solid #d7e5ec;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #fff 0%, #f3f8fb 100%);
+  box-shadow: 0 18px 44px rgba(25, 71, 98, .08);
+}
+.google-review-source-rating { display: grid; justify-items: start; gap: 10px; }
+.google-review-google-mark { color: #4285f4; font: 700 28px/1 Arial, sans-serif; }
+.google-review-source-score { color: #17394f; font: 500 clamp(44px, 6vw, 64px)/.95 var(--font-newsreader), Georgia, serif; letter-spacing: -.04em; }
+.google-review-source-stars { display: flex; gap: 3px; color: #d79c32; }
+.google-review-source-count { color: #526d7c; font-size: 13px; font-weight: 600; }
+.google-review-source-copy { min-width: 0; }
+.google-review-source-copy .google-reviews-kicker { margin: 0 0 11px; color: #287caf; font-size: 10px; font-weight: 700; letter-spacing: .12em; }
+.google-review-source-copy h3 { max-width: 540px; margin: 0 0 12px; color: #17394f; font: 500 clamp(26px, 3.6vw, 36px)/1.12 var(--font-newsreader), Georgia, serif; letter-spacing: -.025em; }
+.google-review-source-copy > p:not(.google-reviews-kicker):not(.google-review-live-note) { max-width: 530px; margin: 0; color: #526d7c; font-size: 14px; line-height: 1.75; }
+.google-review-source-link { display: inline-flex; min-height: 46px; align-items: center; gap: 9px; margin-top: 22px; padding: 0 17px; border-radius: 999px; color: #fff; background: #216a99; font-size: 13px; font-weight: 650; transition: transform .18s ease, background .18s ease; }
+.google-review-source-link:hover { transform: translateY(-1px); background: #174f76; }
+.google-review-live-note { margin: 12px 0 0; color: #687f8d; font-size: 11px; line-height: 1.6; }
+
+/* About page copy and proportions tuned for quick reading on small screens. */
+.aurevia-page-about .page-head .lead { gap: clamp(28px, 6vw, 76px); }
+.aurevia-page-about .page-head .meta { min-width: 195px; line-height: 2; }
+.aurevia-page-about .who { padding-block: clamp(48px, 7vw, 88px); }
+.aurevia-page-about .who-grid { grid-template-columns: minmax(150px, .65fr) minmax(0, 1.35fr); gap: clamp(28px, 6vw, 82px); padding-top: clamp(34px, 5vw, 64px); }
+.aurevia-page-about .who-grid .body p { max-width: 760px; font-size: clamp(16px, 1.5vw, 19px); line-height: 1.8; }
+.aurevia-page-about .mv { padding-block: clamp(38px, 6vw, 72px); }
+.aurevia-page-about .mv-card { padding: clamp(30px, 5vw, 58px); }
+.aurevia-page-about .mv-card h4 { max-width: 490px; font-size: clamp(34px, 4.5vw, 54px); line-height: 1.08; }
+.aurevia-page-about .mv-card p { max-width: 560px; font-size: 15px; line-height: 1.8; }
+.aurevia-page-about .pillars-sec { padding-block: clamp(62px, 8vw, 112px); }
+.aurevia-page-about .pillar { padding: clamp(25px, 3.2vw, 42px) clamp(18px, 2.4vw, 32px); }
+.aurevia-page-about .pillar p { font-size: 15px; line-height: 1.8; }
+.aurevia-page-about .values { padding-block: clamp(68px, 9vw, 116px); }
+.aurevia-page-about .v-cell { padding-inline: clamp(16px, 2vw, 26px); }
+.aurevia-page-about .v-cell p { font-size: 14px; line-height: 1.75; }
+.aurevia-page-about .quote-sec { padding-block: clamp(76px, 10vw, 132px); }
+
+/* Dark mode: pair every formerly white or pale page surface with readable text. */
+html:has(body.dark-mode) { background: #102b3b; color-scheme: dark; }
+body.dark-mode .aurevia-page-about .page-head,
+body.dark-mode .aurevia-page-about .who,
+body.dark-mode .aurevia-page-about .pillars-sec,
+body.dark-mode .aurevia-page-about .quote-sec { background: var(--paper) !important; color: var(--ink); }
+body.dark-mode .aurevia-page-about .mv,
+body.dark-mode .aurevia-page-about .mv-grid,
+body.dark-mode .aurevia-page-about .pillar { background: var(--paper-2) !important; border-color: var(--line); }
+body.dark-mode .aurevia-page-about .mv-card { background: var(--paper-2); }
+body.dark-mode .aurevia-page-about .mv-card h4,
+body.dark-mode .aurevia-page-about .pillars-sec .sec-head h2,
+body.dark-mode .aurevia-page-about .pillar h3,
+body.dark-mode .aurevia-page-about .quote-sec blockquote,
+body.dark-mode .aurevia-page-about .who-grid .body p { color: var(--ink) !important; }
+body.dark-mode .aurevia-page-about .mv-card p,
+body.dark-mode .aurevia-page-about .pillars-sec .sec-head p,
+body.dark-mode .aurevia-page-about .pillar p,
+body.dark-mode .aurevia-page-about .who-grid .label,
+body.dark-mode .aurevia-page-about .who-grid .body p:last-child { color: var(--ink-soft) !important; }
+body.dark-mode .aurevia-page-about .mv-card h4 em,
+body.dark-mode .aurevia-page-about .pillars-sec .sec-head h2 em,
+body.dark-mode .aurevia-page-about .quote-sec blockquote em { color: #8dc8e5 !important; }
+body.dark-mode .aurevia-page-about .values { background: #0c2230; color: #f2f8fa; }
+body.dark-mode .aurevia-page-about .values .head .eyebrow,
+body.dark-mode .aurevia-page-about .v-cell .k { color: rgba(242,248,250,.68); }
+body.dark-mode .aurevia-page-about .v-cell p { color: rgba(242,248,250,.82); }
+body.dark-mode .aurevia-page-about .v-grid,
+body.dark-mode .aurevia-page-about .v-cell { border-color: rgba(242,248,250,.16); }
+
+body.dark-mode .interior-page { --interior-ink:#eff7fb; --interior-muted:#c1d3df; --interior-teal:#83c6e4; --interior-line:rgba(230,244,251,.16); color:var(--interior-ink); background:#102b3b; }
+body.dark-mode .interior-hero,
+body.dark-mode .consultation-hero,
+body.dark-mode .service-directory-hero,
+body.dark-mode .legal-hero { background:radial-gradient(ellipse at 82% 16%,rgba(49,129,168,.22),transparent 27rem),linear-gradient(123deg,#102b3b 0%,#15384a 62%,#123246 100%); }
+body.dark-mode .contact-next,
+body.dark-mode .consultation-bottom { background:#0d2533; }
+body.dark-mode .contact-next h2,
+body.dark-mode .contact-copy h1,
+body.dark-mode .consultation-copy h1,
+body.dark-mode .contact-next-inner>p,
+body.dark-mode .contact-note { color:#eff7fb; }
+body.dark-mode .contact-copy h1 em,
+body.dark-mode .contact-next h2 em { color:#8dc8e5; }
+body.dark-mode .interior-intro,
+body.dark-mode .contact-way small,
+body.dark-mode .contact-next-inner>p { color:#c1d3df; }
+body.dark-mode .contact-way,
+body.dark-mode .contact-form-card,
+body.dark-mode .consultation-form-wrap,
+body.dark-mode .directory-count,
+body.dark-mode .legal-highlight,
+body.dark-mode .service-card { border-color:rgba(230,244,251,.16); background:#15384a; color:#eff7fb; }
+body.dark-mode .contact-way strong,
+body.dark-mode .form-card-heading h2,
+body.dark-mode .form-card-heading p,
+body.dark-mode .form-privacy,
+body.dark-mode .legal-content,
+body.dark-mode .legal-content p,
+body.dark-mode .legal-content li { color:#eff7fb; }
+body.dark-mode .contact-form-card .healthcare-form label,
+body.dark-mode .consultation-form-wrap .healthcare-form label { color:#d7e7ef !important; }
+body.dark-mode .contact-form-card .healthcare-form input,
+body.dark-mode .contact-form-card .healthcare-form select,
+body.dark-mode .contact-form-card .healthcare-form textarea,
+body.dark-mode .consultation-form-wrap .healthcare-form input,
+body.dark-mode .consultation-form-wrap .healthcare-form select,
+body.dark-mode .consultation-form-wrap .healthcare-form textarea { border-color:rgba(223,240,248,.22) !important; background:#0d2533 !important; color:#f2f8fa !important; }
+body.dark-mode .contact-form-card .healthcare-form input::placeholder,
+body.dark-mode .contact-form-card .healthcare-form textarea::placeholder { color:#93aebd !important; }
+body.dark-mode .contact-form-card .healthcare-form input:focus,
+body.dark-mode .contact-form-card .healthcare-form select:focus,
+body.dark-mode .contact-form-card .healthcare-form textarea:focus { background:#102b3b !important; }
+body.dark-mode .legal-container h1,
+body.dark-mode .legal-content h2,
+body.dark-mode .legal-content h3 { color:#eff7fb; }
+body.dark-mode .legal-content a { color:#8dc8e5; }
+
+body.dark-mode .google-reviews-page { color:#eff7fb; background:#102b3b; }
+body.dark-mode .google-reviews-hero,
+body.dark-mode .google-reviews-list-section { background:#102b3b; }
+body.dark-mode .google-reviews-intro,
+body.dark-mode .google-reviews-back,
+body.dark-mode .google-reviews-section-heading h2 { color:#c8dae5; }
+body.dark-mode .google-reviews-summary,
+body.dark-mode .google-review-source-card { border-color:rgba(230,244,251,.16); background:linear-gradient(135deg,#15384a,#123246); box-shadow:0 18px 44px rgba(0,0,0,.18); }
+body.dark-mode .google-reviews-rating,
+body.dark-mode .google-review-source-score,
+body.dark-mode .google-review-source-copy h3 { color:#eff7fb; }
+body.dark-mode .google-reviews-summary-copy,
+body.dark-mode .google-review-source-count,
+body.dark-mode .google-review-source-copy>p:not(.google-reviews-kicker):not(.google-review-live-note),
+body.dark-mode .google-review-live-note { color:#c1d3df; }
+body.dark-mode .google-reviews-all-link { color:#8dc8e5; }
+
+body.dark-mode .aurevia-chat-panel,
+body.dark-mode .aurevia-chat-header,
+body.dark-mode .aurevia-chat-disclaimer,
+body.dark-mode .aurevia-chat-contact-links,
+body.dark-mode .aurevia-chat-form,
+body.dark-mode .aurevia-chat-footnote { border-color:rgba(225,241,249,.13); background:#102b3b; color:#eff7fb; }
+body.dark-mode .aurevia-chat-messages { background:#0d2533; }
+body.dark-mode .aurevia-chat-message.assistant p,
+body.dark-mode .aurevia-typing-dots,
+body.dark-mode .aurevia-chat-suggestions button { border-color:rgba(225,241,249,.14); background:#15384a; color:#eff7fb; }
+body.dark-mode .aurevia-chat-form input { border-color:rgba(225,241,249,.19); background:#0c2230; color:#eff7fb; }
+body.dark-mode .aurevia-chat-form input::placeholder { color:#9ab1be; }
+body.dark-mode .aurevia-chat-identity h2,
+body.dark-mode .aurevia-chat-contact-links a { color:#eff7fb; }
+body.dark-mode .aurevia-chat-status,
+body.dark-mode .aurevia-chat-kicker { color:#a8d8eb; }
+body.dark-mode .aurevia-chat-footnote { color:#a7bdc8; }
+
+/* Robot launcher: a floating circular assistant mark, never a chat-shaped tab. */
+.aurevia-chat-trigger { width:60px; height:60px; min-height:60px; justify-content:center; padding:0; border:1px solid rgba(255,255,255,.78); border-radius:50%; background:linear-gradient(145deg,#2477ad,#19577f); box-shadow:0 12px 30px rgba(23,80,120,.28); }
+.aurevia-chat-trigger:hover { background:linear-gradient(145deg,#318cc3,#1c658f); }
+.aurevia-chat-trigger-icon { width:44px; height:44px; color:#175a83; background:#e8f6fc; }
+.aurevia-chat-trigger-label { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+.aurevia-chat-trigger-pulse { top:1px; right:1px; border-color:#2477ad; background:#9fe4c7; }
+.aurevia-chat-trigger:focus-visible { outline:3px solid #65b7e2; outline-offset:4px; }
+@media(max-width:640px) { .aurevia-chat-trigger { width:56px; height:56px; min-height:56px; padding:0; }.aurevia-chat-trigger-icon { width:41px; height:41px; } }
+
+@media(max-width:760px) {
+  .aurevia-page-about .who-grid { grid-template-columns:1fr; gap:18px; }
+  .aurevia-page-about .mv-grid { grid-template-columns:1fr; }
+  .aurevia-page-about .mv-card:first-child { border-right:0; border-bottom:1px solid var(--line); }
+  .aurevia-page-about .values .v-grid { grid-template-columns:1fr 1fr; }
+  .aurevia-page-about .values .v-cell:nth-child(2) { border-right:0; }
+  .google-review-source-card { grid-template-columns:1fr; gap:20px; }
+}
+@media(max-width:420px) {
+  .aurevia-page-about .values .v-grid { grid-template-columns:1fr; }
+  .aurevia-page-about .values .v-cell { border-right:0; }
+}

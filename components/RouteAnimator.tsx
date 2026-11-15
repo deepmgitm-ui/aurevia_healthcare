@@ -37,11 +37,11 @@ function animatePageIn() {
 
   main.animate(
     [
-      { opacity: 0 },
-      { opacity: 1 },
+      { opacity: 0, transform: "translate3d(0, 9px, 0)", filter: "blur(2px)" },
+      { opacity: 1, transform: "translate3d(0, 0, 0)", filter: "blur(0)" },
     ],
     {
-      duration: 320,
+      duration: 360,
       easing: "cubic-bezier(.22, 1, .36, 1)",
       fill: "both",
     },
@@ -56,8 +56,8 @@ function animatePageOut() {
 
   const animation = main.animate(
     [
-      { opacity: 1 },
-      { opacity: 0.86 },
+      { opacity: 1, transform: "translate3d(0, 0, 0)", filter: "blur(0)" },
+      { opacity: 0.92, transform: "translate3d(0, -3px, 0)", filter: "blur(.6px)" },
     ],
     {
       duration: 130,
