@@ -33,18 +33,7 @@ export default function RouteAnimator() {
   const navigationLockedRef = useRef(false);
 
   useEffect(() => {
-    let enterTimer: number | null = null;
     let refreshTimer: number | null = null;
-
-    try {
-      if (window.sessionStorage.getItem("aurevia-route-transition") === "enter") {
-        window.sessionStorage.removeItem("aurevia-route-transition");
-        setIsEntering(true);
-        enterTimer = window.setTimeout(() => setIsEntering(false), 720);
-      }
-    } catch {
-      // The page still works when browser storage is unavailable.
-    }
 
     const hash = window.location.hash;
 
@@ -63,7 +52,6 @@ export default function RouteAnimator() {
     }, 220);
 
     return () => {
-      if (enterTimer !== null) window.clearTimeout(enterTimer);
       if (refreshTimer !== null) window.clearTimeout(refreshTimer);
     };
   }, []);
@@ -93,12 +81,8 @@ export default function RouteAnimator() {
         return;
       }
 
-      try {
-        window.sessionStorage.setItem("aurevia-route-transition", "enter");
-      } catch {
-        // The destination still loads normally when storage is unavailable.
-      }
-      window.location.assign(url.href);
+      setIsEntering(true);
+      window.setTimeout(() => window.location.assign(url.href), 2000);
     };
 
     document.addEventListener("click", handleClick as unknown as EventListener, true);
