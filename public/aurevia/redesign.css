@@ -608,10 +608,10 @@
 }
 body.dark-mode .aurevia-page-index .care-hero::after { opacity:.38; }
 .aurevia-page-index .care-hero::before { inset:80px -180px auto auto; width:700px; height:700px; border-color:rgba(195,233,250,.13); box-shadow:0 0 0 60px rgba(177,221,242,.025),0 0 0 120px rgba(177,221,242,.02); }
-.aurevia-page-index .care-hero .hero-grid { grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:24px; min-height:420px; }
+.aurevia-page-index .care-hero .hero-grid { grid-template-columns:minmax(0,1.2fr) minmax(0,.95fr); gap:24px; min-height:420px; }
 .aurevia-page-index .care-hero .hero-copy { position:relative; z-index:2; padding-bottom:32px; }
 .aurevia-page-index .care-hero .eyebrow { color:#b3d9ee!important; font-size:12px; letter-spacing:.12em; }
-.aurevia-page-index .care-hero .hero-headline { font-family:var(--font-body),"DM Sans",sans-serif; font-size:clamp(32px,3.8vw,49px)!important; font-weight:650; line-height:1.18; letter-spacing:-.045em; color:#fff!important; }
+.aurevia-page-index .care-hero .hero-headline { font-family:var(--font-body),"DM Sans",sans-serif; font-size:clamp(38px,4.7vw,62px)!important; font-weight:650; line-height:1.18; letter-spacing:-.045em; color:#fff!important; }
 .aurevia-page-index .care-hero .hero-headline .line + .line { margin-top:10px; }
 .aurevia-page-index .care-hero .hero-headline em { color:#b9e6fc!important; font-weight:500!important; }
 .aurevia-page-index .care-hero .hero-tag { color:#d0e6f1; font-size:12px; letter-spacing:.035em; text-transform:none; }
@@ -665,7 +665,7 @@ body.dark-mode .aurevia-page-index .hero-mission p { color:#c1d6e4; }
 .aurevia-page-index .care-hero :is(a,button):focus-visible { outline:3px solid #fff; outline-offset:4px; }
 @media(max-width:1000px) {
   .aurevia-page-index .care-hero .hero-grid { grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); }
-  .aurevia-page-index .care-hero .hero-headline { font-size:clamp(28px,3.8vw,40px)!important; }
+  .aurevia-page-index .care-hero .hero-headline { font-size:clamp(28px,4.4vw,46px)!important; }
   .aurevia-page-index .care-hero .hero-doctors > img { height:360px; width:135%; }
 }
 @media(max-width:700px) {
@@ -674,7 +674,7 @@ body.dark-mode .aurevia-page-index .hero-mission p { color:#c1d6e4; }
   .aurevia-page-index .care-hero::after { top:auto; bottom:0; width:100%; height:46%; opacity:.38; -webkit-mask-image:linear-gradient(180deg,transparent,#000 45%); mask-image:linear-gradient(180deg,transparent,#000 45%); }
   .aurevia-page-index .care-hero .hero-grid { grid-template-columns:1fr; gap:14px; }
   .aurevia-page-index .care-hero .hero-copy { padding-bottom:0; }
-  .aurevia-page-index .care-hero .hero-headline { font-size:clamp(24px,7.4vw,43px)!important; }
+  .aurevia-page-index .care-hero .hero-headline { font-size:clamp(24px,8.1vw,47px)!important; }
   .aurevia-page-index .care-hero .hero-tag { font-size:11px; letter-spacing:0; gap:10px; }
   .aurevia-page-index .care-hero .hero-sub p { font-size:15px; }
   .aurevia-page-index .care-hero .hero-actions { flex-direction:row; flex-wrap:wrap; align-items:center; gap:10px; }
@@ -695,3 +695,20 @@ body.dark-mode .aurevia-static-page #react-contact-form-portal .healthcare-form 
 body.dark-mode .aurevia-page-how-it-works :is(.timeline,.expect,.insurance,.faqs) { background:#102b3b; color:#edf6fc; }
 body.dark-mode .aurevia-page-how-it-works :is(.timeline,.expect,.insurance,.faqs) :is(h2,h3,h4,h5,summary) { color:#edf6fc; }
 body.dark-mode .aurevia-page-how-it-works :is(.timeline,.expect,.insurance,.faqs) :is(p,.ans) { color:#c4d9e7; }
+
+/* Pan-India locations move on their own track below the hero actions. */
+.aurevia-page-index .hero-coverage { margin-top:20px; max-width:590px; min-width:0; }
+.aurevia-page-index .hero-coverage-header { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.aurevia-page-index .hero-coverage-label { color:#c6e6f7; font:600 12px/1.4 "DM Sans",Arial,sans-serif; letter-spacing:.035em; }
+.aurevia-page-index .hero-coverage-label > span { padding:0 7px; color:#8fbcd5; }
+.aurevia-page-index [data-coverage-toggle] { min-width:44px; min-height:44px; padding:7px; color:#c6e6f7; font-size:11px; border-radius:8px; }
+.aurevia-page-index [data-coverage-toggle]:hover { background:rgba(255,255,255,.1); }
+.aurevia-page-index .hero-coverage-window { overflow:hidden; mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent); }
+.aurevia-page-index .hero-coverage-track { display:flex; width:max-content; animation:hero-coverage-scroll 32s linear infinite; }
+.aurevia-page-index .hero-coverage-group { display:flex; flex:none; align-items:center; gap:10px; padding:3px 10px 5px 0; }
+.aurevia-page-index .hero-coverage-group a { display:inline-flex; flex:none; align-items:center; justify-content:center; min-height:44px; padding:10px 16px; border:1px solid rgba(184,222,244,.3); border-radius:999px; background:rgba(255,255,255,.07); color:#eff8ff; font-size:14px; font-weight:500; white-space:nowrap; }
+.aurevia-page-index .hero-coverage-group a:hover { background:rgba(255,255,255,.16); border-color:#b8def4; }
+.aurevia-page-index .hero-coverage-window:is(:hover,:focus-within) .hero-coverage-track,.aurevia-page-index .hero-coverage[data-paused="true"] .hero-coverage-track { animation-play-state:paused; }
+@keyframes hero-coverage-scroll { to { transform:translateX(-50%); } }
+@media(max-width:700px) { .aurevia-page-index .hero-coverage { margin-top:14px; }.aurevia-page-index .hero-coverage-label { font-size:11px; letter-spacing:0; }.aurevia-page-index .hero-coverage-group a { padding:9px 13px; font-size:13px; } }
+@media(prefers-reduced-motion:reduce) { .aurevia-page-index .hero-coverage-track { animation:none; width:auto; }.aurevia-page-index .hero-coverage-window { overflow-x:auto; mask-image:none; }.aurevia-page-index .hero-coverage-group[aria-hidden="true"],.aurevia-page-index [data-coverage-toggle] { display:none; } }
