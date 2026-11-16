@@ -1,9 +1,9 @@
 import fs from "fs";
 import path from "path";
-import Script from "next/script";
 import PortalFormMount from "@/components/PortalFormMount";
 import AnimationTrigger from "@/components/AnimationTrigger"; // 👈 Naya import
 import CoverageMapMount from "@/components/CoverageMapMount";
+import MotionRuntime from "@/components/MotionRuntime";
 
 const routeMap: Record<string, string> = {
   "index.html": "/",
@@ -60,6 +60,8 @@ export default function StaticHtmlPage({ fileName }: { fileName: string }) {
       <link rel="stylesheet" href="/aurevia/styles.css" />
       {styles ? <style dangerouslySetInnerHTML={{ __html: styles }} /> : null}
       <link rel="stylesheet" href="/aurevia/redesign.css" />
+      {fileName === "locations.html" ? <link rel="stylesheet" href="/leaflet/leaflet.css" /> : null}
+      {fileName === "index.html" ? <link rel="preload" as="image" href="/aurevia/assets/doctors-hero-v2.webp" fetchPriority="high" /> : null}
       
       <main
         className={`aurevia-static-page aurevia-page-${pageSlug}`}
@@ -71,11 +73,7 @@ export default function StaticHtmlPage({ fileName }: { fileName: string }) {
       
       {/* 👇 NAYA TRIGGER YAHAN LAGA DIYA HAI 👇 */}
       <AnimationTrigger routeKey={fileName} />
-
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" strategy="afterInteractive" />
-      <Script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" strategy="afterInteractive" />
-      <Script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" strategy="afterInteractive" />
-      <Script src="/aurevia/motion.js" strategy="afterInteractive" />
+      <MotionRuntime />
     </>
   );
 }

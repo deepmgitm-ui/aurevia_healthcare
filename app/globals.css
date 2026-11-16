@@ -4,9 +4,9 @@
 
 /* ============ ORIGINAL AUREVIA DESIGN SYSTEM ============ */
 :root {
-  --font-body: "DM Sans";
-  --font-display: "Newsreader";
-  --font-devanagari: "Noto Sans Devanagari";
+  --font-body: var(--font-dm-sans), "DM Sans";
+  --font-display: var(--font-newsreader), "Newsreader";
+  --font-devanagari: var(--font-noto-sans-devanagari), "Noto Sans Devanagari";
   --font-manrope: var(--font-body), "Noto Sans Devanagari", "Segoe UI", Arial, sans-serif;
   --font-newsreader: var(--font-display), Georgia, "Noto Sans Devanagari", serif;
   --font-mono: Consolas, "Courier New", monospace;

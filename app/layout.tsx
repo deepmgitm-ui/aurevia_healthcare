@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import GlobalPopup from "@/components/GlobalPopup";
 import DevSignature from "@/components/DevSignature";
-import AIChatbot from "@/components/AIChatbot";
+import AIChatbotLoader from "@/components/AIChatbotLoader";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import RouteAnimator from "@/components/RouteAnimator"; // 👈 Naya Import
 import MetaPixel from "@/components/MetaPixel";
-import "leaflet/dist/leaflet.css";
+import { DM_Sans, Newsreader, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
 import "./route-motion.css";
+
+const dmSans = DM_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], display: "swap", variable: "--font-dm-sans" });
+const newsreader = Newsreader({ subsets: ["latin"], weight: ["400", "500", "600"], style: ["normal", "italic"], display: "swap", variable: "--font-newsreader" });
+const notoSansDevanagari = Noto_Sans_Devanagari({ subsets: ["devanagari", "latin"], weight: ["400", "500", "600", "700"], display: "swap", preload: false, variable: "--font-noto-sans-devanagari" });
 
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://aureviahealthcare.com").replace(/\/$/, "");
@@ -75,13 +79,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-developer="TtStDeEp">
+    <html lang="en" data-developer="TtStDeEp" className={`${dmSans.variable} ${newsreader.variable} ${notoSansDevanagari.variable}`}>
       <head>
         <link rel="stylesheet" href="/aurevia/dark-theme.css" />
         <link rel="stylesheet" href="/aurevia/consultation-popup.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className="antialiased font-manrope">
         <>
@@ -95,7 +96,7 @@ export default function RootLayout({
           <Footer />
           <GlobalPopup />
           <MetaPixel />
-          <AIChatbot />
+          <AIChatbotLoader />
           <DevSignature />
         </>
       </body>

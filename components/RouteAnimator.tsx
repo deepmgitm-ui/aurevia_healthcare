@@ -72,6 +72,9 @@ export default function RouteAnimator() {
 
       const url = new URL(href, window.location.href);
       if (url.origin !== window.location.origin) return;
+      if (url.pathname !== "/" && !url.pathname.endsWith("/") && !/\.[^/]+$/.test(url.pathname)) {
+        url.pathname += "/";
+      }
       const isSameDocument = url.pathname === window.location.pathname && url.search === window.location.search;
       if (isSameDocument) return;
 

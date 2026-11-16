@@ -82,13 +82,18 @@ export default function AIChatbot() {
   };
 
   useEffect(() => {
+    const openChat = () => setIsOpen(true);
     const openFromHero = (event: MouseEvent) => {
       if (event.target instanceof Element && event.target.closest("[data-open-health-gpt]")) {
         setIsOpen(true);
       }
     };
+    document.addEventListener("aurevia:open-health-gpt", openChat);
     document.addEventListener("click", openFromHero);
-    return () => document.removeEventListener("click", openFromHero);
+    return () => {
+      document.removeEventListener("aurevia:open-health-gpt", openChat);
+      document.removeEventListener("click", openFromHero);
+    };
   }, []);
 
   useEffect(() => {

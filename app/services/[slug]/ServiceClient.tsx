@@ -12,8 +12,8 @@ import { motion, AnimatePresence } from "framer-motion";
 
 // --- FULL DATA STRUCTURE ---
 const serviceDetails: Record<string, any> = {
-  "lasik": { 
-    title: "LASIK Treatment", 
+  "lasik": {
+    title: "LASIK Treatment",
     category: "Eye Care",
     bgImage: "/treatments/lasik-bg.webp",
     icon: "/services/lasik_02.webp",
@@ -23,8 +23,8 @@ const serviceDetails: Record<string, any> = {
     eligibility: "Suitable for adults over 18 with stable vision.",
     recovery: "Most patients notice improved vision within 24 hours."
   },
-  "cataract": { 
-    title: "Cataract Surgery", 
+  "cataract": {
+    title: "Cataract Surgery",
     category: "Eye Care",
     bgImage: "/treatments/cataract-bg.webp",
     icon: "/services/cataract_02.webp",
@@ -34,8 +34,8 @@ const serviceDetails: Record<string, any> = {
     eligibility: "Recommended for individuals whose vision is significantly impaired.",
     recovery: "Vision improves within a few days."
   },
-  "sinus": { 
-    title: "Sinus Treatment", 
+  "sinus": {
+    title: "Sinus Treatment",
     category: "ENT",
     bgImage: "/treatments/sinus-bg.webp",
     icon: "/services/sinus_02.webp",
@@ -45,54 +45,54 @@ const serviceDetails: Record<string, any> = {
     eligibility: "Patients with chronic sinusitis.",
     recovery: "Mild congestion is common for a week."
   },
-  "tonsillectomy": { 
-    title: "Tonsillectomy", 
+  "tonsillectomy": {
+    title: "Tonsillectomy",
     category: "ENT",
-    bgImage: "/treatments/tonsil-bg.jpg", 
-    icon: "/services/tonsil_02.PNG", 
+    bgImage: "/treatments/tonsil-bg.webp",
+    icon: "/services/tonsil_02.webp",
     overview: "Tonsillectomy is the surgical removal of the tonsils...",
     procedure: "The surgeon removes the tonsils using a scalpel or specialized tool...",
     benefits: ["Eliminates recurrent throat infections.", "Resolves breathing problems.", "Better sleep quality."],
     eligibility: "Children or adults with frequent tonsillitis.",
     recovery: "Throat pain is common for 1-2 weeks."
   },
-  "septoplasty": { 
-    title: "Septoplasty", 
+  "septoplasty": {
+    title: "Septoplasty",
     category: "ENT",
-    bgImage: "/treatments/septoplasty-bg.jpg", 
-    icon: "/services/septoplasty_02.PNG", 
+    bgImage: "/treatments/septoplasty-bg.webp",
+    icon: "/services/septoplasty_02.webp",
     overview: "Septoplasty is a corrective surgical procedure to straighten a deviated nasal septum...",
     procedure: "The surgeon works through the nostrils to trim, reposition cartilage...",
     benefits: ["Significantly improved breathing.", "Reduced snoring.", "Fewer sinus infections."],
     eligibility: "Individuals with a deviated septum causing difficulty breathing.",
     recovery: "Swelling subsides in a week."
   },
-  "ear-perforation": { 
-    title: "Ear Perforation Repair", 
+  "ear-perforation": {
+    title: "Ear Perforation Repair",
     category: "ENT",
-    bgImage: "/treatments/ear-bg.jpg", 
-    icon: "/services/ear_02.PNG", 
+    bgImage: "/treatments/ear-bg.webp",
+    icon: "/services/ear_02.webp",
     overview: "Tympanoplasty is the surgical repair of a perforated eardrum...",
     procedure: "A graft (tissue patch) is taken from the patient's ear or scalp...",
     benefits: ["Restores hearing loss.", "Prevents water entering ear.", "Reduces infections."],
     eligibility: "Patients with a ruptured eardrum.",
     recovery: "Full hearing improvement after 6-8 weeks."
   },
-  "rhinoplasty": { 
-    title: "Rhinoplasty", 
+  "rhinoplasty": {
+    title: "Rhinoplasty",
     category: "Aesthetics",
-    bgImage: "/treatments/rhinoplasty-bg.jpg", 
-    icon: "/services/rhinoplasty_02.PNG", 
+    bgImage: "/treatments/rhinoplasty-bg.webp",
+    icon: "/services/rhinoplasty_02.webp",
     overview: "Rhinoplasty, commonly known as a nose job, is surgery to change the shape of the nose...",
     procedure: "The surgeon makes incisions inside the nostrils or across the base...",
     benefits: ["Enhanced facial harmony.", "Correction of birth defects.", "Improved breathing."],
     eligibility: "Individuals with fully grown facial bones.",
     recovery: "Splints are worn for a week."
   },
-  "gynecomastia": { 
-    title: "Gynecomastia Surgery", 
+  "gynecomastia": {
+    title: "Gynecomastia Surgery",
     category: "Aesthetics",
-    bgImage: "/treatments/gynecomastia-bg.jpg", 
+    bgImage: "/treatments/gynecomastia-bg.webp",
     icon: "/services/gynecomastia_02.webp",
     overview: "Male breast reduction surgery treats gynecomastia...",
     procedure: "Liposuction is used to remove excess fat...",
@@ -100,22 +100,22 @@ const serviceDetails: Record<string, any> = {
     eligibility: "Men with persistent enlarged breasts.",
     recovery: "Compression garments worn for a few weeks."
   },
-  "kidney-stone": { 
-    title: "Kidney Stone Removal", 
+  "kidney-stone": {
+    title: "Kidney Stone Removal",
     category: "Urology",
-    bgImage: "/treatments/kidney-bg.jpg", 
-    icon: "/services/kidney_02.PNG", 
+    bgImage: "/treatments/kidney-bg.webp",
+    icon: "/services/kidney_02.webp",
     overview: "Advanced treatments like RIRS and PCNL are used to remove kidney stones...",
     procedure: "For RIRS, a flexible scope is passed through the urethra...",
     benefits: ["Immediate relief from pain.", "Minimally invasive.", "High success rate."],
     eligibility: "Patients with large stones.",
     recovery: "Hospital stay is 1-2 days."
   },
-  "dental": { 
-    title: "Dental Treatments", 
+  "dental": {
+    title: "Dental Treatments",
     category: "Dental",
-    bgImage: "/treatments/dental-bg.jpg", 
-    icon: "/services/dental_02.PNG", 
+    bgImage: "/treatments/dental-bg.webp",
+    icon: "/services/dental_02.webp",
     overview: "Comprehensive dental care includes implants, root canals...",
     procedure: "Varies by treatment. Implants involve placing a titanium post...",
     benefits: ["Restores ability to chew.", "Eliminates tooth pain.", "Enhances smile."],
@@ -146,8 +146,8 @@ export default function ServiceClient() {
         <Image src={service.bgImage} alt={service.title} fill className="object-cover" priority />
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 text-center px-6">
-           <motion.div 
-             initial={{ opacity: 0, scale: 0.8 }} 
+           <motion.div
+             initial={{ opacity: 0, scale: 0.8 }}
              animate={{ opacity: 1, scale: 1 }}
              className="inline-block mb-6 bg-white/20 backdrop-blur-md p-4 rounded-3xl"
            >
@@ -166,7 +166,7 @@ export default function ServiceClient() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex-1 py-5 px-4 text-sm md:text-lg font-bold transition-all ${
-                  activeTab === tab.id 
+                  activeTab === tab.id
                     ? "bg-[#147D86] text-white"
                     : "bg-white text-gray-500 hover:bg-gray-50 hover:text-[#147D86]"
                 }`}
@@ -202,7 +202,7 @@ export default function ServiceClient() {
               </motion.div>
             </AnimatePresence>
           </div>
-          
+
           {/* BOTTOM CONTACT SECTION */}
           <div className="bg-gray-50 p-8 flex flex-col md:flex-row gap-6 justify-center items-center border-t">
              <p className="font-semibold text-gray-500">Have questions about this procedure?</p>
