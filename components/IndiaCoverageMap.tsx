@@ -32,7 +32,7 @@ function googleMapsUrl(location: CoverageLocation) {
 export default function IndiaCoverageMap({ locale = "en" }: { locale?: LandingLocale }) {
   const isHindi = locale === "hi";
   const [activeSlug, setActiveSlug] = useState("delhi-ncr");
-  const [mapPlace, setMapPlace] = useState<string | null>(null);
+  const [mapPlace, setMapPlace] = useState<string | null>(coverageLocations[1].coordinates.join(","));
   const activeLocation = coverageLocations.find(({ slug }) => slug === activeSlug) ?? coverageLocations[1];
 
   const focusLocation = (location: CoverageLocation) => {
