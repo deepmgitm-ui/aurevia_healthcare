@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, ExternalLink, MapPin, Navigation } from "lucide-react";
+import { useState } from "react";
+import { ArrowUpRight, ExternalLink, MapPin } from "lucide-react";
 import Link from "next/link";
-import type { Map as LeafletMap, Marker as LeafletMarker } from "leaflet";
 import type { LandingLocale } from "@/lib/locationLandingData";
+import { INDIA_MAP_PATH, INDIA_MAP_VIEWBOX, projectIndiaPoint } from "@/lib/indiaMapGeometry";
 
 type CoverageLocation = {
   name: string;
@@ -25,6 +25,12 @@ const coverageLocations: CoverageLocation[] = [
   { name: "Ahmedabad", slug: "ahmedabad", coordinates: [23.0225, 72.5714], summary: { en: "Western India care network", hi: "पश्चिम भारत में देखभाल नेटवर्क" } },
 ];
 
+const nearbyCityOffsets: Record<string, [number, number]> = {
+  "delhi-ncr": [0, -6],
+  ghaziabad: [10, 1],
+  noida: [-10, 5],
+};
+
 function googleMapsUrl(location: CoverageLocation) {
   const [latitude, longitude] = location.coordinates;
   return `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
@@ -32,109 +38,10 @@ function googleMapsUrl(location: CoverageLocation) {
 
 export default function IndiaCoverageMap({ locale = "en" }: { locale?: LandingLocale }) {
   const isHindi = locale === "hi";
-  const mapElementRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<LeafletMap | null>(null);
-  const markersRef = useRef<Record<string, LeafletMarker>>({});
   const [activeSlug, setActiveSlug] = useState("delhi-ncr");
-
   const activeLocation = coverageLocations.find(({ slug }) => slug === activeSlug) ?? coverageLocations[1];
 
-  useEffect(() => {
-    let disposed = false;
-
-    async function initializeMap() {
-      if (!mapElementRef.current || mapRef.current) return;
-
-      const L = await import("leaflet");
-      if (disposed || !mapElementRef.current) return;
-
-      const map = L.map(mapElementRef.current, {
-        center: [22.8, 76.8],
-        zoom: 5,
-        minZoom: 4,
-        maxZoom: 13,
-        scrollWheelZoom: false,
-        zoomControl: true,
-        attributionControl: true,
-      });
-
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      }).addTo(map);
-
-      const bounds = L.latLngBounds([]);
-
-      coverageLocations.forEach((location) => {
-        const icon = L.divIcon({
-          className: "coverage-map-marker-shell",
-          html: `<span class="coverage-map-marker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span>`,
-          iconSize: [34, 40],
-          iconAnchor: [17, 38],
-          popupAnchor: [0, -36],
-        });
-
-        const marker = L.marker(location.coordinates, {
-          icon,
-          title: isHindi ? `${location.name} में Aurevia की देखभाल` : `Aurevia coverage in ${location.name}`,
-          riseOnHover: true,
-        }).addTo(map);
-
-        marker.bindTooltip(location.name, {
-          direction: "top",
-          offset: [0, -12],
-          className: "coverage-map-tooltip",
-        });
-
-        marker.bindPopup(
-          `<div class="coverage-map-popup">
-            <span>${isHindi ? "Aurevia सेवा क्षेत्र" : "Aurevia service region"}</span>
-            <strong>${location.name}</strong>
-            <small>${location.summary[locale]}</small>
-            <a href="${googleMapsUrl(location)}" target="_blank" rel="noopener noreferrer">${isHindi ? "Google Maps में देखें ↗" : "Open in Google Maps ↗"}</a>
-          </div>`,
-          { closeButton: false, minWidth: 210 },
-        );
-
-        marker.on("click", () => setActiveSlug(location.slug));
-        markersRef.current[location.slug] = marker;
-        bounds.extend(location.coordinates);
-      });
-
-      map.fitBounds(bounds, { padding: [56, 56], maxZoom: 5 });
-      mapRef.current = map;
-
-      window.setTimeout(() => map.invalidateSize(), 100);
-    }
-
-    void initializeMap();
-
-    return () => {
-      disposed = true;
-      mapRef.current?.remove();
-      mapRef.current = null;
-      markersRef.current = {};
-    };
-  }, []);
-
-  const focusLocation = (location: CoverageLocation) => {
-    setActiveSlug(location.slug);
-    const map = mapRef.current;
-    const marker = markersRef.current[location.slug];
-    if (!map || !marker) return;
-
-    map.flyTo(location.coordinates, Math.max(map.getZoom(), 7), { duration: 0.75 });
-    window.setTimeout(() => marker.openPopup(), 420);
-  };
-
-  const resetIndiaView = async () => {
-    const map = mapRef.current;
-    if (!map) return;
-    const L = await import("leaflet");
-    const bounds = L.latLngBounds(coverageLocations.map(({ coordinates }) => coordinates));
-    map.fitBounds(bounds, { padding: [56, 56], maxZoom: 5, animate: true });
-    map.closePopup();
-  };
+  const focusLocation = (location: CoverageLocation) => setActiveSlug(location.slug);
 
   return (
     <section className="map-wrap coverage-map-section" aria-labelledby="coverage-map-title">
@@ -142,20 +49,45 @@ export default function IndiaCoverageMap({ locale = "en" }: { locale?: LandingLo
         <div className="coverage-map-shell">
           <div className="coverage-map-stage">
             <div className="coverage-map-badge"><span /> {isHindi ? "सक्रिय सेवा नेटवर्क" : "Live service network"}</div>
-            <button type="button" className="coverage-map-reset" onClick={() => void resetIndiaView()}>
-              <Navigation size={14} /> {isHindi ? "पूरा भारत देखें" : "View all India"}
-            </button>
-            <div ref={mapElementRef} className="coverage-map-canvas" aria-label={isHindi ? "भारत में Aurevia सेवा क्षेत्रों का नक्शा" : "Interactive map of Aurevia service regions in India"} />
+            <div className="coverage-map-count">{isHindi ? "9 सेवा क्षेत्र" : "9 care regions"}</div>
+            <div className="coverage-map-canvas" role="group" aria-label={isHindi ? "भारत में Aurevia सेवा क्षेत्रों का नक्शा" : "Aurevia care regions across India"}>
+              <div className="coverage-map-graphic">
+                <svg className="coverage-india-outline" viewBox={INDIA_MAP_VIEWBOX} aria-hidden="true" focusable="false">
+                  <path d={INDIA_MAP_PATH} />
+                </svg>
+                {coverageLocations.map((location) => {
+                  const point = projectIndiaPoint(location.coordinates[0], location.coordinates[1]);
+                  const [offsetX, offsetY] = nearbyCityOffsets[location.slug] ?? [0, 0];
+                  const isActive = location.slug === activeSlug;
+
+                  return (
+                    <button
+                      key={location.slug}
+                      type="button"
+                      className={`coverage-city-pin${isActive ? " is-active" : ""}`}
+                      style={{ left: `calc(${(point.x / 700) * 100}% + ${offsetX}px)`, top: `calc(${(point.y / 700) * 100}% + ${offsetY}px)` }}
+                      onClick={() => focusLocation(location)}
+                      aria-label={isHindi ? `भारत के नक्शे पर ${location.name} चुनें` : `Select ${location.name} on the India map`}
+                      aria-pressed={isActive}
+                      title={location.name}
+                    >
+                      <span className="coverage-city-pin-dot" />
+                      <span className="coverage-city-pin-label">{location.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
           <aside className="coverage-map-panel">
             <div className="coverage-map-panel-heading">
               <span>{isHindi ? "9 सक्रिय क्षेत्र" : "9 active regions"}</span>
               <h2 id="coverage-map-title">{isHindi ? "भारत में देखभाल" : "Care across India."}</h2>
-              <p>{isHindi ? "नक्शे पर क्षेत्र चुनें और वहाँ उपलब्ध उपचार देखें।" : "Select a region to locate it on the map and explore Aurevia’s care network."}</p>
+              <p>{isHindi ? "नक्शे पर क्षेत्र चुनें और वहाँ उपलब्ध उपचार देखें।" : "Choose a region to explore the care and treatment options available there."}</p>
             </div>
 
-            <div className="coverage-region-list" aria-label={isHindi ? "Aurevia सेवा क्षेत्र" : "Aurevia service regions"}>
+            <div className="coverage-region-list" aria-label={isHindi ? "Aurevia सेवा क्षेत्र" : "Aurevia care regions"}>
               {coverageLocations.map((location, index) => (
                 <button
                   key={location.slug}
@@ -190,4 +122,3 @@ export default function IndiaCoverageMap({ locale = "en" }: { locale?: LandingLo
     </section>
   );
 }
-

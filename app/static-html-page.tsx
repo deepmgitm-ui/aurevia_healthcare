@@ -60,7 +60,6 @@ export default function StaticHtmlPage({ fileName }: { fileName: string }) {
       <link rel="stylesheet" href="/aurevia/styles.css" />
       {styles ? <style dangerouslySetInnerHTML={{ __html: styles }} /> : null}
       <link rel="stylesheet" href="/aurevia/redesign.css" />
-      {fileName === "locations.html" ? <link rel="stylesheet" href="/leaflet/leaflet.css" /> : null}
       {fileName === "index.html" ? <link rel="preload" as="image" href="/aurevia/assets/doctors-hero-v2.webp" fetchPriority="high" /> : null}
       
       <main

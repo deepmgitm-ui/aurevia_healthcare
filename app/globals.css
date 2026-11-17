@@ -3018,18 +3018,57 @@ body.consult-modal-open {
   min-width: 0;
   min-height: 650px;
   overflow: hidden;
-  background: #e8f1ef;
+  background:
+    radial-gradient(ellipse at 52% 48%, rgba(255, 255, 255, .94), transparent 61%),
+    linear-gradient(145deg, #eaf4f1, #dcece9);
 }
 
 .coverage-map-canvas {
+  position: relative;
   width: 100%;
   height: 100%;
   min-height: 650px;
   font-family: var(--font-manrope), sans-serif;
 }
 
+.coverage-map-graphic {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(100%, 650px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+}
+
+.coverage-india-outline { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.coverage-india-outline path { fill: #f9fcfa; fill-rule: evenodd; stroke: #5f9589; stroke-width: 1.6; stroke-linejoin: round; vector-effect: non-scaling-stroke; filter: drop-shadow(0 12px 20px rgba(27, 81, 74, .13)); }
+
+.coverage-city-pin {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+}
+
+.coverage-city-pin-dot { position: relative; display: block; width: 15px; height: 15px; border: 3px solid #fff; border-radius: 50%; background: #c78359; box-shadow: 0 3px 10px rgba(23, 58, 94, .3); transition: background .2s, scale .2s; }
+.coverage-city-pin-dot::after { position: absolute; inset: -7px; border: 1px solid rgba(40, 124, 175, .46); border-radius: 50%; content: ""; opacity: 0; }
+.coverage-city-pin:is(:hover, :focus-visible, .is-active) .coverage-city-pin-dot { background: #287caf; scale: 1.14; }
+.coverage-city-pin.is-active .coverage-city-pin-dot::after { animation: coverage-pin-pulse 1.8s ease-out infinite; }
+@keyframes coverage-pin-pulse { from { transform: scale(.5); opacity: .65; } to { transform: scale(1.6); opacity: 0; } }
+.coverage-city-pin:focus-visible { outline: 3px solid #287caf; outline-offset: 1px; }
+.coverage-city-pin-label { position: absolute; top: 50%; left: 25px; padding: 6px 9px; border: 1px solid rgba(216, 230, 240, .9); border-radius: 8px; color: #173a5e; background: rgba(255, 255, 255, .96); box-shadow: 0 5px 16px rgba(23, 58, 94, .12); font-size: 11px; font-weight: 700; line-height: 1; opacity: 0; pointer-events: none; transform: translateY(-42%); transition: opacity .16s, transform .16s; white-space: nowrap; }
+.coverage-city-pin:is(:hover, :focus-visible, .is-active) .coverage-city-pin-label { opacity: 1; transform: translateY(-50%); }
+
 .coverage-map-badge,
-.coverage-map-reset {
+.coverage-map-count {
   position: absolute;
   top: 20px;
   z-index: 500;
@@ -3052,6 +3091,7 @@ body.consult-modal-open {
 }
 
 .coverage-map-badge { left: 20px; }
+.coverage-map-count { right: 20px; color: #28736d; }
 
 .coverage-map-badge span {
   width: 8px;
@@ -3059,17 +3099,6 @@ body.consult-modal-open {
   border-radius: 50%;
   background: var(--amber);
   box-shadow: 0 0 0 5px rgba(50, 170, 164, .16);
-}
-
-.coverage-map-reset {
-  right: 20px;
-  transition: color .2s, background .2s, transform .2s;
-}
-
-.coverage-map-reset:hover {
-  color: #fff;
-  background: var(--ink);
-  transform: translateY(-1px);
 }
 
 .coverage-map-panel {
@@ -3218,105 +3247,6 @@ body.consult-modal-open {
 
 .coverage-active-card > a:hover { background: var(--ink); }
 
-.coverage-map-marker-shell {
-  border: 0;
-  background: transparent;
-}
-
-.coverage-map-marker {
-  position: relative;
-  display: grid;
-  width: 28px;
-  height: 28px;
-  place-items: center;
-  border: 3px solid #fff;
-  border-radius: 50% 50% 50% 8px;
-  background: var(--ink);
-  box-shadow: 0 5px 16px rgba(11, 72, 91, .38);
-  transform: rotate(-45deg);
-  transition: transform .2s, background .2s;
-}
-
-.coverage-map-marker > span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 0 4px rgba(157, 222, 216, .2);
-}
-
-.coverage-map-marker-shell:hover .coverage-map-marker {
-  background: var(--ink-2);
-  transform: rotate(-45deg) scale(1.12);
-}
-
-.coverage-map-tooltip {
-  padding: 6px 9px;
-  border: 0;
-  border-radius: 8px;
-  color: #fff;
-  background: var(--ink);
-  box-shadow: 0 6px 18px rgba(11, 72, 91, .2);
-  font-family: var(--font-manrope), sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-}
-
-.coverage-map-tooltip::before { border-top-color: var(--ink) !important; }
-
-.coverage-map-popup {
-  display: flex;
-  flex-direction: column;
-  padding: 3px;
-  font-family: var(--font-manrope), sans-serif;
-}
-
-.coverage-map-popup > span {
-  color: var(--ink-2);
-  font-family: var(--font-mono), monospace;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: .13em;
-  text-transform: uppercase;
-}
-
-.coverage-map-popup strong {
-  margin-top: 4px;
-  color: var(--ink);
-  font-family: var(--font-newsreader), serif;
-  font-size: 24px;
-  font-weight: 500;
-}
-
-.coverage-map-popup small { margin-top: 5px; color: var(--ink-soft); font-size: 10px; }
-
-.coverage-map-popup a {
-  margin-top: 12px;
-  padding-top: 9px;
-  border-top: 1px solid var(--line);
-  color: var(--ink-2);
-  font-size: 10px;
-  font-weight: 800;
-}
-
-.coverage-map-canvas .leaflet-control-zoom {
-  overflow: hidden;
-  border: 0;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(11, 72, 91, .15);
-}
-
-.coverage-map-canvas .leaflet-control-zoom a {
-  color: var(--ink);
-  border-color: var(--line);
-}
-
-.coverage-map-canvas .leaflet-control-attribution {
-  color: rgba(11, 72, 91, .58);
-  background: rgba(255, 255, 255, .82);
-  font-size: 8px;
-}
-
 body.dark-mode .coverage-map-panel {
   background: linear-gradient(180deg, rgba(9, 37, 45, .98), rgba(6, 26, 32, .98));
 }
@@ -3324,7 +3254,9 @@ body.dark-mode .coverage-map-panel {
 body.dark-mode .coverage-region-list button { background: rgba(255, 255, 255, .04); }
 body.dark-mode .coverage-region-list button.active { background: #147d86; }
 body.dark-mode .coverage-active-card > div { background: rgba(20, 125, 134, .12); }
-body.dark-mode .coverage-map-canvas .leaflet-tile { filter: brightness(.72) saturate(.68); }
+body.dark-mode .coverage-map-stage { background: radial-gradient(ellipse at 52% 48%, rgba(20, 55, 57, .96), transparent 61%), linear-gradient(145deg, #15393d, #102d35); }
+body.dark-mode .coverage-india-outline path { fill: #1c4548; stroke: #74afa0; }
+body.dark-mode .coverage-city-pin-label { border-color: #365a66; color: #eff8f7; background: #153448; }
 
 @media (max-width: 1050px) {
   .coverage-map-shell { grid-template-columns: minmax(0, 1.4fr) minmax(280px, .75fr); }
@@ -3357,14 +3289,13 @@ body.dark-mode .coverage-map-canvas .leaflet-tile { filter: brightness(.72) satu
   .coverage-map-stage,
   .coverage-map-canvas { min-height: 410px; }
   .coverage-map-badge { top: 12px; left: 12px; }
-  .coverage-map-reset { top: 12px; right: 12px; padding-inline: 10px; }
+  .coverage-map-count { top: 12px; right: 12px; padding-inline: 10px; }
   .coverage-map-panel { padding: 24px 16px 18px; }
   .coverage-region-list { gap: 6px; }
   .coverage-region-list button { grid-template-columns: 24px minmax(0, 1fr); min-height: 45px; padding: 9px 10px; }
   .coverage-region-list button svg { display: none; }
   .coverage-region-name { font-size: 11.5px; }
   .coverage-map-panel-heading h2 { font-size: 38px; }
-  .coverage-map-canvas .leaflet-control-attribution { max-width: 78%; }
 }
 
 /* ============================================================
@@ -3406,7 +3337,6 @@ body.dark-mode .coverage-map-canvas .leaflet-tile { filter: brightness(.72) satu
     min-height: min(430px, calc(100dvh - 104px - env(safe-area-inset-bottom)));
   }
 
-  .coverage-map-reset,
   .coverage-region-list button,
   .coverage-map-link {
     min-height: 44px;
@@ -3958,13 +3888,6 @@ footer.bg-\[\#03045E\] a:hover, footer.bg-\[\#03045E\] button:hover { color: #e7
 .compact-lead-status.success { background: #e9f3ec; color: #315c47; }
 .compact-lead-status.error { background: #f9ece8; color: #9b4e3d; }
 
-/* A familiar map pin with a clear center replaces the skewed custom marker. */
-.coverage-map-marker-shell { display: grid; place-items: center; border: 0; background: transparent; }
-.coverage-map-marker { display: grid; width: 34px; height: 40px; place-items: center; background: transparent; box-shadow: none; transform: translateY(0); transition: transform .18s ease, filter .18s ease; }
-.coverage-map-marker svg { width: 32px; height: 38px; overflow: visible; filter: drop-shadow(0 3px 5px rgba(38,61,57,.2)); }
-.coverage-map-marker svg path { fill: #fffdfa; stroke: #47766d; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-.coverage-map-marker svg circle { fill: #c98770; stroke: #fffdfa; stroke-width: 1.2; }
-.coverage-map-marker-shell:hover .coverage-map-marker { background: transparent; transform: translateY(-2px); filter: saturate(1.12); }
 .coverage-region-list button.active { border-color: #6e9284; background: linear-gradient(115deg,#385f55,#6d8f82); box-shadow: 0 8px 20px rgba(38,61,57,.12); }
 .coverage-active-card > a:not(.coverage-region-explore) { border-radius: 0 0 14px 14px; background: #47766d; color: #fff; }
 .coverage-active-card > a:not(.coverage-region-explore):hover { background: #263d39; }
@@ -4107,8 +4030,6 @@ footer.bg-\[\#03045E\] a:hover, footer.bg-\[\#03045E\] button:hover { color: #f0
 .compact-lead-field input:focus { border-color: var(--care-teal) !important; }
 .compact-lead-submit { box-shadow: 0 7px 18px rgba(23,88,116,.14); }
 .coverage-region-list button.active { background: linear-gradient(112deg,#216a99,#168b91) !important; box-shadow: 0 8px 20px rgba(23,88,116,.16) !important; }
-.coverage-map-marker svg path { stroke: #267f93 !important; }
-.coverage-map-marker svg circle { fill: #dfa36c !important; }
 .coverage-active-card > a:not(.coverage-region-explore) { background: #267f93 !important; }
 .coverage-active-card > a:not(.coverage-region-explore):hover { background: #17394f !important; }
 .coverage-active-card > a.coverage-region-explore { border-color: #d5e4e8 !important; background: #f3f8f9 !important; color: #216a80 !important; }
