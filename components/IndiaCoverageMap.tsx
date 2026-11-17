@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import { ArrowUpRight, ExternalLink, MapPin, Navigation } from "lucide-react";
 import Link from "next/link";
 import type { LandingLocale } from "@/lib/locationLandingData";
@@ -27,19 +27,26 @@ const coverageLocations: CoverageLocation[] = [
 const indiaMapCenter: [number, number] = [20.5937, 78.9629];
 const indiaMapPixels = 256 * 2 ** 4;
 const markerOffsets: Record<string, [number, number]> = {
-  "delhi-ncr": [-28, -20],
-  ghaziabad: [34, -19],
-  noida: [34, 18],
-  mumbai: [-20, 24],
-  pune: [20, -20],
+  "delhi-ncr": [-10, -10],
+  ghaziabad: [10, -6],
+  noida: [10, 9],
+  mumbai: [-12, 9],
+  pune: [12, -9],
 };
+const markerLabelOffsets: Record<string, number> = { "delhi-ncr": -14, ghaziabad: 0, noida: 14, mumbai: 8, pune: -8 };
 
-function mapMarkerPosition([latitude, longitude]: [number, number], slug: string) {
+function mapMarkerPosition([latitude, longitude]: [number, number], slug: string): CSSProperties {
   const mercatorY = (value: number) => Math.log(Math.tan(Math.PI / 4 + (value * Math.PI) / 360));
   const [offsetX, offsetY] = markerOffsets[slug] ?? [0, 0];
   const left = (longitude - indiaMapCenter[1]) * (indiaMapPixels / 360) + offsetX;
   const top = -((mercatorY(latitude) - mercatorY(indiaMapCenter[0])) * (indiaMapPixels / (2 * Math.PI))) + offsetY;
-  return { left: `calc(50% + ${left.toFixed(1)}px)`, top: `calc(50% + ${top.toFixed(1)}px)` };
+  return {
+    left: `calc(50% + ${left.toFixed(1)}px)`,
+    top: `calc(50% + ${top.toFixed(1)}px)`,
+    "--marker-line-length": `${Math.hypot(offsetX, offsetY).toFixed(1)}px`,
+    "--marker-line-angle": `${Math.atan2(-offsetY, -offsetX)}rad`,
+    "--marker-label-y": `${markerLabelOffsets[slug] ?? 0}px`,
+  } as CSSProperties;
 }
 
 function googleMapsUrl(location: CoverageLocation) {
@@ -75,7 +82,7 @@ export default function IndiaCoverageMap({ locale = "en" }: { locale?: LandingLo
                   <Link
                     key={location.slug}
                     href={`${isHindi ? "/hi" : ""}/locations/${location.slug}`}
-                    className={`coverage-map-marker${location.slug === activeSlug ? " active" : ""}`}
+                    className={`coverage-map-marker${location.slug === activeSlug ? " active" : ""}${location.slug === "mumbai" ? " label-left" : ""}`}
                     style={mapMarkerPosition(location.coordinates, location.slug)}
                     aria-label={isHindi ? `${location.name} का location page खोलें` : `Open ${location.name} location page`}
                     title={location.name}
