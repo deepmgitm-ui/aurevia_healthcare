@@ -2,6 +2,8 @@
 const motionReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 window.refreshAureviaAnimations = function () {
+  window.aureviaMotionCleanup?.();
+  window.aureviaMotionCleanup = null;
   window.refreshAureviaJourneyStory?.();
   const gsap = window.gsap;
   const trigger = window.ScrollTrigger;
@@ -32,13 +34,59 @@ window.refreshAureviaAnimations = function () {
     });
   });
 
-  // A short, single entrance on the home headline and supporting actions.
+  // Restore the original home entrance, floating labels and card tilt.
   const hero = document.querySelector(".aurevia-page-index .hero");
   if (hero) {
-    const headline = hero.querySelector(".hero-headline");
-    const visual = hero.querySelector(".hero-city-collage");
-    if (headline) gsap.fromTo(headline, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.62, ease: "power2.out" });
-    if (visual) gsap.fromTo(visual, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.72, delay: 0.1, ease: "power2.out" });
+    const lines = hero.querySelectorAll(".hero-headline .line span");
+    if (lines.length) {
+      gsap.set(lines, { yPercent: 110 });
+      gsap.timeline({ defaults: { ease: "power3.out" } })
+        .to("#heroEyebrow", { opacity: 1, y: 0, duration: 0.6 })
+        .to(lines, { yPercent: 0, duration: 0.9, stagger: 0.1 }, "-=0.25")
+        .to("#heroTag", { opacity: 1, duration: 0.65 }, "-=0.45")
+        .to("#heroSub", { opacity: 1, y: 0, duration: 0.7 }, "-=0.45")
+        .to("#heroActions", { opacity: 1, y: 0, duration: 0.7 }, "-=0.5")
+        .to("#heroVisual", { opacity: 1, y: 0, duration: 0.85 }, "-=0.65");
+    }
+
+    gsap.fromTo(hero.querySelectorAll(".float-label"), { opacity: 0, y: 10 }, {
+      opacity: 1, y: 0, duration: 0.65, stagger: 0.12, delay: 0.65, ease: "power2.out",
+    });
+
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      [[".fl-1", -8], [".fl-2", 10], [".fl-3", -6], [".doctor-card", -12]].forEach(([selector, y], index) => {
+        const target = hero.querySelector(selector);
+        if (target) gsap.to(target, { y, duration: 3 + index * 0.35, delay: index * 0.12, ease: "sine.inOut", yoyo: true, repeat: -1 });
+      });
+
+      const visual = hero.querySelector(".hero-visual");
+      const card = hero.querySelector("#doctorCard");
+      if (visual && card) {
+        gsap.set(card, { transformPerspective: 800, transformStyle: "preserve-3d" });
+        const rotateY = gsap.quickTo(card, "rotateY", { duration: 0.45, ease: "power3.out" });
+        const rotateX = gsap.quickTo(card, "rotateX", { duration: 0.45, ease: "power3.out" });
+        const onPointerMove = (event) => {
+          const rect = card.getBoundingClientRect();
+          rotateY(((event.clientX - rect.left - rect.width / 2) / rect.width) * 8);
+          rotateX(-((event.clientY - rect.top - rect.height / 2) / rect.height) * 8);
+        };
+        const onPointerLeave = () => { rotateY(0); rotateX(0); };
+        visual.addEventListener("pointermove", onPointerMove, { passive: true });
+        visual.addEventListener("pointerleave", onPointerLeave, { passive: true });
+        window.aureviaMotionCleanup = () => {
+          visual.removeEventListener("pointermove", onPointerMove);
+          visual.removeEventListener("pointerleave", onPointerLeave);
+          gsap.killTweensOf(card, "rotateX,rotateY");
+        };
+      }
+    }
+
+    hero.querySelectorAll(".step .knob").forEach((knob) => {
+      gsap.from(knob, {
+        scale: 0, duration: 0.55, ease: "back.out(1.8)",
+        scrollTrigger: { trigger: knob.closest(".step"), start: "top 80%", once: true },
+      });
+    });
   }
 
   // Keep the existing count-up cues, with no continuous animation afterwards.

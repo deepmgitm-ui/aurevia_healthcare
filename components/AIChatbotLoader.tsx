@@ -41,17 +41,19 @@ export default function AIChatbotLoader() {
   if (Chatbot) return <Chatbot />;
 
   return (
-    <button
-      type="button"
-      className="aurevia-chat-trigger"
-      onClick={loadChatbot}
-      aria-label="Open Health GPT"
-      aria-expanded={false}
-      aria-controls="aurevia-health-gpt"
-    >
-      <span className="aurevia-chat-trigger-icon"><Bot size={24} strokeWidth={1.8} /></span>
-      <span className="aurevia-chat-trigger-label">Health GPT</span>
-      <span className="aurevia-chat-trigger-pulse" aria-hidden="true" />
-    </button>
+    <div className="aurevia-chatbot">
+      <button
+        type="button"
+        className="aurevia-chat-trigger"
+        onClick={loadChatbot}
+        aria-label="Open Health GPT"
+        aria-expanded={false}
+        aria-controls="aurevia-health-gpt"
+      >
+        <span className="aurevia-chat-trigger-icon"><Bot size={24} strokeWidth={1.8} /></span>
+        <span className="aurevia-chat-trigger-label">Health GPT</span>
+        <span className="aurevia-chat-trigger-pulse" aria-hidden="true" />
+      </button>
+    </div>
   );
 }
