@@ -26,9 +26,9 @@ const coverageLocations: CoverageLocation[] = [
 ];
 
 const nearbyCityOffsets: Record<string, [number, number]> = {
-  "delhi-ncr": [0, -6],
-  ghaziabad: [10, 1],
-  noida: [-10, 5],
+  "delhi-ncr": [-8, -7],
+  ghaziabad: [8, -5],
+  noida: [0, 10],
 };
 
 function googleMapsUrl(location: CoverageLocation) {

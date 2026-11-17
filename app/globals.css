@@ -3066,6 +3066,8 @@ body.consult-modal-open {
 .coverage-city-pin:focus-visible { outline: 3px solid #287caf; outline-offset: 1px; }
 .coverage-city-pin-label { position: absolute; top: 50%; left: 25px; padding: 6px 9px; border: 1px solid rgba(216, 230, 240, .9); border-radius: 8px; color: #173a5e; background: rgba(255, 255, 255, .96); box-shadow: 0 5px 16px rgba(23, 58, 94, .12); font-size: 11px; font-weight: 700; line-height: 1; opacity: 0; pointer-events: none; transform: translateY(-42%); transition: opacity .16s, transform .16s; white-space: nowrap; }
 .coverage-city-pin:is(:hover, :focus-visible, .is-active) .coverage-city-pin-label { opacity: 1; transform: translateY(-50%); }
+.coverage-city-pin.is-active .coverage-city-pin-label { top: auto; right: auto; bottom: 25px; left: 50%; transform: translate(-50%, 4px); }
+.coverage-city-pin.is-active:is(:hover, :focus-visible) .coverage-city-pin-label { transform: translate(-50%, 0); }
 
 .coverage-map-badge,
 .coverage-map-count {
