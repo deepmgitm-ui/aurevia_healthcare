@@ -58,8 +58,10 @@ export default function RouteAnimator() {
   }, []);
 
   useEffect(() => {
+    let navigationTimer: number | null = null;
+
     const handleClick = (event: MouseEvent) => {
-      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (event.button !== 0 || event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       if (navigationLockedRef.current) return;
 
       const anchor = (event.target as Element | null)?.closest("a");
@@ -86,11 +88,14 @@ export default function RouteAnimator() {
       }
 
       setIsEntering(true);
-      window.setTimeout(() => window.location.assign(url.href), 2000);
+      navigationTimer = window.setTimeout(() => window.location.assign(url.href), 900);
     };
 
     document.addEventListener("click", handleClick as unknown as EventListener, true);
-    return () => document.removeEventListener("click", handleClick as unknown as EventListener, true);
+    return () => {
+      document.removeEventListener("click", handleClick as unknown as EventListener, true);
+      if (navigationTimer !== null) window.clearTimeout(navigationTimer);
+    };
   }, []);
 
   return (

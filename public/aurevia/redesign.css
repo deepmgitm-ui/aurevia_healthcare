@@ -702,3 +702,7 @@ body.dark-mode .aurevia-page-how-it-works :is(.timeline,.expect,.insurance,.faqs
 .aurevia-page-index .hero-support-points i { display:grid; width:26px; height:26px; flex:0 0 26px; place-items:center; border:1px solid rgba(183,221,242,.32); border-radius:50%; color:#bfe5f6; font:600 9px/1 "DM Sans",Arial,sans-serif; font-style:normal; }
 .aurevia-page-index .hero-support-points b { color:inherit; font:500 11px/1.35 "DM Sans",Arial,sans-serif; }
 @media(max-width:700px) { .aurevia-page-index .hero-support-points { gap:7px; margin-top:14px; }.aurevia-page-index .hero-support-points > span { flex:1 1 calc(50% - 7px); min-width:0; min-height:44px; padding:8px 10px; }.aurevia-page-index .hero-support-points b { font-size:10px; } }
+
+@media (hover: none), (pointer: coarse) {
+  .aurevia-static-page :hover { transform: none !important; }
+}

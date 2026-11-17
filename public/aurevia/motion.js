@@ -20,18 +20,25 @@ window.refreshAureviaAnimations = function () {
   }
 
   gsap.registerPlugin(trigger);
+  const motionTweens = [];
+  const motionCleanups = [];
+  const track = (tween) => { if (tween) motionTweens.push(tween); return tween; };
+  window.aureviaMotionCleanup = () => {
+    motionCleanups.forEach((cleanup) => cleanup());
+    motionTweens.forEach((tween) => tween.kill());
+  };
   trigger.getAll().forEach((item) => item.kill());
 
   // Use one restrained reveal for meaningful content; no per-word theatrics.
   gsap.utils.toArray(".js-reveal").forEach((node) => {
-    gsap.fromTo(node, { opacity: 0, y: 10 }, {
+    track(gsap.fromTo(node, { opacity: 0, y: 10 }, {
       opacity: 1,
       y: 0,
       duration: 0.48,
       ease: "power2.out",
       clearProps: "transform",
       scrollTrigger: { trigger: node, start: "top 91%", once: true },
-    });
+    }));
   });
 
   // Restore the original home entrance, floating labels and card tilt.
@@ -40,7 +47,8 @@ window.refreshAureviaAnimations = function () {
     const lines = hero.querySelectorAll(".hero-headline .line span");
     if (lines.length) {
       gsap.set(lines, { yPercent: 110 });
-      gsap.timeline({ defaults: { ease: "power3.out" } })
+      const entrance = track(gsap.timeline({ defaults: { ease: "power3.out" } }));
+      entrance
         .to("#heroEyebrow", { opacity: 1, y: 0, duration: 0.6 })
         .to(lines, { yPercent: 0, duration: 0.9, stagger: 0.1 }, "-=0.25")
         .to("#heroTag", { opacity: 1, duration: 0.65 }, "-=0.45")
@@ -49,14 +57,14 @@ window.refreshAureviaAnimations = function () {
         .to("#heroVisual", { opacity: 1, y: 0, duration: 0.85 }, "-=0.65");
     }
 
-    gsap.fromTo(hero.querySelectorAll(".float-label"), { opacity: 0, y: 10 }, {
+    track(gsap.fromTo(hero.querySelectorAll(".float-label"), { opacity: 0, y: 10 }, {
       opacity: 1, y: 0, duration: 0.65, stagger: 0.12, delay: 0.65, ease: "power2.out",
-    });
+    }));
 
     if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
       [[".fl-1", -8], [".fl-2", 10], [".fl-3", -6], [".doctor-card", -12]].forEach(([selector, y], index) => {
         const target = hero.querySelector(selector);
-        if (target) gsap.to(target, { y, duration: 3 + index * 0.35, delay: index * 0.12, ease: "sine.inOut", yoyo: true, repeat: -1 });
+        if (target) track(gsap.to(target, { y, duration: 3 + index * 0.35, delay: index * 0.12, ease: "sine.inOut", yoyo: true, repeat: -1 }));
       });
 
       const visual = hero.querySelector(".hero-visual");
@@ -73,19 +81,19 @@ window.refreshAureviaAnimations = function () {
         const onPointerLeave = () => { rotateY(0); rotateX(0); };
         visual.addEventListener("pointermove", onPointerMove, { passive: true });
         visual.addEventListener("pointerleave", onPointerLeave, { passive: true });
-        window.aureviaMotionCleanup = () => {
+        motionCleanups.push(() => {
           visual.removeEventListener("pointermove", onPointerMove);
           visual.removeEventListener("pointerleave", onPointerLeave);
           gsap.killTweensOf(card, "rotateX,rotateY");
-        };
+        });
       }
     }
 
     hero.querySelectorAll(".step .knob").forEach((knob) => {
-      gsap.from(knob, {
+      track(gsap.from(knob, {
         scale: 0, duration: 0.55, ease: "back.out(1.8)",
         scrollTrigger: { trigger: knob.closest(".step"), start: "top 80%", once: true },
-      });
+      }));
     });
   }
 
@@ -101,12 +109,12 @@ window.refreshAureviaAnimations = function () {
       once: true,
       onEnter() {
         const count = { value: 0 };
-        gsap.to(count, {
+        track(gsap.to(count, {
           value,
           duration: 0.75,
           ease: "power1.out",
           onUpdate: () => { number.textContent = String(Math.round(count.value)); },
-        });
+        }));
       },
     });
   });
