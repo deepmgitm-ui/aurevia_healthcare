@@ -3031,7 +3031,7 @@ body.consult-modal-open {
   font-family: var(--font-manrope), sans-serif;
 }
 
-.coverage-google-map { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; }
+.coverage-google-map { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; pointer-events: none; }
 .coverage-map-markers { position: absolute; inset: 0; z-index: 3; overflow: hidden; pointer-events: none; }
 .coverage-map-marker { position: absolute; z-index: 1; display: grid; width: 30px; height: 30px; place-items: center; padding: 0; border: 1px solid rgba(255,255,255,.95); border-radius: 50%; color: #fff; background: #287caf; box-shadow: 0 4px 13px rgba(14,53,78,.35); cursor: pointer; isolation: isolate; pointer-events: auto; transform: translate(-50%,-50%); transition: background .2s, scale .2s; }
 .coverage-map-marker::before { position: absolute; top: 50%; left: 50%; z-index: -1; width: var(--marker-line-length,0); height: 2px; background: rgba(23,82,117,.78); content: ""; transform: translateY(-50%) rotate(var(--marker-line-angle,0rad)); transform-origin: left center; }
