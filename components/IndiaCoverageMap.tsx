@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, ExternalLink, MapPin } from "lucide-react";
+import { ArrowUpRight, ExternalLink, MapPin, Navigation } from "lucide-react";
 import Link from "next/link";
 import type { LandingLocale } from "@/lib/locationLandingData";
-import { INDIA_MAP_PATH, INDIA_MAP_VIEWBOX, projectIndiaPoint } from "@/lib/indiaMapGeometry";
 
 type CoverageLocation = {
   name: string;
@@ -25,12 +24,6 @@ const coverageLocations: CoverageLocation[] = [
   { name: "Ahmedabad", slug: "ahmedabad", coordinates: [23.0225, 72.5714], summary: { en: "Western India care network", hi: "पश्चिम भारत में देखभाल नेटवर्क" } },
 ];
 
-const nearbyCityOffsets: Record<string, [number, number]> = {
-  "delhi-ncr": [-8, -7],
-  ghaziabad: [8, -5],
-  noida: [0, 10],
-};
-
 function googleMapsUrl(location: CoverageLocation) {
   const [latitude, longitude] = location.coordinates;
   return `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
@@ -39,44 +32,39 @@ function googleMapsUrl(location: CoverageLocation) {
 export default function IndiaCoverageMap({ locale = "en" }: { locale?: LandingLocale }) {
   const isHindi = locale === "hi";
   const [activeSlug, setActiveSlug] = useState("delhi-ncr");
+  const [mapPlace, setMapPlace] = useState<string | null>(null);
   const activeLocation = coverageLocations.find(({ slug }) => slug === activeSlug) ?? coverageLocations[1];
 
-  const focusLocation = (location: CoverageLocation) => setActiveSlug(location.slug);
+  const focusLocation = (location: CoverageLocation) => {
+    setActiveSlug(location.slug);
+    setMapPlace(location.coordinates.join(","));
+  };
+  const mapQuery = new URLSearchParams({
+    q: mapPlace ?? "India",
+    z: mapPlace ? "7" : "4",
+    output: "embed",
+    hl: locale,
+    gl: "in",
+  });
 
   return (
     <section className="map-wrap coverage-map-section" aria-labelledby="coverage-map-title">
       <div className="wrap">
         <div className="coverage-map-shell">
           <div className="coverage-map-stage">
-            <div className="coverage-map-badge"><span /> {isHindi ? "सक्रिय सेवा नेटवर्क" : "Live service network"}</div>
-            <div className="coverage-map-count">{isHindi ? "9 सेवा क्षेत्र" : "9 care regions"}</div>
+            <div className="coverage-map-badge"><span /> Google Maps · {isHindi ? "भारत" : "India"}</div>
+            <button type="button" className="coverage-map-reset" onClick={() => setMapPlace(null)}>
+              <Navigation size={14} /> {isHindi ? "पूरा भारत देखें" : "View all India"}
+            </button>
             <div className="coverage-map-canvas" role="group" aria-label={isHindi ? "भारत में Aurevia सेवा क्षेत्रों का नक्शा" : "Aurevia care regions across India"}>
-              <div className="coverage-map-graphic">
-                <svg className="coverage-india-outline" viewBox={INDIA_MAP_VIEWBOX} aria-hidden="true" focusable="false">
-                  <path d={INDIA_MAP_PATH} />
-                </svg>
-                {coverageLocations.map((location) => {
-                  const point = projectIndiaPoint(location.coordinates[0], location.coordinates[1]);
-                  const [offsetX, offsetY] = nearbyCityOffsets[location.slug] ?? [0, 0];
-                  const isActive = location.slug === activeSlug;
-
-                  return (
-                    <button
-                      key={location.slug}
-                      type="button"
-                      className={`coverage-city-pin${isActive ? " is-active" : ""}`}
-                      style={{ left: `calc(${(point.x / 700) * 100}% + ${offsetX}px)`, top: `calc(${(point.y / 700) * 100}% + ${offsetY}px)` }}
-                      onClick={() => focusLocation(location)}
-                      aria-label={isHindi ? `भारत के नक्शे पर ${location.name} चुनें` : `Select ${location.name} on the India map`}
-                      aria-pressed={isActive}
-                      title={location.name}
-                    >
-                      <span className="coverage-city-pin-dot" />
-                      <span className="coverage-city-pin-label">{location.name}</span>
-                    </button>
-                  );
-                })}
-              </div>
+              <iframe
+                className="coverage-google-map"
+                src={`https://maps.google.com/maps?${mapQuery.toString()}`}
+                title={isHindi ? "पूरा भारत और Aurevia सेवा क्षेत्र — Google Maps" : "India and Aurevia care regions on Google Maps"}
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
             </div>
           </div>
 
