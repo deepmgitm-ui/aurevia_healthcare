@@ -28,7 +28,7 @@ export default function MotionRuntime() {
         (window as Window & { gsap?: typeof gsap; ScrollTrigger?: unknown }).ScrollTrigger = ScrollTrigger;
 
         const script = document.createElement("script");
-        script.src = "/aurevia/motion.js";
+        script.src = "/aurevia/motion.js?v=20261117-motion";
         script.async = true;
         document.body.appendChild(script);
       } catch {
