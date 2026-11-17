@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, ExternalLink, MapPin, Navigation } from "lucide-react";
 import Link from "next/link";
 import type { LandingLocale } from "@/lib/locationLandingData";
+import type { Map as LeafletMap } from "leaflet";
 
 type CoverageLocation = {
   name: string;
@@ -24,30 +25,7 @@ const coverageLocations: CoverageLocation[] = [
   { name: "Ahmedabad", slug: "ahmedabad", coordinates: [23.0225, 72.5714], summary: { en: "Western India care network", hi: "पश्चिम भारत में देखभाल नेटवर्क" } },
 ];
 
-const indiaMapCenter: [number, number] = [20.5937, 78.9629];
-const indiaMapPixels = 256 * 2 ** 4;
-const markerOffsets: Record<string, [number, number]> = {
-  "delhi-ncr": [-10, -10],
-  ghaziabad: [10, -6],
-  noida: [10, 9],
-  mumbai: [-12, 9],
-  pune: [12, -9],
-};
-const markerLabelOffsets: Record<string, number> = { "delhi-ncr": -14, ghaziabad: 0, noida: 14, mumbai: 8, pune: -8 };
-
-function mapMarkerPosition([latitude, longitude]: [number, number], slug: string): CSSProperties {
-  const mercatorY = (value: number) => Math.log(Math.tan(Math.PI / 4 + (value * Math.PI) / 360));
-  const [offsetX, offsetY] = markerOffsets[slug] ?? [0, 0];
-  const left = (longitude - indiaMapCenter[1]) * (indiaMapPixels / 360) + offsetX;
-  const top = -((mercatorY(latitude) - mercatorY(indiaMapCenter[0])) * (indiaMapPixels / (2 * Math.PI))) + offsetY;
-  return {
-    left: `calc(50% + ${left.toFixed(1)}px)`,
-    top: `calc(50% + ${top.toFixed(1)}px)`,
-    "--marker-line-length": `${Math.hypot(offsetX, offsetY).toFixed(1)}px`,
-    "--marker-line-angle": `${Math.atan2(-offsetY, -offsetX)}rad`,
-    "--marker-label-y": `${markerLabelOffsets[slug] ?? 0}px`,
-  } as CSSProperties;
-}
+const indiaBounds: [[number, number], [number, number]] = [[6.5, 68], [37.5, 97.5]];
 
 function googleMapsUrl(location: CoverageLocation) {
   const [latitude, longitude] = location.coordinates;
@@ -57,41 +35,64 @@ function googleMapsUrl(location: CoverageLocation) {
 export default function IndiaCoverageMap({ locale = "en" }: { locale?: LandingLocale }) {
   const isHindi = locale === "hi";
   const [activeSlug, setActiveSlug] = useState("delhi-ncr");
+  const mapElement = useRef<HTMLDivElement>(null);
+  const mapInstance = useRef<LeafletMap | null>(null);
   const activeLocation = coverageLocations.find(({ slug }) => slug === activeSlug) ?? coverageLocations[1];
-  const focusLocation = (location: CoverageLocation) => setActiveSlug(location.slug);
-  const mapQuery = new URLSearchParams({ q: "India", z: "4", output: "embed", hl: locale, gl: "in" });
+  const focusLocation = (location: CoverageLocation) => {
+    setActiveSlug(location.slug);
+    mapInstance.current?.flyTo(location.coordinates, 8, { duration: 0.65 });
+  };
+
+  useEffect(() => {
+    let cancelled = false;
+    let map: LeafletMap | undefined;
+
+    void import("leaflet").then((L) => {
+      if (cancelled || !mapElement.current) return;
+      map = L.map(mapElement.current, { zoomControl: false, scrollWheelZoom: false, minZoom: 4, maxZoom: 12 });
+      mapInstance.current = map;
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+      }).addTo(map);
+      L.control.zoom({ position: "bottomright" }).addTo(map);
+      map.fitBounds(indiaBounds, { padding: [24, 24], maxZoom: 5 });
+
+      coverageLocations.forEach((location) => {
+        const icon = L.divIcon({
+          className: "coverage-leaflet-icon",
+          html: '<span class="coverage-leaflet-pin"><span></span></span>',
+          iconSize: [30, 38],
+          iconAnchor: [15, 34],
+          tooltipAnchor: [12, -19],
+        });
+        const marker = L.marker(location.coordinates, { icon, title: location.name, alt: `Open ${location.name} location page`, keyboard: true }).addTo(map!);
+        marker.bindTooltip(location.name, { permanent: true, direction: location.slug === "mumbai" ? "left" : "right", className: "coverage-location-tooltip" });
+        marker.on("click", () => {
+          window.location.href = `${isHindi ? "/hi" : ""}/locations/${location.slug}/`;
+        });
+      });
+    });
+
+    return () => {
+      cancelled = true;
+      map?.remove();
+      if (mapInstance.current === map) mapInstance.current = null;
+    };
+  }, [isHindi]);
+
+  const resetMap = () => mapInstance.current?.fitBounds(indiaBounds, { padding: [24, 24], maxZoom: 5, animate: true });
 
   return (
     <section className="map-wrap coverage-map-section" aria-labelledby="coverage-map-title">
       <div className="wrap">
         <div className="coverage-map-shell">
           <div className="coverage-map-stage">
-            <div className="coverage-map-badge"><span /> Google Maps · {isHindi ? "भारत" : "India"}</div>
+            <div className="coverage-map-badge"><span /> OpenStreetMap · {isHindi ? "भारत" : "India"}</div>
             <div className="coverage-map-hint"><Navigation size={14} /> {isHindi ? "पिन दबाकर स्थान खोलें" : "Tap a pin to open its location"}</div>
-            <div className="coverage-map-canvas" role="group" aria-label={isHindi ? "भारत में Aurevia सेवा क्षेत्रों का नक्शा" : "Aurevia care regions across India"}>
-              <iframe
-                className="coverage-google-map"
-                src={`https://maps.google.com/maps?${mapQuery.toString()}`}
-                title={isHindi ? "पूरा भारत और Aurevia सेवा क्षेत्र — Google Maps" : "India and Aurevia care regions on Google Maps"}
-                loading="lazy"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
-              <div className="coverage-map-markers">
-                {coverageLocations.map((location) => (
-                  <Link
-                    key={location.slug}
-                    href={`${isHindi ? "/hi" : ""}/locations/${location.slug}`}
-                    className={`coverage-map-marker${location.slug === activeSlug ? " active" : ""}${location.slug === "mumbai" ? " label-left" : ""}`}
-                    style={mapMarkerPosition(location.coordinates, location.slug)}
-                    aria-label={isHindi ? `${location.name} का location page खोलें` : `Open ${location.name} location page`}
-                    title={location.name}
-                    onFocus={() => setActiveSlug(location.slug)}
-                  >
-                    <MapPin size={15} aria-hidden="true" /> <span>{location.name}</span>
-                  </Link>
-                ))}
-              </div>
+            <div className="coverage-map-canvas" role="application" aria-label={isHindi ? "भारत में Aurevia सेवा क्षेत्रों का interactive नक्शा" : "Interactive map of Aurevia care regions across India"}>
+              <div ref={mapElement} className="coverage-leaflet-map" />
+              <button className="coverage-map-reset" type="button" onClick={resetMap}>{isHindi ? "पूरा भारत" : "Show all India"}</button>
             </div>
           </div>
 
@@ -124,8 +125,8 @@ export default function IndiaCoverageMap({ locale = "en" }: { locale?: LandingLo
                 <strong>{activeLocation.name}</strong>
                 <p>{activeLocation.summary[locale]}</p>
               </div>
-              <a href={googleMapsUrl(activeLocation)} target="_blank" rel="noopener noreferrer">
-                {isHindi ? "Google Maps में देखें" : "Open in Google Maps"} <ExternalLink size={14} />
+              <a href={`https://www.openstreetmap.org/?mlat=${activeLocation.coordinates[0]}&mlon=${activeLocation.coordinates[1]}#map=8/${activeLocation.coordinates[0]}/${activeLocation.coordinates[1]}`} target="_blank" rel="noopener noreferrer">
+                {isHindi ? "OpenStreetMap में देखें" : "Open in OpenStreetMap"} <ExternalLink size={14} />
               </a>
               <Link href={`/locations/${activeLocation.slug}`} className="coverage-region-explore">
                 {isHindi ? "उपचार देखें" : "Explore treatments"} <ArrowUpRight size={14} />

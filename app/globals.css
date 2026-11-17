@@ -3031,15 +3031,18 @@ body.consult-modal-open {
   font-family: var(--font-manrope), sans-serif;
 }
 
-.coverage-google-map { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; pointer-events: none; }
-.coverage-map-markers { position: absolute; inset: 0; z-index: 3; overflow: hidden; pointer-events: none; }
-.coverage-map-marker { position: absolute; z-index: 1; display: grid; width: 30px; height: 30px; place-items: center; padding: 0; border: 1px solid rgba(255,255,255,.95); border-radius: 50%; color: #fff; background: #287caf; box-shadow: 0 4px 13px rgba(14,53,78,.35); cursor: pointer; isolation: isolate; pointer-events: auto; transform: translate(-50%,-50%); transition: background .2s, scale .2s; }
-.coverage-map-marker::before { position: absolute; top: 50%; left: 50%; z-index: -1; width: var(--marker-line-length,0); height: 2px; background: rgba(23,82,117,.78); content: ""; transform: translateY(-50%) rotate(var(--marker-line-angle,0rad)); transform-origin: left center; }
-.coverage-map-marker span { position: absolute; top: calc(50% + var(--marker-label-y,0px)); left: calc(100% + 5px); z-index: 2; padding: 5px 7px; border: 1px solid rgba(216,230,240,.95); border-radius: 7px; color: #173a5e; background: rgba(255,255,255,.96); box-shadow: 0 3px 10px rgba(23,58,94,.14); font-size: 10px; font-weight: 700; line-height: 1; white-space: nowrap; transform: translateY(-50%); }
-.coverage-map-marker.label-left span { right: calc(100% + 5px); left: auto; }
-.coverage-map-marker:hover,.coverage-map-marker:focus-visible,.coverage-map-marker.active { z-index: 1; color: #fff; background: #c78359; scale: 1.12; }
-.coverage-map-marker:focus-visible { outline: 3px solid #173a5e; outline-offset: 2px; }
-.coverage-map-marker:is(:hover,:focus-visible,.active) span { color: #173a5e; }
+.coverage-leaflet-map { position:absolute; inset:0; z-index:1; width:100%; height:100%; min-height:inherit; background:#e4f0ed; }
+.coverage-map-canvas .leaflet-container { width:100%; height:100%; min-height:inherit; font:inherit; }
+.coverage-map-canvas .leaflet-control-attribution { font-size:10px; }
+.coverage-leaflet-icon { border:0; background:transparent; }
+.coverage-leaflet-pin { position:absolute; left:4px; top:2px; display:grid; width:29px; height:29px; place-items:center; border:2px solid #fff; border-radius:50% 50% 50% 2px; color:#fff; background:#287caf; box-shadow:0 4px 13px rgba(14,53,78,.38); transform:rotate(-45deg); transition:background .2s,scale .2s; }
+.coverage-leaflet-pin::before { position:absolute; inset:6px; border:2px solid rgba(255,255,255,.9); border-radius:50%; content:""; }
+.coverage-leaflet-pin span { display:none; }
+.coverage-leaflet-icon:hover .coverage-leaflet-pin,.coverage-leaflet-icon:focus .coverage-leaflet-pin { background:#c78359; scale:1.12; }
+.coverage-location-tooltip { padding:5px 7px !important; border:1px solid rgba(216,230,240,.95) !important; border-radius:7px !important; color:#173a5e !important; background:rgba(255,255,255,.96) !important; box-shadow:0 3px 10px rgba(23,58,94,.14) !important; font-size:10px !important; font-weight:700; white-space:nowrap; }
+.coverage-location-tooltip::before { display:none; }
+.coverage-map-reset { position:absolute; bottom:24px; left:14px; z-index:500; padding:9px 12px; border:1px solid rgba(216,230,240,.95); border-radius:9px; color:#173a5e; background:rgba(255,255,255,.96); box-shadow:0 3px 10px rgba(23,58,94,.14); font-size:12px; font-weight:700; cursor:pointer; }
+.coverage-map-reset:hover { background:#edf7f5; }
 
 .coverage-map-badge,
 .coverage-map-hint {
@@ -3262,8 +3265,7 @@ body.dark-mode .coverage-map-stage { background: #15393d; }
   .coverage-map-canvas { min-height: 410px; }
   .coverage-map-badge { top: 12px; left: 12px; }
   .coverage-map-hint { top: 12px; right: 12px; padding-inline: 10px; font-size: 8px; letter-spacing: .04em; }
-  .coverage-map-marker { width: 26px; height: 26px; }
-  .coverage-map-marker span { font-size: 9px; }
+  .coverage-map-reset { bottom: 48px; left: 10px; }
   .coverage-map-panel { padding: 24px 16px 18px; }
   .coverage-region-list { gap: 6px; }
   .coverage-region-list button { grid-template-columns: 24px minmax(0, 1fr); min-height: 45px; padding: 9px 10px; }

@@ -9,6 +9,7 @@ import MetaPixel from "@/components/MetaPixel";
 import { DM_Sans, Newsreader, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
 import "./route-motion.css";
+import "leaflet/dist/leaflet.css";
 
 const dmSans = DM_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], display: "swap", variable: "--font-dm-sans" });
 const newsreader = Newsreader({ subsets: ["latin"], weight: ["400", "500", "600"], style: ["normal", "italic"], display: "swap", variable: "--font-newsreader" });
