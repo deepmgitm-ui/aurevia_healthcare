@@ -628,7 +628,7 @@ body.dark-mode .aurevia-page-index .care-hero::after { opacity:.38; }
 .aurevia-page-index .care-hero .hero-doctors { align-self:end; min-height:400px; margin:0 -28px -34px -40px; }
 .aurevia-page-index .care-hero .hero-doctors::before { background:radial-gradient(ellipse at 50% 60%,rgba(174,220,240,.22),transparent 70%); }
 .aurevia-page-index .care-hero .hero-doctors::after,.aurevia-page-index .care-hero .hero-doctors-halo { display:none; }
-.aurevia-page-index .care-hero .hero-doctors > img { width:120%; height:430px; filter:drop-shadow(0 10px 24px rgba(0,0,0,.12)); }
+.aurevia-page-index .care-hero .hero-doctors > img { width:120%; height:430px; transform:translateY(-18px); filter:drop-shadow(0 10px 24px rgba(0,0,0,.12)); }
 .aurevia-page-index .care-hero .hero-doctors-note { right:0; bottom:8%; background:rgba(237,248,255,.92); backdrop-filter:blur(16px); border-color:rgba(255,255,255,.7); box-shadow:0 8px 26px rgba(7,28,44,.16); }
 .aurevia-page-index .care-hero .hero-foot { position:relative; z-index:2; margin-top:34px; }
 .aurevia-page-index .care-hero .scroll-hint,.aurevia-page-index .care-hero .hero-foot > .mono { color:#b8d1df!important; }
@@ -680,7 +680,7 @@ body.dark-mode .aurevia-page-index .hero-mission p { color:#c1d6e4; }
   .aurevia-page-index .care-hero .hero-actions { flex-direction:row; flex-wrap:wrap; align-items:center; gap:10px; }
   .aurevia-page-index .care-hero .hero-actions :is(.btn-primary,.btn-ghost) { flex:1 1 auto; min-height:48px; padding:12px 15px; font-size:13px; }
   .aurevia-page-index .care-hero .hero-doctors { width:100%; min-height:230px; margin:0; }
-  .aurevia-page-index .care-hero .hero-doctors > img { width:110%; height:clamp(230px,64vw,350px); }
+  .aurevia-page-index .care-hero .hero-doctors > img { width:110%; height:clamp(230px,64vw,350px); transform:translateY(-12px); }
   .aurevia-page-index .care-hero .hero-doctors-note { bottom:0; right:0; font-size:11px; padding:9px 12px; }
   .aurevia-page-index .care-hero .hero-foot { margin-top:26px; gap:10px; }
   .aurevia-page-index .hero-mission-inner { grid-template-columns:20px minmax(0,1fr); gap:8px; padding-inline:20px; }

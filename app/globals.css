@@ -3032,9 +3032,15 @@ body.consult-modal-open {
 }
 
 .coverage-google-map { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; }
+.coverage-map-markers { position: absolute; inset: 0; z-index: 3; overflow: hidden; pointer-events: none; }
+.coverage-map-marker { position: absolute; display: grid; width: 38px; height: 38px; place-items: center; padding: 0; border: 1px solid rgba(255,255,255,.95); border-radius: 50%; color: #fff; background: #287caf; box-shadow: 0 4px 13px rgba(14,53,78,.35); cursor: pointer; pointer-events: auto; transform: translate(-50%,-50%); transition: background .2s, scale .2s; }
+.coverage-map-marker span { position: absolute; top: 50%; left: calc(100% + 5px); padding: 5px 7px; border: 1px solid rgba(216,230,240,.95); border-radius: 7px; color: #173a5e; background: rgba(255,255,255,.96); box-shadow: 0 3px 10px rgba(23,58,94,.14); font-size: 10px; font-weight: 700; line-height: 1; white-space: nowrap; transform: translateY(-50%); }
+.coverage-map-marker:hover,.coverage-map-marker:focus-visible,.coverage-map-marker.active { z-index: 1; color: #fff; background: #c78359; scale: 1.12; }
+.coverage-map-marker:focus-visible { outline: 3px solid #173a5e; outline-offset: 2px; }
+.coverage-map-marker:is(:hover,:focus-visible,.active) span { color: #173a5e; }
 
 .coverage-map-badge,
-.coverage-map-reset {
+.coverage-map-hint {
   position: absolute;
   top: 20px;
   z-index: 500;
@@ -3057,8 +3063,7 @@ body.consult-modal-open {
 }
 
 .coverage-map-badge { left: 20px; pointer-events: none; }
-.coverage-map-reset { right: 20px; color: #28736d; cursor: pointer; transition: color .2s, background .2s, transform .2s; }
-.coverage-map-reset:hover { color: #fff; background: var(--ink); transform: translateY(-1px); }
+.coverage-map-hint { right: 20px; pointer-events: none; }
 
 .coverage-map-badge span {
   width: 8px;
@@ -3254,7 +3259,9 @@ body.dark-mode .coverage-map-stage { background: #15393d; }
   .coverage-map-stage,
   .coverage-map-canvas { min-height: 410px; }
   .coverage-map-badge { top: 12px; left: 12px; }
-  .coverage-map-reset { top: 12px; right: 12px; padding-inline: 10px; }
+  .coverage-map-hint { top: 12px; right: 12px; padding-inline: 10px; font-size: 8px; letter-spacing: .04em; }
+  .coverage-map-marker { width: 34px; height: 34px; }
+  .coverage-map-marker span { font-size: 9px; }
   .coverage-map-panel { padding: 24px 16px 18px; }
   .coverage-region-list { gap: 6px; }
   .coverage-region-list button { grid-template-columns: 24px minmax(0, 1fr); min-height: 45px; padding: 9px 10px; }

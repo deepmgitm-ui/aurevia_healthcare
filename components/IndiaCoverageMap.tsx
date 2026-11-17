@@ -24,6 +24,24 @@ const coverageLocations: CoverageLocation[] = [
   { name: "Ahmedabad", slug: "ahmedabad", coordinates: [23.0225, 72.5714], summary: { en: "Western India care network", hi: "पश्चिम भारत में देखभाल नेटवर्क" } },
 ];
 
+const indiaMapCenter: [number, number] = [20.5937, 78.9629];
+const indiaMapPixels = 256 * 2 ** 4;
+const markerOffsets: Record<string, [number, number]> = {
+  "delhi-ncr": [-28, -20],
+  ghaziabad: [34, -19],
+  noida: [34, 18],
+  mumbai: [-20, 24],
+  pune: [20, -20],
+};
+
+function mapMarkerPosition([latitude, longitude]: [number, number], slug: string) {
+  const mercatorY = (value: number) => Math.log(Math.tan(Math.PI / 4 + (value * Math.PI) / 360));
+  const [offsetX, offsetY] = markerOffsets[slug] ?? [0, 0];
+  const left = (longitude - indiaMapCenter[1]) * (indiaMapPixels / 360) + offsetX;
+  const top = -((mercatorY(latitude) - mercatorY(indiaMapCenter[0])) * (indiaMapPixels / (2 * Math.PI))) + offsetY;
+  return { left: `calc(50% + ${left.toFixed(1)}px)`, top: `calc(50% + ${top.toFixed(1)}px)` };
+}
+
 function googleMapsUrl(location: CoverageLocation) {
   const [latitude, longitude] = location.coordinates;
   return `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
@@ -32,20 +50,9 @@ function googleMapsUrl(location: CoverageLocation) {
 export default function IndiaCoverageMap({ locale = "en" }: { locale?: LandingLocale }) {
   const isHindi = locale === "hi";
   const [activeSlug, setActiveSlug] = useState("delhi-ncr");
-  const [mapPlace, setMapPlace] = useState<string | null>(coverageLocations[1].coordinates.join(","));
   const activeLocation = coverageLocations.find(({ slug }) => slug === activeSlug) ?? coverageLocations[1];
-
-  const focusLocation = (location: CoverageLocation) => {
-    setActiveSlug(location.slug);
-    setMapPlace(location.coordinates.join(","));
-  };
-  const mapQuery = new URLSearchParams({
-    q: mapPlace ?? "India",
-    z: mapPlace ? "7" : "4",
-    output: "embed",
-    hl: locale,
-    gl: "in",
-  });
+  const focusLocation = (location: CoverageLocation) => setActiveSlug(location.slug);
+  const mapQuery = new URLSearchParams({ q: "India", z: "4", output: "embed", hl: locale, gl: "in" });
 
   return (
     <section className="map-wrap coverage-map-section" aria-labelledby="coverage-map-title">
@@ -53,9 +60,7 @@ export default function IndiaCoverageMap({ locale = "en" }: { locale?: LandingLo
         <div className="coverage-map-shell">
           <div className="coverage-map-stage">
             <div className="coverage-map-badge"><span /> Google Maps · {isHindi ? "भारत" : "India"}</div>
-            <button type="button" className="coverage-map-reset" onClick={() => setMapPlace(null)}>
-              <Navigation size={14} /> {isHindi ? "पूरा भारत देखें" : "View all India"}
-            </button>
+            <div className="coverage-map-hint"><Navigation size={14} /> {isHindi ? "पिन दबाकर स्थान खोलें" : "Tap a pin to open its location"}</div>
             <div className="coverage-map-canvas" role="group" aria-label={isHindi ? "भारत में Aurevia सेवा क्षेत्रों का नक्शा" : "Aurevia care regions across India"}>
               <iframe
                 className="coverage-google-map"
@@ -65,6 +70,21 @@ export default function IndiaCoverageMap({ locale = "en" }: { locale?: LandingLo
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
               />
+              <div className="coverage-map-markers">
+                {coverageLocations.map((location) => (
+                  <Link
+                    key={location.slug}
+                    href={`${isHindi ? "/hi" : ""}/locations/${location.slug}`}
+                    className={`coverage-map-marker${location.slug === activeSlug ? " active" : ""}`}
+                    style={mapMarkerPosition(location.coordinates, location.slug)}
+                    aria-label={isHindi ? `${location.name} का location page खोलें` : `Open ${location.name} location page`}
+                    title={location.name}
+                    onFocus={() => setActiveSlug(location.slug)}
+                  >
+                    <MapPin size={15} aria-hidden="true" /> <span>{location.name}</span>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
 
